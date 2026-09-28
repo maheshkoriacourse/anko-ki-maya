@@ -6,23 +6,32 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   Sparkles, LayoutDashboard, Hash, CalendarRange, Map, BookOpen,
-  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Languages,
+  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Languages, Smartphone,
 } from "lucide-react";
 import { Button } from "@/components/ui";
-import { DisclaimerLine } from "@/components/shared";
+import { DisclaimerLine, OmMotif, SanatanDivider } from "@/components/shared";
 import { useHasProfile } from "@/components/seeded-profile";
 import { useLang } from "@/lib/lang";
 import { t as rawT } from "@/lib/content";
 
+/**
+ * v3 NAV — report order is the nav order:
+ * Overview(अभी का हाल) → जीवन-ग्राफ़ (past auto-reading flagship) →
+ * आपके अंक → अंक-चक्र (Numeroscope/LoShu) → राजयोग → भविष्य-दृश्य →
+ * दीर्घ-काल → लकी/उपाय → नाम-स्टूडियो → अंक-उपकरण (phone/house/vehicle) →
+ * पत्रिका → रिपोर्ट → सेटिंग्स.
+ */
 export const NAV_ITEMS = [
   { href: "/overview", labelKey: "navOverview", icon: LayoutDashboard },
+  { href: "/life-graph", labelKey: "navLifeGraph", icon: LineChart },
   { href: "/numbers", labelKey: "navNumbers", icon: Hash },
   { href: "/loshu", labelKey: "navLoShu", icon: Grid3X3 },
-  { href: "/life-events", labelKey: "navLifeEvents", icon: LineChart },
-  { href: "/lucky", labelKey: "navLucky", icon: Gem },
-  { href: "/name-studio", labelKey: "navNameStudio", icon: Wand2 },
+  { href: "/rajyoga", labelKey: "navRajyoga", icon: Sparkles },
   { href: "/forecast", labelKey: "navForecast", icon: CalendarRange },
   { href: "/longterm", labelKey: "navLongterm", icon: Map },
+  { href: "/lucky", labelKey: "navLucky", icon: Gem },
+  { href: "/name-studio", labelKey: "navNameStudio", icon: Wand2 },
+  { href: "/number-tools", labelKey: "navNumberTools", icon: Smartphone },
   { href: "/journal", labelKey: "navJournal", icon: BookOpen },
   { href: "/blueprint", labelKey: "navBlueprint", icon: FileText },
   { href: "/settings", labelKey: "navSettings", icon: Settings },
@@ -44,25 +53,37 @@ function ThemeToggle() {
   );
 }
 
-/** EN ⇄ हिन्दी toggle (persisted via the lang module). */
+/** EN ⇄ हिन्दी toggle — ALWAYS in the top nav (owner order). */
 function LangToggle() {
   const { lang, setLang } = useLang();
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
   if (!mounted) return null;
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      className="gap-1.5 px-2 text-xs"
-      aria-label={`Language: switch to ${lang === "en" ? "Hindi" : "English"}`}
-      onClick={() => setLang(lang === "en" ? "hi" : "en")}
+    <div
+      role="group"
+      aria-label="Language / भाषा"
+      className="flex items-center rounded-full border bg-card/70 p-0.5 text-xs font-semibold"
     >
-      <Languages aria-hidden className="size-4 text-gold" />
-      <span className={lang === "hi" ? "font-devanagari" : ""}>
-        {lang === "en" ? "EN" : "हिन्दी"}
-      </span>
-    </Button>
+      <button
+        aria-pressed={lang === "en"}
+        onClick={() => setLang("en")}
+        className={`rounded-full px-2.5 py-1 transition-colors ${
+          lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        }`}
+      >
+        EN
+      </button>
+      <button
+        aria-pressed={lang === "hi"}
+        onClick={() => setLang("hi")}
+        className={`rounded-full px-2.5 py-1 font-devanagari transition-colors ${
+          lang === "hi" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        }`}
+      >
+        हिं
+      </button>
+    </div>
   );
 }
 
@@ -115,9 +136,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     >
       <span
         aria-hidden
-        className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground"
+        className="mandala-ring grid size-9 place-items-center rounded-full bg-primary text-primary-foreground"
       >
-        <Sparkles className="size-5" />
+        <OmMotif className="text-lg" />
       </span>
       <span className="font-display text-lg font-semibold tracking-tight">
         {t("appName")}
@@ -127,17 +148,17 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   if (bare) {
     return (
-      <div className="min-h-dvh starfield">
+      <div className="min-h-dvh starfield diya-glow">
         <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
           <div className="mb-8 flex items-center justify-between">
             {brand}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
+              <LangToggle />
               {isReport || isBlueprint ? (
                 <Button variant="outline" size="sm" className="no-print" onClick={() => window.print()}>
                   <Printer aria-hidden /> {t("printPdf")}
                 </Button>
               ) : null}
-              {isReport ? <LangToggle /> : null}
               <ThemeToggle />
             </div>
           </div>
@@ -148,24 +169,26 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-dvh starfield aurora-wash-fixed">
+    <div className="min-h-dvh starfield diya-glow-fixed">
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-card/60 px-4 py-6 backdrop-blur md:flex no-print">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-card/70 px-4 py-6 backdrop-blur md:flex no-print">
         {brand}
-        {nav}
-        <div className="mt-auto flex items-center justify-between px-1 pt-6">
-          <span className="text-xs text-muted-foreground">v2 · self-reflection</span>
-          <div className="flex items-center gap-1">
+        <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+          {nav}
+        </div>
+        <div className="mt-4 flex items-center justify-between px-1 pt-3">
+          <span className="text-[11px] text-muted-foreground">v3 · सनातन</span>
+          <div className="flex items-center gap-1.5">
             <LangToggle />
             <ThemeToggle />
           </div>
         </div>
       </aside>
 
-      {/* Mobile top bar */}
+      {/* Mobile top bar — lang toggle ALWAYS visible */}
       <header className="sticky top-0 z-40 flex items-center justify-between border-b bg-card/80 px-4 py-3 backdrop-blur md:hidden no-print">
         {brand}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           <LangToggle />
           <ThemeToggle />
         </div>
@@ -177,6 +200,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           {children}
         </main>
         <footer className="mx-auto max-w-5xl px-4 pb-24 md:pb-10 md:pl-0">
+          <SanatanDivider className="mb-4 opacity-70" />
           <DisclaimerLine />
         </footer>
       </div>

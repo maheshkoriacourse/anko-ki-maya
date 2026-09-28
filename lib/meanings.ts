@@ -7,7 +7,7 @@
  * themes, possibilities and reflection prompts — never guarantees.
  */
 
-export const DISCLAIMER = "Anko Ki Maya is for entertainment and self-reflection only. It is not medical, legal, financial, mental-health, or factual predictive advice.";
+export const DISCLAIMER = "Traditional numerology-based reading.";
 
 /* ------------------------------------------------------------------ */
 /* Core numbers 1-9                                                    */
@@ -202,85 +202,88 @@ export function meaningFor(n: number): NumberMeaning {
 }
 
 /* ------------------------------------------------------------------ */
-/* Personal Year themes (9-year cycle)                                 */
+/* Ank Dasha themes (v3 direct voice — owner's rewrite order)           */
 /* ------------------------------------------------------------------ */
 
-/** Safe-language Personal Year themes — possibilities, never predictions. */
+/**
+ * v3 DIRECT-VOICE Ank Dasha themes (owner ban on hedged copy: no 'theme',
+ * no 'may be a supportive period'). Direct jyotishi narrative, EN + HI.
+ */
 export const PERSONAL_YEAR_THEMES: Record<number, { theme: string; focus: string }> = {
   1: {
-    theme: "A planting year — new beginnings and self-definition",
-    focus: "Consider which seed you most want to plant and name it clearly.",
+    theme: "The year of new beginnings — career takes a big turn",
+    focus: "Name the mission in one line and start in the first half — the first mover wins this year.",
   },
   2: {
-    theme: "A patience year — relationships, gentler rhythms and slow growth",
-    focus: "Consider nurturing key connections and letting things ripen.",
+    theme: "The patience year — partnerships ripen, quick wins hide",
+    focus: "Feed the key relationships daily; stop measuring speed, the compounding runs underneath.",
   },
   3: {
-    theme: "An expression year — creativity, visibility and social joy",
-    focus: "Consider sharing your voice; a theme to reflect on is consistent creative play.",
+    theme: "The visibility year — your name travels far",
+    focus: "Publish, present, speak weekly; money follows attention this year.",
   },
   4: {
-    theme: "A foundations year — systems, health routines and steady work",
-    focus: "Consider simplifying and building one solid structure at a time.",
+    theme: "The foundations year — hardest work, biggest payoff later",
+    focus: "Build the systems, delay the grand launch one year; shortcuts bill double now.",
   },
   5: {
-    theme: "A change-and-freedom year — movement, learning and variety",
-    focus: "Consider where you feel called to stretch; keep one anchor habit.",
+    theme: "The change year — travel, switches and new markets",
+    focus: "Say yes to movement; write every deal down before signing.",
   },
   6: {
-    theme: "A care-and-home year — relationships, beauty and responsibility",
-    focus: "Consider tending home, family and community bonds.",
+    theme: "The family-and-fortune year — home and money bloom together",
+    focus: "Make the family decision you keep circling; keep the home promise before the business one.",
   },
   7: {
-    theme: "An inner-study year — reflection, learning and quieter pace",
-    focus: "Consider a study practice or retreat time; a reflective window for insight.",
+    theme: "The master-study year — loud pushes stall, mastery compounds",
+    focus: "Master one craft quietly; the stage reopens next year and runs on what you learn now.",
   },
   8: {
-    theme: "A stewardship year — career moves, money mindset and mastery",
-    focus: "Consider long-game decisions; review budgets and boundaries calmly.",
+    theme: "The money-and-power year — paisa-barne ka saal",
+    focus: "Ask for the position, close the property, collect receivables — and keep it clean; Saturn audits.",
   },
   9: {
-    theme: "A completion year — release, gratitude and clearing ground",
-    focus: "Consider what to close with grace to make space for the next cycle.",
+    theme: "The completion year — chapters close by choice or by force",
+    focus: "Finish what hangs, forgive what binds; clear the desk for the new cycle.",
   },
   11: {
-    theme: "An intuitive-growth year (master 11) — inspiration with sensitivity",
-    focus: "Consider pairing big inner signals with small grounded steps.",
+    theme: "The intuitive master-year (11) — big signals need grounding",
+    focus: "One grounded step daily; a concrete project turns inspiration into legacy.",
   },
   22: {
-    theme: "A master-builder year (22) — visions seeking structure",
-    focus: "Consider one meaningful structure that serves others.",
+    theme: "The master-builder year (22) — visions seeking structure",
+    focus: "Think in decades; lay one foundation stone every week.",
   },
   33: {
-    theme: "A devoted-service year (33) — teaching and heart-led care",
-    focus: "Consider mentoring or service that lights you up sustainably.",
+    theme: "The devoted-service year (33) — care that ripples beyond circles",
+    focus: "Mentor one person deliberately; refill your own well weekly.",
   },
 };
 
-/** Safe-language Personal Month flavor lines, keyed by 1-9 (+11/22 keep 2/4). */
+/** Personal Month flavor lines — direct voice (v3). */
 export const PERSONAL_MONTH_THEMES: Record<number, string> = {
-  1: "may be a supportive period for starting small and claiming ownership",
-  2: "may be a supportive period for listening, partnership and patient steps",
-  3: "may be a supportive period for visible creative expression",
-  4: "may be a supportive period for organising and steady routines",
-  5: "may be a supportive period for trying new approaches and networking",
-  6: "may be a supportive period for family care and beautifying spaces",
-  7: "may be a supportive period for study, retreat and deep thinking",
-  8: "may be a supportive period for money reviews and career asks",
-  9: "may be a supportive period for wrapping up loose ends with grace",
+  1: "the month to make the first move — proposals land, doors crack open",
+  2: "a listening month — the deal that arrives quietly beats the one you chase",
+  3: "a visibility month — speak, post, present; your voice collects favours",
+  4: "a systems month — the unglamorous work here is the highest-paid work",
+  5: "a movement month — travel, pitch, network; the fresh contact pays",
+  6: "a family-and-fortune month — the home promise kept now returns with interest",
+  7: "a study month — research now saves rework later; visibility can wait",
+  8: "the money month — chase receivables, negotiate hard, close clean",
+  9: "the closure month — finish, forgive, empty the desk for what comes",
 };
 
-/** Watch-out reflections per Personal Month — phrased as gentle checks. */
+/** Watch-outs per Personal Month — plain-spoken checks (v3). */
 export const PERSONAL_MONTH_WATCHOUTS: Record<number, string> = {
-  1: "a theme to reflect on: impatience with people who move at a different pace",
-  2: "a theme to reflect on: absorbing others' moods without noticing your own",
-  3: "a theme to reflect on: scattering energy across too many bright ideas",
-  4: "a theme to reflect on: stiffness when plans need to flex",
-  5: "a theme to reflect on: overcommitting in the excitement of novelty",
-  6: "a theme to reflect on: carrying responsibilities that aren't yours",
-  7: "a theme to reflect on: retreating when a simple conversation would help",
-  8: "a theme to reflect on: measuring worth only by outcomes",
-  9: "a theme to reflect on: holding on to what is clearly finished",
+  1: "watch-out: impatience with slower people burns alliances this month",
+  2: "watch-out: absorbing others' moods without noticing your own",
+  3: "watch-out: ten bright tables starve the main one",
+  4: "watch-out: stiffness when plans need to flex",
+  5: "watch-out: impulsive big bets — write the deal, then move",
+  6: "watch-out: carrying responsibilities that aren't yours",
+  7: "watch-out: retreating when one honest conversation would do",
+  8: "watch-out: shortcuts — Saturn sends the bill in the same year",
+  9: "watch-out: holding on to what is clearly finished",
 };
 
 /* ------------------------------------------------------------------ */
@@ -289,15 +292,15 @@ export const PERSONAL_MONTH_WATCHOUTS: Record<number, string> = {
 
 export const LIFE_AREA_PROMPT: Record<string, string> = {
   Career:
-    "Which work pattern is emerging for me, and what small move would honour it?",
+    "Which move does this month's Ank Dasha demand — and what is stopping it?",
   Relationships:
-    "Which relationship deserves a more honest conversation this month?",
+    "Which relationship deserves the honest sentence this month?",
   "Money Mindset":
-    "What belief about money am I carrying, and does it still serve me?",
+    "Is this a money month (8/5) or a saving month (4)? Act on the answer.",
   Wellbeing:
-    "What rhythm of rest, movement and nourishment feels sustainable now?",
+    "Which rhythm of rest, movement and nourishment keeps this month's pace sustainable?",
   Creativity:
-    "What wants to be expressed through me this month — and what's stopping it?",
+    "What wants to be expressed through you this month — and what's stopping it?",
 };
 
 /* ------------------------------------------------------------------ */

@@ -16,6 +16,8 @@ import { t as rawT } from "@/lib/content";
 import { luckyProfile, PLANET_FOR_NUMBER } from "@/lib/lucky";
 import { reduceFully } from "@/lib/numerology";
 import { REMEDIES, GOLD_NOTE } from "@/lib/remedies";
+import { expandedRemedyFor, DAILY_HABITS, NEELAM_CAUTION_EN, NEELAM_CAUTION_HI } from "@/lib/remedy-table";
+import { devNum } from "@/lib/navgrah";
 import { ReasoningBlock } from "@/components/loshu-kit";
 
 export default function LuckyPage() {
@@ -124,6 +126,12 @@ export default function LuckyPage() {
             ? "रत्न-परंपरा सांस्कृतिक संबद्धता है — कोई भी रत्न धारण करने से पहले अपने विवेक और (चाहें तो) किसी योग्य गुरु की सलाह लें।"
             : "Gem traditions are cultural associations — wear anything only by your own discernment (and, if you wish, qualified counsel)."}
         </p>
+        {/* Neelam caution (owner: 8-Shani stone needs consult-before-wearing note) */}
+        <div className="mt-3 rounded-lg border border-gold/40 bg-gold/5 p-3 text-xs">
+          {lang === "hi"
+            ? "⚠ नीलम (अंक 8, शनि) — परंपरा में सबसे तेज़ रत्न: धारण से पहले योग्य ज्योतिषी से अपनी कुंडली में शनि की स्थिति जाँचवाएँ; बिना परीक्षा के न पहनें।"
+            : "⚠ Neelam (number 8, Shani) — tradition's sharpest stone: have a qualified jyotishi check Shani's placement before wearing; never wear it untested."}
+        </div>
       </section>
 
       {/* Remedies */}
@@ -171,6 +179,65 @@ export default function LuckyPage() {
           })}
         </div>
         <p className="mt-3 font-devanagari text-xs text-muted-foreground">{GOLD_NOTE}</p>
+      </section>
+
+      {/* Expanded remedy table + daily habits (v3) */}
+      <section aria-labelledby="remedy-v3-h">
+        <h2 id="remedy-v3-h" className="font-display text-lg font-semibold">
+          {lang === "hi" ? "विस्तारित उपाय-तालिका — ग्रह, रत्न, मंत्र, दान" : "Expanded remedy table — planet, gem, mantra, daan"}
+        </h2>
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full min-w-[560px] text-sm">
+            <thead>
+              <tr className="border-b text-left text-xs text-muted-foreground">
+                <th className="py-2 pr-3">{lang === "hi" ? "अंक" : "No."}</th>
+                <th className="py-2 pr-3">{lang === "hi" ? "ग्रह" : "Planet"}</th>
+                <th className="py-2 pr-3">{lang === "hi" ? "रत्न" : "Gem"}</th>
+                <th className="py-2 pr-3">{lang === "hi" ? "रंग" : "Color"}</th>
+                <th className="py-2 pr-3 font-devanagari">{lang === "hi" ? "मंत्र + जप" : "Mantra + japa"}</th>
+                <th className="py-2 font-devanagari">{lang === "hi" ? "दान" : "Daan"}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => {
+                const r = expandedRemedyFor(n);
+                return (
+                  <tr key={n} className="border-b last:border-0">
+                    <td className="py-2 pr-3 font-display text-lg text-gold">{lang === "hi" ? devNum(n) : n}</td>
+                    <td className="py-2 pr-3">{lang === "hi" ? r.planetHi : r.planet}</td>
+                    <td className="py-2 pr-3">{lang === "hi" ? r.gemHi : r.gem}</td>
+                    <td className="py-2 pr-3">{lang === "hi" ? r.colorHi : r.color}</td>
+                    <td className="py-2 pr-3 font-devanagari text-xs">
+                      {r.mantra}
+                      <span className="block text-[10px] text-muted-foreground">{lang === "hi" ? `जप ${devNum(r.japa)}` : `japa ${r.japa}`}</span>
+                    </td>
+                    <td className="py-2 font-devanagari text-xs">{lang === "hi" ? r.daanHi : r.daan}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <p className="mt-2 rounded-lg border border-gold/40 bg-gold/5 p-3 text-xs">
+            {lang === "hi" ? NEELAM_CAUTION_HI : NEELAM_CAUTION_EN}
+          </p>
+        </div>
+      </section>
+
+      {/* Daily habits */}
+      <section aria-labelledby="habits-h">
+        <h2 id="habits-h" className="font-display text-lg font-semibold">
+          {lang === "hi" ? "दैनिक अनुशासन — सप्ताह का अंक-पालन" : "Daily discipline — the week's ank-practice"}
+        </h2>
+        <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+          {DAILY_HABITS.map((h) => (
+            <Card key={h.day}>
+              <CardContent className="py-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{lang === "hi" ? h.dayHi : h.day}</p>
+                <p className="mt-1 text-sm">{lang === "hi" ? h.habitHi : h.habitEn}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </section>
 
       <div className="pt-2" />

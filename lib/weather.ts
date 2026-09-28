@@ -249,7 +249,7 @@ function buildNarrative(
 ): string {
   const m = monthName(calMonth);
   if (verdict === "MAJOR favorable")
-    return `${m} reads as a high-tide month (PY ${py} × PM ${pm}) — intensity ${intensity}/10. Traditionally a strong window for launches, asks and visibility; pace yourself so the tide carries rather than churns.`;
+    return `${m} is a high-tide month (PY ${py} × PM ${pm}) — intensity ${intensity}/10. A strong window for launches, asks and visibility; pace yourself so the tide carries rather than churns.`;
   if (verdict === "strong but volatile")
     return `${m} is a powerful but swingy month (PY ${py} × PM ${pm}) — intensity ${intensity}/10. Big gains and big frictions can both move fast; keep judgment close and decisions documented.`;
   if (verdict === "caution")

@@ -1,27 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Cormorant_Garamond, Cinzel, Noto_Serif_Devanagari } from "next/font/google";
+import { Mukta, Rozha_One, Noto_Serif_Devanagari } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import AppShell from "@/components/app-shell";
 import { SeededProfileBoot } from "@/components/seeded-profile";
 import { LangProvider } from "@/lib/lang";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+/**
+ * v3 SANATAN TYPE:
+ *  - Display: Rozha One (Devanagari serif — headlines in EN & HI both)
+ *  - Body: Mukta (Hindi-first sans with latin coverage)
+ *  - Devanagari render+print: Noto Serif Devanagari
+ * The v2 Western display stack (Cinzel/Cormorant) is deleted.
+ */
+
+const mukta = Mukta({
+  subsets: ["latin", "devanagari"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-mukta",
   display: "swap",
 });
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
-  display: "swap",
-});
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-cinzel",
+const rozha = Rozha_One({
+  subsets: ["latin", "devanagari"],
+  weight: "400",
+  variable: "--font-rozha",
   display: "swap",
 });
 const notoDevanagari = Noto_Serif_Devanagari({
@@ -33,25 +35,25 @@ const notoDevanagari = Noto_Serif_Devanagari({
 
 export const metadata: Metadata = {
   title: {
-    default: "Anko Ki Maya — Numbers for self-reflection",
-    template: "%s · Anko Ki Maya",
+    default: "अंकों की माया — Anko Ki Maya | Ank Shastra: भूत, वर्तमान, भविष्य",
+    template: "%s · अंकों की माया",
   },
   description:
-    "A calm, reflective numerology companion: explore your core numbers, cycles, Lo Shu grid and life blueprint as themes for self-reflection — never predictions.",
+    "Ank Shastra — jyotish ka ank-branch. Aapke ank aapke bhoot, vartmaan aur bhavishya ka hisaab dete hain: Ank Dasha, Rajyoga, Lo Shu/Numeroscope, upay — traditional numerology-based reading.",
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f1e8" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0a1a" },
+    { media: "(prefers-color-scheme: light)", color: "#fdf6ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#14113a" },
   ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="hi" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${cormorant.variable} ${cinzel.variable} ${notoDevanagari.variable} font-sans`}
+        className={`${mukta.variable} ${rozha.variable} ${notoDevanagari.variable} font-sans`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <LangProvider>

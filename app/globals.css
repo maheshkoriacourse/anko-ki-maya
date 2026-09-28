@@ -3,55 +3,72 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * ANKO KI MAYA v3 — SANATAN DESIGN SYSTEM
+ * Indian occult-Hinduism: saffron/kesari + deep maroon + temple gold +
+ * deep indigo-night. Om/Sri-Yantra/lotus/diya motifs (components/shared).
+ * The v2 Western celestial gold-leaf look is deleted.
+ */
+
 :root {
   --radius: 1rem;
-  --background: #f5f1e8;
-  --foreground: #241f33;
-  --card: #fffdf7;
-  --card-foreground: #241f33;
-  --popover: #fffdf7;
-  --popover-foreground: #241f33;
-  --primary: #4b3b78;
-  --primary-foreground: #fdf8ec;
-  --secondary: #ece5d4;
-  --secondary-foreground: #3b2f5e;
-  --muted: #efeadc;
-  --muted-foreground: #6e6780;
-  --accent: #ece5d4;
-  --accent-foreground: #3b2f5e;
-  --destructive: #b3403a;
-  --destructive-foreground: #ffffff;
-  --border: #ddd5c2;
-  --input: #ddd5c2;
-  --ring: #4b3b78;
-  --gold: #a8842c;
-  --gold-bright: #c9a227;
-  --midnight: #14101f;
-  --plum: #2a2140;
+  --background: #fdf6ec;          /* warm kesari-cream */
+  --foreground: #2b1206;          /* deep maroon-brown ink */
+  --card: #fffaf1;
+  --card-foreground: #2b1206;
+  --popover: #fffaf1;
+  --popover-foreground: #2b1206;
+  --primary: #c2410c;             /* deep saffron-flame */
+  --primary-foreground: #fff7ea;
+  --secondary: #f7e8cf;           /* haldi cream */
+  --secondary-foreground: #7c2d12;
+  --muted: #f4ead6;
+  --muted-foreground: #8a5a3b;
+  --accent: #f7e8cf;
+  --accent-foreground: #7c2d12;
+  --destructive: #a83226;
+  --destructive-foreground: #fff7ea;
+  --border: #e6d3b3;
+  --input: #e6d3b3;
+  --ring: #c2410c;
+  --kesari: #ff9933;              /* THE saffron */
+  --saffron-deep: #e06c00;
+  --maroon: #6d1a12;              /* deep maroon */
+  --gold: #b8860b;                /* temple gold */
+  --gold-bright: #d9a441;
+  --indigo: #1e1b4a;              /* deep indigo-night */
+  --indigo-deep: #14113a;
+  --midnight: #14113a;
+  --plum: #4a1030;
 }
 
 .dark {
-  --background: #0d0a1a;
-  --foreground: #eceaf4;
-  --card: #171226;
-  --card-foreground: #eceaf4;
-  --popover: #171226;
-  --popover-foreground: #eceaf4;
-  --secondary: #241c3e;
-  --secondary-foreground: #d4cdf0;
-  --muted: #1d1633;
-  --muted-foreground: #a79fbe;
-  --accent: #241c3e;
-  --accent-foreground: #d4cdf0;
-  --destructive: #e0706a;
-  --destructive-foreground: #14101f;
-  --border: #2c2350;
-  --input: #2c2350;
-  --ring: #d4b25e;
-  --gold: #d4b25e;
-  --gold-bright: #e8cf8a;
-  --midnight: #0d0a1a;
-  --plum: #241c3e;
+  --background: #14113a;          /* deep indigo night */
+  --foreground: #f3e8d8;
+  --card: #1b1747;
+  --card-foreground: #f3e8d8;
+  --popover: #1b1747;
+  --popover-foreground: #f3e8d8;
+  --secondary: #262058;
+  --secondary-foreground: #ffce8f;
+  --muted: #201b50;
+  --muted-foreground: #b9a5d6;
+  --accent: #262058;
+  --accent-foreground: #ffce8f;
+  --destructive: #e0655a;
+  --destructive-foreground: #14113a;
+  --border: #33296b;
+  --input: #33296b;
+  --ring: #ff9933;
+  --kesari: #ff9933;
+  --saffron-deep: #ff8c1a;
+  --maroon: #4a1030;
+  --gold: #ffb84d;                /* diya gold on night */
+  --gold-bright: #ffd98f;
+  --indigo: #14113a;
+  --indigo-deep: #0d0b2b;
+  --midnight: #0d0b2b;
+  --plum: #2c0e20;
 }
 
 @theme inline {
@@ -80,11 +97,16 @@
   --color-ring: var(--ring);
   --color-gold: var(--gold);
   --color-gold-bright: var(--gold-bright);
+  --color-kesari: var(--kesari);
+  --color-saffron-deep: var(--saffron-deep);
+  --color-maroon: var(--maroon);
+  --color-indigo: var(--indigo);
+  --color-indigo-deep: var(--indigo-deep);
   --color-midnight: var(--midnight);
   --color-plum: var(--plum);
-  --font-sans: var(--font-inter), var(--font-noto-devanagari), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-cinzel), var(--font-cormorant), var(--font-noto-devanagari), Georgia, serif;
-  --font-serif: var(--font-cormorant), var(--font-noto-devanagari), Georgia, serif;
+  --font-sans: var(--font-mukta), var(--font-noto-devanagari), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-rozha), var(--font-noto-devanagari), Georgia, serif;
+  --font-serif: var(--font-rozha), var(--font-noto-devanagari), Georgia, serif;
   --font-hindi: var(--font-noto-devanagari), "Noto Serif Devanagari", serif;
 }
 
@@ -116,42 +138,83 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Occult texture layers                                               */
+/* SANATAN TEXTURE LAYERS                                              */
 /* ------------------------------------------------------------------ */
 
-/* Starfield canvas texture (subtle) */
-.starfield {
+/* Diya-glow wash: warm saffron light bleeding from the top (light) */
+.diya-glow {
   background-image:
-    radial-gradient(1px 1px at 20% 30%, color-mix(in srgb, var(--foreground) 9%, transparent) 50%, transparent 51%),
-    radial-gradient(1px 1px at 70% 60%, color-mix(in srgb, var(--foreground) 7%, transparent) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 40% 80%, color-mix(in srgb, var(--foreground) 6%, transparent) 50%, transparent 51%),
-    radial-gradient(1px 1px at 85% 20%, color-mix(in srgb, var(--foreground) 8%, transparent) 50%, transparent 51%),
-    radial-gradient(1px 1px at 55% 10%, color-mix(in srgb, var(--foreground) 6%, transparent) 50%, transparent 51%);
-  background-size: 480px 480px;
+    radial-gradient(55% 42% at 50% 0%, color-mix(in srgb, var(--kesari) 20%, transparent), transparent 72%),
+    radial-gradient(40% 34% at 88% 6%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 70%),
+    radial-gradient(45% 38% at 8% 12%, color-mix(in srgb, var(--maroon) 10%, transparent), transparent 75%);
 }
 
-/* Aurora gradient wash (dark-first) */
-.aurora-wash {
+/* Deep indigo-night wash with diya glow (dark, fixed behind content) */
+.diya-glow-fixed::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background:
-    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, #6d28d9 16%, transparent), transparent 70%),
-    radial-gradient(50% 40% at 85% 10%, color-mix(in srgb, #d4b25e 10%, transparent), transparent 70%),
-    radial-gradient(55% 45% at 50% 100%, color-mix(in srgb, #4c1d95 14%, transparent), transparent 75%);
+    radial-gradient(60% 48% at 50% 0%, color-mix(in srgb, #ff9933 10%, transparent), transparent 70%),
+    radial-gradient(45% 36% at 88% 8%, color-mix(in srgb, #ffb84d 8%, transparent), transparent 72%),
+    radial-gradient(55% 45% at 10% 90%, color-mix(in srgb, #6d1a12 16%, transparent), transparent 75%);
 }
 
-/* Glassmorphism card */
+/* Devanagari numeral + Om watermark (very faint, big, centered) */
+.om-watermark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Ctext x='210' y='300' font-size='340' text-anchor='middle' fill='%23b8860b' fill-opacity='0.055' font-family='serif'%3E%E0%A5%90%3C/text%3E%3C/svg%3E");
+}
+
+/* Sri-yantra line backdrop (geometric, faint gold) */
+.yantra-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' viewBox='0 0 440 440'%3E%3Cg fill='none' stroke='%23b8860b' stroke-opacity='0.09'%3E%3Ccircle cx='220' cy='220' r='205'/%3E%3Ccircle cx='220' cy='220' r='165'/%3E%3Cg%3E%3Cpath d='M220 55 L342 300 L98 300 Z'/%3E%3Cpath d='M220 385 L98 140 L342 140 Z'/%3E%3C/g%3E%3Cg transform='rotate(30 220 220)'%3E%3Cpath d='M220 75 L322 292 L118 292 Z'/%3E%3Cpath d='M220 365 L118 148 L322 148 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Jyotish diamond chakra: faint diamond-lattice */
+.chakra-bg {
+  background-image:
+    linear-gradient(45deg, color-mix(in srgb, var(--gold) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(-45deg, color-mix(in srgb, var(--gold) 6%, transparent) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+/* Glassmorphism card (temple-stone feel) */
 .glass {
-  background: color-mix(in srgb, var(--card) 72%, transparent);
-  backdrop-filter: blur(14px) saturate(1.2);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  border: 1px solid color-mix(in srgb, var(--gold) 18%, var(--border));
+  background: color-mix(in srgb, var(--card) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  border: 1px solid color-mix(in srgb, var(--gold) 22%, var(--border));
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--foreground) 4%, transparent),
     0 12px 40px -18px color-mix(in srgb, #000 35%, transparent);
 }
 
-/* Gold foil text */
+/* ------------------------------------------------------------------ */
+/* v3 signature classes (kept names — pages already reference them)     */
+/* ------------------------------------------------------------------ */
+
+/* Marigold garland strip (divider between chapters) */
+.marigold-strip {
+  height: 10px;
+  border-radius: 999px;
+  background-image: radial-gradient(circle at 8px 5px, var(--kesari) 0 3.2px, transparent 3.6px);
+  background-size: 16px 10px;
+  background-repeat: repeat-x;
+  background-color: transparent;
+  opacity: 0.85;
+}
+
+/* Temple gold hairline rule */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 70%, transparent), transparent);
+}
+
+/* Temple-gold foil text (headline treatment) */
 .gold-foil {
-  background: linear-gradient(100deg, #8a6d1f 0%, #d4b25e 25%, #f4e5b8 50%, #d4b25e 75%, #8a6d1f 100%);
+  background: linear-gradient(100deg, #8a5a12 0%, #b8860b 25%, #f0d38a 50%, #b8860b 75%, #8a5a12 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -159,17 +222,28 @@
 }
 
 .dark .gold-foil {
-  background: linear-gradient(100deg, #8a6d1f 0%, #e8cf8a 30%, #fff7dd 50%, #e8cf8a 70%, #8a6d1f 100%);
+  background: linear-gradient(100deg, #9a6a18 0%, #ffb84d 30%, #ffe4ad 50%, #ffb84d 70%, #9a6a18 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Gold hairline rule */
-.gold-rule {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 65%, transparent), transparent);
+/* Saffron-foil text (headline treatment, kesari) */
+.kesari-foil {
+  background: linear-gradient(100deg, #b45309 0%, #ff9933 30%, #ffc37a 50%, #ff9933 70%, #b45309 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark .kesari-foil {
+  background: linear-gradient(100deg, #d97706 0%, #ff9933 30%, #ffd9a8 50%, #ff9933 70%, #d97706 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Number mandala ring behind a big digit */
@@ -181,16 +255,11 @@
   position: absolute;
   inset: -14%;
   border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
   box-shadow:
-    0 0 24px -6px color-mix(in srgb, var(--gold) 45%, transparent),
-    inset 0 0 18px -8px color-mix(in srgb, var(--gold) 40%, transparent);
+    0 0 24px -6px color-mix(in srgb, var(--kesari) 50%, transparent),
+    inset 0 0 18px -8px color-mix(in srgb, var(--gold) 45%, transparent);
   pointer-events: none;
-}
-
-/* Celestial constellation SVG backdrop (data URI, very faint) */
-.constellation-bg {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%23d4b25e' stroke-opacity='0.07'%3E%3Cpath d='M40 80 L120 60 L180 130 L260 90 L340 150'/%3E%3Cpath d='M60 300 L140 340 L220 300 L300 350 L380 300'/%3E%3Ccircle cx='40' cy='80' r='2'/%3E%3Ccircle cx='120' cy='60' r='2'/%3E%3Ccircle cx='180' cy='130' r='2'/%3E%3Ccircle cx='260' cy='90' r='2'/%3E%3Ccircle cx='340' cy='150' r='2'/%3E%3Ccircle cx='60' cy='300' r='2'/%3E%3Ccircle cx='140' cy='340' r='2'/%3E%3Ccircle cx='220' cy='300' r='2'/%3E%3Ccircle cx='300' cy='350' r='2'/%3E%3Ccircle cx='380' cy='300' r='2'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* Print-friendly report */
@@ -212,15 +281,21 @@
     border: 1px solid #ddd !important;
     box-shadow: none !important;
   }
-  .gold-foil {
-    color: #8a6d1f !important;
-    -webkit-text-fill-color: #8a6d1f !important;
+  .gold-foil,
+  .kesari-foil {
+    color: #8a5a12 !important;
+    -webkit-text-fill-color: #8a5a12 !important;
     background: none !important;
   }
-  .aurora-wash,
-  .constellation-bg,
-  .starfield {
+  .diya-glow,
+  .yantra-bg,
+  .chakra-bg,
+  .om-watermark,
+  .diya-glow-fixed::before {
     background: none !important;
+  }
+  .diya-glow-fixed::before {
+    display: none !important;
   }
   .page-break {
     break-before: page;
@@ -229,9 +304,8 @@
     break-inside: avoid;
   }
 }
-/* ---- merged from public/overrides.css (v2: guaranteed bundling) ---- */
-/* App-level visual overrides layered on top of globals.css */
-/* Softer scrollbar */
+
+/* ---- merged from public/overrides.css (guaranteed bundling) ---- */
 * {
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, currentColor 18%, transparent) transparent;
@@ -263,41 +337,67 @@
 
 /* Big serif number glyph used in number cards */
 .number-glyph {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.02em;
 }
 
-/* Subtle divider */
-.hairline {
-  border-color: color-mix(in srgb, var(--foreground) 10%, transparent);
-}
-
-/* Timeline intensity bar */
+/* Timeline intensity bar (saffron fill) */
 .intensity {
   height: 6px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--primary) 16%, transparent);
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
   overflow: hidden;
 }
 .intensity > span {
   display: block;
   height: 100%;
   border-radius: 999px;
-  background: var(--primary);
-  opacity: 0.85;
+  background: linear-gradient(90deg, var(--saffron-deep), var(--kesari));
+  opacity: 0.9;
 }
 
-/* Fixed aurora wash behind content (sidebar pages) */
-.aurora-wash-fixed::before {
+/* Fixed glow behind content (sidebar pages) */
+.aurora-wash {
+  background:
+    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, var(--kesari) 14%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 85% 10%, color-mix(in srgb, var(--gold) 10%, transparent), transparent 70%),
+    radial-gradient(55% 45% at 50% 100%, color-mix(in srgb, var(--maroon) 16%, transparent), transparent 75%);
+}
+.dark .aurora-wash {
+  background:
+    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, #ff9933 10%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 85% 10%, color-mix(in srgb, #ffb84d 8%, transparent), transparent 70%),
+    radial-gradient(55% 45% at 50% 100%, color-mix(in srgb, #6d1a12 18%, transparent), transparent 75%);
+}
+.aurora-wash-fixed {
+  position: relative;
+}
+.aurora-wash-fixed::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, #6d28d9 14%, transparent), transparent 70%),
+    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, var(--kesari) 10%, transparent), transparent 70%),
     radial-gradient(50% 40% at 85% 10%, color-mix(in srgb, var(--gold) 8%, transparent), transparent 70%),
-    radial-gradient(55% 45% at 50% 100%, color-mix(in srgb, #4c1d95 12%, transparent), transparent 75%);
+    radial-gradient(55% 45% at 50% 100%, color-mix(in srgb, var(--maroon) 12%, transparent), transparent 75%);
+}
+
+/* Starfield canvas texture kept as subtle gold dust on indigo (dark) */
+.starfield {
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, color-mix(in srgb, var(--gold) 10%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 60%, color-mix(in srgb, var(--gold) 8%, transparent) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 40% 80%, color-mix(in srgb, var(--kesari) 7%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 85% 20%, color-mix(in srgb, var(--gold) 9%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 55% 10%, color-mix(in srgb, var(--kesari) 6%, transparent) 50%, transparent 51%);
+  background-size: 480px 480px;
+}
+
+/* Constellation → diamond-chakra alias (old class name kept working) */
+.constellation-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' viewBox='0 0 440 440'%3E%3Cg fill='none' stroke='%23b8860b' stroke-opacity='0.08'%3E%3Ccircle cx='220' cy='220' r='205'/%3E%3Cg%3E%3Cpath d='M220 55 L342 300 L98 300 Z'/%3E%3Cpath d='M220 385 L98 140 L342 140 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }

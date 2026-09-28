@@ -1,6 +1,6 @@
 /**
- * Anko Ki Maya v2 — persisted language preference (EN ⇄ हिन्दी).
- * Default is English; the toggle lives in Settings and the app shell.
+ * Anko Ki Maya v3 — persisted language preference (EN ⇄ हिन्दी).
+ * DEFAULT HINDI (owner order — Indian audience first); persisted.
  */
 
 "use client";
@@ -10,10 +10,10 @@ import { safeGet, safeSet } from "./safe-storage";
 import { t } from "./content";
 import type { Lang } from "./content";
 
-const KEY = "akm.v2.lang";
+const KEY = "akm.v3.lang";
 
 export function loadLang(): Lang {
-  return safeGet<Lang>(KEY) === "hi" ? "hi" : "en";
+  return safeGet<Lang>(KEY) === "en" ? "en" : "hi";
 }
 
 export function saveLang(lang: Lang): void {
@@ -28,7 +28,7 @@ interface Ctx {
 const LangContext = React.createContext<Ctx | null>(null);
 
 export function LangProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = React.useState<Lang>("en");
+  const [lang, setLangState] = React.useState<Lang>("hi");
 
   React.useEffect(() => {
     setLangState(loadLang());

@@ -76,10 +76,8 @@ describe("Safety language rules", () => {
     expect(joined).toMatch(/may be a supportive period|a theme to reflect on|consider/i);
   });
 
-  it("disclaimer matches the exact required wording", () => {
-    expect(DISCLAIMER).toBe(
-      "Anko Ki Maya is for entertainment and self-reflection only. It is not medical, legal, financial, mental-health, or factual predictive advice.",
-    );
+  it("disclaimer matches the exact required v3 wording (owner: consent/disclaimer wall removed, footer line only)", () => {
+    expect(DISCLAIMER).toBe("Traditional numerology-based reading.");
   });
 
   it("master numbers get their own meanings", () => {

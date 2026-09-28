@@ -7,10 +7,7 @@
  */
 
 import * as React from "react";
-import {
-  loadProfile, saveProfile, demoProfile, loadConsent, saveConsent,
-  type Profile,
-} from "@/lib/storage";
+import { loadProfile, saveProfile, demoProfile, type Profile } from "@/lib/storage";
 import { fullReading, upcomingMonths, type FullReading } from "@/lib/numerology";
 import { loShuGrid, type LoShuResult } from "@/lib/loshu";
 
@@ -41,7 +38,6 @@ export function SeededProfileBoot({ children }: { children?: React.ReactNode }) 
     if (!p) {
       // Seed the demo profile on first visit (spec: seeded demo profile).
       saveProfile(demoProfile());
-      saveConsent();
       p = profileFromStorage();
     }
     setProfile(p);
@@ -78,7 +74,6 @@ export function SeededProfileBoot({ children }: { children?: React.ReactNode }) 
       },
       resetToDemo: () => {
         saveProfile(demoProfile());
-        saveConsent();
         setProfile(profileFromStorage());
       },
       signOutToOnboarding: () => {
