@@ -11,7 +11,7 @@
  *
  * Master numbers 11, 22 and 33 are preserved wherever the tradition preserves
  * them (see `reduce` below). Every result carries a `steps` array so the UI can
- * show exactly how each number was derived ("Why this reading?").
+ * show exactly how each number was derived (the Basis block).
  */
 
 export type NumerologySystem = "pythagorean" | "chaldean";

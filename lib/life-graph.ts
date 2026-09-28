@@ -30,6 +30,13 @@ export interface PastYearReading {
   /** Karmic/pinnacle/cycle activations that colour this year. */
   activations: string[]; // short EN tags, mirrored in HI via activationTags
   activationTagsHi: string[];
+  /** v3.1: true when this is a बड़े साल (BIG year) — timeline built from these. */
+  big: boolean;
+  /** v3.1: why this year is big (tags from BIG_REASON_LABEL). */
+  bigReasons: string[];
+  /** v3.1: the LIKELY EVENT TYPE, named directly (SACH with basis). */
+  eventEn: string | null;
+  eventHi: string | null;
 }
 
 export interface FutureYearReading {
@@ -50,6 +57,8 @@ export interface LifeGraphResult {
   past: PastYearReading[];
   future: FutureYearReading[];
   currentYear: PastYearReading | null; // this year's reading (not markable)
+  /** v3.1: the बड़े साल (BIG years) — the timeline is built FROM these. */
+  bigYears: PastYearReading[];
   /** Pattern note from marks: sharper as more years are confirmed. */
   patternNoteEn: string | null;
   patternNoteHi: string | null;
@@ -256,6 +265,129 @@ function pinnacleAt(pins: Pinnacle[], age: number): Pinnacle {
 }
 
 /* ------------------------------------------------------------------ */
+/* v3.1 BIG-YEAR detection ('बड़े साल') — owner correction #2           */
+/* ------------------------------------------------------------------ */
+
+/**
+ * A PAST year is BIG ('बड़े साल') when ANY of these fires:
+ *   1. karmic debt (13/14/16/19) active in the compound PY sum
+ *   2. pinnacle boundary/start (a new 9-year pinnacle chapter opens)
+ *   3. PY 1 (cycle start) or PY 9 (completion)
+ *   4. PY equals Mulank or Bhagyank
+ *   5. digit-repetition surge year (see lib/life-graph digitSurge)
+ *   6. karmic milestone ages (27/36/45/54)
+ * Non-big years render as the faint background curve only.
+ */
+
+export interface BigYearOpts {
+  mulank?: number; // reduced birth-day number (masters preserved by caller)
+  bhagyank?: number; // life-path number (masters preserved by caller)
+}
+
+/** Karmic milestone ages the school flags as big-turning-point years. */
+export const KARMIC_MILESTONE_AGES = [27, 36, 45, 54] as const;
+
+function foldMaster(n: number): number {
+  return n === 11 ? 2 : n === 22 ? 4 : n === 33 ? 6 : n;
+}
+
+function ds(n: number): number {
+  let s = n;
+  while (s > 9) s = String(s).split("").reduce((acc, d) => acc + Number(d), 0);
+  return s;
+}
+
+/**
+ * DIGIT-REPETITION SURGE: for every digit with ≥2 repetitions in the full
+ * DOB, simulate the calendar year by ADDING that count to the PY sum — a
+ * repeated digit entering the year-sum makes the year compound-heavy. The
+ * year is a surge when the sum lands on/crosses a 9-multiple that the
+ * base year (without the repeat) did not. Returns the strongest surge.
+ */
+export function digitSurge(
+  year: number,
+  month: number,
+  day: number,
+): { digit: number; extra: number } | null {
+  const dateStr = `${String(day).padStart(2, "0")}${String(month).padStart(2, "0")}${year}`;
+  const counts: Record<number, number> = {};
+  for (const ch of dateStr) {
+    const d = Number(ch);
+    if (d >= 1 && d <= 9) counts[d] = (counts[d] ?? 0) + 1;
+  }
+  const prevSum = ds(month) + ds(day) + ds(year - 1);
+  const curSum = ds(month) + ds(day) + ds(year);
+  if (curSum <= prevSum) return null; // wrap year (9→1) — no clean surge read
+  let best: { digit: number; extra: number } | null = null;
+  for (const [dStr, c] of Object.entries(counts)) {
+    if (c < 2) continue;
+    const d = Number(dStr);
+    const cur = curSum + c;
+    const prev = prevSum + c;
+    if (cur > prev && Math.floor(cur / 9) > Math.floor(prev / 9)) {
+      const cand = { digit: d, extra: c };
+      if (!best || cand.extra > best.extra || (cand.extra === best.extra && cand.digit < best.digit)) {
+        best = cand;
+      }
+    }
+  }
+  return best;
+}
+
+/** The LIKELY EVENT TYPE named directly for each big year (owner's lines). */
+export const BIG_EVENT_BY_PY: Record<number, { en: string; hi: string }> = {
+  1: {
+    en: "A big change like a job/admission happened this year — a new chapter opened.",
+    hi: "इस साल नौकरी/एडमिशन जैसा बड़ा बदलाव हुआ होगा — नया अध्याय खुला।",
+  },
+  2: {
+    en: "The year of marriage-love — a bond deepened or a partnership formed.",
+    hi: "शादी-प्यार का साल — कोई रिश्ता गहरा हुआ या साझेदारी बनी।",
+  },
+  3: {
+    en: "Your name travelled — results, recognition or a creative win.",
+    hi: "आपका नाम दूर तक गया — परिणाम, पहचान या सृजन की जीत।",
+  },
+  4: {
+    en: "A foundation year — hard grind that quietly rebuilt your base.",
+    hi: "नींव का साल — कठोर मेहनत ने चुपचाप आधार मज़बूत किया।",
+  },
+  5: {
+    en: "Travel-foreign signals — movement, switch or relocation energy.",
+    hi: "ट्रैवल-विदेश संकेत — यात्रा, बदलाव या स्थानांतरण की ऊर्जा।",
+  },
+  6: {
+    en: "The year of marriage-love.",
+    hi: "शादी-प्यार का साल।",
+  },
+  7: {
+    en: "A study-inward year — deep preparation that paid later.",
+    hi: "अध्ययन-अंतरंग वर्ष — गहन तैयारी जो बाद में काम आई।",
+  },
+  8: {
+    en: "A money-income-jump window opened.",
+    hi: "पैसा-इनकम जंप की window खुली।",
+  },
+  9: {
+    en: "A chapter closed — an elder of the house passed, the era of legacy began (read with care).",
+    hi: "किसी बड़े का जाना — घर में विरासत का दौर (सहानुभूति से पढ़ें)।",
+  },
+};
+
+/** Short badge labels for each big-year reason. */
+export const BIG_REASON_LABEL: Record<string, { en: string; hi: string }> = {
+  "karmic-debt": { en: "karmic debt active", hi: "कर्मिक ऋण सक्रिय" },
+  "pinnacle-boundary": { en: "pinnacle boundary", hi: "शिखर-बदल की सीमा" },
+  "py-1-start": { en: "PY 1 — cycle start", hi: "दशा 1 — चक्र-आरंभ" },
+  "py-9-completion": { en: "PY 9 — completion", hi: "दशा 9 — समापन" },
+  "py-mulank": { en: "PY = Mulank", hi: "दशा = मूलांक" },
+  "py-bhagyank": { en: "PY = Bhagyank", hi: "दशा = भाग्यांक" },
+  "digit-surge-2": { en: "digit-repetition surge", hi: "अंक-पुनरावृत्ति वृद्धि" },
+  "digit-surge-3": { en: "triple-digit surge", hi: "त्रिक-अंक वृद्धि" },
+  "milestone-age": { en: "karmic milestone age", hi: "कर्मिक मील-पत्थर आयु" },
+};
+
+/* ------------------------------------------------------------------ */
 /* Main builder                                                        */
 /* ------------------------------------------------------------------ */
 
@@ -269,10 +401,15 @@ export function buildLifeGraph(
   birthDay: number,
   nowYear: number,
   pinnacles: Pinnacle[],
+  opts: BigYearOpts = {},
 ): LifeGraphResult {
   const past: PastYearReading[] = [];
   const future: FutureYearReading[] = [];
   let currentYear: PastYearReading | null = null;
+
+  const mulank = opts.mulank !== undefined ? foldMaster(opts.mulank) : foldMaster(ds(birthDay));
+  const bhagyank =
+    opts.bhagyank !== undefined ? foldMaster(opts.bhagyank) : foldMaster(bhagyankOf(birthYear, birthMonth, birthDay));
 
   const total = nowYear + 10 - birthYear + 1;
   for (let i = 0; i < total; i++) {
@@ -298,6 +435,23 @@ export function buildLifeGraph(
       acts.push("peak-year");
       actHi.push(activationCopy("peak-year", "hi"));
     }
+
+    // v3.1 BIG-YEAR detection (past/current years only — future years are
+    // weather, not events).
+    const bigReasons: string[] = [];
+    if (year <= nowYear) {
+      if (karm.includes("karmic-debt")) bigReasons.push("karmic-debt");
+      if (age > 0 && prevPin.index !== curPin.index) bigReasons.push("pinnacle-boundary");
+      if (py === 1) bigReasons.push("py-1-start");
+      if (py === 9) bigReasons.push("py-9-completion");
+      if (py === mulank) bigReasons.push("py-mulank");
+      if (py === bhagyank) bigReasons.push("py-bhagyank");
+      const surge = digitSurge(year, birthMonth, birthDay);
+      if (surge) bigReasons.push(surge.extra >= 3 ? "digit-surge-3" : "digit-surge-2");
+      if ((KARMIC_MILESTONE_AGES as readonly number[]).includes(age)) bigReasons.push("milestone-age");
+    }
+    const big = bigReasons.length > 0;
+    const ev = big ? (BIG_EVENT_BY_PY[py] ?? BIG_EVENT_BY_PY[1]) : null;
 
     // Intensity: PY shape, boosted by activations.
     let intensity = ess.intensity;
@@ -325,6 +479,10 @@ export function buildLifeGraph(
       readingHi,
       activations: acts,
       activationTagsHi: actHi,
+      big,
+      bigReasons,
+      eventEn: ev?.en ?? null,
+      eventHi: ev?.hi ?? null,
     };
     if (year < nowYear) past.push(item);
     else if (isCurrent) currentYear = item;
@@ -343,6 +501,7 @@ export function buildLifeGraph(
     past,
     future,
     currentYear,
+    bigYears: [...past, ...(currentYear ? [currentYear] : [])].filter((p) => p.big).sort((a, b) => a.year - b.year),
     patternNoteEn: null,
     patternNoteHi: null,
     steps: [
@@ -350,8 +509,14 @@ export function buildLifeGraph(
       `Every year from ${birthYear} to ${nowYear + 10} computed: ${total} readings.`,
       `Past years carry karmic/pinnacle/cycle activation tags; future years carry PY weather.`,
       `Intensity (1-10) = PY shape, boosted by volatile/karmic/pinnacle activations.`,
+      `बड़े साल (BIG years): karmic debt 13/14/16/19 active, pinnacle boundary, PY 1 (cycle start) or PY 9 (completion), PY = Mulank or Bhagyank, digit-repetition surge, or karmic milestone ages 27/36/45/54 — each big year names its likely event type; the timeline is built from these.`,
     ],
   };
+}
+
+/** Reduced Bhagyank for the surge/big-year math (no master preservation). */
+function bhagyankOf(year: number, month: number, day: number): number {
+  return ds(month) + ds(day) + ds(year);
 }
 
 /* ------------------------------------------------------------------ */
@@ -414,6 +579,10 @@ export interface CurvePoint {
   isCurrent: boolean;
   pinned: boolean; // confirmed सही event
   rejected: boolean; // marked गलत
+  big: boolean; // v3.1 बड़े साल
+  bigReasons: string[]; // v3.1 why big
+  eventLabel: string | null; // v3.1 likely event type (lang-neutral key resolved by UI)
+  eventLabelHi: string | null;
 }
 
 export interface CurveGeometry {
@@ -422,8 +591,11 @@ export interface CurveGeometry {
   points: CurvePoint[];
   path: string;
   futurePath: string;
+  faintPath: string; // v3.1: non-big past years = faint background curve
+  bigPath: string; // v3.1: big years = strong curve
   ticks: { x: number; label: string }[];
   pins: CurvePoint[];
+  bigPins: CurvePoint[]; // v3.1: big-year pins with event labels
 }
 
 /** SVG geometry for the intensity curve birth → now (+10 ahead, dashed). */
@@ -442,6 +614,7 @@ export function curveGeometry(
   const all: CurvePoint[] = [];
   const push = (r: PastYearReading | FutureYearReading, isFuture: boolean) => {
     const verdict = markMap.get(r.year);
+    const pr = r as PastYearReading;
     all.push({
       x: 0,
       y: 0,
@@ -452,6 +625,10 @@ export function curveGeometry(
       isCurrent: !isFuture && r.year === graph.currentYear?.year,
       pinned: verdict === "sahi",
       rejected: verdict === "galat",
+      big: !isFuture && pr.big === true,
+      bigReasons: !isFuture ? (pr.bigReasons ?? []) : [],
+      eventLabel: !isFuture ? (pr.eventEn ?? null) : null,
+      eventLabelHi: !isFuture ? (pr.eventHi ?? null) : null,
     });
   };
   graph.past.forEach((p) => push(p, false));
@@ -483,6 +660,40 @@ export function curveGeometry(
     ? mkPath([solid[solid.length - 1], ...futurePts])
     : "";
 
+  // v3.1: big years = strong curve, non-big past years = faint background.
+  // Runs of consecutive big/non-big years form segments so the curve stays
+  // connected where consecutive years share the same class.
+  const bigPts = solid.filter((p) => p.big || p.isCurrent);
+  const faintPts = solid.filter((p) => !p.big && !p.isCurrent);
+  const toSegments = (pts: CurvePoint[]): string => {
+    if (pts.length === 0) return "";
+    const segs: CurvePoint[][] = [];
+    let cur: CurvePoint[] = [pts[0]];
+    for (let i = 1; i < pts.length; i++) {
+      const prev = cur[cur.length - 1];
+      if (pts[i].year - prev.year > 1) {
+        segs.push(cur);
+        cur = [pts[i]];
+      } else {
+        cur.push(pts[i]);
+      }
+    }
+    segs.push(cur);
+    const out: string[] = [];
+    for (const seg of segs) {
+      if (seg.length === 1) {
+        // Single isolated point — draw a short horizontal dash so it reads.
+        const p = seg[0];
+        out.push(`M ${(p.x - 5).toFixed(1)} ${p.y.toFixed(1)} L ${p.x.toFixed(1)} ${p.y.toFixed(1)}`);
+      } else {
+        out.push(mkPath(seg));
+      }
+    }
+    return out.join(" ");
+  };
+  const bigPath = toSegments(bigPts);
+  const faintPath = toSegments(faintPts);
+
   const ticks: { x: number; label: string }[] = all
     .filter((_, i) => i % 5 === 0 || i === all.length - 1)
     .map((p) => ({ x: p.x, label: String(p.year) }));
@@ -493,8 +704,11 @@ export function curveGeometry(
     points: all,
     path: mkPath(solid),
     futurePath,
+    faintPath,
+    bigPath,
     ticks,
     pins: all.filter((p) => p.pinned),
+    bigPins: all.filter((p) => p.big || p.isCurrent),
   };
 }
 

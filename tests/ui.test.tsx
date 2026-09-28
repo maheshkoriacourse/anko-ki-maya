@@ -4,7 +4,7 @@ import { NumberCard, WhyThisReading, JournalShortcut, dailyPrompt } from "@/comp
 import { Tabs } from "@/components/ui";
 
 describe("NumberCard", () => {
-  it("renders the number, label and a 'Why this reading?' explainer", () => {
+  it("renders the number, label and the v3.1 'Basis' explainer", () => {
     render(
       <NumberCard
         data={{
@@ -17,24 +17,31 @@ describe("NumberCard", () => {
     );
     expect(screen.getByText("Life Path")).toBeInTheDocument();
     expect(screen.getByText("4")).toBeInTheDocument();
-    expect(screen.getByText(/Why this reading\?/)).toBeInTheDocument();
+    expect(screen.getByText(/Basis — Life Path/)).toBeInTheDocument();
   });
 
   it("expands calculation steps for transparency", () => {
     render(
       <NumberCard data={{ label: "Soul Urge", number: 8, steps: ["Vowels only", "Sum = 8 → 8"] }} />,
     );
-    fireEvent.click(screen.getByText(/Why this reading\?/));
+    fireEvent.click(screen.getByText(/Basis — Soul Urge/));
     expect(screen.getByText("Vowels only")).toBeInTheDocument();
+    expect(screen.getByText("On this basis we predict your reading.")).toBeInTheDocument();
   });
 });
 
-describe("WhyThisReading", () => {
-  it("lists every step when opened", () => {
+describe("WhyThisReading (v3.1 Basis block)", () => {
+  it("lists every step when opened and closes with the predict line", () => {
     render(<WhyThisReading title="Test" steps={["step one", "step two"]} />);
-    fireEvent.click(screen.getByText(/Why this reading\?/));
+    fireEvent.click(screen.getByText(/Basis — Test/));
     expect(screen.getByText("step one")).toBeInTheDocument();
     expect(screen.getByText("step two")).toBeInTheDocument();
+    expect(screen.getByText("On this basis we predict your reading.")).toBeInTheDocument();
+  });
+
+  it("never shows the banned 'Why this reading?' phrasing", () => {
+    render(<WhyThisReading title="Test" steps={["a"]} />);
+    expect(screen.queryByText(/Why this reading/i)).not.toBeInTheDocument();
   });
 });
 

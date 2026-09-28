@@ -43,7 +43,13 @@ export function PageHeader({
   );
 }
 
-/** Small link to the engine's calculation steps ("Why this reading?"). */
+/**
+ * v3.1 reasoning block — कारण-गणित / Basis. The old 'Why this reading?'
+ * phrasing is BANNED (owner correction #3); every explainer renders as
+ * direct basis lines with the 'इसी आधार पर हम आपके लिए यह predict करते हैं'
+ * closing. The old component name is kept as an alias so existing pages
+ * keep working with the new language.
+ */
 export function WhyThisReading({
   title,
   steps,
@@ -57,7 +63,7 @@ export function WhyThisReading({
     <details className="group rounded-lg border bg-muted/40">
       <summary className="flex cursor-pointer items-center gap-2 px-3.5 py-2.5 text-sm font-medium text-primary">
         <Info className="size-4" aria-hidden />
-        Why this reading? — {title}
+        Basis — {title}
         <span className="ml-auto text-xs text-muted-foreground group-open:hidden">show</span>
       </summary>
       <div className="border-t px-3.5 py-3">
@@ -67,6 +73,9 @@ export function WhyThisReading({
           ))}
         </ol>
         {note ? <p className="mt-2 text-xs italic text-muted-foreground">{note}</p> : null}
+        <p className="mt-2 font-serif-display text-xs italic text-gold">
+          On this basis we predict your reading.
+        </p>
       </div>
     </details>
   );
@@ -135,14 +144,76 @@ export function YantraMotif({ className }: { className?: string }) {
 }
 
 /**
+ * v3.1 CINEMATIC DIVINE HEADER — the dashboard hero banner.
+ * public/img/divine-header.webp: giant golden Om over the Sri-Yantra
+ * mandala, deities in cosmic mist, diya lamps, temple light rays over
+ * indigo night. Full-width ~400px (230px mobile), ken-burns zoom,
+ * gradient melts into the page background. Decorative — NOT clickable.
+ * Title/greeting overlays it (white + gold, text-shadow). Loaded eager +
+ * fetchpriority=high on the dashboard only (LCP element).
+ */
+export function DivineHero({
+  title,
+  subtitle,
+  actions,
+}: {
+  title: string;
+  subtitle?: string;
+  actions?: React.ReactNode;
+}) {
+  return (
+    <section className="divine-hero no-print" aria-label={title}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/img/divine-header.webp"
+        alt=""
+        aria-hidden
+        fetchPriority="high"
+        loading="eager"
+        decoding="async"
+        className="divine-hero-img"
+      />
+      <div aria-hidden className="divine-hero-overlay" />
+      <div className="divine-hero-content">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-4xl">
+              {title}
+            </h1>
+            {subtitle ? (
+              <p className="hero-sub mt-1.5 max-w-2xl text-xs leading-relaxed sm:text-sm">
+                {subtitle}
+              </p>
+            ) : null}
+          </div>
+          {actions ? <div className="flex shrink-0 items-center gap-2">{actions}</div> : null}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * v3.1 — small ॐ watermark for section dividers (owner order).
+ */
+export function OmDividerMark({ className }: { className?: string }) {
+  return (
+    <span aria-hidden className={`om-divider-mark text-lg ${className ?? ""}`}>
+      ॐ
+    </span>
+  );
+}
+
+/**
  * MARIGOLD/DIYA DIVIDER STRIP — a shloka-style separator between report
- * chapters and page sections: lotus · gold rule · diya glow.
+ * chapters and page sections: lotus · gold rule · diya glow (+ v3.1 ॐ mark).
  */
 export function SanatanDivider({ className }: { className?: string }) {
   return (
     <div aria-hidden className={`flex items-center gap-3 py-2 ${className ?? ""}`}>
       <LotusMotif className="size-5 text-gold" />
       <span className="gold-rule flex-1" />
+      <OmDividerMark />
       <DiyaMotif className="size-6 text-gold" />
       <span className="gold-rule flex-1" />
       <LotusMotif className="size-5 -scale-x-100 text-gold" />

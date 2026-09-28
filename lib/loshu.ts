@@ -12,6 +12,12 @@
  * to any cell (there is no 0 in the grid) — they are reported separately as a
  * note. Repeated digits tally: a cell can show 0-3+ occurrences.
  *
+ * v3.1 (owner correction #1): the BHAGYANK (life-path) digit ALSO fills its
+ * cell — school rule 'भाग्यांक भी ग्रिड में भरता है'. Grid digits = DOB digits
+ * + Bhagyank digit; missing-number logic is verified AFTER the Bhagyank digit
+ * is added (a digit missing from the DOB but present as Bhagyank is NOT
+ * missing from the grid).
+ *
  * Two diagonals are commonly read in Indian Lo Shu practice:
  *   2-4-6-8  "Golden" (money/wealth) diagonal
  *   1-5-9    confidence / spiritual diagonal
@@ -43,14 +49,34 @@ export interface LoShuDiagonal {
 
 export interface LoShuResult {
   grid: LoShuCell[][]; // [row][col]; row 1 = top (4,9,2)
-  counts: Record<number, number>; // digit → occurrences in DOB
+  counts: Record<number, number>; // digit → occurrences (DOB digits + Bhagyank digit)
+  dobCounts: Record<number, number>; // digit → occurrences in the DOB digits only
+  bhagyank: number; // the life-path digit that fills its cell (1-9)
   zeros: number;
   planes: LoShuPlane[];
   diagonals: LoShuDiagonal[];
   strengths: string[]; // completed rows/diagonals ("arrows")
-  missing: number[]; // digits with count 0
+  missing: number[]; // digits with count 0 AFTER the Bhagyank digit is added
   missingNotes: string[]; // gentle reflection notes per missing digit
   steps: string[];
+}
+
+/**
+ * v3.1 helper — the Bhagyank digit that fills the grid cell.
+ * Bhagyank = month + day + year each digit-summed, then the sum reduced to a
+ * single digit. Masters 11/22/33 fold by the school rule (11→2, 22→4, 33→6)
+ * so the digit always sits in a real cell.
+ */
+function digitSumOf(n: number): number {
+  let s = n;
+  while (s > 9) s = String(s).split("").reduce((acc, d) => acc + Number(d), 0);
+  return s;
+}
+
+export function bhagyankFold(year: number, month: number, day: number): number {
+  const sum = digitSumOf(month) + digitSumOf(day) + digitSumOf(year);
+  const reduced = digitSumOf(sum);
+  return reduced === 11 ? 2 : reduced === 22 ? 4 : reduced === 33 ? 6 : reduced;
 }
 
 const GRID_ROWS: [number, number, number][] = [
@@ -128,8 +154,12 @@ const MISSING_GENTLE: Record<number, string> = {
 
 /**
  * Build the Lo Shu reading from a date of birth.
- * Digits are taken from the full DOB (e.g. 15-06-1990 → 1,5,0,6,1,9,9,0);
- * each digit 1-9 counts into its fixed cell; 0s are noted separately.
+ * v3.1: grid digits = DOB digits + the BHAGYANK digit ('भाग्यांक भी ग्रिड में
+ * भरता है'). Bhagyank = month + day + year, each reduced, sum reduced
+ * (masters folded by their school rule inside `bhagyankFold`). Example:
+ * 15-06-1990 → digits 1,5,6,1,9,9,0 + Bhagyank 4 → cell 4 gets +1.
+ * Missing-number logic runs AFTER the Bhagyank digit is added: a digit
+ * missing from the DOB but present as Bhagyank is NOT missing.
  */
 export function loShuGrid(year: number, month: number, day: number): LoShuResult {
   const dateStr = `${String(day).padStart(2, "0")}${String(month).padStart(
@@ -139,6 +169,7 @@ export function loShuGrid(year: number, month: number, day: number): LoShuResult
   const digits = dateStr.split("").map(Number);
 
   const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0 };
+  const dobCounts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0 };
   let zeros = 0;
   for (const d of digits) {
     if (d === 0) {
@@ -146,7 +177,12 @@ export function loShuGrid(year: number, month: number, day: number): LoShuResult
       continue;
     }
     counts[d]++;
+    dobCounts[d]++;
   }
+
+  // v3.1: the Bhagyank digit fills its grid cell too.
+  const bhagyank = bhagyankFold(year, month, day);
+  counts[bhagyank]++;
 
   const grid: LoShuCell[][] = GRID_ROWS.map((row) =>
     row.map((digit) => ({ digit, count: counts[digit] })),
@@ -205,7 +241,8 @@ export function loShuGrid(year: number, month: number, day: number): LoShuResult
   const steps: string[] = [
     `Digits of the birth date ${String(day).padStart(2, "0")}-${String(month).padStart(2, "0")}-${year}: ${digits.join(", ")}`,
     `Each digit 1-9 is counted in its fixed Lo Shu cell; 0 does not sit in the grid${zeros > 0 ? ` (${zeros} zero${zeros > 1 ? "s" : ""} noted separately)` : ""}.`,
-    `Counts: ${([1, 2, 3, 4, 5, 6, 7, 8, 9] as const)
+    `Bhagyank = ${digitSumOf(month)} + ${digitSumOf(day)} + ${digitSumOf(year)} = ${digitSumOf(month) + digitSumOf(day) + digitSumOf(year)} → ${bhagyank} — the Bhagyank digit also fills its grid cell (भाग्यांक भी ग्रिड में भरता है).`,
+    `Counts (DOB digits + Bhagyank digit): ${([1, 2, 3, 4, 5, 6, 7, 8, 9] as const)
       .filter((d) => counts[d] > 0)
       .map((d) => `${d}×${counts[d]}`)
       .join(", ")}.`,
@@ -215,6 +252,8 @@ export function loShuGrid(year: number, month: number, day: number): LoShuResult
   return {
     grid,
     counts,
+    dobCounts,
+    bhagyank,
     zeros,
     planes,
     diagonals,

@@ -3,7 +3,7 @@
 /**
  * ANKO KI MAYA v3 — RAJYOGA PAGE (owner addition).
  * 'Aapke chart mein X Rajyoga hai' — birth/name/combined classification,
- * traditional effects, planet friendship context, THE WHY reasoning.
+ * traditional effects, planet friendship context, basis reasoning.
  */
 
 import * as React from "react";

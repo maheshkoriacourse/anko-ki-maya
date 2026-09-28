@@ -198,7 +198,7 @@ export default function LifeEventsPage() {
               <Card key={oc.event.id} interactive>
                 <CardContent className="flex items-center justify-between gap-3 py-3.5">
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium">{oc.event.label}</p>
+                    <p className="text-sm font-medium [overflow-wrap:anywhere]">{oc.event.label}</p>
                     <p className="text-xs text-muted-foreground">
                       {oc.event.year} · PY{oc.personalYear} · {lang === "hi" ? "प्रभाव" : "impact"} {oc.event.impact}/10
                     </p>

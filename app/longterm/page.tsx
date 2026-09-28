@@ -125,11 +125,13 @@ export default function LongTermPage() {
               </p>
               <ol className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {group.rows.map((r) => (
-                  <li key={r.year} className="flex items-center gap-3 rounded-lg border p-3">
-                    <span aria-hidden className="number-glyph text-3xl text-primary/85">{r.py}</span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium">{r.year}</p>
-                      <p className="truncate text-xs text-muted-foreground">{r.label}</p>
+                  <li key={r.year} className="rounded-lg border p-3">
+                    <div className="flex items-start gap-3">
+                      <span aria-hidden className="number-glyph shrink-0 text-3xl text-primary/85">{r.py}</span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium">{r.year}</p>
+                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground [overflow-wrap:anywhere] hyphens:auto">{r.label}</p>
+                      </div>
                     </div>
                   </li>
                 ))}

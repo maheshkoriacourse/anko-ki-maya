@@ -143,10 +143,13 @@ export default function CompatibilityPage() {
                     A theme the two of you may notice together — an invitation to reflect, never a verdict on the relationship.
                   </p>
                   <details className="rounded-lg border bg-muted/40 px-3 py-2">
-                    <summary className="cursor-pointer text-xs font-medium text-primary">Why this reading?</summary>
+                    <summary className="cursor-pointer text-xs font-medium text-primary">Basis</summary>
                     <ol className="mt-2 list-decimal pl-4 text-xs text-muted-foreground">
                       {pair.steps.map((s, i) => <li key={i}>{s}</li>)}
                     </ol>
+                    <p className="mt-1.5 font-serif-display text-xs italic text-gold">
+                      On this basis we predict your reading.
+                    </p>
                   </details>
                 </CardContent>
               </Card>

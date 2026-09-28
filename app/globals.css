@@ -125,6 +125,41 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* v3.1 DIVINE BACKGROUND TEXTURE (public/img/divine-bg.webp)          */
+/* App-wide fixed layer behind ALL content: faint Om, lotus, trishul,  */
+/* Sri Yantra, glowing Devanagari numerals, diya. Dark ~0.55, light    */
+/* ~0.16 — subtle so text stays readable everywhere. Loaded lazily     */
+/* via a CSS-only fixed layer (no JS, no layout shift).                */
+/* ------------------------------------------------------------------ */
+
+.divine-bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: url("/img/divine-bg.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  opacity: 0.55;
+  animation: divine-breathe 24s ease-in-out infinite alternate;
+}
+
+.light .divine-bg-layer,
+:not(.dark) .divine-bg-layer {
+  opacity: 0.16;
+}
+
+@keyframes divine-breathe {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .divine-bg-layer { animation: none; }
+}
+
 @utility font-display {
   font-family: var(--font-display);
 }
@@ -189,6 +224,90 @@
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--foreground) 4%, transparent),
     0 12px 40px -18px color-mix(in srgb, #000 35%, transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/* v3.1 CINEMATIC DIVINE HEADER (public/img/divine-header.webp)         */
+/* Dashboard hero banner: giant golden Om over the Sri-Yantra mandala, */
+/* deities in cosmic mist, diya lamps, temple light rays. Ken-burns    */
+/* zoom; bottom gradient melts into the page background; decorative,   */
+/* not clickable. Title/greeting overlays it (white + gold + shadow).  */
+/* ------------------------------------------------------------------ */
+
+.divine-hero {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  isolation: isolate;
+}
+@media (max-width: 640px) {
+  .divine-hero { height: 230px; border-radius: calc(var(--radius) - 4px); }
+}
+
+.divine-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  animation: ken-burns 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes ken-burns {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .divine-hero-img { animation: none; }
+}
+
+.divine-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--indigo-deep) 14%, transparent) 0%,
+      transparent 30%,
+      color-mix(in srgb, var(--indigo-deep) 55%, transparent) 74%,
+      var(--background) 100%
+    );
+}
+
+.divine-hero-content {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 1.25rem 1.5rem 1.75rem;
+}
+@media (max-width: 640px) {
+  .divine-hero-content { padding: 0.9rem 1.1rem 1.2rem; }
+}
+.divine-hero-content h1 {
+  color: #fff7ea;
+  text-shadow: 0 2px 18px rgb(20 17 58 / 0.85), 0 1px 3px rgb(0 0 0 / 0.6);
+}
+.divine-hero-content .hero-sub {
+  color: #ffd98f;
+  text-shadow: 0 1px 12px rgb(20 17 58 / 0.9), 0 1px 2px rgb(0 0 0 / 0.55);
+}
+.divine-hero-content .hero-badge {
+  background: rgb(20 17 58 / 0.55);
+  border: 1px solid rgb(255 184 77 / 0.4);
+  backdrop-filter: blur(6px);
+  color: #ffd98f;
+}
+
+/* Small ॐ watermark for section dividers (v3.1) */
+.om-divider-mark {
+  font-family: var(--font-hindi);
+  color: var(--gold);
+  opacity: 0.7;
+  line-height: 1;
+  user-select: none;
 }
 
 /* ------------------------------------------------------------------ */
@@ -295,6 +414,10 @@
     background: none !important;
   }
   .diya-glow-fixed::before {
+    display: none !important;
+  }
+  .divine-bg-layer,
+  .divine-hero {
     display: none !important;
   }
   .page-break {

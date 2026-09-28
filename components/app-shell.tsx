@@ -98,6 +98,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const isBlueprint = pathname === "/blueprint";
   const bare = isOnboarding || isCompatibility || isReport || isBlueprint;
 
+  // v3.1: app-wide fixed divine-bg texture (lazy: painted by CSS after first
+  // paint, never blocks LCP).
+  const divineBg = <div aria-hidden className="divine-bg-layer" />;
+
   function isActive(href: string) {
     if (href === "/overview") return pathname === "/overview" || pathname === "/compatibility";
     return pathname.startsWith(href);
@@ -149,6 +153,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   if (bare) {
     return (
       <div className="min-h-dvh starfield diya-glow">
+        {divineBg}
         <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
           <div className="mb-8 flex items-center justify-between">
             {brand}
@@ -170,6 +175,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-dvh starfield diya-glow-fixed">
+      {divineBg}
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-card/70 px-4 py-6 backdrop-blur md:flex no-print">
         {brand}

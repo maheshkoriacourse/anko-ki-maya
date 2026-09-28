@@ -36,6 +36,7 @@ import { luckyProfile } from "@/lib/lucky";
 import { reduce } from "@/lib/numerology";
 import { scoreName } from "@/lib/name-studio";
 import { loShuGrid } from "@/lib/loshu";
+import { analyzeRepetitions } from "@/lib/repetitions";
 import { ReasoningBlock } from "@/components/loshu-kit";
 
 function sectionAnchor(id: string): string {
@@ -59,7 +60,10 @@ export default function BlueprintReportPage() {
     const yy = Number(profile.birthDate.slice(0, 4));
     const mm = Number(profile.birthDate.slice(5, 7));
     const dd = Number(profile.birthDate.slice(8, 10));
-    setGraph(buildLifeGraph(yy, mm, dd, new Date().getFullYear(), reading.pinnacles));
+    setGraph(buildLifeGraph(yy, mm, dd, new Date().getFullYear(), reading.pinnacles, {
+      mulank: reading.birthday.number,
+      bhagyank: reading.lifePath.number,
+    }));
     setMarks(loadYearMarks(profile.birthDate));
     setAreaReport(buildLifeAreaReport({
       birthYear: yy,
@@ -118,6 +122,7 @@ export default function BlueprintReportPage() {
     maturitySum: reading.maturity.number,
   });
   const chart = loShuGrid(y, m, d);
+  const reps = analyzeRepetitions(y, m, d, mulank, bhagyank);
 
   const truthCtx = {
     mulank,
@@ -446,6 +451,62 @@ export default function BlueprintReportPage() {
             </CardContent>
           </Card>
         </div>
+
+        {/* v3.1: NUMBER REPETITIONS (owner correction #4 — school deck 'वर्तमान अंक गुणन') */}
+        <Card className="mt-4 border-gold/40 bg-gold/5">
+          <CardHeader>
+            <CardTitle className="text-base">
+              {hi ? "अंक-पुनरावृत्ति — पूरी जन्म-तिथि के दोहराए अंक" : "Number repetitions — repeated digits of the full birth date"}
+            </CardTitle>
+            <p className="text-xs text-muted-foreground">
+              {hi
+                ? "स्कूल-पद्धति: 2-समान = ऊर्जा दोगुनी (ताक़त + छाया दोनों); 3-समान = अत्यंत तीव्र। हर दोहराए अंक का बल, छाया और छाया का उपाय नीचे।"
+                : "School method: 2-same = energy doubled (strength AND shadow); 3-same = very intense. Each repeated digit carries its strength, shadow and the upay for the shadow."}
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-xs text-gold">
+              {hi
+                ? `गिनती: ${reps.entries.map((e) => `${devNum(e.digit)}×${devNum(e.count)}`).join(" · ")}${Object.entries(reps.counts).length ? " — 0 ग्रिड से बाहर" : ""}`
+                : `Tally: ${reps.entries.map((e) => `${e.digit}×${e.count}`).join(" · ")}`}
+            </p>
+            {reps.entries.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                {hi
+                  ? "कोई अंक दोहराया नहीं गया — ऊर्जा नौ अंकों में बँटी है; प्रबलता मूलांक-भाग्यांक से पढ़ें।"
+                  : "No digit repeats in your date — the energy spreads across nine digits; read strength from Mulank and Bhagyank."}
+              </p>
+            ) : (
+              reps.entries.map((e) => (
+                <div key={e.digit} className="rounded-lg border bg-card/60 p-3">
+                  <p className="font-display text-sm font-semibold text-gold">
+                    {hi
+                      ? `${devNum(e.digit)} × ${devNum(e.count)} — ${e.level === "triple" ? "अत्यंत तीव्र (त्रिक)" : "ऊर्जा दोगुनी (युगल)"}`
+                      : `${e.digit} × ${e.count} — ${e.level === "triple" ? "very intense (triple)" : "energy doubled (double)"}`}
+                  </p>
+                  <p className="mt-1 text-sm">{hi ? e.strengthHi : e.strengthEn}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{hi ? e.shadowHi : e.shadowEn}</p>
+                  <p className="mt-1.5 text-xs text-gold">{hi ? e.upayHi : e.upayEn}</p>
+                </div>
+              ))
+            )}
+            {reps.mulankBhagyankSame ? (
+              <div className="rounded-lg border border-kesari/50 bg-kesari/10 p-3">
+                <p className="font-display text-sm font-semibold text-kesari">
+                  {hi
+                    ? `विशेष: मूलांक और भाग्यांक दोनों ${devNum(reps.mulankBhagyankSame.digit)} — यही अंक आपका वाहक भी है और नियति भी। पहला हाफ़ और दूसरा हाफ़, एक ही ग्रह के हाथ में।`
+                    : `Special callout: Mulank AND Bhagyank are both ${reps.mulankBhagyankSame.digit} — the same digit drives your first half and rules your second. One planet holds both reins.`}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {hi ? reps.mulankBhagyankSame.shadowHi : reps.mulankBhagyankSame.shadowEn}
+                </p>
+                <p className="mt-1 text-xs text-gold">
+                  {hi ? reps.mulankBhagyankSame.upayHi : reps.mulankBhagyankSame.upayEn}
+                </p>
+              </div>
+            ) : null}
+          </CardContent>
+        </Card>
 
         {/* Karmic debts */}
         {karmHits.hits.length > 0 ? (

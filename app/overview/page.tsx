@@ -11,7 +11,7 @@ import * as React from "react";
 import { CalendarDays, Flame, Smartphone, Crown, Grid3X3, Gem } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/components/ui";
 import {
-  PageHeader, NumberCard, JournalShortcut, DiyaMotif, YantraMotif, EmptyState, LoadingCards,
+  PageHeader, NumberCard, JournalShortcut, DiyaMotif, YantraMotif, EmptyState, LoadingCards, DivineHero,
 } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
@@ -78,7 +78,8 @@ export default function OverviewPage() {
 
   return (
     <div className="space-y-8">
-      <PageHeader
+      {/* v3.1: cinematic divine hero — greeting overlays the banner */}
+      <DivineHero
         title={hi ? `नमस्ते, ${firstName}` : `Namaste, ${firstName}`}
         subtitle={
           hi
@@ -86,7 +87,7 @@ export default function OverviewPage() {
             : `Ank Dasha ${currentPY.number} runs now — ${dashaYear.name}. Below: where you stand and what runs next.`
         }
         actions={
-          <Badge variant="gold">
+          <Badge variant="gold" className="hero-badge">
             <DiyaMotif aria-hidden className="size-3.5" />
             {hi ? "ज्योतिष का अंक-हिस्सा" : "Ank Shastra"}
           </Badge>
@@ -241,7 +242,7 @@ export default function OverviewPage() {
                     <div className="intensity mt-2" aria-hidden>
                       <span style={{ width: `${(intensity / 9) * 100}%` }} />
                     </div>
-                    <p className="mt-2 text-xs text-muted-foreground">
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
                       {ANK_DASHA_MONTH[m.personalMonth]?.[hi ? "lineHi" : "lineEn"] ?? ""}
                     </p>
                     <span className="sr-only">Ank month intensity {intensity} of 9.</span>

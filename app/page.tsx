@@ -101,6 +101,25 @@ export default function OnboardingPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
+      {/* v3.1: subdued divine banner on onboarding — blurred, melts downward */}
+      <div aria-hidden className="relative mb-8 h-40 overflow-hidden rounded-2xl sm:h-52">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/img/divine-header.webp"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 size-full scale-110 object-cover object-center opacity-70 blur-[2px]"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, color-mix(in srgb, var(--indigo-deep) 30%, transparent), transparent 42%, var(--background) 100%)",
+          }}
+        />
+      </div>
       <ConciergeSection />
       <div className="my-10 text-center">
         <SanatanDivider className="mx-auto max-w-sm" />

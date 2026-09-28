@@ -57,8 +57,11 @@ export function PlaneBadge({ complete, lang }: { complete: boolean; lang: Lang }
 }
 
 /**
- * THE WHY / यह क्यों कहा — gold-rule serif italic aside showing the
- * calculation steps behind a section. Required on every interpretive section.
+ * v3.1 — कारण-गणित / Basis block (owner correction #3).
+ * The old "THE WHY / यह क्यों कहा" phrasing is banned; reasoning now reads
+ * as DIRECT basis lines with the closing 'इसी आधार पर हम आपके लिए यह
+ * predict करते हैं'. Renders the shared BasisBlock; the old export name
+ * stays as an alias for the pages that import it.
  */
 export function ReasoningBlock({
   title,
@@ -75,7 +78,7 @@ export function ReasoningBlock({
     <details className={`group rounded-lg border border-gold/25 bg-muted/30 ${className}`}>
       <summary className="flex cursor-pointer items-center gap-2 px-4 py-2.5 font-serif-display text-sm italic text-gold">
         <span aria-hidden className="gold-rule w-6" />
-        {lang === "hi" ? "यह क्यों कहा" : "THE WHY"} — {title}
+        {lang === "hi" ? `आधार / Basis — ${title}` : `Basis — ${title}`}
         <span className="ml-auto text-xs not-italic text-muted-foreground group-open:hidden">
           {lang === "hi" ? "दिखाएँ" : "show"}
         </span>
@@ -86,10 +89,10 @@ export function ReasoningBlock({
             <li key={i} className="whitespace-pre-wrap">{s}</li>
           ))}
         </ol>
-        <p className="mt-2 font-serif-display text-xs italic text-muted-foreground">
+        <p className="mt-2 font-serif-display text-xs italic text-gold">
           {lang === "hi"
-            ? "पारंपरिक पठन को चिंतन-विषय के रूप में प्रस्तुत किया गया है — भविष्यवाणी के रूप में नहीं।"
-            : "Traditional readings are presented as reflection themes — not predictions."}
+            ? "इसी आधार पर हम आपके लिए यह predict करते हैं।"
+            : "On this basis we predict your reading."}
         </p>
       </div>
     </details>

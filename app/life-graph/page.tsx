@@ -18,7 +18,7 @@ import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
 import { t as rawT } from "@/lib/content";
 import {
-  buildLifeGraph, curveGeometry, patternNote,
+  buildLifeGraph, curveGeometry, patternNote, BIG_REASON_LABEL,
   type YearMark,
 } from "@/lib/life-graph";
 import { loadYearMarks, saveYearMark } from "@/lib/marks-storage";
@@ -66,12 +66,14 @@ export default function LifeGraphPage() {
         title={t("navLifeGraph")}
         subtitle={
           hi
-            ? "इंजन ने आपके जन्म से आज तक के हर वर्ष का 'क्या हुआ होगा' वाचन अंकों से भर दिया है — आप बस ✓ सही / ✗ गलत चिह्नित कीजिए। पक्की घटनाएँ ग्राफ़ पर गाड़ दी जाती हैं।"
-            : "The engine has filled a 'what happened' reading for every year birth→now from your numbers — you only mark ✓ right / ✗ wrong. Confirmed events pin onto the graph."
+            ? "इंजन ने आपके जन्म से आज तक के हर वर्ष का 'क्या हुआ होगा' वाचन अंकों से भर दिया है — आप बस ✓ सही / ✗ गलत चिह्नित कीजिए। बड़े साल समय-रेखा बनाते हैं; बाक़ी वर्ष फीकी पृष्ठभूमि-वक्र।"
+            : "The engine has filled a 'what happened' reading for every year birth→now from your numbers — you only mark ✓ right / ✗ wrong. Big years build the timeline; the rest stays a faint background curve."
         }
         actions={
           <Badge variant="gold">
-            {hi ? `${devNum(graph.past.length)} वर्ष पढ़े गए` : `${graph.past.length} years read`}
+            {hi
+              ? `${devNum(graph.bigYears.length)} बड़े साल`
+              : `${graph.bigYears.length} big years`}
           </Badge>
         }
       />
@@ -137,8 +139,12 @@ export default function LifeGraphPage() {
             })()}
             {/* future dashed segment */}
             <path d={geo.futurePath} fill="none" stroke="var(--gold)" strokeWidth={2} strokeDasharray="5 6" opacity={0.55} strokeLinecap="round" />
-            {/* main curve */}
-            <path d={geo.path} fill="none" stroke="var(--gold)" strokeWidth={2.5} strokeLinecap="round" />
+            {/* v3.1: faint background curve (non-big past years) */}
+            <path d={geo.faintPath} fill="none" stroke="var(--gold)" strokeWidth={1.2} opacity={0.18} strokeLinecap="round" />
+            {/* v3.1: big-years strong curve */}
+            <path d={geo.bigPath} fill="none" stroke="var(--kesari)" strokeWidth={3} opacity={0.95} strokeLinecap="round" />
+            {/* main curve (subtle spine beneath the big/faint split) */}
+            <path d={geo.path} fill="none" stroke="var(--gold)" strokeWidth={1} opacity={0.25} strokeLinecap="round" />
             {/* year dots */}
             {geo.points.map((p) => (
               <g key={p.year}>
@@ -154,11 +160,32 @@ export default function LifeGraphPage() {
                 </circle>
               </g>
             ))}
-            {/* pinned labels */}
+            {/* pinned labels (user-confirmed सही events) */}
             {geo.pins.map((p) => (
               <text key={`pin-${p.year}`} x={p.x} y={p.y - 11} fontSize={10} textAnchor="middle" fill="var(--kesari)" fontWeight="600">
                 ✓ {hi ? devNum(p.year) : p.year}
               </text>
+            ))}
+            {/* v3.1: BIG-YEAR event pins — बड़े साल with their event labels */}
+            {geo.bigPins.map((p) => (
+              <g key={`big-${p.year}`}>
+                <circle
+                  cx={p.x} cy={p.y} r={7.5}
+                  fill="var(--kesari)" stroke="var(--background)" strokeWidth={2}
+                  opacity={0.95}
+                >
+                  <title>{`${p.year} · बड़े साल · ${p.eventLabelHi ?? ""}`}</title>
+                </circle>
+                <text x={p.x} y={p.y + 3.5} fontSize={7.5} textAnchor="middle" fill="var(--background)" fontWeight="700">
+                  {p.py}
+                </text>
+                <text x={p.x} y={p.y - 12} fontSize={9} textAnchor="middle" fill="var(--kesari)" fontWeight="700">
+                  {hi ? devNum(p.year) : p.year}
+                </text>
+                <text x={p.x} y={p.y + 20} fontSize={8} textAnchor="middle" fill="var(--gold-bright)" opacity={0.9}>
+                  {(hi ? p.eventLabelHi : p.eventLabel)?.slice(0, 26) ?? ""}
+                </text>
+              </g>
             ))}
           </svg>
           <p className="mt-2 text-center text-[11px] text-muted-foreground">
@@ -198,7 +225,85 @@ export default function LifeGraphPage() {
         </Card>
       ) : null}
 
-      {/* PAST YEAR-BY-YEAR READINGS */}
+      {/* v3.1: बड़े साल — BIG-YEAR TIMELINE (owner correction #2) */}
+      <section aria-labelledby="big-years-h">
+        <h2 id="big-years-h" className="font-display text-xl font-semibold">
+          {hi ? "बड़े साल — समय-रेखा बड़ी घटनाओं से बनती है" : "Big years — the timeline is built from them"}
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {hi
+            ? "सिर्फ़ बड़े साल ही नीचे समय-रेखा पर खड़े हैं — कर्मिक ऋण, शिखर-बदल, दशा 1/9, मूलांक-भाग्यांक की दशा, अंक-पुनरावृत्ति या मील-पत्थर आयु (२७/३६/४५/५४) वाले वर्ष। बाक़ी वर्ष ऊपर फीके वक्र हैं।"
+            : "Only big years stand on the timeline below — years with karmic debt, a pinnacle boundary, PY 1/9, PY = Mulank/Bhagyank, a digit-repetition surge, or a milestone age (27/36/45/54). The rest stay the faint curve above."}
+        </p>
+        <div className="mt-4 space-y-3">
+          {graph.bigYears.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              {hi ? "इस अंतराल में कोई बड़ा साल नहीं बना।" : "No big years in this span."}
+            </p>
+          ) : (
+            [...graph.bigYears].reverse().map((p) => {
+              const verdict = markMap.get(p.year);
+              return (
+                <Card
+                  key={`big-${p.year}`}
+                  className={verdict === "sahi" ? "border-kesari/70 bg-kesari/10" : "border-kesari/40"}
+                >
+                  <CardContent className="py-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <span aria-hidden className="number-glyph mandala-ring grid size-11 place-items-center rounded-full bg-kesari/15 text-lg text-kesari">
+                          {hi ? devNum(p.py) : p.py}
+                        </span>
+                        <div>
+                          <p className="font-display text-base font-semibold">
+                            {hi ? `बड़ा साल ${devNum(p.year)} · उम्र ${devNum(p.age)}` : `Big year ${p.year} · age ${p.age}`}
+                            {verdict === "sahi" ? <Badge variant="gold" className="ml-2">✓ {hi ? "सही" : "confirmed"}</Badge> : null}
+                            {verdict === "galat" ? <Badge variant="secondary" className="ml-2">✗ {hi ? "गलत" : "wrong"}</Badge> : null}
+                          </p>
+                          <p className="mt-0.5 flex flex-wrap gap-1.5">
+                            {p.bigReasons.map((r, i) => (
+                              <Badge key={r + i} variant="secondary" className="text-[10px]">
+                                {hi ? BIG_REASON_LABEL[r]?.hi : BIG_REASON_LABEL[r]?.en}
+                              </Badge>
+                            ))}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Button
+                          size="sm"
+                          variant={verdict === "sahi" ? "default" : "outline"}
+                          aria-pressed={verdict === "sahi"}
+                          aria-label={`${p.year} — ${hi ? "सही" : "right"}`}
+                          onClick={() => mark(p.year, "sahi")}
+                        >
+                          <Check aria-hidden /> ✓ {hi ? "सही" : "right"}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={verdict === "galat" ? "destructive" : "outline"}
+                          aria-pressed={verdict === "galat"}
+                          aria-label={`${p.year} — ${hi ? "गलत" : "wrong"}`}
+                          onClick={() => mark(p.year, "galat")}
+                        >
+                          <X aria-hidden /> ✗ {hi ? "गलत" : "wrong"}
+                        </Button>
+                      </div>
+                    </div>
+                    {/* The LIKELY EVENT TYPE — named directly */}
+                    <p className="mt-3 font-serif-display text-[15px] font-medium leading-relaxed text-gold-bright dark:text-gold-bright">
+                      {hi ? p.eventHi : p.eventEn}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{hi ? p.readingHi : p.readingEn}</p>
+                  </CardContent>
+                </Card>
+              );
+            })
+          )}
+        </div>
+      </section>
+
+      {/* PAST YEAR-BY-YEAR READINGS (full list, below the big-years timeline) */}
       <section aria-labelledby="past-readings-h">
         <h2 id="past-readings-h" className="font-display text-xl font-semibold">
           {hi ? "अतीत — वर्ष-दर-वर्ष 'क्या हुआ होगा'" : "The past — year-by-year 'what happened'"}

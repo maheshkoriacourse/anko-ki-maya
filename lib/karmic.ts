@@ -2,7 +2,7 @@
  * Anko Ki Maya v2 — Karmic & name-structure engine.
  *
  * Pure functions. Interpretive copy lives in lib/content/. Every result
- * carries `steps` so the UI can show the calculation ("Why this reading?").
+ * carries `steps` so the UI can show the calculation (the Basis block).
  *
  * Systems implemented here (per the project study notes):
  *  - Karmic debt numbers 13 / 14 / 16 / 19 detected in core positions.
