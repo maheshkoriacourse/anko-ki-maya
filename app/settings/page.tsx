@@ -6,7 +6,7 @@
  */
 
 import * as React from "react";
-import { Download, Trash2, RotateCcw, ShieldCheck } from "lucide-react";
+import { Download, Trash2, RotateCcw, ShieldCheck, Languages } from "lucide-react";
 import {
   Card, CardContent, CardHeader, CardTitle, Button, Input, Label, Select, Checkbox,
 } from "@/components/ui";
@@ -17,10 +17,14 @@ import {
   DEFAULT_NOTIFICATIONS, type NotificationPrefs,
 } from "@/lib/storage";
 import { useTheme } from "next-themes";
+import { useLang } from "@/lib/lang";
+import { t as rawT } from "@/lib/content";
 
 export default function SettingsPage() {
   const { profile, save, resetToDemo, signOutToOnboarding, today } = useProfile();
   const { resolvedTheme, setTheme } = useTheme();
+  const { lang, setLang } = useLang();
+  const t = (key: string) => rawT(lang, key);
   const [ready, setReady] = React.useState(false);
   const [prefs, setPrefs] = React.useState<NotificationPrefs>(DEFAULT_NOTIFICATIONS);
   const [confirmDelete, setConfirmDelete] = React.useState(false);
@@ -143,6 +147,21 @@ export default function SettingsPage() {
               <option value="system">Match system</option>
             </Select>
             <span className="text-xs text-muted-foreground">Saved to this browser; follows your system by default.</span>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <Label htmlFor="lang-select" className="flex items-center gap-1.5">
+              <Languages aria-hidden className="size-4 text-gold" /> {t("settingsLanguage")}
+            </Label>
+            <Select
+              id="lang-select"
+              value={lang}
+              onChange={(e) => setLang(e.target.value === "hi" ? "hi" : "en")}
+              className="max-w-[220px]"
+            >
+              <option value="en">English</option>
+              <option value="hi">हिन्दी</option>
+            </Select>
+            <span className="text-xs text-muted-foreground">{t("settingsLanguageHint")}</span>
           </div>
         </CardContent>
       </Card>

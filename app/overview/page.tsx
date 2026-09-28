@@ -13,11 +13,15 @@ import {
   PageHeader, NumberCard, JournalShortcut, StarMotif, EmptyState, LoadingCards,
 } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
+import { useT } from "@/lib/lang";
+import { t as rawT } from "@/lib/content";
 import { PERSONAL_YEAR_THEMES, PERSONAL_MONTH_THEMES } from "@/lib/meanings";
 import { personalYear, upcomingMonths, monthName, type MonthCycle } from "@/lib/numerology";
 
 export default function OverviewPage() {
   const { profile, reading, today, hasProfile } = useProfile();
+  const { lang } = useT();
+  const t = (key: string) => rawT(lang, key);
   const [ready, setReady] = React.useState(false);
   React.useEffect(() => {
     const t = setTimeout(() => setReady(true), 350); // brief, intentional skeleton
@@ -214,13 +218,42 @@ export default function OverviewPage() {
         <JournalShortcut />
       </section>
 
+      {/* v2 quick-tiles */}
+      <section aria-labelledby="v2-tiles">
+        <h2 id="v2-tiles" className="mb-3 font-display text-lg font-semibold">
+          {lang === "hi" ? "विस्तारित अध्ययन" : "Go deeper"}
+        </h2>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { href: "/loshu", icon: "▦", labelKey: "navLoShu", desc: lang === "hi" ? "तल, विकर्ण, युतियाँ" : "Planes, diagonals, yogas" },
+            { href: "/life-events", icon: "📈", labelKey: "navLifeEvents", desc: lang === "hi" ? "घटनाएँ × चक्र" : "Events × cycles" },
+            { href: "/lucky", icon: "☉", labelKey: "navLucky", desc: lang === "hi" ? "अंक, दिन, रंग, रत्न" : "Numbers, days, colors, gems" },
+            { href: "/name-studio", icon: "✎", labelKey: "navNameStudio", desc: lang === "hi" ? "कैल्डियन स्कोर + सुझाव" : "Chaldean score + suggestions" },
+          ].map((tile) => (
+            <a key={tile.href} href={tile.href} className="group">
+              <Card interactive className="h-full glass">
+                <CardContent className="flex flex-col items-start gap-1.5 py-4">
+                  <span aria-hidden className="text-xl text-gold">{tile.icon}</span>
+                  <span className="text-sm font-medium group-hover:underline">{t(tile.labelKey)}</span>
+                  <span className="text-xs text-muted-foreground">{tile.desc}</span>
+                </CardContent>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <div>
         <StarMotif className="mx-auto size-8 text-gold/60" />
         <p className="mt-2 text-center text-xs text-muted-foreground">
           Cycles are interpretive themes, not guaranteed outcomes.{" "}
-          <a href="/report" className="text-primary underline underline-offset-4">Print a reflection report</a>
+          <a href="/blueprint" className="text-primary underline underline-offset-4">
+            {lang === "hi" ? "पूर्ण लाइफ़ ब्लूप्रिंट रिपोर्ट" : "Open the full Life Blueprint report"}
+          </a>
           {" · "}
-          <a href="/compatibility" className="text-primary underline underline-offset-4">Compare with someone (consent first)</a>
+          <a href="/report" className="text-primary underline underline-offset-4">{lang === "hi" ? "छोटी रिपोर्ट" : "Short reflection report"}</a>
+          {" · "}
+          <a href="/compatibility" className="text-primary underline underline-offset-4">{lang === "hi" ? "तुलना" : "Compare with someone (consent first)"}</a>
         </p>
       </div>
     </div>

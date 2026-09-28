@@ -56,3 +56,16 @@
   background: var(--primary);
   opacity: 0.85;
 }
+
+/* Fixed aurora wash behind content (sidebar pages) */
+.aurora-wash-fixed::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, #6d28d9 14%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 85% 10%, color-mix(in srgb, var(--gold) 8%, transparent), transparent 70%),
+    radial-gradient(55% 45% at 50% 100%, color-mix(in srgb, #4c1d95 12%, transparent), transparent 75%);
+}

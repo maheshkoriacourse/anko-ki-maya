@@ -6,19 +6,26 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   Sparkles, LayoutDashboard, Hash, CalendarRange, Map, BookOpen,
-  Settings, Moon, Sun, Printer,
+  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Languages,
 } from "lucide-react";
 import { Button } from "@/components/ui";
 import { DisclaimerLine } from "@/components/shared";
 import { useHasProfile } from "@/components/seeded-profile";
+import { useLang } from "@/lib/lang";
+import { t as rawT } from "@/lib/content";
 
 export const NAV_ITEMS = [
-  { href: "/overview", label: "Overview", icon: LayoutDashboard },
-  { href: "/numbers", label: "Your Numbers", icon: Hash },
-  { href: "/forecast", label: "Six-Month Forecast", icon: CalendarRange },
-  { href: "/longterm", label: "Long-Term Map", icon: Map },
-  { href: "/journal", label: "Journal", icon: BookOpen },
-  { href: "/settings", label: "Settings & Privacy", icon: Settings },
+  { href: "/overview", labelKey: "navOverview", icon: LayoutDashboard },
+  { href: "/numbers", labelKey: "navNumbers", icon: Hash },
+  { href: "/loshu", labelKey: "navLoShu", icon: Grid3X3 },
+  { href: "/life-events", labelKey: "navLifeEvents", icon: LineChart },
+  { href: "/lucky", labelKey: "navLucky", icon: Gem },
+  { href: "/name-studio", labelKey: "navNameStudio", icon: Wand2 },
+  { href: "/forecast", labelKey: "navForecast", icon: CalendarRange },
+  { href: "/longterm", labelKey: "navLongterm", icon: Map },
+  { href: "/journal", labelKey: "navJournal", icon: BookOpen },
+  { href: "/blueprint", labelKey: "navBlueprint", icon: FileText },
+  { href: "/settings", labelKey: "navSettings", icon: Settings },
 ] as const;
 
 function ThemeToggle() {
@@ -37,13 +44,38 @@ function ThemeToggle() {
   );
 }
 
+/** EN ⇄ हिन्दी toggle (persisted via the lang module). */
+function LangToggle() {
+  const { lang, setLang } = useLang();
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      className="gap-1.5 px-2 text-xs"
+      aria-label={`Language: switch to ${lang === "en" ? "Hindi" : "English"}`}
+      onClick={() => setLang(lang === "en" ? "hi" : "en")}
+    >
+      <Languages aria-hidden className="size-4 text-gold" />
+      <span className={lang === "hi" ? "font-devanagari" : ""}>
+        {lang === "en" ? "EN" : "हिन्दी"}
+      </span>
+    </Button>
+  );
+}
+
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { hasProfile } = useHasProfile();
+  const { lang } = useLang();
+  const t = (key: string) => rawT(lang, key);
   const isOnboarding = pathname === "/";
   const isCompatibility = pathname === "/compatibility";
   const isReport = pathname === "/report";
-  const bare = isOnboarding || isCompatibility || isReport;
+  const isBlueprint = pathname === "/blueprint";
+  const bare = isOnboarding || isCompatibility || isReport || isBlueprint;
 
   function isActive(href: string) {
     if (href === "/overview") return pathname === "/overview" || pathname === "/compatibility";
@@ -67,7 +99,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               }}
             >
               <item.icon className="size-5" aria-hidden />
-              <span>{item.label}</span>
+              <span>{t(item.labelKey)}</span>
             </Link>
           </li>
         ))}
@@ -88,7 +120,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <Sparkles className="size-5" />
       </span>
       <span className="font-display text-lg font-semibold tracking-tight">
-        Anko Ki Maya
+        {t("appName")}
       </span>
     </Link>
   );
@@ -100,11 +132,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <div className="mb-8 flex items-center justify-between">
             {brand}
             <div className="flex items-center gap-1">
-              {isReport ? (
+              {isReport || isBlueprint ? (
                 <Button variant="outline" size="sm" className="no-print" onClick={() => window.print()}>
-                  <Printer aria-hidden /> Print / Save PDF
+                  <Printer aria-hidden /> {t("printPdf")}
                 </Button>
-                ) : null}
+              ) : null}
+              {isReport ? <LangToggle /> : null}
               <ThemeToggle />
             </div>
           </div>
@@ -115,21 +148,27 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-dvh starfield">
+    <div className="min-h-dvh starfield aurora-wash-fixed">
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-card/60 px-4 py-6 backdrop-blur md:flex no-print">
         {brand}
         {nav}
         <div className="mt-auto flex items-center justify-between px-1 pt-6">
-          <span className="text-xs text-muted-foreground">v1 · self-reflection</span>
-          <ThemeToggle />
+          <span className="text-xs text-muted-foreground">v2 · self-reflection</span>
+          <div className="flex items-center gap-1">
+            <LangToggle />
+            <ThemeToggle />
+          </div>
         </div>
       </aside>
 
       {/* Mobile top bar */}
       <header className="sticky top-0 z-40 flex items-center justify-between border-b bg-card/80 px-4 py-3 backdrop-blur md:hidden no-print">
         {brand}
-        <ThemeToggle />
+        <div className="flex items-center gap-1">
+          <LangToggle />
+          <ThemeToggle />
+        </div>
       </header>
 
       {/* Content */}
@@ -156,10 +195,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   isActive(item.href) ? "text-primary" : "text-muted-foreground"
                 }`}
                 aria-current={isActive(item.href) ? "page" : undefined}
-                aria-label={item.label}
+                aria-label={t(item.labelKey)}
               >
                 <item.icon className="size-5" aria-hidden />
-                <span aria-hidden>{item.label.split(" ")[0]}</span>
+                <span aria-hidden>{t(item.labelKey).split(" ")[0]}</span>
               </Link>
             </li>
           ))}

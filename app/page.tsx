@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { Sparkles, Star } from "lucide-react";
 import { Button, Input, Label, Badge, Checkbox, Card, CardContent } from "@/components/ui";
 import { DisclaimerLine } from "@/components/shared";
+import { ConciergeSection } from "@/components/concierge";
 import { useProfile } from "@/components/seeded-profile";
 import { isValidBirthDate, sanitizeName } from "@/lib/numerology";
 import { DISCLAIMER } from "@/lib/meanings";
@@ -105,6 +106,13 @@ export default function OnboardingPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
+      <ConciergeSection />
+      <div className="my-10 text-center">
+        <span aria-hidden className="gold-rule mx-auto block w-40" />
+        <p className="mt-4 font-serif-display text-lg italic text-gold">
+          …or begin your own reading below — free, private, in this browser only.
+        </p>
+      </div>
       <div className="mb-8 text-center">
         <span aria-hidden className="mx-auto mb-4 grid size-14 place-items-center rounded-2xl bg-primary text-primary-foreground">
           <Sparkles className="size-7" />
