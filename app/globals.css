@@ -82,9 +82,9 @@
   --color-gold-bright: var(--gold-bright);
   --color-midnight: var(--midnight);
   --color-plum: var(--plum);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-cinzel), var(--font-cormorant), Georgia, serif;
-  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-inter), var(--font-noto-devanagari), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cinzel), var(--font-cormorant), var(--font-noto-devanagari), Georgia, serif;
+  --font-serif: var(--font-cormorant), var(--font-noto-devanagari), Georgia, serif;
   --font-hindi: var(--font-noto-devanagari), "Noto Serif Devanagari", serif;
 }
 
