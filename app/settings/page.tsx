@@ -43,16 +43,6 @@ export default function SettingsPage() {
     );
   }
 
-  const [form, setForm] = React.useState({
-    birthName: profile.birthName,
-    preferredName: profile.preferredName,
-    birthDate: profile.birthDate,
-    birthTime: profile.birthTime,
-    birthplace: profile.birthplace,
-    system: profile.system,
-  });
-  void form; void setForm;
-
   return (
     <div className="space-y-6">
       <PageHeader

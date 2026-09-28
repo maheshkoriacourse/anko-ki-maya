@@ -242,6 +242,12 @@ Vercel (personal scope, no teamId) → https://anko-ki-maya.vercel.app.
 Repo: `maheshkoriacourse/anko-ki-maya` (public). Local build: `npm run build`
 (0 errors). Tests: `npm test` (52/52).
 
+### Lighthouse (real run, chromium 153 via CDP port 21222, 28 Sep 2026)
+
+`/overview` on production: **Performance 97 · Accessibility 96 ·
+Best-Practices 100 · SEO 100** — report JSON saved at
+`screenshots/lighthouse-overview.json`.
+
 ## License
 
 MIT © 2026 Mahesh Koria. All interpretive copy is original to this project —
