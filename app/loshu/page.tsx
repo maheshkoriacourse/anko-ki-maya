@@ -17,6 +17,7 @@ import { LO_SHU_DIGIT_THEME } from "@/lib/loshu";
 import { analyzeRepetitions } from "@/lib/repetitions";
 import { gridYogas } from "@/lib/grid-yogas";
 import { devNum } from "@/lib/navgrah";
+import { vedicChart, grahaChainLine, verifyNakshatra } from "@/lib/vedic";
 import { ReasoningBlock, PlaneBadge, DigitCell } from "@/components/loshu-kit";
 
 export default function LoShuPage() {
@@ -36,30 +37,55 @@ export default function LoShuPage() {
   const bhagyank = reading?.lifePath.number;
   const reps = y ? analyzeRepetitions(y, m, d, mulank, bhagyank) : null;
 
+  // v3.3: secret graha-chain + nakshatra verification — Basis-block lines.
+  // The nakshatra badge renders as a quiet verification strip above the grid
+  // (never the word 'astrology' — 'graha pramanikaran' only).
+  let chainLine: string | null = null;
+  let nakBadge: string | null = null;
+  if (y && mulank) {
+    const vc = vedicChart({ year: y, month: m, day: d });
+    chainLine = grahaChainLine(mulank, vc, lang);
+    const nv = verifyNakshatra(mulank, vc);
+    nakBadge = lang === "hi"
+      ? `${nv.badgeHi} — janm-nakshatra ${vc.nakshatraName} (${nv.nakshatraLordGraha}), Mulank ${devNum(mulank)} (${nv.mulankGraha}) ke vachan par mohar`
+      : `${nv.badgeEn} — janma nakshatra ${vc.nakshatraName} (${nv.nakshatraLordGraha}) co-signs the Mulank ${mulank} (${nv.mulankGraha}) reading`;
+  }
+
   return (
     <div className="space-y-8">
       <PageHeader
         title={t("navLoShu")}
         subtitle={
           lang === "hi"
-            ? "आपकी जन्मतिथि के अंक + भाग्यांक 3×3 जादुई वर्ग में कहाँ बैठते हैं — तल, विकर्ण, बाण और युतियाँ। भाग्यांक भी ग्रिड में भरता है।"
+            ? "aapki janmatithi ke ank + Bhagyank 3×3 jaaduee varg mein kaha baithate hain — tal, vikarn, baan aur yutiyaa. Bhagyank bhi grid mein bharta hai."
             : "Where the digits of your birth date AND your Bhagyank sit in the 3×3 magic square — planes, diagonals, arrows and yogas. The Bhagyank digit also fills the grid."
         }
-        actions={<Badge variant="gold"><Eye aria-hidden className="size-3" /> {lang === "hi" ? "ग्रिड विश्लेषण" : "Grid analysis"}</Badge>}
+        actions={<Badge variant="gold"><Eye aria-hidden className="size-3" /> {lang === "hi" ? "grid vishleshan" : "Grid analysis"}</Badge>}
       />
 
-      {/* v3.1: Bhagyank note — 'भाग्यांक भी ग्रिड में भरता है' */}
+      {/* v3.1: Bhagyank note — 'Bhagyank bhi grid mein bharta hai' */}
       <div
         data-testid="bhagyank-note"
         className="rounded-xl border border-gold/40 bg-gold/5 px-4 py-3 text-sm"
       >
         <span className="font-medium text-gold">
-          {lang === "hi" ? "भाग्यांक भी ग्रिड में भरता है — " : "The Bhagyank digit also fills the grid — "}
+          {lang === "hi" ? "Bhagyank bhi grid mein bharta hai — " : "The Bhagyank digit also fills the grid — "}
         </span>
         {lang === "hi"
-          ? `जन्मतिथि के अंकों के साथ भाग्यांक ${devNum(loShu.bhagyank)} भी अपनी कोठरी में गिना जाता है${loShu.dobCounts[loShu.bhagyank] === 0 ? " — यह अंक जन्मतिथि में नहीं था, इसलिए भाग्यांक ने ही उसे ग्रिड में जिलाया (अब यह अनुपस्थित नहीं कहलाएगा)" : ""}।`
+          ? `janmatithi ke ankon ke saath Bhagyank ${devNum(loShu.bhagyank)} bhi apni kothri mein gina jaata hai${loShu.dobCounts[loShu.bhagyank] === 0 ? " — yeh ank janmatithi mein nahi tha, isliye Bhagyank ne hi use grid mein jilaayaa (ab yeh absent nahi kahalaaega)" : ""}.`
           : `alongside the birth-date digits, Bhagyank ${loShu.bhagyank} is counted into its cell${loShu.dobCounts[loShu.bhagyank] === 0 ? " — this digit was absent from the date itself, so the Bhagyank brings it to life in the grid (it no longer counts as missing)" : ""}.`}
       </div>
+
+      {/* v3.3: nakshatra verification badge (secret layer — graha pramanikaran) */}
+      {nakBadge ? (
+        <div
+          data-testid="nakshatra-badge"
+          className="rounded-xl border border-gold/40 bg-gold/5 px-4 py-3 text-sm"
+        >
+          <span className="font-medium text-gold">✦ </span>
+          {nakBadge}
+        </div>
+      ) : null}
 
       {/* Grid front-and-center */}
       <Card className="glass constellation-bg overflow-hidden">
@@ -70,9 +96,9 @@ export default function LoShuPage() {
             ))}
           </div>
           <div className="mt-6 grid gap-2 text-center text-xs text-muted-foreground sm:grid-cols-3">
-            <p><span className="font-medium text-gold">{lang === "hi" ? "मन-तल" : "Mind plane"}</span> 4-9-2</p>
-            <p><span className="font-medium text-gold">{lang === "hi" ? "भाव-तल" : "Emotion plane"}</span> 3-5-7</p>
-            <p><span className="font-medium text-gold">{lang === "hi" ? "कर्म-तल" : "Action plane"}</span> 8-1-6</p>
+            <p><span className="font-medium text-gold">{lang === "hi" ? "man-tal" : "Mind plane"}</span> 4-9-2</p>
+            <p><span className="font-medium text-gold">{lang === "hi" ? "bhav-tal" : "Emotion plane"}</span> 3-5-7</p>
+            <p><span className="font-medium text-gold">{lang === "hi" ? "karm-tal" : "Action plane"}</span> 8-1-6</p>
           </div>
         </CardContent>
       </Card>
@@ -81,18 +107,18 @@ export default function LoShuPage() {
       {reps ? (
         <section aria-labelledby="repetitions-h" data-testid="repetitions">
           <h2 id="repetitions-h" className="font-display text-lg font-semibold">
-            {lang === "hi" ? "अंक-पुनरावृत्ति (Repetitions)" : "Repetitions"}
+            {lang === "hi" ? "Ank-Repetitions" : "Repetitions"}
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             {lang === "hi"
-              ? "पूरी जन्म-तिथि में दोहराए गए अंक — 2-समान = ऊर्जा दोगुनी (बल + छाया), 3-समान = अत्यंत तीव्र।"
+              ? "poori janm-tithi mein doharaae gae ank — 2-samaan = oorja doguni (bal + chhaya), 3-samaan = atyant teevr."
               : "Repeated digits of the full birth date — 2-same = energy doubled (strength + shadow), 3-same = very intense."}
           </p>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {reps.entries.length === 0 ? (
               <p className="text-sm text-muted-foreground md:col-span-2">
                 {lang === "hi"
-                  ? "कोई अंक दोहराया नहीं गया — ऊर्जा नौ अंकों में बँटी है।"
+                  ? "koi ank doharaayaa nahi gaya — oorja nau ankon mein bi hai."
                   : "No digit repeats in your date — the energy spreads across nine digits."}
               </p>
             ) : (
@@ -100,13 +126,13 @@ export default function LoShuPage() {
                 <Card key={e.digit} interactive>
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between gap-2">
-                      {lang === "hi" ? `अंक ${devNum(e.digit)} × ${devNum(e.count)}` : `Digit ${e.digit} × ${e.count}`}
-                      <Badge variant="gold">{e.level === "triple" ? (lang === "hi" ? "अत्यंत तीव्र" : "very intense") : (lang === "hi" ? "दोगुनी ऊर्जा" : "energy doubled")}</Badge>
+                      {lang === "hi" ? `ank ${devNum(e.digit)} × ${devNum(e.count)}` : `Digit ${e.digit} × ${e.count}`}
+                      <Badge variant="gold">{e.level === "triple" ? (lang === "hi" ? "atyant teevr" : "very intense") : (lang === "hi" ? "doguni oorja" : "energy doubled")}</Badge>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-1.5 text-sm">
-                    <p><span className="font-medium text-gold">{lang === "hi" ? "बल: " : "Strength: "}</span>{lang === "hi" ? e.strengthHi : e.strengthEn}</p>
-                    <p><span className="font-medium text-gold">{lang === "hi" ? "छाया: " : "Shadow: "}</span>{lang === "hi" ? e.shadowHi : e.shadowEn}</p>
+                    <p><span className="font-medium text-gold">{lang === "hi" ? "bal: " : "Strength: "}</span>{lang === "hi" ? e.strengthHi : e.strengthEn}</p>
+                    <p><span className="font-medium text-gold">{lang === "hi" ? "chhaya: " : "Shadow: "}</span>{lang === "hi" ? e.shadowHi : e.shadowEn}</p>
                     <p className="text-xs text-muted-foreground">{lang === "hi" ? e.upayHi : e.upayEn}</p>
                   </CardContent>
                 </Card>
@@ -117,7 +143,7 @@ export default function LoShuPage() {
                 <CardContent className="py-4">
                   <p className="font-display text-sm font-semibold text-kesari">
                     {lang === "hi"
-                      ? `विशेष: मूलांक और भाग्यांक दोनों ${devNum(reps.mulankBhagyankSame.digit)} — वाहक और नियति एक ही ग्रह के हाथ में।`
+                      ? `vishesh: Mulank aur Bhagyank dono ${devNum(reps.mulankBhagyankSame.digit)} — vaahak aur niyati ek hi graha ke haath men.`
                       : `Special callout: Mulank AND Bhagyank are both ${reps.mulankBhagyankSame.digit} — one planet holds both reins.`}
                   </p>
                   <p className="mt-1 text-sm">{lang === "hi" ? reps.mulankBhagyankSame.strengthHi : reps.mulankBhagyankSame.strengthEn}</p>
@@ -130,7 +156,11 @@ export default function LoShuPage() {
         </section>
       ) : null}
 
-      <ReasoningBlock title={t("navLoShu")} steps={loShu.steps} lang={lang} />
+      <ReasoningBlock
+        title={t("navLoShu")}
+        steps={chainLine ? [...loShu.steps, chainLine] : loShu.steps}
+        lang={lang}
+      />
 
       {/* Planes */}
       <section aria-labelledby="planes-h">
@@ -180,7 +210,7 @@ export default function LoShuPage() {
         {yogas.yogas.length === 0 ? (
           <p className="mt-3 text-sm text-muted-foreground">
             {lang === "hi"
-              ? "इस ग्रिड में कोई परिभाषित युति-पैटर्न नहीं मिला — अकेले अंक अपना स्वर अकेले गाते हैं।"
+              ? "is grid mein koi paribhaashit yuti-paitarn nahi mila — akele ank apna svar akele gaate hain."
               : "No defined yoga pattern in this grid — the digits sing solo."}
           </p>
         ) : (
@@ -209,7 +239,7 @@ export default function LoShuPage() {
         {loShu.missing.length === 0 ? (
           <p className="mt-3 text-sm text-muted-foreground">
             {lang === "hi"
-              ? "सभी नौ अंक उपस्थित — एक दुर्लभ, संतुलित ग्रिड।"
+              ? "sabhi nau ank maujood — ek durlabh, sntulit grid."
               : "All nine digits present — a rare, balanced grid."}
           </p>
         ) : (
@@ -222,7 +252,7 @@ export default function LoShuPage() {
                   </span>
                   <div>
                     <p className="text-sm font-medium">
-                      {lang === "hi" ? `अंक ${d} — ${LO_SHU_DIGIT_THEME[d]}` : `Digit ${d} — ${LO_SHU_DIGIT_THEME[d]}`}
+                      {lang === "hi" ? `ank ${d} — ${LO_SHU_DIGIT_THEME[d]}` : `Digit ${d} — ${LO_SHU_DIGIT_THEME[d]}`}
                     </p>
                     <p className="mt-1 text-sm text-muted-foreground">
                       {loShu.missingNotes[loShu.missing.indexOf(d)]}

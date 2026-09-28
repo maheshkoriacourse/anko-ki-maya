@@ -1,10 +1,10 @@
 /**
- * Anko Ki Maya v2 — हिन्दी interpretive content (native authoring).
+ * Anko Ki Maya v3.2 — Hinglish interpretive content (informal spoken).
  *
- * This file is NOT a machine translation of numbers-en.ts — the essays are
- * composed directly in Hindi with the school vocabulary of the study notes
- * (मूलांक, कर्मिक नंबर, युतियाँ, प्रहर, दोष framing) while keeping the
- * safe-language rules: themes and possibilities, never guarantees.
+ * Ye file numbers-en.ts ka translation nahi — Hinglish mein direct likhi gayi
+ * hai, daily spoken language jo sabko samajh aaye. Sacred/Devanagari sirf
+ * divine elements ke liye (mantra, Om, deity lines). Safe-language rules
+ * same: themes aur possibilities, kabhi guarantees nahi.
  */
 
 import type { NumberContent } from "./numbers-en";
@@ -12,282 +12,282 @@ import type { NumberContent } from "./numbers-en";
 export const NUMBER_CONTENT_HI: Record<number, NumberContent> = {
   1: {
     number: 1,
-    title: "आरंभकर्ता",
+    title: "Aarambh ka number",
     essence:
-      "अंक 1 पहले कदम का वोल्टेज है — नक्शा पूरा होने से पहले चल पड़ने वाली चिंगारी। प्रबल 1-ऊर्जा वाले लोग अंत की बजाय शुरुआत के बारे में सोचते हैं।",
+      "Number 1 pehle kadam ka voltage hai — map poora hone se pehle hi chal padne wali chingari. Strong 1-energy wale log end se zyada shuruaat ke baare mein sochte hain.",
     shadow:
-      "यही चिंगारी अधीरता के रूप में जल सकती है: सुनना फीसा जाता है, मदद दख़ल लगती है, और अहंकार चुपचाप सब कुछ अकेले करने पर अड़ जाता है।",
+      "Wahi chingari impatience ban sakti hai: sunna peechhe hat jaata hai, madad interference lagti hai, aur ego aaram se sab kuch akela karne par adi ho jaata hai.",
     gift:
-      "आरंभ करने की मौलिकता — खाली कमरे में सबसे पहले खड़े होकर उसे शुरुआत कहने का साहस।",
+      "Shuruaat karne ki originality — khali kamre mein sabse pehle khade hokar use shuruaat kehne ka sahas.",
     practice:
-      "इस सप्ताह एक ऐसा काम शुरू करें जो निर्विवाद आपका हो, और उसमें शुरू से ही एक व्यक्ति को साझीदार बनाएँ — आरंभ + समावेश ही पूर्ण 1 है।",
+      "Is hafte ek kaam shuru karo jo bila-shak aapka ho, aur shuru se hi ek person ko usme partner banao — aarambh + samavesh hi poora 1 hai.",
     essay:
-      "परंपरा में अंक 1 सूर्य का है — जो कमरे में घुसते ही प्रकाश बिखेर देता है। यदि यह ऊर्जा आपके मूलांक या अन्य मुख्य अंकों में बहती है, तो आपने यह अनुभव ज़रूर किया होगा कि उधार ली गई दिशा आपको टिकती नहीं। आप रास्ता याद करने की बजाय रास्ता बनाना पसंद करते हैं, और जब कोई निर्णय मालिक माँगता है तो लोग आपके दरवाज़े पर आते हैं।\n\nछाया-पक्ष पर ईमानदारी से नज़र डालें। बिना परखी आज़ादी एक-सैनिक-सेना बन जाती है: सौंपना बंद, पूछना बंद — और फिर बोझ का सिलसिला। 1 का अहंकार चीखता नहीं; वह चुपचाप योजना से दूसरों को काट देता है।\n\nवरदान यही है: बिना इजाज़त शुरू करने की क्षमता। अनिश्चितता को निमंत्रण मानकर चलना हर किसी के बस की बात नहीं।\n\nसंतुलन का अभ्यास: जानबूझकर समावेश। परियोजना शुरू करें, ध्वज गाड़ें — और फिर, जल्दी और सोच-समझकर, उसका एक अर्थपूर्ण टुकड़ा किसी और को सौंपें। आरंभ और समावेश मिलकर अकेली चिंगारी को ऐसी आग बनाते हैं जिसके पास लोग हाथ सेंक सकें। सवाल यही है: पिछले साल अकेले नेतृत्व ने कहाँ सेवा की, और कहाँ चुपचाप कीमत ली?",
-    keywords: ["आरंभ", "स्वतंत्रता", "मौलिकता", "नेतृत्व", "साहस"],
+      "Parampara mein number 1 Surya ka hai — jo kamre mein ghuste hi roshni bichha deta hai. Agar yeh energy aapke mulank ya aapke mahatvapurna numbers mein beh rahi hai, to aapne mehsoos kiya hoga ki udhaar li hui direction tikti nahi. Aap rasta yaad rakhne se zyada rasta banana pasand karte hain, aur jab koi decision owner maangta hai to log aapke darwaze par aate hain.\n\nShadow side par imaandari se nazar daalo. Bina parkhi azadi ek-sainik-sena ban jaati hai: dena band, poochhna band — aur phir bojh ka silsila. 1 ka ego cheekhta nahi; wo chupchaap planning se doosron ko kaat deta hai.\n\nGift yahi hai: bina ijazat shuru karne ki khoobi. Uncertainty ko invitation maan kar chalna har kisi ki baat nahi.\n\nBalance ka abhyas: jaan-boojh kar inclusion. Project shuru karo, janda gaado — aur phir, jaldi aur soch-samajh kar, uska ek meaningful tukda kisi aur ko spon do. Aarambh aur samavesh milakar akeli chingari ko aisi aag banate hain jiske paas log haath senk sakein. Sawaal yahi hai: pichhle saal akela leadership ne kahan seva ki, aur kahan chupchaap keemat li?",
+    keywords: ["Aarambh", "Azadi", "Originality", "Leadership", "Sahas"],
   },
   2: {
     number: 2,
-    title: "साझीदार",
+    title: "Saathi",
     essence:
-      "अंक 2 दो लोगों के बीच की जगह है — वो संवेदनशीलता जो किसी शब्द बोले बिना ही कमरे में घुसी भावना पकड़ लेती है। प्रबल 2-ऊर्जा तालमेल बनाती है और जन्मदिन याद रखती है।",
+      "Number 2 do logon ke beech ki jagah hai — wo sensitivity jo bina ek shabd bole hi kamre mein ghusi feel pakad leti hai. Strong 2-energy taal-mel banati hai aur birthdays yaad rakhti hai.",
     shadow:
-      "2 का स्वर-कांटा दूसरों की धुन पर काँपता है: सुरक्षित रहने के लिए हामी, चुपचाप खीझ, और धीरे-धीरे यह भूल जाना कि आपकी सीमा कहाँ है।",
+      "2 ka sur-kaanta doosron ki dhun par kaanpta hai: safe rehne ke liye haami, chupchaap khed, aur dheere-dheere yeh bhool jaana ki aapki limit kahan hai.",
     gift:
-      "घर्षण घोलने वाला कूटनीतिक कौशल — दो लोगों का सच एक साथ थामे रखने की दुर्लभ क्षमता।",
+      "Jhagda ghol dene wala diplomatic skill — do logon ka sach ek saath thaame rakhne ki rare khoobi.",
     practice:
-      "इस सप्ताह एक बार आसान वाक्य की जगह सही वाक्य को कोमल लहजे में कहें — सीमा और करुणा एक ही साँस में रह सकते हैं।",
+      "Is hafte ek baar aasan sentence ki jagah sahi sentence ko narm lehze mein keh do — limit aur compassion ek hi saans mein reh sakte hain.",
     essay:
-      "परंपरा में अंक 2 चंद्रमा का है — परावर्तक, ग्रहणशील; स्थिर दिखने वाली चीज़ों में भी ज्वार खींचता है। यदि 2 आपके मुख्य अंकों में बहती है, तो आप शायद पन्नों से पहले कमरे को पढ़ लेते हैं — बारीकी, राज़ और वो अधूरा वाक्य जो किसी ने कहा होता लेकिन बोला नहीं। जहाँ 1 सीधे शुरुआत कर देता है, वहाँ 2 पहले मेज़ का चक्कर लगाता है।\n\nछाया-पक्ष पर ध्यान दें। लंगर रहित ग्रहणशीलता समझौता बन जाती है: आप हामी भरते हैं, निगलते हैं, ढल जाते हैं — और इसी उदारता में अपनी पसंद-नापसंद का खाता गुम हो जाता है। 2 की खीझ अक्सर वही हामी है जो असल में हामी कभी नहीं थी।\n\nवरदान: शांत शस्त्र के रूप में शांतिनिर्माण। सँभला हुआ 2 दो विरोधियों के बीच बैठकर दोनों को समझा हुआ छोड़ता है — परिवार, टीम और मित्रता इसलिए टिकी रहती हैं क्योंकि आप उनमें हैं।\n\nअभ्यास: कोमल ईमानदारी। एक ऐसा रिश्ता चुनें जिसमें आप कोई असली अंतर ढक रहे हैं। इस सप्ताह वह सच्ची बात, धीरे और नरमी से, कह दें। सवाल यही है: आपके जीवन की कौन-सी 'हाँ' असल में 'अभी नहीं' है?",
-    keywords: ["साझेदारी", "संवेदनशीलता", "कूटनीति", "धैर्य", "सहानुभूति"],
+      "Parampara mein number 2 Chandra ka hai — reflect karne wala, absorb karne wala; sthir dikhti cheezon mein bhi jwaar kheenchta hai. Agar 2 aapke mahatvapurna numbers mein beh rahi hai, to aap shayad panne se pehle kamre ko padh lete hain — baareeki, raaz aur wo adhoora sentence jo kisi ne kaha hota lekin bola nahi. Jahan 1 seedha shuru kar deta hai, wahan 2 pehle table ka chakkar lagata hai.\n\nShadow side par dhyan do. Bina-langar absorb karna compromise ban jaata hai: aap haami bharte hain, nigalte hain, dhal jaate hain — aur isi generosity mein apni pasand-napasand ka khata gum ho jaata hai. 2 ka khed aksar wahi haami hai jo asal mein haami kabhi nahi thi.\n\nGift: shant shastra ke roop mein shanti-nirman. Sambhala hua 2 do virodhiyon ke beech baith kar dono ko samjha hua chhodta hai — parivaar, team aur dosti isliye tiki rehti hain kyunki aap unme hain.\n\nAbhyas: narm imaandari. Ek aisa rishta chuno jisme aap koi asli antar chhupa rahe ho. Is hafte wo sachchi baat, dheere aur narmi se, keh do. Sawaal yahi hai: aapke zindagi ki kaunsi 'haan' asal mein 'abhi nahi' hai?",
+    keywords: ["Saajhedari", "Sensitivity", "Diplomacy", "Sabr", "Empathy"],
   },
   3: {
     number: 3,
-    title: "प्रवक्ता-हृदय",
+    title: "Expression wala dil",
     essence:
-      "अंक 3 अभिव्यक्ति का अंक है — वो आनंद जो विचार को कहानी बनाता है, कहानी को हँसी, हँसी को जुड़ाव। प्रबल 3-ऊर्जा कमरे को अपनी उपस्थिति से गर्म कर देती है।",
+      "Number 3 expression ka number hai — wo joy jo thought ko story banati hai, story ko hansi, hansi ko connection. Strong 3-energy kamre ko apni presence se garam kar deti hai.",
     shadow:
-      "चमकीली ऊर्जा बिखरती है: दस शुरुआतें, तीन अधूरे दृश्य, कम समापन — और आलोचना अंदर-ही-अंदर दिखाई से ज़्यादा चुभती है।",
+      "Chamakdar energy bikhar jaati hai: das shuruaatein, teen adhoore scene, kam closing — aur criticism andar-hi-andar dikhai se zyada chubhti hai.",
     gift:
-      "शब्दों का रसायन — जटिल को सरल और साधारण को कहने लायक़ बना देना।",
+      "Shabdon ka rasayan — complex ko simple aur simple ko quote-worthy banana.",
     practice:
-      "एक रचनात्मक धागा चुनें और उसका छोटा टुकड़ा इस सप्ताह सार्वजनिक रूप से पूरा करें — अभिव्यक्ति बाँटने में ही सिद्ध होती है।",
+      "Ek creative dhaaga chuno aur uska chhota tukda is hafte public mein poora karo — expression baantne mein hi siddh hota hai.",
     essay:
-      "परंपरा में 3 को 1 और 2 की संतान कहा गया है: उमंग और सामंजस्य मिलकर अभिव्यक्ति बनाते हैं। यह लेखकों, शिक्षकों, कलाकारों और कथावाचकों का अंक है — सबका, जिनका हुनर हवा को माहौल बना देता है। यदि 3 आपके मुख्य अंकों में बहती है, तो आपका मन एक साथ कई चमकीले रास्तों पर दौड़ता है, और खामोशी आराम नहीं — दबी हुई साँस लगती है।\n\nछाया-पक्ष बिखराव है। जोश दस चूल्हे जला देता है और तीन को भूल जाता है; परियोजनाएँ अपनी ही भरपूरता से मुरझाती हैं। और चमक के नीचे कई 3-हृदयों में आलोचना की असामान्य संवेदनशीलता रहती है — बाहर हँसी, भीतर उस टीस का दोहराव।\n\nवरदान: खरा आकर्षण — अर्थ को आनंदमय बनाने की क्षमता। रिपोर्ट में मर जाने वाला विचार आपके कहने में जी उठता है; आपके हास्य के इर्द-गिर्द समुदाय बन जाते हैं।\n\nअभ्यास: पूरा करना। सबसे जीवंत धागा चुनें और उसका एक छोटा टुकड़ा समापन तक ले जाएँ — प्रकाशित करें, प्रस्तुत करें, प्रस्तुति दें। 3-ऊर्जा बाँटे बिना पूरी नहीं होती। सवाल यही है: इस वर्ष क्या शुरू किया जो 'पूर्ण' तक एक और धक्के का हक़दार है?",
-    keywords: ["अभिव्यक्ति", "सृजन", "आनंद", "कथा-कौशल", "आशावाद"],
+      "Parampara mein 3 ko 1 aur 2 ki santaan kaha gaya hai: umang aur saamanjasya milakar expression banate hain. Yeh writers, teachers, artists aur story-tellers ka number hai — sabka, jinke skill hawa ko mahaul bana deti hai. Agar 3 aapke mahatvapurna numbers mein beh rahi hai, to aapka mann ek saath kai chamakde raaston par daudta hai, aur khamoshi aaram nahi — dabbi hui saans lagti hai.\n\nShadow side bikhaar hai. Josh das choolhe jala deta hai aur teen ko bhool jaata hai; projects apni hi bharpoorata se murjhaati hain. Aur chamak ke neeche kai 3-dilon mein criticism ki unusual sensitivity rehti hai — bahar hansi, bhitar us tees ka dohraav.\n\nGift: khara charm — meaning ko joyful banane ki khoobi. Report mein mar jaane wala idea aapke kehne mein ji uthata hai; aapke humor ke ir-gird community ban jaati hain.\n\nAbhyas: poora karna. Sabse jeevanta dhaaga chuno aur uska ek chhota tukda closing tak le jao — publish karo, present karo, pitch do. 3-energy baante bina poori nahi hoti. Sawaal yahi hai: is saal kya shuru kiya jo 'poora' tak ek aur dhakke ka haqdaar hai?",
+    keywords: ["Expression", "Srijan", "Anand", "Story-skill", "Aasha-vaad"],
   },
   4: {
     number: 4,
-    title: "निर्माता",
+    title: "Neevh banane wala",
     essence:
-      "अंक 4 नींव का अंक है — वो धैर्य जो कल फिर आता है, और परसों भी, जब तक चीज़ खड़ी न हो जाए। प्रबल 4-ऊर्जा विचारों को ऐसी व्यवस्था बनाती है जो मूड से बड़ी हो।",
+      "Number 4 neev ka number hai — wo sabr jo kal phir aata hai, aur parson bhi, jab tak cheez khadi na ho jaye. Strong 4-energy ideas ko aisi system banati hai jo mood se badi ho.",
     shadow:
-      "व्यवस्था दीवार बन सकती है: नियम रूखे हो जाते हैं, सहजता ख़तरा लगती है, और 'ऐसे ही होता है' कहने वाला मन बेहतर तरीक़े को दरवाज़ा नहीं देता।",
+      "System deewar ban sakti hai: niyam rookhe ho jaate hain, spontaneity khatra lagti hai, aur 'aisa hi hota hai' kehne wala mann behtar tareeqe ko darwaza nahi deta.",
     gift:
-      "अटल निष्ठा — वो दुर्लभ अनुशासन जो उत्साह कमरे से निकल जाने के बाद भी निर्माण जारी रखता है।",
+      "Pakka loyalty — wo rare discipline jo enthusiasm kamre se nikal jaane ke baad bhi construction jaari rakhta hai.",
     practice:
-      "इस सप्ताह काम या घर के एक छोटे कोने को व्यवस्थित/संधारित करें — और फिर जानबूझकर अपनी ही दिनचर्या एक बार तोड़ें, यह सिद्ध करने कि दीवारों में दरवाज़े हैं।",
+      "Is hafte kaam ya ghar ke ek chhote kone ko systematic/clean karo — aur phir jaan-boojh kar apni hi routine ek baar todo, yeh prove karne ki deewaron mein darwaze hain.",
     essay:
-      "पुराने चार्टों में 4 वर्ग है: भार उठाने वाली आकृति — ऋतुओं, नींव और नियमित लौटने का अंक। यदि 4 आपके मुख्य अंकों में बहती है, तो लोग शायद चुपचाप आप पर भरोसा करते हैं — बारीकी पढ़ने वाला, वादे निभाने वाला, और जब चमकीले लोग अगली चीज़ पर निकल जाते हैं तब भी वहीँ खड़ा रहने वाला।\n\nछाया-पक्ष कठोरता है। बिना परखी व्यवस्था-प्रेम विधि को क़ैद बना देता है: बदलाव अराजकता लगता है, दूसरों की अव्यवस्था अपमान — और योजना उस उद्देश्य से प्यारी हो जाती है जिसकी सेवा के लिए वह बनी थी। कर्मिक रूप (13) में परंपरा परिश्रम के ही पाठ को पढ़ती है — हृदय लगा कर किया काम बहता है, अरुचि से किया हुआ घिसता है।\n\nवरदान: भरोसेमंदपन — किसी भी प्रयास का सबसे धीमा और सबसे कीमती ईंधन। आपके बनाए तंत्र आपके आराम के समय भी चलते हैं।\n\nअभ्यास: लचीली दृढ़ता। दिनचर्या बनाएँ — और हफ़्ते में एक बार, जानबूझकर और छोटे पैमाने पर, उससे बाहर निकलें। दरवाज़ों वाली दीवारें, न कि बंद क़िले। सवाल यही है: आपके जीवन का कौन-सा नियम नींव है, और कौन-सा बस आदत?",
-    keywords: ["संरचना", "अनुशासन", "निष्ठा", "नींव", "धैर्य"],
+      "Purane charts mein 4 square hai: bojh uthane wali aakrati — rituon, neev aur regular return ka number. Agar 4 aapke mahatvapurna numbers mein beh rahi hai, to log shayad chupchaap aap par bharosa karte hain — baareeki padhne wala, wade nibhane wala, aur jab chamakde log agli cheez par nikal jaate hain tab bhi wahin khada rehne wala.\n\nShadow side sakhti hai. Bina parkhi system-prem tareeqe ko qaid bana deta hai: badlav anarchy lagta hai, doosron ki un-systematic cheez apmaan — aur plan us maqsad se pyari ho jaati hai jiske liye wo bani thi. Karmic roop (13) mein parampara parishram ka hi paath padhti hai — dil laga kar kiya kaam behata hai, aruchi se kiya hua ghista hai.\n\nGift: bharosemand-pan — kisi bhi koshish ka sabse dheema aur sabse keemti fuel. Aapke banaye systems aapke aaraam ke time bhi chalte hain.\n\nAbhyas: flexible determination. Routine banao — aur hafte mein ek baar, jaan-boojh kar aur chhote scale par, usse bahar niklo. Darwazon wali deewarein, na ki band qile. Sawaal yahi hai: aapke zindagi ka kaunsa niyam neev hai, aur kaunsa bas aadat?",
+    keywords: ["Structure", "Discipline", "Loyalty", "Neev", "Sabr"],
   },
   5: {
     number: 5,
-    title: "अन्वेषक",
+    title: "Khoji",
     essence:
-      "अंक 5 खुली सड़क का अंक है — तीखी इंद्रियाँ, भूखी जिज्ञासा, और परिवर्तन को ख़तरा नहीं पोषण मानने वाला मन। प्रबल 5-ऊर्जा दुनिया को छूकर सीखती है।",
+      "Number 5 khuli sadak ka number hai — teekhi indriyan, bhookhi curiosity, aur change ko khatra nahi nourishment maanne wala mann. Strong 5-energy duniya ko choo kar seekhti hai.",
     shadow:
-      "स्वतंत्रता उड़ान बन सकती है: प्रतिबद्धता पिंजरा लगती है, बेचैनी को प्रगति समझ लिया जाता है, और अति की फुसफुसाहट कहती है कि हर चीज़ का 'और' आख़िरकार काफ़ी होगा।",
+      "Azadi udaan ban sakti hai: commitment pinjara lagta hai, bechaini ko progress samajh liya jaata hai, aur overindulgence ki fusahaat kehti hai ki har cheez ka 'aur' aakhir-kaar kaafi hoga.",
     gift:
-      "अनुकूलन-क्षमता — योजनाएँ टूटने पर भी ठिठकने वाला संयम, क्योंकि आपने कभी उन्हें मंज़िल नहीं माना था।",
+      "Adaptability — plans tootne par bhi thithakne wala sabr, kyunki aapne kabhi unhe manzil nahi maana tha.",
     practice:
-      "अपना एक लंगर चुनें — कोई अभ्यास, कोई व्यक्ति, कोई वादा — जो सब कुछ बदलते रहने पर भी ठहरा रहे, और उसे प्रतिदिन निभाएँ।",
+      "Apna ek langar chuno — koi abhyas, koi insaan, koi wada — jo sab kuch badalte rehne par bhi thehra rahe, aur use roz nibhao.",
     essay:
-      "परंपरा 5 को बुध की त्वरित-चंचल शक्ति देती है: व्यापार, यात्रा, भाषाएँ और वे पाँच इंद्रियाँ जिनके द्वारा दुनिया पहुँचती है। यदि 5 आपके मुख्य अंकों में बहती है, तो आप शायद पूरे शरीर से सीखते हैं — व्याख्यान ऊब उत्पन्न करते हैं, बाज़ार सिखाते हैं, और नया शहर ऐसा पुस्तकालय लगता है जिसमें आप टहल सकते हैं। आपको बदलाव नहीं, जकड़न डराती है।\n\nछाया-पक्ष: भव्य भूख का बिखराव। लंगर रहित स्वतंत्रता अति-वचनबद्धता में बदलती है — कैलेंडर भरा, कुएँ सूखे। कर्मिक रूप (14) में परंपरा अति के ही पाठ को पढ़ती है: जो संवेदनशीलता सुखों को जीवंत बनाती है, वही उन्हें आदत भी बना सकती है — और अभ्यास यह है कि संयम दंड नहीं, आत्म-सम्मान का रूप हो।\n\nवरदान: बहुरूपिया लचीलापन। योजना मर जाए तो 5 मलबे में भी जिज्ञासा पाता है — पुनर्निर्माण आपकी विश्राम-अवस्था है।\n\nअभ्यास: पवित्र लंगर। एक स्थिर बिंदु चुनें — सुबह की सैर, साप्ताहिक कॉल, खड़ा वादा — और उसे ध्रुवतारा मानें जबकि सब कुछ परिक्रमा करे। पतवार वाली स्वतंत्रता दूर तक चलती है। सवाल यही है: कौन-सा स्थिर आपसे बच रहा है, और एक छोटा स्थिर क्या नया संभव बना देगा?",
-    keywords: ["स्वतंत्रता", "अनुकूलन", "जिज्ञासा", "परिवर्तन", "बहुआयामी हुनर"],
+      "Parampara 5 ko Budh ki tez-chanchal shakti deti hai: business, travel, bhashayein aur wo paanch indriyan jinke dwaara duniya pahunchti hai. Agar 5 aapke mahatvapurna numbers mein beh rahi hai, to aap shayad poore shareer se seekhte hain — lectures boredom paida karte hain, bazaar sikhate hain, aur naya sheher aisa library lagta hai jisme aap tahl sakte ho. Aapko badlav nahi, jakan daraati hai.\n\nShadow side: bade bhookhe ka bikhraav. Bina langar azadi over-commitment mein badalti hai — calendar bhara, kuen sookhe. Karmic roop (14) mein parampara overindulgence ka hi paath padhti hai: jo sensitivity sukhon ko jeevanta banati hai, wahi unhe aadat bhi bana sakti hai — aur abhyas yeh hai ki moderation punishment nahi, self-respect ka roop ho.\n\nGift: bahu-roopi flexibility. Plan mar jaaye to 5 malbe mein bhi curiosity paata hai — rebuild aapki resting state hai.\n\nAbhyas: pavitra langar. Ek sthir point chuno — subah ki sair, weekly call, pakka wada — aur use Dhruv-tara maano jabki sab kuch parikrama kare. Patwaar wali azadi door tak chalti hai. Sawaal yahi hai: kaunsa sthir aapse bach raha hai, aur ek chhota sthir kya naya possible bana dega?",
+    keywords: ["Azadi", "Adaptability", "Curiosity", "Change", "Multi-skill"],
   },
   6: {
     number: 6,
-    title: "पालक",
+    title: "Palne wala",
     essence:
-      "अंक 6 देखभाल का दृश्य रूप है — हाथ जो ठीक करता, खिलाता, सुंदर बनाता और थामता है। प्रबल 6-ऊर्जा अपने अच्छे-दिन की परिभाषा में दूसरों का सुख भी जोड़ देती है।",
+      "Number 6 care ka visible roop hai — haath jo theek karte, khilate, khoobsurat banate aur thaamte hain. Strong 6-energy apne acche-din ki definition mein doosron ka suk bhi jod deti hai.",
     shadow:
-      "देखभाल नियंत्रण में बदल सकती है: अदृश्य लेखा लगाकर देना, आस-पास सब पर पूर्णता की माँग, और स्वयं हर सूची में चुपचाप आख़िरी।",
+      "Care control mein badal sakti hai: invisible hisaab laga kar dena, aas-paas sab par perfection ki maang, aur khud har list mein chupchaap aakhri.",
     gift:
-      "सन्तुष्टि-करुणा — ऐसे घर, टीम और मित्रताएँ बनाना जिनके भीतर लोग साँस ले सकें।",
+      "Santosh-karuna — aise ghar, team aur dostiyan banana jinke bhitar log saans le sakein.",
     practice:
-      "इस सप्ताह अपनी अपनी जगह या शरीर के लिए एक सुंदर काम करें, बिना किसी उपयोगिता की शर्त — पाना भी अनुशासन है।",
+      "Is hafte apni jagah ya shareer ke liye ek khoobsurat kaam karo, bina kisi utility ki shart — paana bhi discipline hai.",
     essay:
-      "परंपरा 6 को शुक्र की हस्ती देती है: सामंजस्य, सौंदर्य, गृह और वह प्रेम जो सेवा बनकर अभिव्यक्त होता है। यदि 6 आपके मुख्य अंकों में बहती है, तो शायद आप प्यासे पौधे या बिना खाना खाए मेहमान छोड़ ही नहीं पाते — अपने परिवार के सुख की ज़िम्मेदारी आपकी दृष्टि का हिस्सा है। लोग आपको भरोसेमंद कहते हैं जैसे किसी लighthouse को कहा जाता है — सदा जलती रोशनी।\n\nछाया-पक्ष पर कोमल ईमानदारी चाहिए। 'और मैं?' कभी न पूछने वाली देखभाल त्याग का शांत-मुख़ रूप बन जाती है: खीझ अदृश्य जमती है, नियंत्रण मदद का नाटक करता है, और पूर्णता का वह मापदंड जिसे आप थामे हैं, उसके पास खड़े सबको थका देता है।\n\nवरदान: आश्रय-निर्माण। सँभला हुआ 6 ऐसी जगहें बनाता है — घर, स्टूडियो, टीम — जहाँ लोग साँस छोड़ पाते हैं। सौंदर्य, आराम और निष्ठा आपके हाथों से असामान्य सहजता से बहती है।\n\nअभ्यास: पाना। हफ़्ते में एक बार जानबूझकर दूसरी कुर्सी पर बैठें: मदद माँगें, तारीफ़ स्वीकारें, बिना औचित्य अपने लिए ख़र्च करें। जो पालक ख़ुद पाला न जा सके, वह अंततः खाली कटोरे से सेवा करता है। सवाल यही है: इस माह आपने किसका आराम बचाया — और आपका आराम कौन बचा रहा है?",
-    keywords: ["देखभाल", "सामंजस्य", "गृह", "सौंदर्य", "उत्तरदायित्व"],
+      "Parampara 6 ko Shukra ki hasti deti hai: harmony, beauty, ghar aur wo prem jo seva bankar express hota hai. Agar 6 aapke mahatvapurna numbers mein beh rahi hai, to shayad aap pyaase paudhe ya bina khana khilaye mehmaan chhod hi nahi paate — apne parivaar ke sukh ki zimmewari aapki vision ka hissa hai. Log aapko reliable kehte hain jaise kisi lighthouse ko kehte hain — sada jalti roshni.\n\nShadow side par narm imaandari chahiye. 'Aur main?' kabhi na poochhne wali care sacrifice ka shant-mukh roop ban jaati hai: khed invisible jama hota hai, control madad ka naatak karta hai, aur perfection ka wo standard jo aap thaame hain, uske paas khade sabko thaka deta hai.\n\nGift: ashra-nirman. Sambhala hua 6 aisi jagah banata hai — ghar, studio, team — jahan log saans chhod paate hain. Beauty, comfort aur loyalty aapke haathon se unusual ease se behti hai.\n\nAbhyas: paana. Hafte mein ek baar jaan-boojh kar doosri kursi par baitho: madad maango, tareef sweekar karo, bina justification apne liye kharch karo. Jo paalak khud paala na ja sake, wo antatah khali katoron se seva karta hai. Sawaal yahi hai: is mahine aapne kiska aaraam bachaya — aur aapka aaraam kaun bacha raha hai?",
+    keywords: ["Care", "Harmony", "Ghar", "Beauty", "Responsibility"],
   },
   7: {
     number: 7,
-    title: "साधक",
+    title: "Saadhak",
     essence:
-      "अंक 7 भीतरी मंदिर का अंक है — प्रदर्शन से गहराई, उत्तरों से प्रश्न, शोर से अर्थ। प्रबल 7-ऊर्जा कमरे का अध्ययन उसे छोड़कर करती है — कभी-कभी — और शांत कमरों में।",
+      "Number 7 bheetari mandir ka number hai — performance se gehrai, jawabon se sawaal, shor se meaning. Strong 7-energy kamre ka study use chhod kar karti hai — kabhi-kabhi — aur shant kamron mein.",
     shadow:
-      "गहराई दूरी बन सकती है: बाहर से शांति दिखती विरह है, और विश्लेषण जीने को अनिश्चितकाल तक टाल देता है।",
+      "Gehrai doori ban sakti hai: bahar se shanti dikhti virah hai, aur analysis zindagi ko aar-paar tal deta hai.",
     gift:
-      "अंतर्दृष्टि — घटना के नीचे का तत्व देखना, और ऐसे प्रश्नों में शांत रहना जो दूसरों की नींद उड़ाते हैं।",
+      "Insight — event ke neeche ka element dekhna, aur aise sawaalon mein shant rehna jo doosron ki neend udaate hain.",
     practice:
-      "अपने भीतरी संसार की एक खोज इस सप्ताह किसी अपने को कहें — अंतर्दृष्टि बोले जाने पर ही परिपक्व होती है।",
+      "Apne bheetari sansaar ki ek khoj is hafte kisi apne ko batao — insight bolne par hi pakhti hai.",
     essay:
-      "परंपरा 7 को साधक-मार्ग देती है: अध्ययन, एकांत, और वह दृढ़ विश्वास कि किसी भी चीज़ का सबसे कम रोचक हिस्सा उसकी सतह है। यदि 7 आपके मुख्य अंकों में बहती है, तो व्यवहारिक बातचीत आपको वास्तव में महँगी पड़ती है — शर्म से नहीं, बल्कि इसलिए कि आप जिस बातचीत को चाहते हैं वह सदा तीन परतें नीचे होती है। आप जो सत्यापित कर चुके उस पर भरोसा करते हैं, सुनाए गए पर नहीं।\n\nछाया-पक्ष: साधु का जाल। एकांत, जो संसाधन से शुरू होता है, चुपचाप नीति बन जाता है: विश्लेषण क्रिया की जगह ले लेता है, चिंतन संपर्क की — और भीतरी मंदिर बाहर से अच्छी वास्तुकला वाला शरण-स्थल बन जाता है।\n\nवरदान: गहराई-दृष्टि। सँभला हुआ 7 स्थिति के नीचे का पैटर्न, कथन के नीचे का उद्देश्य, प्रश्न के नीचे का प्रश्न देख लेता है। शोध, निदान, दर्शन, कला-साधना — सब आपकी स्वाभाविक भूमि हैं।\n\nअभ्यास: निर्यात। हर सप्ताह एक अंतर्दृष्टि चुनें और उसे दान करें — मित्र को बताएँ, सहकर्मी को सिखाएँ, नोट प्रकाशित करें। 7-ऊर्जा का ज्ञान मंदिर से निकलने पर ही पूर्ण होता है। सवाल यही है: आप किस बात को गहराई से जानते हैं जिसे आपने कभी ज़ोर से नहीं कहा?",
-    keywords: ["गहराई", "विश्लेषण", "अध्यात्म", "एकांत", "प्रज्ञा"],
+      "Parampara 7 ko saadhak-maarg deti hai: study, ekant, aur wo pakka vishwas ki kisi bhi cheez ka sabse kam rochak hissa uski surface hai. Agar 7 aapke mahatvapurna numbers mein beh rahi hai, to practical baat-cheet aapko waqai mehngi padti hai — sharam se nahi, balki isliye ki aap jis baat-cheet ko chahte ho wo sada teen parate neeche hoti hai. Aap jo khud verify kar chuke us par bharosa karte ho, sunaye gaye par nahi.\n\nShadow side: saadhu ka jaal. Ekant, jo resource se shuru hota hai, chupchaap policy ban jaata hai: analysis action ki jagah le leta hai, chintan contact ki — aur bheetari mandir bahar se acchi architecture wala shelter ban jaata hai.\n\nGift: gehrai-drishti. Sambhala hua 7 situation ke neeche ka pattern, statement ke neeche ka maqsad, sawaal ke neeche ka sawaal dekh leta hai. Research, diagnosis, philosophy, art-sadhana — sab aapki natural bhoomi hain.\n\nAbhyas: niryat. Har hafte ek insight chuno aur use daan karo — dost ko batao, colleague ko sikhao, note publish karo. 7-energy ka gyan mandir se nikalne par hi poora hota hai. Sawaal yahi hai: aap kis baat ko gehrai se jaante ho jise aapne kabhi zor se nahi kaha?",
+    keywords: ["Gehrai", "Analysis", "Adhyatm", "Ekant", "Gyaan"],
   },
   8: {
     number: 8,
-    title: "संरक्षक",
+    title: "Sanrakshak",
     essence:
-      "अंक 8 दीर्घ-खेल का अंक है — स्मृति वाली महत्वाकांक्षा, वादे जैसा संसाधन-प्रबंधन, उत्तरदायित्व जैसी सत्ता। प्रबल 8-ऊर्जा ऐसी चीज़ें बनाती है जो भार उठा सकें।",
+      "Number 8 lamba-khel ka number hai — memory wali ambition, promise jaisa resource management, responsibility jaisi power. Strong 8-energy aisi cheezein banati hai jo bojh utha sakein.",
     shadow:
-      "इंजन चालक को खा सकता है: काम-जीवन संतुलन घुल जाता है, आत्म-मूल्य परिणामों में मापा जाता है, और नियंत्रण ठीक वहीँ कसता है जहाँ भरोसे को ढील चाहिए।",
+      "Engine chaalak ko kha sakta hai: work-life balance ghul jaata hai, self-worth results mein naapa jaata hai, aur control thik wahin kas jaata hai jahan bharose ko dheel chahiye.",
     gift:
-      "प्रबंध-गुरुत्व — भारी दृष्टि उठाकर उसे साकार करने वाले लोगों, धन और धैर्य का आयोजन करने की क्षमता।",
+      "Manage karne ka gravitas — bhaari vision utha kar use saakaar karne wale logon, paisa aur sabr ka aayojan karne ki khoobi.",
     practice:
-      "इस सप्ताह अपना धन और अपना कैलेंडर एक साथ पढ़ें, और पूछें — दोनों किस व्यापक धन को ख़रीद रहे हैं: समय, स्वास्थ्य, रिश्ते।",
+      "Is hafte apna paisa aur apna calendar ek saath padho, aur poochho — dono kis bade wealth ko khareed rahe hain: time, health, rishte.",
     essay:
-      "परंपरा 8 को शनि-विद्यालय देती है: परिणाम, सहनशीलता और भौतिक साधना का अंक। यदि 8 आपके मुख्य अंकों में बहती है, तो आप शायद त्रैमासिक नहीं, दशकों में सोचते हैं — धीमी ऋतु का इंतज़ार कर सकते हैं क्योंकि रीढ़ वाली चीज़ बना रहे हैं। न्याय आपको असाधारण रूप से छूता है; आप खाता रखते हैं और लिखा हुआ चुकाते हैं।\n\nछाया-पक्ष भारी है। बिना परखा 8 सब इंजन, कोई चालक नहीं — बन जाता है: विराम चोरी लगती है, कोमलता देयता — और कहीं रास्ते में वह प्रचुर जीवन जिसे आप पाल रहे थे, वही जीवन जीने का समय नहीं बचता। परंपरा सत्ता को संरक्षण-परीक्षा पढ़ाती है: वही शक्ति जो बनाती है, सुनना बंद कर दे तो कुचल भी सकती है।\n\nवरदान: गुरुत्व। सँभला हुआ 8 अराजकता में प्रवेश करता है — डूबता बजट, टूटी टीम, अटकी परियोजना — और कमरा ठहर जाता है, क्योंकि अंततः कोई उसे थामने का भार रखता है।\n\nअभ्यास: समग्र लेखा। हफ़्ते में एक बार धन को उसके सब रूपों में जाँचें: धन, समय, स्वास्थ्य, प्रेम। संतुलित 8 चारों मुद्राओं में ख़र्च करता है। सवाल यही है: आपकी महत्वाकांक्षा ने इस वर्ष आपको क्या दिलाया — और चुपचाप क्या लिया?",
-    keywords: ["महत्वाकांक्षा", "संरक्षण", "न्याय", "प्रचुरता", "सहनशीलता"],
+      "Parampara 8 ko Shani-vidyalaya deti hai: parinaam, endurance aur bhauteek saadhna ka number. Agar 8 aapke mahatvapurna numbers mein beh rahi hai, to aap shayad quarterly nahi, decades mein sochte ho — dheemi season ka intezaar kar sakte ho kyunki reedh wali cheez bana rahe ho. Justice aapko extraordinary roop se chhoota hai; aap khata rakhte ho aur likha hua chukaate ho.\n\nShadow side bhaari hai. Bina parkha 8 sab engine, koi driver nahi — ban jaata hai: break chori lagti hai, softness liability — aur kahin raaste mein wo sampann zindagi jise aap paal rahe the, wahi zindagi jee ne ka time nahi bachta. Parampara power ko stewardship-ka pariksha padhati hai: wahi shakti jo banati hai, sunna band kar de to kuchal bhi sakti hai.\n\nGift: gravitas. Sambhala hua 8 anarchy mein entry karta hai — doobta budget, tooti team, atki project — aur kamra thahar jaata hai, kyunki antatah koi use thaamne ka bojh rakhta hai.\n\nAbhyas: samagra hisaab. Hafte mein ek baar paisa ko uske sab roopon mein jaancho: paisa, time, health, prem. Santulit 8 chaaron mudraon mein kharch karta hai. Sawaal yahi hai: aapki ambition ne is saal aapko kya dilaya — aur chupchaap kya liya?",
+    keywords: ["Ambition", "Sanrakshan", "Nyaay", "Aboharta", "Endurance"],
   },
   9: {
     number: 9,
-    title: "मानवतावादी",
+    title: "Manav-sevi",
     essence:
-      "अंक 9 विस्तृत लेंस का अंक है — रीढ़ वाली करुणा, ऐसी प्रज्ञा जो मोहभंग से निकलकर तरोताज़ा हुई, और अजनबियों को समेटने वाला प्रेम। प्रबल 9-ऊर्जा पूछती है: समग्र के लिए इसका क्या अर्थ है।",
+      "Number 9 wide lens ka number hai — reedh wali karuna, aisi gyaan jo moh-bhang se nikal kar taaza hui, aur anjaanon ko sametne wala prem. Strong 9-energy poochhti hai: whole ke liye iska kya matlab hai.",
     shadow:
-      "विस्तृत दृष्टि निकट को धुँधला कर सकती है: निज़ी आवश्यकताएँ अनसुलझी रह जाती हैं, निष्ठा समापन को खिंचाती है, और पुरानी कुंठाएँ दोहराती हैं — क्षमा मिली थी, समापन नहीं।",
+      "Wide drishti qareeb ko dhundhla kar sakti hai: personal zarooratein ansuljhi reh jaati hain, loyalty closing ko kheenchati hai, aur purani kushthaein dohraati hain — maaf mila tha, closure nahi.",
     gift:
-      "कमरे बदल देने वाली उदारता — लोगों को उनके बनने-वाले रूप में देखना और वैसा ही व्यवहार करना।",
+      "Kamra badal dene wali udaarta — logon ko unke banne-wale roop mein dekhna aur waise hi vyavhaar karna.",
     practice:
-      "इस सप्ताह एक समापन पूरी करें — कर्ज़ को क्षमा करें, परियोजना बंद करें, चीज़ दान करें — और उस मुक्ति को जानबूझकर दर्ज करें।",
+      "Is hafte ek closure poora karo — karza maaf karo, project band karo, cheez daan karo — aur us mukti ko jaan-boojh kar record karo.",
     essay:
-      "परंपरा 9 को मंगल का परिपक्व मुख देती है: वो अंक जिसमें बाक़ी सारे अंक समाए हुए हैं — अर्थात् वह सबसे मिल चुका है। यदि 9 आपके मुख्य अंकों में बहती है, तो आप शायद एक असामान्य ऊँचाई पर जीते हैं — छोटी राजनीति ऊब उत्पन्न करती है, उद्देश्य ऊर्जा देता है, और आपकी करुणा इतनी निराशा पार कर चुकी है कि उसमें अब माँसपेशियाँ हैं। आप क्षमा करते हैं — पर पाठ नहीं भूलते।\n\nछाया-पक्ष: अधूरा समापन। 9-ऊर्जा पूर्णता से प्रेम करती है, फिर भी उसकी निष्ठा कमरे ख़ाली होने के बाद भी दरवाज़े थामे रखती है। पुराने घाव इसलिए दोहराते हैं क्योंकि क्षमा का भाव मिला था — किंतु मुक्ति का वह अनुष्ठान कभी हुआ ही नहीं।\n\nवरदान: विस्तृत लेंस। सँभला हुआ 9 अजनबी में मनुष्य, युग में पैटर्न और पीड़ा में उद्देश्य देख लेता है। कला, शिक्षण, उपचार, विवेक-नेतृत्व — सब आपकी स्वाभाविक धाराएँ हैं।\n\nअभ्यास: सचेत समापन। एक चीज़ चुनें — कुंठा, परियोजना, वस्तु — और इस सप्ताह उसे विधिपूर्वक समाप्त करें: पूर्ण क्षमा, अंतिम संस्करण जारी, वस्तु उस ज़रूरतमंद को। सवाल यही है: आप क्या ले जा रहे हैं जिसका पाठ पहले ही पूरा हो चुका है?",
-    keywords: ["करुणा", "समापन", "प्रज्ञा", "उदारता", "उपचार"],
+      "Parampara 9 ko Mangal ka pakka mukh deti hai: wo number jisme baaki saare numbers samaye hue hain — arthaat wo sabse mil chuka hai. Agar 9 aapke mahatvapurna numbers mein beh rahi hai, to aap shayad ek unusual height par jeete ho — chhoti politics boredom paida karti hai, maqsad energy deta hai, aur aapki karuna itni niraasha paar kar chuki hai ki usme ab muscles hain. Aap maaf karte ho — par paath nahi bhoolte.\n\nShadow side: adhoora closure. 9-energy completeness se prem karti hai, phir bhi uski loyalty kamre khaali hone ke baad bhi darwaze thaame rakhti hai. Purane ghaav isliye dohraate hain ki maaf ka bhaav mila tha — kin tu mukti ka wo anushthan kabhi hi nahi hua.\n\nGift: wide lens. Sambhala hua 9 anjaan mein insaan, yug mein pattern aur peeda mein maqsad dekh leta hai. Art, teaching, healing, wisdom-leadership — sab aapki natural dhaarein hain.\n\nAbhyas: sachet closure. Ek cheez chuno — kushtha, project, vastu — aur is hafte use vidhipoovak khatam karo: poora maafi, final version release, vastu us zaroorat-mand ko. Sawaal yahi hai: aap kya le ja rahe ho jiska paath pehle hi poora ho chuka hai?",
+    keywords: ["Karuna", "Closure", "Gyaan", "Udaarta", "Healing"],
   },
 };
 
 /* ------------------------------------------------------------------ */
-/* Master numbers (Hindi)                                              */
+/* Master numbers (Hinglish)                                           */
 /* ------------------------------------------------------------------ */
 
 export const MASTER_CONTENT_HI: Record<number, NumberContent> = {
   11: {
     number: 11,
-    title: "मास्टर 11 — अंतर्ज्ञान-माध्यम",
+    title: "Master 11 — Intuition ka antenna",
     essence:
-      "ग्यारह ऊँचे वोल्टेज वाला 2 है: वो एंटीना जो घटनाओं की पुष्टि से पहले ही भीतरी धाराएँ पकड़ लेता है। यह प्रेरणा लाता है — और ज़मीन से जुड़े रहने की ज़िम्मेदारी भी।",
+      "Gyaarah high-voltage wala 2 hai: wo antenna jo events ki confirmation se pehle hi bheetari dharein pakad leta hai. Yeh inspiration laata hai — aur zameen se jude rehne ki zimme-bhi.",
     shadow:
-      "ऊँची संवेदनशीलता दोलन लाती है: आत्म-संदेह, शोर में थक जाने वाले नसें, और प्रेरणा को किनारे बैठे सराहना — नाव में बैठे बिना।",
+      "Oonchi sensitivity do-lan laati hai: self-doubt, shor mein thak jaane wale nerves, aur inspiration ko kinare baithe kar sarahna — naav mein baithe bina.",
     gift:
-      "दृष्टि और अनुभूति — वो माध्यम जो प्रमाण आने से पहले विचार प्राप्त कर लेता है।",
+      "Vision aur feel — wo antenna jo proof aane se pehle ideas receive kar leta hai.",
     practice:
-      "प्रत्येक अंतर्दृष्टि के साथ 24 घंटे के भीतर एक छोटा ठोस कदम जोड़ें — प्रेरणा + प्रयोग ही पूर्ण 11 है।",
+      "Har insight ke saath 24 ghanton ke bheetar ek chhota solid step jodo — inspiration + experiment hi poora 11 hai.",
     essay:
-      "ग्यारह दो स्तंभों की तरह खड़ा है — दृश्य और अनुभूत के बीच का पारंपरिक माध्यम-चित्र। मुख्य स्थितियों में 11 आए तो परंपरा प्रबलित 2 पढ़ती है: साझीदार-अंक की पूरी संवेदनशीलता, ऊँचे वोल्टेज पर। शायद आप चीज़ें जानते हैं इससे पहले कि जानने की व्याख्या कर सकें; कमरे, लोग और निर्णय अपनी प्रकृति जल्दी सौंप देते हैं।\n\nछाया वोल्टेज की कीमत है। इतनी ग्रहणशील तंत्रिका-प्रणाली शोर में फटती है; आत्म-संदेह तब आता है जब आप अनुभूत और प्रमाणणीय के बीच का अंतर देखते हैं। कई 11-हृदय वर्षों तक किनारे बैठे अपनी ही धारा सराहते हैं, पहले आत्मविश्वास की राह देखते हुए — धारा ऐसे नहीं चलती।\n\nवरदान: खरा दृष्टि-कौशल। सँभला हुआ 11 उस भीतरी धारा को शब्द देता है जिसे सब महसूस करते हैं और कोई नाम नहीं देता — और कोहरे में लोग अपने साथ किसी को पाकर कम अकेले लगते हैं।\n\nअभ्यास: संकेत को ज़मीन देना। हर सच्ची अंतर्दृष्टि के एक दिन के भीतर एक ठोस कदम उठाएँ — लिखें, सबसे छोटा संस्करण बनाएँ, सही एक व्यक्ति को बताएँ। द्वैत-लेखन यहीँ भी: 11/2 का अर्थ है कि अंतर्ज्ञान-माध्यम और साझेदार-हृदय एक ही वरदान हैं दो ऊँचाइयों पर। सवाल यही है: आप किस भीतरी संकेत को सम्मान दे रहे हैं, और किसे व्याख्या-द्वारा टाल रहे हैं?",
-    keywords: ["अंतर्ज्ञान", "प्रेरणा", "संवेदनशीलता", "दृष्टि", "ज़मीन-संबंध"],
+      "Gyaarah do stambhon ki tarah khada hai — dikhe aur mehsoos kiye ke beech ka traditional antenna-chitra. Main positions mein 11 aaye to parampara strong 2 padhti hai: partner-number ki poori sensitivity, high voltage par. Shayad aap cheezein jaante ho isse pehle ki jaanne ki explanation kar sako; kamre, log aur decisions apni nature jaldi spon dete hain.\n\nShadow voltage ki keemat hai. Itni absorb karne wali nervous system shor mein phat jaati hai; self-doubt tab aata hai jab aap mehsoos kiye aur provable ke beech ka antar dekhte ho. Kai 11-dil saalon tak kinare baithe apni hi dhara sarahate hain, pehle self-confidence ki raah dekhte hue — dhara aise nahi chalti.\n\nGift: khara vision-skill. Sambhala hua 11 us bheetari dhara ko shabd deta hai jise sab mehsoos karte hain aur koi naam nahi deta — aur kohre mein log apne saath kisi ko paakar kam akele lagte hain.\n\nAbhyas: signal ko zameen dena. Har sachchi insight ke ek din ke bheetar ek solid step uthao — likho, sabse chhota version banao, sahi ek insaan ko batao. Dual-writing yahin bhi: 11/2 ka matlab hai ki intuition-antenna aur partner-dil ek hi gift hain do oonchaiyon par. Sawaal yahi hai: aap kis bheetari signal ko respect de rahe ho, aur kise explanation-dwaara taal rahe ho?",
+    keywords: ["Intuition", "Inspiration", "Sensitivity", "Vision", "Grounding"],
   },
   22: {
     number: 22,
-    title: "मास्टर 22 — महानिर्माता",
+    title: "Master 22 — Maha-nirman",
     essence:
-      "बाईस 4 का वास्तुकला-पैमाना है: ऐसी दृष्टियाँ जिनके लिए दशक चाहिए, ऐसी संरचनाएँ जो हज़ारों की सेवा करें। यह वह अंक है जो कैथेड्रल सोचता है पर ईंट रखता है।",
+      "Baees 4 ka architecture-scale hai: aisi visions jinke liye decade chahiye, aise structures jo hazaaron ki seva karein. Yeh wo number hai jo cathedral sochta hai par brick rakhta hai.",
     shadow:
-      "पैमाना पंगु बना सकता है: परियोजनाएँ शुरू करने के लिए बड़ी लगती हैं, पूर्णतावाद पहली ईंट रोक देता है, और 'इसका अर्थ होना चाहिए' का भार खेल को कुचल देता है।",
+      "Scale pangu bana sakta hai: projects shuru karne ke liye bade lagte hain, perfectionism pehli brick rok deta hai, aur 'iska matlab hona chahiye' ka bojh khel ko kuchal deta hai.",
     gift:
-      "व्यावहारिक आदर्शवाद — वैसे सपने जो व्यवस्था की कसौटी से ज़िंदा निकलें, और वैसी व्यवस्था जो सपने की सदा से योग्य रहे।",
+      "Practical idealism — aise sapne jo system ki kasauti se zinda nikle, aur aisi system jo sapne ki sada se yogya rahe.",
     practice:
-      "कैथेड्रल को एक वाक्य में नाम दें, फिर इस सप्ताह की ईंट रखें — वही वाक्य, छोटा पैमाना, हर सप्ताह।",
+      "Cathedral ko ek sentence mein naam do, phir is hafte ki brick rakho — wahi sentence, chhota scale, har hafte.",
     essay:
-      "बाईस पारंपरिक महानिर्माता है: 4 का अनुशासन और 11 की दृष्टि — संस्थाओं, समुदायों और विरासतों के पैमाने पर। मुख्य स्थितियों में 22 आए तो परंपरा ऐसा व्यक्ति पढ़ती है जिसे रेत का क़िला तृप्त नहीं करता — भीतरी प्रश्न सदा यह होता है: 'यह दस हज़ार लोगों की सेवा में दिखे तो कैसा होगा?'\n\nछाया पैमाने का भय है। इतने बड़े सपने निर्माता को चित्रफलक पर जमा सकते हैं: शुरू कर देखने से बेहतर है कल्पना करना — नहीं तो दृष्टि मचान में सिमट दिखती है। कई 22 दशकों तक शुरुआत की तैयारी में बीत देते हैं।\n\nवरदान: अंक-तंत्र का दुर्लभ मेल — कल्पना जो व्यवस्था का सम्मान करती है। सँभला हुआ 22 एक हाथ में बीस-वर्षीय दृष्टि थामे है, दूसरे में मंगलवार का कार्यक्रम — और दोनों हाथ सहमत हैं।\n\nअभ्यास: ईंट-अनुशासन। संपूर्ण दृष्टि एक वाक्य में लिखें। फिर इस सप्ताह एक वास्तविक ईंट रखें — सबसे छोटा ठोस कर्म जिसे कोई चश्मदीद तस्वीर में उतार सके। द्वैत-लेखन: 22/4 का अर्थ — महानिर्माता और स्थिर राजमिस्त्री एक ही आत्मा, दो ऊँचाइयों पर। सवाल यही है: कौन-सी दीर्घ परियोजना आपके दरवाज़े पर दस्तक देती है, और इस सप्ताह वह किस छोटी ईंट को पूछ रही है?",
-    keywords: ["महानिर्माता", "दृष्टि", "विरासत", "व्यावहारिक-आदर्शवाद", "पैमाना"],
+      "Baees traditional maha-nirman hai: 4 ka discipline aur 11 ki vision — institutions, communities aur legacy ke scale par. Main positions mein 22 aaye to parampara aisa insaan padhti hai jise ret ka qila tript nahi karta — bheetari sawaal sada yeh hota hai: 'yeh das hazaar logon ki seva mein dikhe to kaisa hoga?'\n\nShadow scale ka bhay hai. Itne bade sapne nirman ko chitraphalak par jama sakte hain: shuru kar dekhne se better hai kalpana karna — nahi to vision machan mein simat dikhti hai. Kai 22 decade tak shuruaat ki taiyari mein beet dete hain.\n\nGift: number-system ka rare mel — kalpana jo system ka respect karti hai. Sambhala hua 22 ek haath mein bees-saali vision thaame hai, doosre mein Mangalvar ka schedule — aur dono haath sahamat hain.\n\nAbhyas: brick-discipline. Poora vision ek sentence mein likho. Phir is hafte ek real brick rakho — sabse chhota solid kaam jise koi chashm-deed tasveer mein utaar sake. Dual-writing: 22/4 ka arth — maha-nirman aur sthir raaj-mistry ek hi aatma, do oonchaiyon par. Sawaal yahi hai: kaunsi lambi project aapke darwaze par dastak de rahi hai, aur is hafte wo kis chhoti brick ko poochh rahi hai?",
+    keywords: ["Maha-nirman", "Vision", "Legacy", "Practical-idealism", "Scale"],
   },
   33: {
     number: 33,
-    title: "मास्टर 33 — हृदय-शिक्षक",
+    title: "Master 33 — Dil wala shikshak",
     essence:
-      "तैंतीस 6 की भक्ति-पैमाना है: ऐसी देखभाल जो परिवार और मंडली से आगे — किसी भी शिक्षा, उपचार या सहारा चाहने वाले तक। इस ऊर्जा में प्रेम व्यवसाय बन जाता है।",
+      "Taintees 6 ki bhakti-scale hai: aisi care jo parivaar aur mandali se aage — kisi bhi shiksha, healing ya sahara chaahne wale tak. Is energy mein prem calling ban jaata hai.",
     shadow:
-      "कुआँ चुपचाप सूखता है: दूसरों की पीड़ा को अपनी पहचान बना लेना, सीमाओं को विश्वासघात समझना, और आत्म-देखभाल को सबकी आपात-स्थिति के पीछे डालना।",
+      "Kuan chupchaap sookhta hai: doosron ki peeda ko apni pehchaan bana lena, limits ko betrayal samajhna, aur self-care ko sabki emergency ke peechhe daalna.",
     gift:
-      "उपचारक-उपस्थिति — लोग आपसे मिलकर सीधे खड़े होकर जाते हैं, आए थे से सीधे।",
+      "Healer-presence — log aapse milkar seedhe khade hokar jaate hain, aaye the se seedhe.",
     practice:
-      "अधिक-प्रवाह से सेवा करें, बाध्यता से नहीं: हर सप्ताह पहले अपना कुआँ भरें, फिर जो सचमुच नए-करुणा दे, वही बाँटें।",
+      "Over-flow se seva karo, majboori se nahi: har hafte pehle apna kuan bharo, phir jo sachmuch naya-karuna de, wahi baanto.",
     essay:
-      "तैंतीस पारंपरिक हृदय-शिक्षक है: 6 की भक्ति इतनी विस्तृत कि गृहस्थी समुदाय बन जाए। मुख्य स्थितियों में 33 आए तो परंपरा देखभाल-व्यवसाय पढ़ती है — शिक्षण, उपचार, निर्देशन, पालन — जहाँ दूसरों को उठाना सूची का एक काम नहीं, सूची की आकृति ही है।\n\nछाया: ख़ाली पड़ा संरक्षक। इस पैमाने की भक्ति आत्मा को घोल सकती है: आपका मूल्य आपकी उपयोगिता से जुड़ जाता है, विराम कर्तव्य-त्याग लगता है, और उपचारक ख़ुद को उपचार देना भूल जाता है। सीमाएँ — जो सतत सेवा की गार्डरेल हैं — उन लोगों का विश्वासघात लगती हैं जिनकी सेवा कर रहे हैं।\n\nवरदान: दुर्लभ उपस्थिति। सँभला हुआ 33 कमरे का गुरुत्व बदल देता है — चिंतित ठहर जाते हैं, भटके दिशा पाते हैं, बच्चे और वृद्ध दोनों ढील छोड़ते हैं। यह तकनीक नहीं; प्रकृति है।\n\nअभ्यास: पहले भरो। हर सप्ताह अपना कुआँ जानबूझकर भरें — विराम, सौंदर्य, ख़ामोशी, आनंद — फिर उस अतिरिक्त जल से सेवा। द्वैत-लेखन: 33/6 — हृदय-शिक्षक और समर्पित पालक एक ही हृदय, दो ऊँचाइयों पर। सवाल यही है: आपकी देखभाल की सबसे व्यापक तरंग कहाँ है — और वहाँ सतत सेवा कैसी दिखेगी?",
-    keywords: ["भक्ति", "उपचार", "शिक्षण", "करुणा", "सेवा"],
+      "Taintees traditional dil-wala shikshak hai: 6 ki bhakti itni wide ki grihasthi community ban jaye. Main positions mein 33 aaye to parampara care-calling padhti hai — teaching, healing, guiding, parenting — jahan doosron ko uthana list ka ek kaam nahi, list ki shape hi hai.\n\nShadow: khaali pada sanrakshak. Is scale ki bhakti aatma ko ghol sakti hai: aapki value aapki utility se jud jaati hai, break duty-tyaag lagta hai, aur healer khud ko healing dena bhool jaata hai. Limits — jo satat seva ki guard-rail hain — un logon ka betrayal lagti hain jinke liye serve kar rahe ho.\n\nGift: rare presence. Sambhala hua 33 kamre ka gravity badal deta hai — chintit thehar jaate hain, bhatke disha paate hain, bachche aur buzurg dono dheel chhodte hain. Yeh technique nahi; nature hai.\n\nAbhyas: pehle bharo. Har hafte apna kuan jaan-boojh kar bharo — break, beauty, khamoshi, anand — phir us extra jal se seva. Dual-writing: 33/6 — dil-wala shikshak aur dedicated paalak ek hi dil, do oonchaiyon par. Sawaal yahi hai: aapki care ki sabse wide wave kahan hai — aur wahin satat seva kaisi dikhegi?",
+    keywords: ["Bhakti", "Healing", "Shiksha", "Karuna", "Seva"],
   },
 };
 
 /* ------------------------------------------------------------------ */
-/* Zero-masters (Hindi)                                                */
+/* Zero-masters (Hinglish)                                             */
 /* ------------------------------------------------------------------ */
 
 export const ZERO_MASTERS_HI =
-  "आपके चार्ट में कोई मास्टर अंक 11/22/33 नहीं है — और यह पूर्णतः मान्य, संपूर्ण चार्ट है। मास्टर अंक भाषा का एक तान-श्रेणी है, श्रेणी-क्रम नहीं: 2, 4 और 6 की ऊर्जा वही विषय ज़मीनी स्तर पर ले जाती है — वोल्टेज की जगह अभ्यास से। जीवन की गहराई इससे मापी जाती है कि आप अपने अंकों से कैसे मिलते हैं, इससे नहीं कि वे कितनी तेज़ आवाज़ में घोषित होते हैं।";
+  "Aapke chart mein koi master number 11/22/33 nahi hai — aur yeh poori tarah valid, poora chart hai. Master numbers language ki ek tone hai, ranking nahi: 2, 4 aur 6 ki energy wahi topics zameeni level par le jaati hai — voltage ki jagah practice se. Zindagi ki gehrai isse naapi jaati hai ki aap apne numbers se kaise milte ho, isse nahi ki wo kitni zor ki aawaz mein declared hote hain.";
 
 /* ------------------------------------------------------------------ */
-/* Karmic debts & lessons (Hindi)                                      */
+/* Karmic debts & lessons (Hinglish)                                   */
 /* ------------------------------------------------------------------ */
 
 export const KARMIC_DEBT_CONTENT_HI: Record<number, { title: string; theme: string }> = {
   13: {
-    title: "कर्मिक ऋण 13 — ईमानदार परिश्रम की विद्या",
+    title: "Karmic debt 13 — Imandar mehnat ki vidya",
     theme:
-      "परंपरा 13 को परिश्रम-अनुशासन की दोहराई जाने वाली विषय-रेखा पढ़ती है: शॉर्टकट पहले भी भारी पड़े हैं, और हृदय लगाकर किया काम बहता है जबकि अरुचि से किया हुआ घिसता है। सवाल यही है: जीवन का कौन-सा काम आधे हाथ का नहीं, पूरे हाथ का हक़दार है?",
+      "Parampara 13 ko mehnat-discipline ki dohrayi jaane wali theme-line padhti hai: shortcuts pehle bhi bhaari pade hain, aur dil laga kar kiya kaam behata hai jabki aruchi se kiya hua ghista hai. Sawaal yahi hai: zindagi ka kaunsa kaam adhe haath ka nahi, poore haath ka haqdaar hai?",
   },
   14: {
-    title: "कर्मिक ऋण 14 — संयम से मापी स्वतंत्रता",
+    title: "Karmic debt 14 — Sabri se naapi azadi",
     theme:
-      "परंपरा 14 को अति और उसके पुनर्संतुलन की विषय-रेखा पढ़ती है: तीखी भूखें, अचानक बदलाव, और बार-बार आता वो निमंत्रण कि मध्यम-मार्ग दंड से नहीं, आत्म-सम्मान से चुना जाए। सवाल यही है: कौन-सा सुख आप पर थोड़ा हावी है, और उसका आत्माधीन रूप कैसा दिखेगा?",
+      "Parampara 14 ko overindulgence aur uske rebalance ki theme-line padhti hai: teekhi bhookhein, achanak badlav, aur baar-baar aata wo invitation ki madhyam-maarg punishment se nahi, self-respect se chuna jaaye. Sawaal yahi hai: kaunsa sukh aap par thoda hawi hai, aur uska self-controlled roop kaisa dikhega?",
   },
   16: {
-    title: "कर्मिक ऋण 16 — पुनर्निर्मित दुर्ग",
+    title: "Karmic debt 16 — Dubara banaya hua qila",
     theme:
-      "परंपरा 16 को बिजली-प्रहार से मिलता अहंकार-दुर्ग पढ़ती है: ऊँची जगह से अचानक गिरावट, फिर विनम्र और सच्ची पुनर्नींव। पारंपरिक चेतावनी अक्षयता-भ्रम की है; पारंपरिक वरदान वह नींव है जो अंततः वास्तविकता पर खड़ी हो। सवाल यही है: आपके जीवन में क्या प्रतिमा (image) पर बना है, और उसका ईमानदार संस्करण कैसा होगा?",
+      "Parampara 16 ko bijli-prahaar se milta ego-qila padhti hai: oonchi jagah se achanak giraavt, phir vinamr aur sachchi naye neev se dobara banana. Traditional warning aakash-ki-imarat ki bhram ki hai; traditional gift wo neev hai jo antatah reality par khadi hoti hai. Sawaal yahi hai: aapke zindagi mein kya image (image) par bana hai, aur uska imandar version kaisa hoga?",
   },
   19: {
-    title: "कर्मिक ऋण 19 — सेवा में लगी स्वतंत्रता",
+    title: "Karmic debt 19 — Seva mein lagi azadi",
     theme:
-      "परंपरा 19 को सत्ता-पाठ पढ़ती है: शक्ति और नेतृत्व पहले मिले, परस्पर-निर्भरता बाद में सीखी गई। आत्मकेंद्रित शक्ति अकेलाती है; वही शक्ति सेवा में लगे तो निर्माण करती है। सवाल यही है: आपका अकेलेपन कहाँ काम की सेवा करता है, और कहाँ उसी काम का अवरोध बन गया है?",
+      "Parampara 19 ko power-paath padhti hai: power aur leadership pehle mili, inter-dependence baad mein seekhi gayi. Self-centered power akelati hai; wahi power seva mein lage to nirman karti hai. Sawaal yahi hai: aapke akelepan kahan kaam ki seva karta hai, aur kahan usi kaam ka avirodh ban gaya hai?",
   },
 };
 
 export const KARMIC_LESSON_HI: Record<number, string> = {
-  1: "नाम में 1 की अनुपस्थिति आरंभ की जीवन-विषय रेखा सुझाती है: शुरुआत स्वाभाविक नहीं लगती — इसलिए छोटे, जानबूझकर उठाए क़दम ही आपकी सीखी हुई महाशक्ति बनते हैं।",
-  2: "नाम में 2 की अनुपस्थिति संवेदनशीलता की जीवन-विषय रेखा सुझाती है: साझेदारी और धैर्य सचेत अभ्यास माँगते हैं — अर्जित कौशल, न कि अनुमानित वरदान।",
-  3: "नाम में 3 की अनुपस्थिति अभिव्यक्ति की जीवन-विषय रेखा सुझाती है: आनंद और रचनात्मक आवाज़ को जानबूझकर पालना पड़ता है — विशेषकर 'आनंदित दिखने' के साहस को।",
-  4: "नाम में 4 की अनुपस्थिति व्यवस्था की जीवन-विषय रेखा सुझाती है: तंत्र और अनुसरण प्रौढ़-अवस्था के पाठ बनते हैं — बाद में सीखी संरचना, और अधिक सचेतन रूप से धारित।",
-  5: "नाम में 5 की अनुपस्थिति अनुकूलन की जीवन-विषय रेखा सुझाती है: बदलाव और विविधता पहले सावधानी से छुए जाते हैं, फिर जानबूझकर महारत बनती है।",
-  6: "नाम में 6 की अनुपस्थिति देखभाल की जीवन-विषय रेखा सुझाती है: दूसरों के सुख की ज़िम्मेदारी वृत्ति से नहीं, अनुभव से सीखी जाती है — और इसी से और गहरी बनती है।",
-  7: "नाम में 7 की अनुपस्थिति चिंतन की जीवन-विषय रेखा सुझाती है: शांत विश्लेषण और अप्रमाणित पर विश्वास — दोनों को दृश्य-तत्काल की प्रवृत्ति के विरुद्ध पालना पड़ता है।",
-  8: "नाम में 8 की अनुपस्थिति भौतिक साधना की जीवन-विषय रेखा सुझाती है: धन और सत्ता के पाठ संसार से पढ़ाए जाते हैं — एक पाठ्यक्रम की तरह, जो चुनाव से मास्टर होता है।",
-  9: "नाम में 9 की अनुपस्थिति समापन की जीवन-विषय रेखा सुझाती है: छोड़ना, क्षमा करना और व्यापक दृष्टि — सब अभ्यास के कौशल हैं; सबसे व्यापक लेंस सबसे बाद में अर्जित होता है।",
+  1: "Naam mein 1 ki anupasthiti aarambh ki life-theme line sujhaati hai: shuruaat natural nahi lagti — isliye chhote, jaan-boojh kar uthaye qadam hi aapki seekhi hui superpower bante hain.",
+  2: "Naam mein 2 ki anupasthiti sensitivity ki life-theme line sujhaati hai: partnership aur sabr sachet practice maangte hain — earned skill, na ki andaze wala gift.",
+  3: "Naam mein 3 ki anupasthiti expression ki life-theme line sujhaati hai: anand aur creative aawaz ko jaan-boojh kar paalna padta hai — visheskar 'aanandit dikhne' ke sahas ko.",
+  4: "Naam mein 4 ki anupasthiti system ki life-theme line sujhaati hai: system aur follow-through adult-age ke paath bante hain — baad mein seekhi structure, aur zyada sachet roop se dhaari.",
+  5: "Naam mein 5 ki anupasthiti adaptability ki life-theme line sujhaati hai: badlav aur variety pehle savdhani se chhue jaate hain, phir jaan-boojh kar mastery banti hai.",
+  6: "Naam mein 6 ki anupasthiti care ki life-theme line sujhaati hai: doosron ke sukh ki zimmewari vrutti se nahi, experience se seekhi jaati hai — aur isi se aur gehri banti hai.",
+  7: "Naam mein 7 ki anupasthiti chintan ki life-theme line sujhaati hai: shant analysis aur bina-proof ke vishwas — dono ko visual-instant ke rivaz ke vipreet paalna padta hai.",
+  8: "Naam mein 8 ki anupasthiti bhauteek saadhna ki life-theme line sujhaati hai: paisa aur power ke paath sansaar se padhaaye jaate hain — ek course ki tarah, jo chunaav se master hota hai.",
+  9: "Naam mein 9 ki anupasthiti closure ki life-theme line sujhaati hai: chhodna, maaf karna aur wide drishti — sab practice ke skills hain; sabse wide lens sabse baad mein earned hota hai.",
 };
 
 /* ------------------------------------------------------------------ */
-/* Bridges (Hindi)                                                     */
+/* Bridges (Hinglish)                                                  */
 /* ------------------------------------------------------------------ */
 
 export const BRIDGE_CONTENT_HI: Record<number, string> = {
-  0: "ब्रिज 0 — आपके दो पक्षों के बीच खुली सड़क: भीतर और बाहर पहले से सहयोग कर रहे हैं।",
-  1: "ब्रिज 1 — दो पक्षों के बीच छोटा अंतर: एक आदत का सुधार, और दोनों सहयोग करने लगेंगे।",
-  2: "ब्रिज 2 — संवेदनशीलता सेतु है: अपने भीतरी और बाहरी जीवन के बीच धैर्य बढ़ाइए, सेतु पूरा होगा।",
-  3: "ब्रिज 3 — अभिव्यक्ति सेतु है: भावना को ज़ोर से बोलिए, अंतर बंद होगा।",
-  4: "ब्रिज 4 — कर्म सेतु है: एक साझा व्यावहारिक परियोजना दोनों पक्षों को जोड़ेगी।",
-  5: "ब्रिज 5 — लचीलापन सेतु है: दिनचर्या का एक जानबूझकर बदलाव दोनों पक्षों को जोड़ेगा।",
-  6: "ब्रिज 6 — देखभाल सेतु है: गृह या प्रियजनों के लिए उत्तरदायित्व दोनों पक्षों को स्वाभाविक रूप से गलाता है।",
-  7: "ब्रिज 7 — चिंतन सेतु है: शांत अध्ययन या एकांत-समय इस दरार को भर देता है।",
-  8: "ब्रिज 8 — संरक्षण सेतु है: एक दीर्घकालिक भौतिक लक्ष्य दोनों पक्षों को साझा काम देता है।",
+  0: "Bridge 0 — aapke do pakshon ke beech khuli sadak: bheetar aur bahar pehle se sahyog kar rahe hain.",
+  1: "Bridge 1 — do pakshon ke beech chhota antar: ek aadat ka sudhaar, aur dono sahyog karne lagenge.",
+  2: "Bridge 2 — sensitivity pul hai: apne bheetari aur bahari zindagi ke beech sabr badhaiye, pul poora hoga.",
+  3: "Bridge 3 — expression pul hai: bhaav ko zor se boliye, antar band hoga.",
+  4: "Bridge 4 — karma pul hai: ek shared practical project dono pakshon ko jodegi.",
+  5: "Bridge 5 — flexibility pul hai: routine ka ek jaan-boojha badlav dono pakshon ko jodega.",
+  6: "Bridge 6 — care pul hai: ghar ya priyajano ke liye responsibility dono pakshon ko natural roop se gaalta hai.",
+  7: "Bridge 7 — chintan pul hai: shant study ya ekant-time is daraar ko bhar deta hai.",
+  8: "Bridge 8 — sanrakshan pul hai: ek lambi bhauteek goal dono pakshon ko shared kaam deta hai.",
 };
 
 /* ------------------------------------------------------------------ */
-/* Hidden passion (Hindi)                                              */
+/* Hidden passion (Hinglish)                                           */
 /* ------------------------------------------------------------------ */
 
 export const HIDDEN_PASSION_HI: Record<number, string> = {
-  1: "छिपा रुझान 1 — आज़ादी और शुरुआत की ओर दोहराया आकर्षण आपके पूरे नाम में बहता है।",
-  2: "छिपा रुझान 2 — साझेदारी, संवेदनशीलता और शांतिनिर्माण की ओर दोहराया आकर्षण आपके नाम में है।",
-  3: "छिपा रुझान 3 — अभिव्यक्ति, आनंद और रचनात्मक आवाज़ की ओर दोहराया आकर्षण आपके नाम में है।",
-  4: "छिपा रुझान 4 — व्यवस्था, कारीगरी और स्थिर कर्म की ओर दोहराया आकर्षण आपके नाम में है।",
-  5: "छिपा रुझान 5 — स्वतंत्रता, बदलाव और इंद्रिय-जीवंतता की ओर दोहराया आकर्षण आपके नाम में है।",
-  6: "छिपा रुझान 6 — देखभाल, सौंदर्य और गृह की ओर दोहराया आकर्षण आपके नाम में है।",
-  7: "छिपा रुझान 7 — गहराई, अध्ययन और अर्थ की ओर दोहराया आकर्षण आपके नाम में है।",
-  8: "छिपा रुझान 8 — संरक्षण, महत्वाकांक्षा और न्याय की ओर दोहराया आकर्षण आपके नाम में है।",
-  9: "छिपा रुझान 9 — करुणा, उद्देश्य और समापन की ओर दोहराया आकर्षण आपके नाम में है।",
+  1: "Chhipa rujhaan 1 — azadi aur shuruaat ki taraf dohraaya aakarshan aapke poore naam mein beh raha hai.",
+  2: "Chhipa rujhaan 2 — partnership, sensitivity aur shanti-nirman ki taraf dohraaya aakarshan aapke naam mein hai.",
+  3: "Chhipa rujhaan 3 — expression, anand aur creative aawaz ki taraf dohraaya aakarshan aapke naam mein hai.",
+  4: "Chhipa rujhaan 4 — system, kaarigari aur sthir karma ki taraf dohraaya aakarshan aapke naam mein hai.",
+  5: "Chhipa rujhaan 5 — azadi, badlav aur indriya-jeevanta ki taraf dohraaya aakarshan aapke naam mein hai.",
+  6: "Chhipa rujhaan 6 — care, beauty aur ghar ki taraf dohraaya aakarshan aapke naam mein hai.",
+  7: "Chhipa rujhaan 7 — gehrai, study aur meaning ki taraf dohraaya aakarshan aapke naam mein hai.",
+  8: "Chhipa rujhaan 8 — sanrakshan, ambition aur nyaay ki taraf dohraaya aakarshan aapke naam mein hai.",
+  9: "Chhipa rujhaan 9 — karuna, maqsad aur closure ki taraf dohraaya aakarshan aapke naam mein hai.",
 };
 
 export const BALANCE_NOTE_HI =
-  "संतुलन-अंक (आपके नाम के प्रथम अक्षरों का योग) परंपरा में दबाव की स्थिति में आपके स्वर का रंग पढ़ता है। तूफ़ान में आपके बाक़ी अंक कैसे व्यवहार करेंगे, इसका रंग यही निर्धारित करता है।";
+  "Balance number (aapke naam ke pehle aksharon ka jod) parampara mein pressure ki situation mein aapke swar ka rang padhta hai. Toofan mein aapke baaki numbers kaise vyavhaar karenge, uska rang yahi decide karta hai.";
 
 export const RATIONAL_THOUGHT_HI: Record<number, string> = {
-  1: "तर्क-विचार 1 — मन स्वतंत्र और शीघ्र निष्कर्ष पर पहुँचता है; अपनी पहली पठन पर भरोसा करता है।",
-  2: "तर्क-विचार 2 — मन तौल-मिला कर, साझेदारी कर, परामर्श लेकर विचार करता है; गति से सामंजस्य पर भरोसा करता है।",
-  3: "तर्क-विचार 3 — मन चित्र और कथा में सोचता है; जो यादगार कहा जा सके, उस पर भरोसा करता है।",
-  4: "तर्क-विचार 4 — मन पद-दर-पद प्रमाण बनाता है; जो प्रक्रिया से बचे, उस पर भरोसा करता है।",
-  5: "तर्क-विचार 5 — मन पुनराक्षरण (reframing) से सोचता है; दृष्टि-परिवर्तन से बचा हुआ सत्य उसे भाता है।",
-  6: "तर्क-विचार 6 — मन कर्तव्य और प्रभाव में सोचता है; जो समग्र को लाभ दे, उस पर भरोसा करता है।",
-  7: "तर्क-विचार 7 — मन नीचे की ओर ड्रिल करता है; जो ख़ामोशी से बचे, उसी पर भरोसा करता है।",
-  8: "तर्क-विचार 8 — मन लागत और संरचना में सोचता है; जो भार उठा सके, उसी पर भरोसा करता है।",
-  9: "तर्क-विचार 9 — मन युग और पैटर्न में सोचता है; जो ऊँचाई से भी सत्य रहे, उस पर भरोसा करता है।",
+  1: "Rational thought 1 — mann azaad aur jaldi conclusion par pahunchta hai; apni pehli reading par bharosa karta hai.",
+  2: "Rational thought 2 — mann tol-mila kar, partner ban kar, paraamarsh lekar sochta hai; speed se harmony par bharosa karta hai.",
+  3: "Rational thought 3 — mann picture aur story mein sochta hai; jo yaadgaar kaha ja sake, us par bharosa karta hai.",
+  4: "Rational thought 4 — mann pad-dar-pad proof banata hai; jo process se bacha, us par bharosa karta hai.",
+  5: "Rational thought 5 — mann reframing se sochta hai; drishti-badlav se bacha hua sach use bhaata hai.",
+  6: "Rational thought 6 — mann duty aur impact mein sochta hai; jo whole ko labh de, us par bharosa karta hai.",
+  7: "Rational thought 7 — mann neeche ki taraf drill karta hai; jo khamoshi se bacha, usi par bharosa karta hai.",
+  8: "Rational thought 8 — mann cost aur structure mein sochta hai; jo bojh utha sake, usi par bharosa karta hai.",
+  9: "Rational thought 9 — mann yug aur pattern mein sochta hai; jo oonchai se bhi sach rahe, us par bharosa karta hai.",
 };

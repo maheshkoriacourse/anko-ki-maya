@@ -62,7 +62,7 @@ function LangToggle() {
   return (
     <div
       role="group"
-      aria-label="Language / भाषा"
+      aria-label="Language / Bhasha"
       className="flex items-center rounded-full border bg-card/70 p-0.5 text-xs font-semibold"
     >
       <button
@@ -183,7 +183,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           {nav}
         </div>
         <div className="mt-4 flex items-center justify-between px-1 pt-3">
-          <span className="text-[11px] text-muted-foreground">v3 · सनातन</span>
+          <span className="text-[11px] text-muted-foreground">v3 · Sanatan</span>
           <div className="flex items-center gap-1.5">
             <LangToggle />
             <ThemeToggle />

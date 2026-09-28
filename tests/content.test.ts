@@ -16,8 +16,9 @@ import { BRIDGE_CONTENT_HI } from "@/lib/content/numbers-hi";
 
 /**
  * DUAL-LANGUAGE CONTENT COMPLETENESS — every interpretive string must exist
- * in BOTH English and Hindi, with the layered essence/shadow/gift/practice
- * structure and 150-300-word essays.
+ * in BOTH English and Hindi-mode (v3.2: informal spoken Hinglish, romanized —
+ * Devanagari reserved for sacred/divine elements), with the layered
+ * essence/shadow/gift/practice structure and 150-320-word essays.
  */
 
 const ALL_NINE = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -50,23 +51,32 @@ describe("EN content completeness", () => {
 });
 
 describe("HI content completeness", () => {
-  it.each(ALL_NINE)("number %i has full layered structure (Devanagari)", (n) => {
+  // v3.2: HI mode is now informal spoken Hinglish (romanized) — owner's rule.
+  // Devanagari stays ONLY for sacred/divine elements, so completeness is
+  // structural, not script-based. Hinglish-voice assertions live in the
+  // safety-language test (ban stiff formal patterns, assert spoken phrases).
+  it.each(ALL_NINE)("number %i has full layered structure (Hinglish)", (n) => {
     const c = NUMBER_CONTENT_HI[n];
     expect(c.title.length).toBeGreaterThan(2);
-    // Devanagari check: title contains at least one Devanagari codepoint
-    expect(c.title).toMatch(/[\u0900-\u097F]/);
-    expect(c.essence).toMatch(/[\u0900-\u097F]/);
-    expect(c.shadow).toMatch(/[\u0900-\u097F]/);
-    expect(c.gift).toMatch(/[\u0900-\u097F]/);
-    expect(c.practice).toMatch(/[\u0900-\u097F]/);
-    // Hindi essays measured in characters (Devanagari words are denser):
+    // Hinglish check: spoken register, no stiff formal constructions
+    expect(c.title).not.toMatch(/[\u0900-\u097F]/);
+    expect(c.essence).not.toMatch(/[\u0900-\u097F]/);
+    expect(c.shadow).not.toMatch(/[\u0900-\u097F]/);
+    expect(c.gift).not.toMatch(/[\u0900-\u097F]/);
+    expect(c.practice).not.toMatch(/[\u0900-\u097F]/);
+    expect(c.essay).not.toMatch(/[\u0900-\u097F]/);
+    // spoken-Hinglish markers present in the essay
+    expect(c.essay).toMatch(/\b(hai|hain|ho|kar|karo|ki|ke|ka|ko)\b/);
+    // essays measured in characters (romanized words run longer):
     expect(c.essay.length).toBeGreaterThanOrEqual(600);
     expect(c.keywords.length).toBeGreaterThanOrEqual(4);
   });
 
-  it.each(ALL_MASTERS)("master %i has full layered structure (Devanagari)", (n) => {
+  it.each(ALL_MASTERS)("master %i has full layered structure (Hinglish)", (n) => {
     const c = MASTER_CONTENT_HI[n];
-    expect(c.title).toMatch(/[\u0900-\u097F]/);
+    expect(c.title).not.toMatch(/[\u0900-\u097F]/);
+    expect(c.essay).not.toMatch(/[\u0900-\u097F]/);
+    expect(c.essay).toContain(`${n}/`);
     expect(c.essay.length).toBeGreaterThanOrEqual(600);
   });
 });
@@ -81,42 +91,42 @@ describe("router completeness", () => {
 
   it("zero-masters framing exists in both", () => {
     expect(zeroMasters("en")).toContain("fully valid");
-    expect(zeroMasters("hi")).toMatch(/मान्य/);
+    expect(zeroMasters("hi")).toMatch(/valid|poora/);
   });
 
   it("karmic debt content for 13/14/16/19 in both langs", () => {
     for (const n of [13, 14, 16, 19]) {
       expect(karmicDebtContent(n, "en")).toBeTruthy();
-      expect(karmicDebtContent(n, "hi")!.theme).toMatch(/[\u0900-\u097F]/);
+      expect(karmicDebtContent(n, "hi")!.theme).not.toMatch(/[\u0900-\u097F]/);
     }
   });
 
   it("karmic lesson content for 1-9 in both langs", () => {
     for (const n of ALL_NINE) {
       expect(karmicLessonContent(n, "en")).toBeTruthy();
-      expect(karmicLessonContent(n, "hi")).toMatch(/[\u0900-\u097F]/);
+      expect(karmicLessonContent(n, "hi")).not.toMatch(/[\u0900-\u097F]/);
     }
   });
 
   it("bridge content for 0-8 in both langs", () => {
     for (let n = 0; n <= 8; n++) {
       expect(bridgeContent(n, "en")).toBeTruthy();
-      expect(bridgeContent(n, "hi")).toMatch(/[\u0900-\u097F]/);
+      expect(bridgeContent(n, "hi")).not.toMatch(/[\u0900-\u097F]/);
     }
   });
 
   it("hidden passion + rational thought for 1-9 in both langs", () => {
     for (const n of ALL_NINE) {
       expect(hiddenPassionContent(n, "en")).toBeTruthy();
-      expect(hiddenPassionContent(n, "hi")).toMatch(/[\u0900-\u097F]/);
+      expect(hiddenPassionContent(n, "hi")).not.toMatch(/[\u0900-\u097F]/);
       expect(rationalThoughtContent(n, "en")).toBeTruthy();
-      expect(rationalThoughtContent(n, "hi")).toMatch(/[\u0900-\u097F]/);
+      expect(rationalThoughtContent(n, "hi")).not.toMatch(/[\u0900-\u097F]/);
     }
   });
 
   it("balance note exists in both", () => {
     expect(balanceNote("en").length).toBeGreaterThan(40);
-    expect(balanceNote("hi")).toMatch(/[\u0900-\u097F]/);
+    expect(balanceNote("hi")).not.toMatch(/[\u0900-\u097F]/);
   });
 
   it("EN and HI karmic tables are internally complete", () => {

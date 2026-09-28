@@ -4,8 +4,8 @@
  * ANKO KI MAYA v3 — LIFE GRAPH = PAST AUTO-READING (flagship page).
  *
  * The engine reads EVERY year birth→now from the numbers and writes a
- * "kya hua hoga" line for each. The user only confirms: ✓ सही / ✗ गलत.
- * Confirmed (सही) years are pinned on the SVG intensity curve; the
+ * "kya hua hoga" line for each. The user only confirms: ✓ sahi / ✗ galat.
+ * Confirmed (sahi) years are pinned on the SVG intensity curve; the
  * pattern note sharpens with every mark. Future 10 years render as a
  * dashed continuation.
  */
@@ -39,9 +39,9 @@ export default function LifeGraphPage() {
   if (!hasProfile || !profile || !reading) {
     return (
       <EmptyState
-        title={hi ? "पहले जन्म-विवरण दीजिए" : "No profile yet"}
-        body={hi ? "जन्म-तिथि दीजिए — ग्राफ़ खुद भर जाएगा।" : "Add your birth details — the graph fills itself."}
-        action={<a href="/" className="text-sm text-primary underline">{hi ? "शुरू करें" : "Start"}</a>}
+        title={hi ? "pehle janm-vivaran do" : "No profile yet"}
+        body={hi ? "janm-tithi do — graph khud bhar jaaega." : "Add your birth details — the graph fills itself."}
+        action={<a href="/" className="text-sm text-primary underline">{hi ? "shuru karein" : "Start"}</a>}
       />
     );
   }
@@ -66,13 +66,13 @@ export default function LifeGraphPage() {
         title={t("navLifeGraph")}
         subtitle={
           hi
-            ? "इंजन ने आपके जन्म से आज तक के हर वर्ष का 'क्या हुआ होगा' वाचन अंकों से भर दिया है — आप बस ✓ सही / ✗ गलत चिह्नित कीजिए। बड़े साल समय-रेखा बनाते हैं; बाक़ी वर्ष फीकी पृष्ठभूमि-वक्र।"
+            ? "engine ne aapke janm se aaj tak ke har saal ka 'kyaa hua hoga' vachan ankon se bhar diyaa hai — aap bas ✓ sahi / ✗ galat chihnit karo. bade saal samay-rekha banaate hain; baakaee saal pheei prishthabhoomi-vakr."
             : "The engine has filled a 'what happened' reading for every year birth→now from your numbers — you only mark ✓ right / ✗ wrong. Big years build the timeline; the rest stays a faint background curve."
         }
         actions={
           <Badge variant="gold">
             {hi
-              ? `${devNum(graph.bigYears.length)} बड़े साल`
+              ? `${devNum(graph.bigYears.length)} bade saal`
               : `${graph.bigYears.length} big years`}
           </Badge>
         }
@@ -84,17 +84,17 @@ export default function LifeGraphPage() {
           <CardTitle className="flex flex-wrap items-center justify-between gap-2">
             <span>
               {hi
-                ? `तीव्रता-वक्र — ${devNum(y)} से ${devNum(nowYear + 10)} (आगे बिंदुकत)`
+                ? `teevrata-vakr — ${devNum(y)} se ${devNum(nowYear + 10)} (aage bindukat)`
                 : `Intensity curve — ${y} to ${nowYear + 10} (future dotted)`}
             </span>
             <span className="flex items-center gap-3 text-xs text-muted-foreground">
               <span className="flex items-center gap-1">
                 <span aria-hidden className="inline-block size-2.5 rounded-full bg-gold" />
-                {hi ? "पक्की घटना (सही)" : "confirmed (सही)"}
+                {hi ? "pakki ghatna (sahi)" : "confirmed (sahi)"}
               </span>
               <span className="flex items-center gap-1">
                 <span aria-hidden className="inline-block size-2.5 rounded-full border border-muted-foreground bg-transparent" />
-                {hi ? "गलत चिह्नित" : "marked wrong"}
+                {hi ? "galat chihnit" : "marked wrong"}
               </span>
             </span>
           </CardTitle>
@@ -104,7 +104,7 @@ export default function LifeGraphPage() {
             viewBox={`0 0 ${geo.width} ${geo.height}`}
             className="h-auto w-full min-w-[720px]"
             role="img"
-            aria-label={hi ? "जीवन-तीव्रता ग्राफ़" : "Life intensity graph"}
+            aria-label={hi ? "jeevan-teevrata graph" : "Life intensity graph"}
           >
             {/* intensity gridlines */}
             {[2, 5, 8, 10].map((imp) => {
@@ -132,7 +132,7 @@ export default function LifeGraphPage() {
                     stroke="var(--kesari)" strokeWidth={1.5} strokeDasharray="2 4" opacity={0.9}
                   />
                   <text x={nowPt.x} y={12} fontSize={10} textAnchor="middle" fill="var(--kesari)">
-                    {hi ? "अभी" : "NOW"}
+                    {hi ? "abhi" : "NOW"}
                   </text>
                 </g>
               );
@@ -160,13 +160,13 @@ export default function LifeGraphPage() {
                 </circle>
               </g>
             ))}
-            {/* pinned labels (user-confirmed सही events) */}
+            {/* pinned labels (user-confirmed sahi events) */}
             {geo.pins.map((p) => (
               <text key={`pin-${p.year}`} x={p.x} y={p.y - 11} fontSize={10} textAnchor="middle" fill="var(--kesari)" fontWeight="600">
                 ✓ {hi ? devNum(p.year) : p.year}
               </text>
             ))}
-            {/* v3.1: BIG-YEAR event pins — बड़े साल with their event labels */}
+            {/* v3.1: BIG-YEAR event pins — bade saal with their event labels */}
             {geo.bigPins.map((p) => (
               <g key={`big-${p.year}`}>
                 <circle
@@ -174,7 +174,7 @@ export default function LifeGraphPage() {
                   fill="var(--kesari)" stroke="var(--background)" strokeWidth={2}
                   opacity={0.95}
                 >
-                  <title>{`${p.year} · बड़े साल · ${p.eventLabelHi ?? ""}`}</title>
+                  <title>{`${p.year} · bade saal · ${p.eventLabelHi ?? ""}`}</title>
                 </circle>
                 <text x={p.x} y={p.y + 3.5} fontSize={7.5} textAnchor="middle" fill="var(--background)" fontWeight="700">
                   {p.py}
@@ -190,7 +190,7 @@ export default function LifeGraphPage() {
           </svg>
           <p className="mt-2 text-center text-[11px] text-muted-foreground">
             {hi
-              ? `ऊँचा बिंदु = उस वर्ष की तीव्रता (अंक-दशा के अनुसार)। ${grahaFor(8).grahaHi}/सूर्य/मंगल वर्ष सबसे ऊँचे — नींव/केतु वर्ष नीचे।`
+              ? `oocha bindu = us saal ki teevrata (ank-dasha ke anusaar). ${grahaFor(8).grahaHi}/Surya/Mangal saal sabse ooche — neev/Ketu saal neeche.`
               : "High points = that year's intensity (per Ank Dasha). Shani/Surya/Mangal years run highest; foundation/Ketu years rest low."}
           </p>
         </CardContent>
@@ -201,7 +201,7 @@ export default function LifeGraphPage() {
         <Card className="border-gold/40 bg-gold/5">
           <CardContent className="py-4">
             <p className="text-xs font-semibold uppercase tracking-wide text-gold">
-              {hi ? "आपके चिह्नों से पैटर्न" : "Pattern from your marks"}
+              {hi ? "aapke chihnon se paitarn" : "Pattern from your marks"}
             </p>
             <p className="mt-1 text-sm">{hi ? pn.hi : pn.en}</p>
           </CardContent>
@@ -213,9 +213,9 @@ export default function LifeGraphPage() {
         <Card className="glass border-kesari/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Badge variant="gold">{hi ? "इस वर्ष" : "THIS YEAR"} · {hi ? devNum(graph.currentYear.year) : graph.currentYear.year}</Badge>
+              <Badge variant="gold">{hi ? "is saal" : "THIS YEAR"} · {hi ? devNum(graph.currentYear.year) : graph.currentYear.year}</Badge>
               <span className="text-sm text-muted-foreground">
-                {hi ? `अंक दशा ${devNum(graph.currentYear.py)} — ${grahaFor(graph.currentYear.py).grahaHi}` : `Ank Dasha ${graph.currentYear.py} — ${grahaFor(graph.currentYear.py).graha}`}
+                {hi ? `Ank Dasha ${devNum(graph.currentYear.py)} — ${grahaFor(graph.currentYear.py).grahaHi}` : `Ank Dasha ${graph.currentYear.py} — ${grahaFor(graph.currentYear.py).graha}`}
               </span>
             </CardTitle>
           </CardHeader>
@@ -225,20 +225,20 @@ export default function LifeGraphPage() {
         </Card>
       ) : null}
 
-      {/* v3.1: बड़े साल — BIG-YEAR TIMELINE (owner correction #2) */}
+      {/* v3.1: bade saal — BIG-YEAR TIMELINE (owner correction #2) */}
       <section aria-labelledby="big-years-h">
         <h2 id="big-years-h" className="font-display text-xl font-semibold">
-          {hi ? "बड़े साल — समय-रेखा बड़ी घटनाओं से बनती है" : "Big years — the timeline is built from them"}
+          {hi ? "Bade saal — samay-rekha badi ghatnaon se banti hai" : "Big years — the timeline is built from them"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "सिर्फ़ बड़े साल ही नीचे समय-रेखा पर खड़े हैं — कर्मिक ऋण, शिखर-बदल, दशा 1/9, मूलांक-भाग्यांक की दशा, अंक-पुनरावृत्ति या मील-पत्थर आयु (२७/३६/४५/५४) वाले वर्ष। बाक़ी वर्ष ऊपर फीके वक्र हैं।"
+            ? "sirph bade saal hi neeche samay-rekha par khadae hain — karmic rin, shikhar-badal, dasha 1/9, Mulank-Bhagyank ki dasha, ank-repetition ya meel-patthar aayu (२७/३६/४५/५४) waale saal. baakaee saal upar pheeke vakr hain."
             : "Only big years stand on the timeline below — years with karmic debt, a pinnacle boundary, PY 1/9, PY = Mulank/Bhagyank, a digit-repetition surge, or a milestone age (27/36/45/54). The rest stay the faint curve above."}
         </p>
         <div className="mt-4 space-y-3">
           {graph.bigYears.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              {hi ? "इस अंतराल में कोई बड़ा साल नहीं बना।" : "No big years in this span."}
+              {hi ? "is antaraal mein koi bada saal nahi bana." : "No big years in this span."}
             </p>
           ) : (
             [...graph.bigYears].reverse().map((p) => {
@@ -256,9 +256,9 @@ export default function LifeGraphPage() {
                         </span>
                         <div>
                           <p className="font-display text-base font-semibold">
-                            {hi ? `बड़ा साल ${devNum(p.year)} · उम्र ${devNum(p.age)}` : `Big year ${p.year} · age ${p.age}`}
-                            {verdict === "sahi" ? <Badge variant="gold" className="ml-2">✓ {hi ? "सही" : "confirmed"}</Badge> : null}
-                            {verdict === "galat" ? <Badge variant="secondary" className="ml-2">✗ {hi ? "गलत" : "wrong"}</Badge> : null}
+                            {hi ? `bada saal ${devNum(p.year)} · umra ${devNum(p.age)}` : `Big year ${p.year} · age ${p.age}`}
+                            {verdict === "sahi" ? <Badge variant="gold" className="ml-2">✓ {hi ? "sahi" : "confirmed"}</Badge> : null}
+                            {verdict === "galat" ? <Badge variant="secondary" className="ml-2">✗ {hi ? "galat" : "wrong"}</Badge> : null}
                           </p>
                           <p className="mt-0.5 flex flex-wrap gap-1.5">
                             {p.bigReasons.map((r, i) => (
@@ -274,19 +274,19 @@ export default function LifeGraphPage() {
                           size="sm"
                           variant={verdict === "sahi" ? "default" : "outline"}
                           aria-pressed={verdict === "sahi"}
-                          aria-label={`${p.year} — ${hi ? "सही" : "right"}`}
+                          aria-label={`${p.year} — ${hi ? "sahi" : "right"}`}
                           onClick={() => mark(p.year, "sahi")}
                         >
-                          <Check aria-hidden /> ✓ {hi ? "सही" : "right"}
+                          <Check aria-hidden /> ✓ {hi ? "sahi" : "right"}
                         </Button>
                         <Button
                           size="sm"
                           variant={verdict === "galat" ? "destructive" : "outline"}
                           aria-pressed={verdict === "galat"}
-                          aria-label={`${p.year} — ${hi ? "गलत" : "wrong"}`}
+                          aria-label={`${p.year} — ${hi ? "galat" : "wrong"}`}
                           onClick={() => mark(p.year, "galat")}
                         >
-                          <X aria-hidden /> ✗ {hi ? "गलत" : "wrong"}
+                          <X aria-hidden /> ✗ {hi ? "galat" : "wrong"}
                         </Button>
                       </div>
                     </div>
@@ -306,11 +306,11 @@ export default function LifeGraphPage() {
       {/* PAST YEAR-BY-YEAR READINGS (full list, below the big-years timeline) */}
       <section aria-labelledby="past-readings-h">
         <h2 id="past-readings-h" className="font-display text-xl font-semibold">
-          {hi ? "अतीत — वर्ष-दर-वर्ष 'क्या हुआ होगा'" : "The past — year-by-year 'what happened'"}
+          {hi ? "ateet — saal-dar-saal 'kyaa hua hoga'" : "The past — year-by-year 'what happened'"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "हर वाचन आपके अंकों से गणित है — पढ़िए, चिह्न लगाइए; पक्के वर्ष ग्राफ़ पर गाड़ जाएँगे।"
+            ? "har vachan aapke ankon se ganit hai — padho, chihn lagao; pakke saal graph par gaad jaaenge."
             : "Every reading is computed from your numbers — read, mark; confirmed years pin onto the graph."}
         </p>
         <div className="mt-4 space-y-3">
@@ -329,11 +329,11 @@ export default function LifeGraphPage() {
                       </span>
                       <div>
                         <p className="font-display text-base font-semibold">
-                          {hi ? `${devNum(p.year)} · उम्र ${devNum(p.age)}` : `${p.year} · age ${p.age}`}
+                          {hi ? `${devNum(p.year)} · umra ${devNum(p.age)}` : `${p.year} · age ${p.age}`}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           {hi
-                            ? `अंक-दशा ${devNum(p.py)} (${grahaFor(p.py).grahaHi}) · तीव्रता ${devNum(p.intensity)}/10`
+                            ? `ank-dasha ${devNum(p.py)} (${grahaFor(p.py).grahaHi}) · teevrata ${devNum(p.intensity)}/10`
                             : `Ank Dasha ${p.py} (${grahaFor(p.py).graha}) · intensity ${p.intensity}/10`}
                         </p>
                       </div>
@@ -343,19 +343,19 @@ export default function LifeGraphPage() {
                         size="sm"
                         variant={verdict === "sahi" ? "default" : "outline"}
                         aria-pressed={verdict === "sahi"}
-                        aria-label={`${p.year} — ${hi ? "सही" : "right"}`}
+                        aria-label={`${p.year} — ${hi ? "sahi" : "right"}`}
                         onClick={() => mark(p.year, "sahi")}
                       >
-                        <Check aria-hidden /> ✓ {hi ? "सही" : "right"}
+                        <Check aria-hidden /> ✓ {hi ? "sahi" : "right"}
                       </Button>
                       <Button
                         size="sm"
                         variant={verdict === "galat" ? "destructive" : "outline"}
                         aria-pressed={verdict === "galat"}
-                        aria-label={`${p.year} — ${hi ? "गलत" : "wrong"}`}
+                        aria-label={`${p.year} — ${hi ? "galat" : "wrong"}`}
                         onClick={() => mark(p.year, "galat")}
                       >
-                        <X aria-hidden /> ✗ {hi ? "गलत" : "wrong"}
+                        <X aria-hidden /> ✗ {hi ? "galat" : "wrong"}
                       </Button>
                     </div>
                   </div>
@@ -381,7 +381,7 @@ export default function LifeGraphPage() {
       {/* FUTURE 10 YEARS */}
       <section aria-labelledby="future-readings-h">
         <h2 id="future-readings-h" className="font-display text-xl font-semibold">
-          {hi ? "भविष्य — अगले 10 वर्ष" : "The future — next 10 years"}
+          {hi ? "bhavishya — agle 10 saal" : "The future — next 10 years"}
         </h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {graph.future.map((f) => (
@@ -389,10 +389,10 @@ export default function LifeGraphPage() {
               <CardContent className="py-3.5">
                 <div className="flex items-center justify-between gap-2">
                   <p className="font-display text-base font-semibold">
-                    {hi ? `${devNum(f.year)} · उम्र ${devNum(f.age)}` : `${f.year} · age ${f.age}`}
+                    {hi ? `${devNum(f.year)} · umra ${devNum(f.age)}` : `${f.year} · age ${f.age}`}
                   </p>
                   <Badge variant={f.py === 8 || f.py === 1 || f.py === 9 ? "gold" : "secondary"}>
-                    {hi ? `अंक दशा ${devNum(f.py)}` : `Dasha ${f.py}`}
+                    {hi ? `Ank Dasha ${devNum(f.py)}` : `Dasha ${f.py}`}
                   </Badge>
                 </div>
                 <p className="mt-1.5 text-sm text-muted-foreground">{hi ? f.readingHi : f.readingEn}</p>
@@ -406,7 +406,7 @@ export default function LifeGraphPage() {
       <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
         <Info aria-hidden className="size-3.5" />
         {hi
-          ? "वाचन अंक-गणित से बनते हैं; आपके चिह्न इसी ब्राउज़र में सहेजे जाते हैं और पैटर्न-नोट को तेज़ करते हैं।"
+          ? "vachan ank-ganit se bante hain; aapke chihn isi browser mein saheje jaate hain aur paitarn-note ko tez karte hain."
           : "Readings are computed from the numbers; your marks stay in this browser and sharpen the pattern note."}
         <YantraMotif className="size-4 text-gold" />
       </div>

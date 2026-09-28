@@ -54,10 +54,10 @@ export interface YearWeather {
 }
 
 const HI_VERDICT: Record<Verdict, string> = {
-  "MAJOR favorable": "प्रमुख अनुकूल",
-  "strong but volatile": "प्रबल पर उतार-चढ़ाव भरा",
-  caution: "सावधानी",
-  consolidation: "संवर्धन (consolidation)",
+  "MAJOR favorable": "pramukh anukool",
+  "strong but volatile": "prabal par utaar-chadhaav bhara",
+  caution: "saavdhani",
+  consolidation: "sanvardhan (consolidation)",
 };
 
 function clamp(n: number, lo: number, hi: number): number {
@@ -128,32 +128,32 @@ function warningFor(pm: number): { en: string; hi: string; remedy: string } | nu
   if (pm === 2)
     return {
       en: "Imagination may float ahead of reality this month — keep feet on the ground, avoid quarrels, and double-check who you trust; a trusted person's advice deserves a second look before money moves.",
-      hi: "इस महीने कल्पनाएँ वास्तविकता से आगे तैर सकती हैं — ज़मीन पर रहें, कलह से बचें, और जिन पर भरोसा कर रहे हैं उनकी बात धन-निर्णय से पहले एक बार जाँच लें।",
-      remedy: remedyForNumber(2).remedy.mantra + " — 108 जप, सोमवार को।",
+      hi: "is mahine kalpanaae vaastavikata se aage tair sakai hain — jamein par rahen, kalah se bachen, aur jin par bharosa kar rahe hain unai baat dhan-nirnay se pehle ek baar jaanch len.",
+      remedy: remedyForNumber(2).remedy.mantra + " — 108 japa, Somvaar ko.",
     };
   if (pm === 8)
     return {
       en: "High-output month: watch the work-rest ledger. Effort pays, but grinding without pause borrows from next month's energy.",
-      hi: "उच्च-उत्पादन का महीना: काम-विराम का हिसाब रखें। परिश्रम फल देता है, पर बिना विराम की मेहनत अगले महीने की ऊर्जा उधार लेती है।",
-      remedy: remedyForNumber(8).remedy.mantra + " — 108 जप, शनिवार को।",
+      hi: "uchch-utpaadan ka mahina: kaam-viraam ka hisaab rakhein. parishram phal deta hai, par bina viraam ki mehnat agle mahine ki oorja udhaar leti hai.",
+      remedy: remedyForNumber(8).remedy.mantra + " — 108 japa, Shanivaar ko.",
     };
   if (pm === 9)
     return {
       en: "Completion energy can turn into impatience — old frictions may resurface; choose closure over confrontation.",
-      hi: "समापन की ऊर्जा अधीरता में बदल सकती है — पुरानी खट-पट उभर सकती हैं; टकराव की जगह समापन चुनें।",
-      remedy: remedyForNumber(9).remedy.mantra + " — 108 जप, मंगलवार को।",
+      hi: "samaapan ki oorja adheerata mein badal sakai hai — puraai khat-pat ubhar sakai hain; takaraav ki jagah samaapan chuno.",
+      remedy: remedyForNumber(9).remedy.mantra + " — 108 japa, Mangalvaar ko.",
     };
   if (pm === 4)
     return {
       en: "Consolidation month — pushing a major launch or a big change against this grain tends to cost double; steady bricks beat grand gestures.",
-      hi: "संवर्धन का महीना — इस लय के विरुद्ध बड़ा लॉन्च या अचानक बदलाव दोगुना महँगा पड़ता है; स्थिर ईंटें, बड़े भव्य कदम नहीं।",
-      remedy: remedyForNumber(4).remedy.mantra + " — 108 जप, शनिवार को।",
+      hi: "sanvardhan ka mahina — is lay ke viruddh bada launch ya achanak badlaav doguna mahnga padata hai; sthir eenten, bade bhavy kadam nahi.",
+      remedy: remedyForNumber(4).remedy.mantra + " — 108 japa, Shanivaar ko.",
     };
   if (pm === 7)
     return {
       en: "Inner-focus month — visibility and loud pushes feel harder than usual; reflection now saves rework later.",
-      hi: "आंतरिक-चिंतन का महीना — दृश्यता और शोर-भरे प्रयास मुश्किल लगेंगे; अब की चिंतन बाद की दोबारा-मेहनत बचाती है।",
-      remedy: remedyForNumber(7).remedy.mantra + " — 108 जप, शनिवार को।",
+      hi: "aantarik-chintan ka mahina — drishyata aur shor-bhare prayaas mushkil lagenge; ab ki chintan baad ki dobara-mehnat bachaai hai.",
+      remedy: remedyForNumber(7).remedy.mantra + " — 108 japa, Shanivaar ko.",
     };
   return null;
 }
@@ -266,12 +266,12 @@ function buildNarrativeHi(
 ): string {
   const m = monthName(calMonth);
   if (verdict === "MAJOR favorable")
-    return `${m} एक उच्च-ज्वार महीना पढ़ा जाता है (PY ${py} × PM ${pm}) — तीव्रता ${intensity}/10। परंपरा में लॉन्च, प्रस्ताव और दृश्यता के लिए प्रबल विंडो; लय को अपने पक्ष में रखें।`;
+    return `${m} ek uchch-jvaar mahina padha jaata hai (PY ${py} × PM ${pm}) — teevrata ${intensity}/10. parampara mein launch, prastaav aur drishyata ke liye prabal vindo; lay ko apne paksh mein rakhein.`;
   if (verdict === "strong but volatile")
-    return `${m} शक्तिशाली पर उतार-चढ़ाव भरा महीना (PY ${py} × PM ${pm}) — तीव्रता ${intensity}/10। बड़े लाभ और बड़े घर्षण दोनों तेज़ी से चलते हैं; निर्णय पास रखें, निर्णय लिखित रखें।`;
+    return `${m} shaktishaai par utaar-chadhaav bhara mahina (PY ${py} × PM ${pm}) — teevrata ${intensity}/10. bade laabh aur bade gharshan dono tejaee se chalate hain; nirnay paas rakhein, nirnay likhit rakhein.`;
   if (verdict === "caution")
-    return `${m} शांत महीना पढ़ा जाता है (PY ${py} × PM ${pm}) — तीव्रता ${intensity}/10। चिंतन का महीना: ध्यान की रक्षा करें, शोर-संचालित वादों से बचें, योजनाओं को परिपक्व होने दें।`;
-  return `${m} संवर्धन का महीना (PY ${py} × PM ${pm}) — तीव्रता ${intensity}/10। स्थिर ईंटें, व्यवस्था और विराम वह मंच बनाते हैं जिस पर अगला शिखर खड़ा होगा।`;
+    return `${m} shaant mahina padha jaata hai (PY ${py} × PM ${pm}) — teevrata ${intensity}/10. chintan ka mahina: dhyaan ki raksha karein, shor-snchaalit vaadon se bachen, yojanaon ko paripakv hone dein.`;
+  return `${m} sanvardhan ka mahina (PY ${py} × PM ${pm}) — teevrata ${intensity}/10. sthir eenten, vyavastha aur viraam woh manch banaate hain jis par agla shikhar khada hoga.`;
 }
 
 function turningWhy(t: MonthWeather, lifePathUnit: number): string {

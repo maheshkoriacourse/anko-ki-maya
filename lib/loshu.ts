@@ -13,7 +13,7 @@
  * note. Repeated digits tally: a cell can show 0-3+ occurrences.
  *
  * v3.1 (owner correction #1): the BHAGYANK (life-path) digit ALSO fills its
- * cell — school rule 'भाग्यांक भी ग्रिड में भरता है'. Grid digits = DOB digits
+ * cell — school rule 'Bhagyank bhi grid mein bharta hai'. Grid digits = DOB digits
  * + Bhagyank digit; missing-number logic is verified AFTER the Bhagyank digit
  * is added (a digit missing from the DOB but present as Bhagyank is NOT
  * missing from the grid).
@@ -154,8 +154,8 @@ const MISSING_GENTLE: Record<number, string> = {
 
 /**
  * Build the Lo Shu reading from a date of birth.
- * v3.1: grid digits = DOB digits + the BHAGYANK digit ('भाग्यांक भी ग्रिड में
- * भरता है'). Bhagyank = month + day + year, each reduced, sum reduced
+ * v3.1: grid digits = DOB digits + the BHAGYANK digit ('Bhagyank bhi grid mein
+ * bharta hai'). Bhagyank = month + day + year, each reduced, sum reduced
  * (masters folded by their school rule inside `bhagyankFold`). Example:
  * 15-06-1990 → digits 1,5,6,1,9,9,0 + Bhagyank 4 → cell 4 gets +1.
  * Missing-number logic runs AFTER the Bhagyank digit is added: a digit
@@ -241,7 +241,7 @@ export function loShuGrid(year: number, month: number, day: number): LoShuResult
   const steps: string[] = [
     `Digits of the birth date ${String(day).padStart(2, "0")}-${String(month).padStart(2, "0")}-${year}: ${digits.join(", ")}`,
     `Each digit 1-9 is counted in its fixed Lo Shu cell; 0 does not sit in the grid${zeros > 0 ? ` (${zeros} zero${zeros > 1 ? "s" : ""} noted separately)` : ""}.`,
-    `Bhagyank = ${digitSumOf(month)} + ${digitSumOf(day)} + ${digitSumOf(year)} = ${digitSumOf(month) + digitSumOf(day) + digitSumOf(year)} → ${bhagyank} — the Bhagyank digit also fills its grid cell (भाग्यांक भी ग्रिड में भरता है).`,
+    `Bhagyank = ${digitSumOf(month)} + ${digitSumOf(day)} + ${digitSumOf(year)} = ${digitSumOf(month) + digitSumOf(day) + digitSumOf(year)} → ${bhagyank} — the Bhagyank digit also fills its grid cell (Bhagyank bhi grid mein bharta hai).`,
     `Counts (DOB digits + Bhagyank digit): ${([1, 2, 3, 4, 5, 6, 7, 8, 9] as const)
       .filter((d) => counts[d] > 0)
       .map((d) => `${d}×${counts[d]}`)

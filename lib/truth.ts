@@ -65,101 +65,101 @@ const PY_TRUTHS: Record<number, PyTruth> = {
   1: {
     kind: "strong",
     truthEn: "A STRONG beginning year — but beginnings tax the nerves: new roles feel heavier before they feel yours.",
-    truthHi: "प्रबल आरंभ-वर्ष — पर शुरुआत नसों पर कर लेती है: नई भूमिका अपनी लगने से पहले भारी लगती है।",
+    truthHi: "prabal aarambh-saal — par shuruaat nason par kar leti hai: naee bhoomika apni lagane se pehle bhaari lagai hai.",
     basisEn: "PY 1 = Surya's ignition; combined with your chart it demands self-definition.",
-    basisHi: "अंक-दशा 1 = सूर्य का प्रज्वलन; चार्ट के साथ मिलकर यह आत्म-संकल्प माँगता है।",
+    basisHi: "ank-dasha 1 = Surya ka prajvalan; chart ke saath milakar yeh aatm-sankalp maagata hai.",
     remedyEn: "Sunrise water to Surya, 108× 'Om Suryaya Namah' on Sundays.",
-    remedyHi: "प्रातः सूर्य-जल अर्पण, रविवार 'ॐ सुर्याय नमः' का 108 जप।",
+    remedyHi: "Praatah soory-jal arpan, Ravivaar 'ॐ Suryaya Namah' ka 108 japa.",
     easesEn: "The load eases after the first quarter.",
-    easesHi: "पहली तिमाही के बाद बोझ हल्का होगा।",
+    easesHi: "pahai timaahee ke baad bojh halka hoga.",
   },
   2: {
     kind: "mixed",
     truthEn: "A PATIENCE year — progress is real but slow, and slowness will test your temper. Waiting is not failure; rushing here loses more.",
-    truthHi: "धैर्य-वर्ष — प्रगति सच्ची पर धीमी, और धीमापन आपके धैर्य की परीक्षा लेगा। इंतज़ार असफलता नहीं; यहाँ जल्दबाज़ी ज़्यादा गँवाती है।",
+    truthHi: "dhairya-saal — pragati sachchee par dheemee, aur dheemaapan aapke dhairya ki pariksha lega. intajaar asafalta nahi; yahan jaldabaajaee zyada gvaai hai.",
     basisEn: "PY 2 = Chandra's slow tide; partnerships ripen at the Moon's pace, not yours.",
-    basisHi: "अंक-दशा 2 = चंद्रमा की धीमी लहर; साझेदारियाँ चंद्र की गति से पकती हैं, आपकी नहीं।",
+    basisHi: "ank-dasha 2 = Chandrama ki dheemee lahar; saajhedariyaan Chandra ki gati se pakai hain, aapki nahi.",
     remedyEn: "White daan on Mondays, 108× 'Om Chandraya Namah'.",
-    remedyHi: "सोमवार श्वेत दान, 'ॐ चंद्राय नमः' का 108 जप।",
+    remedyHi: "Somvaar shwet daan, 'ॐ Chandraya Namah' ka 108 japa.",
     easesEn: "Momentum returns visibly in the second half.",
-    easesHi: "दूसरे हाफ़ में गति साफ़ दिखेगी।",
+    easesHi: "doosare haaph mein gati saaf dikhei.",
   },
   3: {
     kind: "strong",
     truthEn: "An EXPRESSIVE year — your name travels, rooms open. The truth also: scattered energy is this year's tax; too many tables starve the main one.",
-    truthHi: "अभिव्यक्ति-वर्ष — आपका नाम दूर जाएगा, महफ़िलें खुलेंगी। सच यह भी: बिखराव इस साल का कर है; बहुत मेज़ों पर बैठने से मुख्य मेज़ भूखी रह जाती है।",
+    truthHi: "abhivyakti-saal — aapka naam door jaaega, mahaphailen khuleni. sach yeh bhi: bikharaav is saal ka kar hai; bahut mejaon par baithane se mukhya mej bhooi rah jaati hai.",
     basisEn: "PY 3 = Guru's expansion through voice and network.",
-    basisHi: "अंक-दशा 3 = गुरु का वाणी-और-संग विस्तार।",
+    basisHi: "ank-dasha 3 = Guru ka vaani-aur-sang vistar.",
     remedyEn: "Turmeric daan on Thursdays, 108× 'Om Gurave Namah'; pick two tables, decline the rest.",
-    remedyHi: "गुरुवार हल्दी दान, 'ॐ गुरवे नमः' 108 जप; दो मेज़ें चुनें, बाक़ी मना करें।",
+    remedyHi: "Guruvaar haldi daan, 'ॐ Gurave Namah' 108 japa; do table chuno, baaki manaa karo.",
     easesEn: "Focus pays within the same year.",
-    easesHi: "एकाग्रता इसी वर्ष फल देती है।",
+    easesHi: "ekaagrata isi saal phal dei hai.",
   },
   4: {
     kind: "difficult",
     truthEn: "A DIFFICULT, HEAVY year — this is one of your chart's consolidation troughs: effort doubles, applause stays quiet, and pushing a big launch against this grain costs double.",
-    truthHi: "कठिन, भारी वर्ष — यह आपके चार्ट के संवर्धन-गर्तों में से एक है: मेहनत दोगुनी, तालियाँ मौन, और इस लय के विरुद्ध बड़ा लॉन्च दोगुना महँगा पड़ेगा।",
+    truthHi: "kathin, bhaari saal — yeh aapke chart ke snvardhan-garton mein se ek hai: mehnat doguni, taaliyaa maun, aur is lay ke viruddh bada launch doguna mahga padaega.",
     basisEn: "PY 4 = Rahu's grind under discipline; the 4-year punishes shortcuts and rewards only systems.",
-    basisHi: "अंक-दशा 4 = राहु की अनुशासन-मेहनत; 4-वर्ष शॉर्टकट दंडित करता है, केवल सिस्टम को पुरस्कृत करता है।",
+    basisHi: "ank-dasha 4 = Rahu ki anushasan-mehnat; 4-saal shortcut dndit karta hai, keval system ko puraskrit karta hai.",
     remedyEn: "Oil daan on Saturdays is for Shani; for 4 keep the ledger daily, 'Om Rahave Namah' 108 japa on Saturdays, and delay big launches one year.",
-    remedyHi: "शनि के लिए शनिवार तेल-दान; अंक 4 के लिए रोज़ बही-खाता, शनिवार 'ॐ राहवे नमः' 108 जप, और बड़ा लॉन्च एक वर्ष टालें।",
+    remedyHi: "Shani ke liye Shanivaar tail-daan; ank 4 ke liye roz hisaab-kitaab, Shanivaar 'ॐ Rahave Namah' 108 japa, aur bada launch ek saal taalo.",
     easesEn: "This eases at the next PY 5 — the change year unlocks what 4 locked.",
-    easesHi: "अगले अंक-दशा 5 में खुलेगा — परिवर्तन-वर्ष 4 का ताला खोलेगा।",
+    easesHi: "agle ank-dasha 5 mein khulega — parivartan-saal 4 ka taala kholega.",
   },
   5: {
     kind: "mixed",
     truthEn: "A CHANGE year — movement pays, but volatility is the fee. Switches, travel and new markets bring gains; impulsive big bets lose.",
-    truthHi: "परिवर्तन-वर्ष — चाल फलती है, पर उतार-चढ़ाव इसका किराया है। बदलाव, यात्रा और नए बाज़ार लाभ देंगे; बिना सोचे बड़ा दाँव हारा देगा।",
+    truthHi: "parivartan-saal — chaal phalai hai, par utaar-chadhaav isaka kiraayaa hai. badlaav, yatra aur nae baazaar laabh denge; bina soche bada daav haara dega.",
     basisEn: "PY 5 = Budh's commerce; Mercury wins on calculation, loses on impulse.",
-    basisHi: "अंक-दशा 5 = बुध की व्यापार-बुद्धि; बुध गिनती से जीतता है, लालच से हारता है।",
+    basisHi: "ank-dasha 5 = Budh ki vyaapaar-buddhi; Budh ginai se jeetata hai, laalach se haarata hai.",
     remedyEn: "Green clothing on Wednesdays, 108× 'Om Budhaya Namah'; write every deal down before signing.",
-    remedyHi: "बुधवार हरे वस्त्र, 'ॐ बुधाय नमः' 108 जप; हर सौदा साइन से पहले लिखें।",
+    remedyHi: "Budhvaar hare vastra, 'ॐ Budhaya Namah' 108 japa; har sauda sign se pehle likho.",
     easesEn: "Stability returns at the next PY 6.",
-    easesHi: "अगले अंक-दशा 6 में स्थिरता लौटेगी।",
+    easesHi: "agle ank-dasha 6 mein sthirta lautei.",
   },
   6: {
     kind: "strong",
     truthEn: "A FAMILY-AND-FORTUNE year — home matters bloom and money through taste improves. The truth also: household duty will pull you hard; neglect at home bills you later.",
-    truthHi: "परिवार-और-भाग्य वर्ष — घर के मामले फलेंगे, सौंदर्य से धन बढ़ेगा। सच यह भी: गृह-दायित्व ज़ोर मारेगा; घर की उपेक्षा बाद में बिल माँगेगी।",
+    truthHi: "parivaar-aur-bhaagy saal — ghar ke maamale phalenge, saundarya se dhan badhaega. sach yeh bhi: grih-daayitv zor maarega; ghar ki upeksha baad mein bill maagei.",
     basisEn: "PY 6 = Shukra's abundance tied to responsibility.",
-    basisHi: "अंक-दशा 6 = शुक्र की समृद्धि, जो ज़िम्मेदारी से बँधी है।",
+    basisHi: "ank-dasha 6 = Shukra ki samriddhi, jo zimmewari se bi hai.",
     remedyEn: "White daan on Fridays, 108× 'Om Shukraya Namah'; keep the family promise before the business one.",
-    remedyHi: "शुक्रवार श्वेत दान, 'ॐ शुक्राय नमः' 108 जप; पारिवारिक वादा पहले, व्यापारिक बाद।",
+    remedyHi: "Shukravaar shwet daan, 'ॐ Shukraya Namah' 108 japa; parivaarik waada pehle, business baad.",
     easesEn: "Harmony shows by mid-year if duties are honoured early.",
-    easesHi: "दायित्व पहले निभाए तो सद्भाव मध्य-वर्ष तक दिखेगा।",
+    easesHi: "daayitv pehle nibhaae toh sadbhaav madhy-saal tak dikhega.",
   },
   7: {
     kind: "difficult",
     truthEn: "A DIFFICULT visibility year — loud pushes stall, recognition lags, and self-doubt whispers loudest now. This is a trough by design, not by your failure.",
-    truthHi: "दृश्यता के लिए कठिन वर्ष — शोर-भरे प्रयास थमेंगे, पहचान देर से आएगी, और आत्म-संदेह अभी सबसे ज़ोर से फुसफुसाएगा। यह गर्त डिज़ाइन से है, आपकी असफलता से नहीं।",
+    truthHi: "drishyata ke liye kathin saal — shor-bhare prayaas thamenge, pahachaan der se aayegi, aur aatm-sndeh abhi sabse zor se phusaphusaaega. yeh gart design se hai, aapki asafalta se nahi.",
     basisEn: "PY 7 = Ketu's inward turn; the ascetic year starves the stage and feeds the study.",
-    basisHi: "अंक-दशा 7 = केतु का भीतर-मुख; तपस्वी-वर्ष मंच को भूखा रखता है, अध्ययन को तृप्त।",
+    basisHi: "ank-dasha 7 = Ketu ka bheetar-mukh; tapasvi-saal manch ko bhookha rakhta hai, adhyayan ko tript.",
     remedyEn: "108× 'Om Ketave Namah' on Saturdays, cream/brown daan; master one craft quietly — the stage reopens at PY 8/1.",
-    remedyHi: "शनिवार 'ॐ केतवे नमः' 108 जप, क्रीम/भूरा दान; एक कला चुपचाप में महारत — मंच अंक-दशा 8/1 पर फिर खुलेगा।",
+    remedyHi: "Shanivaar 'ॐ Ketave Namah' 108 japa, cream/bhoora daan; ek kala mein chupke se maharat — manch ank-dasha 8/1 par phir khulega.",
     easesEn: "Visibility returns at the next PY 8 — what you master now runs there.",
-    easesHi: "दृश्यता अगले अंक-दशा 8 पर लौटेगी — अब की महारत वहीं चलेगी।",
+    easesHi: "drishyata agle ank-dasha 8 par lautei — ab ki maharat wahin chalei.",
   },
   8: {
     kind: "strong",
     truthEn: "A MONEY-AND-POWER year — position and property move toward you. The truth also: Saturn audits; every shortcut taken in past years sends its bill this year. Effort is heavy and non-negotiable.",
-    truthHi: "धन-और-शक्ति वर्ष — पद और संपत्ति आपकी ओर चलेंगे। सच यह भी: शनि लेखा-जोखा करता है; पिछले वर्षों का हर शॉर्टकट इसी साल बिल भेजेगा। मेहनत भारी और अनिवार्य है।",
+    truthHi: "dhan-aur-shakti saal — pad aur sampatti aapki or chalenge. sach yeh bhi: Shani lekha-jokha karta hai; pichhle saalon ka har shortcut isi saal bill bhejega. mehnat bhaari aur anivaary hai.",
     basisEn: "PY 8 = Shani's harvest-and-audit; slow judge, permanent ledger.",
-    basisHi: "अंक-दशा 8 = शनि की फ़सल-और-लेखा; धीमा न्यायाधीश, स्थायी बही।",
+    basisHi: "ank-dasha 8 = Shani ki phasal-aur-lekha; dheema nyaayaadheesh, sthaayi bahee.",
     remedyEn: "Oil daan on Saturdays, 108× 'Om Shanicharaya Namah'; keep every deal clean and every promise kept.",
-    remedyHi: "शनिवार तेल-दान, 'ॐ शनैश्चराय नमः' 108 जप; हर सौदा साफ़, हर वादा निभा।",
+    remedyHi: "Shanivaar tail-daan, 'ॐ Shanicharaya Namah' 108 japa; har sauda saaf, har waada nibhao.",
     easesEn: "The audit softens once dues are paid early in the year.",
-    easesHi: "साल के आरंभ में बकाया चुका दें तो जाँच नरम पड़ेगी।",
+    easesHi: "saal ke aarambh mein baqaya chuka do toh jaanch naram pade.",
   },
   9: {
     kind: "mixed",
     truthEn: "A COMPLETION year — chapters end and that feels like loss before it feels like relief. Old frictions resurface for one last reckoning; impatience is this year's trap.",
-    truthHi: "समापन-वर्ष — अध्याय बंद होंगे; राहत से पहले यह घाटे जैसा लगेगा। पुरानी खट-पट आख़िरी हिसाब के लिए उभरेगी; अधीरता इस साल का जाल है।",
+    truthHi: "samaapan-saal — adhyay band honge; raahat se pehle yeh ghaate jaisa lagega. puraai khat-pat aakhairee hisaab ke liye ubharei; adheerata is saal ka jaal hai.",
     basisEn: "PY 9 = Mangal closing the cycle; Mars ends things forcefully if you delay gently.",
-    basisHi: "अंक-दशा 9 = मंगल चक्र बंद करता है; देर की तो मंगल ज़बरदस्ती तोड़ेगा।",
+    basisHi: "ank-dasha 9 = Mangal chakra band karta hai; der ki toh Mangal jabaradasi todaega.",
     remedyEn: "Red lentil daan on Tuesdays, 108× 'Om Mangalaya Namah'; choose closure over confrontation.",
-    remedyHi: "मंगलवार मसूर दान, 'ॐ मंगलाय नमः' 108 जप; टकराव की जगह समापन चुनें।",
+    remedyHi: "Mangalvaar masoor daan, 'ॐ Mangalaya Namah' 108 japa; takraav ki jagah samaapan chuno.",
     easesEn: "Relief arrives as the new PY 1 cycle begins.",
-    easesHi: "नया अंक-दशा 1 चक्र शुरू होते ही राहत मिलेगी।",
+    easesHi: "naya ank-dasha 1 chakra shuru hote hi raahat milegi.",
   },
 };
 
@@ -180,9 +180,9 @@ export function truthForYear(py: number, ctx: TruthContext): TruthVerdict {
   // Karmic debt present: sharpen the difficulty line with the basis chain.
   if (ctx.karmicDebts.length > 0 && (t.kind !== "strong" || py === 4 || py === 7)) {
     const nums = ctx.karmicDebts.join("/");
-    out.truthHi = `${t.truthHi} इसके ऊपर आपके चार्ट में कर्मिक ऋण-अंक (${nums}) है — इस दौर की कठिनाई आपके लिए औसत से थोड़ी ज़्यादा पढ़ी जाएगी।`;
+    out.truthHi = `${t.truthHi} isake upar aapke chart mein karmic rin-ank (${nums}) hai — is daur ki kathinaaee aapke liye ausat se thodaee zyada padhi jaaei.`;
     out.truthEn = `${t.truthEn} Your chart also carries karmic debt mark(s) (${nums}) — this period reads a notch harder for you than average.`;
-    out.basisHi = `${t.basisHi} आधार: कर्मिक ऋण-अंक ${nums} — अधूरे हिसाब इसी से लौटते हैं।`;
+    out.basisHi = `${t.basisHi} aadhaar: karmic rin-ank ${nums} — adhoore hisaab isi se lautate hain.`;
     out.basisEn = `${t.basisEn} Basis: karmic debt ${nums} — unfinished accounts return through it.`;
   }
   return out;
@@ -194,7 +194,7 @@ export function truthForYear(py: number, ctx: TruthContext): TruthVerdict {
 
 /**
  * The chart's honest ledger: what the numbers say plainly, each with basis,
- * remedy and easing window. Rendered as the report's "सच्चाई का पन्ना".
+ * remedy and easing window. Rendered as the report's "sachchai ka Panna".
  */
 export interface ChartTruth {
   verdicts: TruthVerdict[];
@@ -210,23 +210,23 @@ export function chartTruth(ctx: TruthContext): ChartTruth {
     const map: Record<number, { en: string; hi: string; rem: { en: string; hi: string } }> = {
       13: {
         en: "Karmic debt 13 sits in your chart: hard work is your tuition — laziness will bill you, honest grind will pay you. Power used carelessly turns back.",
-        hi: "आपके चार्ट में कर्मिक ऋण 13 बैठा है: मेहनत ही आपकी ट्यूशन फ़ीस है — सुस्ती बिल भेजेगी, ईमानदार जूनून देगा। सावधानी से इस्तेमाल न हुई शक्ति लौटती है।",
-        rem: { en: "Keep daily work-discipline (fixed hours, kept promises) and 108× 'Om' japa at sunrise.", hi: "रोज़ काम-अनुशासन (पक्के घंटे, निभाए वादे) और प्रातः 'ॐ' का 108 जप।" },
+        hi: "aapke chart mein karmic rin 13 baitha hai: mehnat hi aapki tyooshan phaees hai — susi bill bhejei, eemaanadaar joonoon dega. saavdhani se istemaal na hui shakti lautai hai.",
+        rem: { en: "Keep daily work-discipline (fixed hours, kept promises) and 108× 'Om' japa at sunrise.", hi: "Roz kaam-anushasan (pakke ghante, nibhaaye waade) aur praatah 'ॐ' ka 108 japa." },
       },
       14: {
         en: "Karmic debt 14 sits in your chart: freedom with risk is your lesson — money and dealings favour you, but over-reach and careless trust bill you.",
-        hi: "आपके चार्ट में कर्मिक ऋण 14 है: जोखिम के साथ आज़ादी आपका पाठ है — धन और सौदों में भाग्य साथ देता है, पर अति-उत्साह और लापरवाह भरोसा बिल भेजेगा।",
-        rem: { en: "Write every deal down, keep a cash buffer, 108× 'Om Budhaya Namah' on Wednesdays.", hi: "हर सौदा लिखें, नक़द बफ़र रखें, बुधवार 'ॐ बुधाय नमः' 108 जप।" },
+        hi: "aapke chart mein karmic rin 14 hai: jokhim ke saath aajaai aapka paath hai — dhan aur saudon mein bhaagy saath deta hai, par ati-utsaah aur laaparavaah bharosa bill bhejega.",
+        rem: { en: "Write every deal down, keep a cash buffer, 108× 'Om Budhaya Namah' on Wednesdays.", hi: "Har sauda likho, naqd buffer rakho, Budhvaar 'ॐ Budhaya Namah' 108 japa." },
       },
       16: {
         en: "Karmic debt 16 sits in your chart: towers built on ego take lightning — sudden falls follow pride, especially in partnerships. Humility is the insurance.",
-        hi: "आपके चार्ट में कर्मिक ऋण 16 है: अहंकार पर खड़ी मीनार को बिजली गिरती है — गर्व के बाद अचानक गिरावट, विशेषकर साझेदारी में। नम्रता ही बीमा है।",
-        rem: { en: "Consult before big calls, share credit openly, 108× 'Om' japa daily.", hi: "बड़े फ़ैसले से पहले सलाह, श्रेय खुलकर बाँटें, रोज़ 'ॐ' का 108 जप।" },
+        hi: "aapke chart mein karmic rin 16 hai: ahankaar par khadaee meinaar ko bijai girai hai — garv ke baad achanak giraavat, visheshakar saajhedari men. namrata hi beema hai.",
+        rem: { en: "Consult before big calls, share credit openly, 108× 'Om' japa daily.", hi: "Bade faislon se pehle salah, shrey khulkar baanto, roz 'ॐ' ka 108 japa." },
       },
       19: {
         en: "Karmic debt 19 sits in your chart: the prince's debt — success comes, but ego at the summit isolates. Keep advisors close and listen at least once.",
-        hi: "आपके चार्ट में कर्मिक ऋण 19 है: राजकुमार का ऋण — सफलता मिलेगी, पर शिखर पर अहंकार अकेला कर देगा। सलाहकार पास रखें, कम-से-कम एक बार तो सुनें।",
-        rem: { en: "Weekly counsel with a truthful elder, daan on your birthday.", hi: "सच्चे बुज़ुर्ग से साप्ताहिक सलाह, जन्मदिन पर दान।" },
+        hi: "aapke chart mein karmic rin 19 hai: raajakumaar ka ran — safalta milegi, par shikhar par ahankaar akela kar dega. salaahakaar paas rakho, kam-se-kam ek baar toh sunen.",
+        rem: { en: "Weekly counsel with a truthful elder, daan on your birthday.", hi: "sachche bujaurg se weekly salah, janmadin par daan." },
       },
     };
     const m = map[d] ?? map[13];
@@ -235,11 +235,11 @@ export function chartTruth(ctx: TruthContext): ChartTruth {
       truthEn: m.en,
       truthHi: m.hi,
       basisEn: `Karmic debt number ${d} detected in the chart's core positions (13/14/16/19 family).`,
-      basisHi: `कर्मिक ऋण-अंक ${d} चार्ट के मुख्य स्थानों में पकड़ा गया (13/14/16/19 कुल)।`,
+      basisHi: `karmic rin-ank ${d} chart ke mukhya sthaanon mein pakada gaya (13/14/16/19 kul).`,
       remedyEn: m.rem.en,
       remedyHi: m.rem.hi,
       easesEn: "Eases as the debt's lessons are paid in behaviour, not just intention.",
-      easesHi: "ऋण का पाठ व्यवहार में चुकाया जाए — नियत में नहीं — तब घटता है।",
+      easesHi: "ran ka paath vyavahaar mein chukaayaa jaaye — niyat mein nahi — tab ghatata hai.",
     });
   }
 
@@ -248,11 +248,11 @@ export function chartTruth(ctx: TruthContext): ChartTruth {
     verdicts.push({
       kind: "mixed",
       truthEn: `Missing number ${d} in your name: that lesson is not free — life will keep setting exams on digit ${d} until you study it deliberately.`,
-      truthHi: `आपके नाम में अंक ${d} अनुपस्थित: वह पाठ मुफ़्त नहीं — जीवन अंक ${d} की परीक्षा तब तक दोहराएगा जब तक जान-बूझकर न पढ़ो।`,
+      truthHi: `aapke naam mein ank ${d} absent: woh paath free nahi — jeevan ank ${d} ki pariksha tab tak doharaaega jab tak jaan-boojhkar na padhao.`,
       basisEn: `Digit ${d} never appears among the name's letter values (karmic lesson).`,
-      basisHi: `नाम के अक्षर-मानों में अंक ${d} कहीं नहीं (कर्मिक पाठ)।`,
+      basisHi: `naam ke akshar-maanon mein ank ${d} kaheen nahi (karmic paath).`,
       remedyEn: `Write the number ${d} quality into your daily routine deliberately; strengthen its planet via the remedy table.`,
-      remedyHi: `अंक ${d} का गुण जान-बूझकर दिनचर्या में लिखें; उसके ग्रह को उपाय-तालिका से बल दें।`,
+      remedyHi: `ank ${d} ka guna jaan-boojhkar dinacharyaa mein likho; usake graha ko upaay-table se bal dein.`,
       easesEn: null,
       easesHi: null,
     });
@@ -262,13 +262,13 @@ export function chartTruth(ctx: TruthContext): ChartTruth {
     verdicts.push({
       kind: "difficult",
       truthEn: `Enemy-planet pairing ${a}-${b} sits in your chart: Sun-Saturn-type friction means quick success is NOT your gift — permanent success is. The tension is real; so is the payoff for those who keep discipline.`,
-      truthHi: `शत्रु-ग्रह जोड़ी ${a}-${b} आपके चार्ट में बैठी है: सूर्य-शनि जैसा घर्षण माने — झटपट सफलता आपकी देन नहीं, स्थायी सफलता है। तनाव सच्चा है; अनुशासन रखने वालों का इनाम भी सच्चा है।`,
+      truthHi: `shatru-graha jodi ${a}-${b} aapke chart mein baii hai: Surya-Shani jaisa gharshan maane — jhatpat safalta aapki den nahi, sthaayi safalta hai. tanaav sachcha hai; anushasan rakhane vaalon ka inaam bhi sachcha hai.`,
       basisEn: `Planet enmity between digit ${a} and ${b} (classical friendship table).`,
-      basisHi: `अंक ${a} और ${b} के ग्रहों की शत्रुता (परंपरागत मित्र-तालिका)।`,
+      basisHi: `ank ${a} aur ${b} ke grahon ki shatruta (paramparagat mitra-table).`,
       remedyEn: "Surya-Shani reconciliation: sunrise water to the Sun + Saturday oil daan; keep the work-rest ledger honest.",
-      remedyHi: "सूर्य-शनि मेल: प्रातः सूर्य-जल + शनिवार तेल-दान; काम-विराम का लेखा ईमानदार रखें।",
+      remedyHi: "Surya-Shani mel: praatah Surya-jal + Shanivaar tel-daan; kaam-viraam ka lekha eemaanadaar rakho.",
       easesEn: "Friction turns to footing as routines hold for a full season.",
-      easesHi: "एक पूरे मौसम रुटीन टिके तो घर्षण पकड़ में बदलेगा।",
+      easesHi: "ek poore mausam routine tike toh gharshan pakad mein badalega.",
     });
   }
 
@@ -282,8 +282,8 @@ export function chartTruth(ctx: TruthContext): ChartTruth {
       : "This chart reads strong — but its years still alternate: peaks demand building, troughs demand patience. No year is exempt.";
   const summaryHi =
     allDifficult > 0
-      ? `इस पृष्ठ पर ${verdicts.length} ईमानदार निर्णायक हैं: ${allDifficult} में आधार और उपाय सहित कठिनाई कही गई — चार्ट ख़ुशामद नहीं, सच्चा पढ़ा गया है।`
-      : "यह चार्ट प्रबल पढ़ा गया — पर उसके वर्ष फिर भी बारी-बारी चलेंगे: चोटी निर्माण माँगेगी, गर्त धैर्य। कोई वर्ष छूट का हक़दार नहीं।";
+      ? `is prishth par ${verdicts.length} eemaanadaar nirnaayak hain: ${allDifficult} mein aadhaar aur upaay sahit kathinaaee kahee gaee — chart khaushaamad nahi, sachcha padha gaya hai.`
+      : "yeh chart prabal padha gaya — par usake saal phir bhi baari-baari chalenge: choti nirmaan maagei, gart dhairy. koi saal chhoot ka hakadaar nahi.";
 
   return {
     verdicts,

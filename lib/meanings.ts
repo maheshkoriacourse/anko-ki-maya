@@ -318,3 +318,16 @@ export const LO_SHU_CELL_HINT: Record<number, string> = {
   8: "money mindset and ambition",
   9: "compassion and idealism",
 };
+
+/** v3.2 Hinglish twin of LO_SHU_CELL_HINT (spoken register, romanized). */
+export const LO_SHU_CELL_HINT_HI: Record<number, string> = {
+  1: "leadership aur nayi shuruaat",
+  2: "sensitivity aur saajhedari",
+  3: "creativity aur expression",
+  4: "order aur practical dimaag",
+  5: "azadi aur adaptability",
+  6: "care aur ghar ki harmony",
+  7: "analysis aur bheetari zindagi",
+  8: "paisa-dimaag aur ambition",
+  9: "compassion aur idealism",
+};

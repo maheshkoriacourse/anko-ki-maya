@@ -26,9 +26,9 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ ह्रां ह्रीं ह्रौं सः सूर्याय नमः",
     japa: 7000,
     japaSets: 4,
-    yantra: "सूर्य यंत्र",
-    worshipDay: "रविवार",
-    daan: ["माणिक्य", "गोमेद", "तांबा", "रक्त वस्त्र", "लाल चंदन"],
+    yantra: "Surya yantra",
+    worshipDay: "Ravivaar",
+    daan: ["Maanikya", "Gomed", "taamba", "rakt vastra", "laal chandan"],
   },
   2: {
     number: 2,
@@ -36,9 +36,9 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ श्रां श्रीं श्रौं सः चंद्राय नमः",
     japa: 11000,
     japaSets: 4,
-    yantra: "चंद्र यंत्र",
-    worshipDay: "सोमवार",
-    daan: ["मोती", "चावल", "चाँदी", "सफ़ेद चंदन", "श्वेत वस्त्र", "श्वेत पुष्प", "मिश्री", "कपूर"],
+    yantra: "Chandra yantra",
+    worshipDay: "Somvaar",
+    daan: ["Moti", "chaawal", "chaandi", "safed chandan", "shwet vastra", "shwet pushp", "mishri", "kapoor"],
   },
   3: {
     number: 3,
@@ -46,11 +46,11 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ ग्रां ग्रीं ग्रौं सः गुरवे नमः",
     japa: 19000,
     japaSets: 4,
-    yantra: "गुरु यंत्र",
-    worshipDay: "गुरुवार",
+    yantra: "Guru yantra",
+    worshipDay: "Guruvaar",
     daan: [
-      "पोखराज", "चने की दाल", "कांस्य पात्र", "हल्दी", "पीला वस्त्र",
-      "पीले पुष्प", "धर्मग्रंथ", "पीली मिठाई",
+      "Pukhraj", "chane ki daal", "kaansya paatra", "haldi", "peela vastra",
+      "peele pushp", "dharmgranth", "peeli mithai",
     ],
   },
   4: {
@@ -59,11 +59,11 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ भ्रां भ्रीं भ्रौं सः राहवे नमः",
     japa: 18000,
     japaSets: 4,
-    yantra: "राहु यंत्र",
-    worshipDay: "शनिवार",
-    daan: ["गोमेद", "सीसा (राँगा)", "सप्तधान्य", "नीला वस्त्र", "नारियल"],
+    yantra: "Rahu yantra",
+    worshipDay: "Shanivaar",
+    daan: ["Gomed", "seesa (raaga)", "saptdhaanya", "neela vastra", "naariyal"],
     extraNote:
-      "राहु उपाय विशेष: राहु के लिए शनिवार को सप्तधान्य और नारियल का दान परंपरा में कहा गया है; गोमेद रत्न गुरु की सलाह से ही धारण करें।",
+      "Rahu upaay vishesh: Rahu ke liye Shanivaar ko saptdhaanya aur naariyal ka daan parampara mein kaha gaya hai; Gomed ratna Guru ki salah se hi dhaaran karo.",
   },
   5: {
     number: 5,
@@ -71,9 +71,9 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ बां बीं बौं सः बुधाय नमः",
     japa: 9000,
     japaSets: 4,
-    yantra: "बुध यंत्र",
-    worshipDay: "बुधवार",
-    daan: ["पन्ना", "मूँग", "हरी इलायची", "हरा वस्त्र", "हरे फल"],
+    yantra: "Budh yantra",
+    worshipDay: "Budhvaar",
+    daan: ["Panna", "moong", "hari ilaayachee", "hara vastra", "hare phal"],
   },
   6: {
     number: 6,
@@ -81,9 +81,9 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ द्रां द्रीं द्रौं सः शुक्राय नमः",
     japa: 16000,
     japaSets: 4,
-    yantra: "शुक्र यंत्र",
-    worshipDay: "शुक्रवार",
-    daan: ["हीरा", "चाँदी", "दही", "सफ़ेद चंदन", "सफ़ेद वस्त्र", "श्वेत पुष्प", "मिश्री", "सुगंधित द्रव्य"],
+    yantra: "Shukra yantra",
+    worshipDay: "Shukravaar",
+    daan: ["Heera", "chaandi", "dahi", "safed chandan", "safed vastra", "shwet pushp", "mishri", "sugandhit dravya"],
   },
   7: {
     number: 7,
@@ -91,9 +91,9 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ स्रां स्रीं स्रौं सः केतवे नमः",
     japa: 17000,
     japaSets: 4,
-    yantra: "केतु यंत्र",
-    worshipDay: "शनिवार",
-    daan: ["लहसुनियाँ", "सप्तधान्य", "धूसर पुष्प", "कस्तूरी", "कम्बल"],
+    yantra: "Ketu yantra",
+    worshipDay: "Shanivaar",
+    daan: ["lehsuniya", "saptdhaanya", "dhoosar pushp", "kastoori", "kambal"],
   },
   8: {
     number: 8,
@@ -101,9 +101,9 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ प्रां प्रीं प्रौं सः शनैश्चराय नमः",
     japa: 23000,
     japaSets: 4,
-    yantra: "शनि यंत्र",
-    worshipDay: "शनिवार",
-    daan: ["नीलम", "लोहा", "उड़द", "काले पुष्प", "काला वस्त्र", "मैस (तेल)", "काले जूते"],
+    yantra: "Shani yantra",
+    worshipDay: "Shanivaar",
+    daan: ["Neelam", "loha", "urad", "kaale pushp", "kaala vastra", "tail (tel)", "kaale joote"],
   },
   9: {
     number: 9,
@@ -111,15 +111,15 @@ export const REMEDIES: Record<number, RemedyEntry> = {
     mantra: "ॐ क्रां क्रीं क्रौं सः भौमाय नमः",
     japa: 10000,
     japaSets: 4,
-    yantra: "मंगल यंत्र",
-    worshipDay: "मंगलवार",
-    daan: ["मूँगा", "मसूर", "तांबा", "लाल कनेर", "लाल वस्त्र", "लाल चंदन"],
+    yantra: "Mangal yantra",
+    worshipDay: "Mangalvaar",
+    daan: ["Moonga", "masoor", "taamba", "laal kaner", "laal vastra", "laal chandan"],
   },
 };
 
 /** Gold is traditionally an acceptable daan for every planet (school header rule). */
 export const GOLD_NOTE =
-  "परंपरा में कहा गया है — “सोना सभी ग्रह का दान है”: अगर कोई विशेष दान-वस्तु उपलब्ध न हो, तो सोना (या सोने की छोटी वस्तु) सभी ग्रहों के दान में स्वीकार माना जाता है।";
+  "parampara mein kaha gaya hai — “sona sabhi graha ka daan hai”: agar koi vishesh daan-vastu upalabdh na ho, toh sona (ya sone ki chhoti vastu) sabhi grahon ke daan mein sweekaar maana jaata hai.";
 
 /** Number → remedy; masters fold to their base digit with a note. */
 export function remedyForNumber(n: number): { remedy: RemedyEntry; baseOfMaster?: number } {

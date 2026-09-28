@@ -34,7 +34,8 @@ describe("v3 voice — direct jyotishi, no blandness", () => {
         expect(s).not.toMatch(banRx);
         expect(s.length).toBeGreaterThan(40);
       }
-      expect(p.readingHi).toMatch(/[\u0900-\u097F]/);
+      expect(p.readingHi).toMatch(/\b(hai|hain|ka|ki|ke|ko|mein|saal|tha|karo)\b/);
+      expect(p.readingHi).not.toMatch(/[\u0900-\u097F]/);
     }
   });
 
@@ -45,7 +46,10 @@ describe("v3 voice — direct jyotishi, no blandness", () => {
       expect(s.hookEn.length).toBeGreaterThan(30);
       expect(hasConcreteYears(s)).toBe(true);
       expect(s.remedyEn.length).toBeGreaterThan(10);
-      expect(s.remedyHi).toMatch(/[\u0900-\u097F]/);
+      // v3.2: HI mode is Hinglish — remedy lines are instructional and may be
+    // verb-led; check Hinglish markers loosely (incl. imperative verbs).
+    expect(s.remedyHi).toMatch(/\b(hai|hain|ka|ki|ke|ko|mein|saal|tha|karo|do|rakho|chuno|japa|daan|upay)\b/);
+      expect(s.remedyHi.replace(/'ॐ[^']*'/g, "")).not.toMatch(/[\u0900-\u097F\u0966-\u096F]/);
       expect(s.pastEn + s.nowEn + s.futureEn).not.toMatch(banRx);
     }
   });
@@ -65,7 +69,8 @@ describe("v3 truth-telling — SACCHAN/KAARAN/UPAY/SAMAY", () => {
       if (v.kind === "difficult") {
         expect(v.basisEn.length).toBeGreaterThan(20);
         expect(v.remedyEn.length).toBeGreaterThan(10);
-        expect(v.remedyHi).toMatch(/[\u0900-\u097F]/);
+        expect(v.remedyHi).toMatch(/\b(hai|hain|ka|ki|ke|ko|mein|saal|tha|karo)\b/);
+      expect(v.remedyHi.replace(/'ॐ[^']*'/g, '')).not.toMatch(/[\u0900-\u097F\u0966-\u096F]/);
       }
     }
   });
@@ -82,7 +87,8 @@ describe("v3 NAVGRAH layer", () => {
     const expectMap: Record<number, string> = { 1: "Surya", 2: "Chandra", 3: "Guru", 4: "Rahu", 5: "Budh", 6: "Shukra", 7: "Ketu", 8: "Shani", 9: "Mangal" };
     for (const [n, g] of Object.entries(NAVGRAH)) {
       expect(g.graha).toBe(expectMap[Number(n)]);
-      expect(g.behaviorHi).toMatch(/[\u0900-\u097F]/);
+      expect(g.behaviorHi).toMatch(/\b(hai|hain|ka|ki|ke|ko|mein|saal|tha|karo)\b/);
+      expect(g.behaviorHi).not.toMatch(/[\u0900-\u097F]/);
     }
   });
 
@@ -116,7 +122,8 @@ describe("v3 Ank Tools (phone/house/vehicle)", () => {
     const r = analyzePhone("9876543210", 6, 3);
     expect(r.digitsum).toBe(9);
     expect(r.lineEn.length).toBeGreaterThan(30);
-    expect(r.lineHi).toMatch(/[\u0900-\u097F]/);
+    expect(r.lineHi).toMatch(/\b(hai|hain|ka|ki|ke|ko|mein|saal|tha|karo)\b/);
+      expect(r.lineHi.replace(/[\u0966-\u096F]/g, '')).not.toMatch(/[\u0900-\u097F]/);
   });
 
   it("extracts digits from house labels like B-402", () => {

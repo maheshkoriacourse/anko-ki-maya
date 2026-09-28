@@ -18,8 +18,11 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@vendor/panchanga": ["./vendor/panchanga/index.ts"],
+      "@vendor/panchanga/*": ["./vendor/panchanga/*"]
     }
   },
   "include": [

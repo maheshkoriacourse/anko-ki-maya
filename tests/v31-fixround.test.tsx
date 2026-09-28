@@ -31,7 +31,8 @@ describe("v3.1 correction #2 — LIFE GRAPH BIG-YEAR detection", () => {
   it("every big year names its LIKELY EVENT TYPE directly", () => {
     for (const p of graph.bigYears) {
       expect(p.eventEn).toBeTruthy();
-      expect(p.eventHi).toMatch(/[\u0900-\u097F]/);
+      expect(p.eventHi).toMatch(/\b(hai|saal|ka|ki|ke)\b/);
+      expect(p.eventHi).not.toMatch(/[\u0900-\u097F\u0966-\u096F]/);
       expect(p.bigReasons.length).toBeGreaterThan(0);
       for (const r of p.bigReasons) {
         expect(BIG_REASON_LABEL[r]).toBeTruthy();
@@ -42,13 +43,13 @@ describe("v3.1 correction #2 — LIFE GRAPH BIG-YEAR detection", () => {
   it("event-type mapping: PY 6 → marriage-love; PY 1 → job/admission change; PY 9 → completion/legacy", () => {
     const py6 = graph.bigYears.find((p) => p.py === 6)!;
     expect(py6.eventEn).toMatch(/marriage-love/i);
-    expect(py6.eventHi).toContain("शादी-प्यार");
+    expect(py6.eventHi).toContain("shaadi-pyaar");
     const py1 = graph.bigYears.find((p) => p.py === 1)!;
     expect(py1.eventEn).toMatch(/job\/admission/i);
-    expect(py1.eventHi).toContain("नौकरी/एडमिशन");
+    expect(py1.eventHi).toContain("naukri/admission");
     const py9 = graph.bigYears.find((p) => p.py === 9)!;
     expect(py9.eventEn).toMatch(/chapter closed|legacy/i);
-    expect(py9.eventHi).toContain("विरासत");
+    expect(py9.eventHi).toContain("virasat");
   });
 
   it("non-big years carry no event and are excluded from the timeline", () => {
@@ -101,9 +102,10 @@ describe("v3.1 correction #4 — NUMBER REPETITIONS (school deck)", () => {
     expect(one.level).toBe("double");
     expect(one.strengthEn).toMatch(/leadership/i);
     expect(one.shadowEn).toContain("double 1 = ego and impatience");
-    expect(one.shadowHi).toContain("डबल 1");
+    expect(one.shadowHi).toContain("Double 1");
     expect(one.upayEn).toMatch(/Upay/i);
-    expect(nine.shadowHi).toMatch(/[\u0900-\u097F]/);
+    expect(nine.shadowHi).toMatch(/\b(hai|ka|ki|ke|mein)\b/);
+    expect(nine.shadowHi).not.toMatch(/[\u0900-\u097F]/);
   });
 
   it("triple case 09/09/1999 → 9×5 = very intense (triple level)", () => {
@@ -122,9 +124,9 @@ describe("v3.1 correction #4 — NUMBER REPETITIONS (school deck)", () => {
     const r = analyzeRepetitions(1993, 3, 3, 3, 3);
     const three = r.entries.find((e) => e.digit === 3)!;
     expect(three.level).toBe("triple");
-    expect(three.strengthEn).toContain("गुरु का झंडा");
+    expect(three.strengthEn).toContain("Guru ka jhanda");
     expect(three.strengthEn).toContain("teacher-speaker");
-    expect(three.strengthHi).toContain("गुरु का झंडा");
+    expect(three.strengthHi).toContain("Guru ka jhanda");
   });
 
   it("double 5 = restlessness shadow; double 8 = deep-but-delayed karma", () => {
@@ -133,7 +135,7 @@ describe("v3.1 correction #4 — NUMBER REPETITIONS (school deck)", () => {
     const five = r.entries.find((e) => e.digit === 5)!;
     expect(five.level).toBe("triple");
     expect(five.shadowEn).toContain("double 5 = restlessness");
-    expect(five.shadowHi).toContain("बेचैनी");
+    expect(five.shadowHi).toContain("bechaini");
     expect(five.upayEn).toMatch(/Upay/);
     // every entry carries a shadow line
     for (const e of r.entries) expect(e.shadowEn.length).toBeGreaterThan(20);
@@ -141,7 +143,7 @@ describe("v3.1 correction #4 — NUMBER REPETITIONS (school deck)", () => {
     const r8 = analyzeRepetitions(1988, 8, 28, 1, 8); // digits 2,8,0,8,1,9,8,8 → 8×4
     const eight = r8.entries.find((e) => e.digit === 8)!;
     expect(eight.shadowEn).toContain("double 8 = deep-but-delayed karma");
-    expect(eight.shadowHi).toContain("गहरा-पर-विलंबित");
+    expect(eight.shadowHi).toContain("gehra-par-vilambit");
   });
 
   it("same digit as BOTH Mulank and Bhagyank → special callout", () => {
@@ -155,28 +157,31 @@ describe("v3.1 correction #4 — NUMBER REPETITIONS (school deck)", () => {
     expect(r2.mulankBhagyankSame).toBeNull();
   });
 
-  it("every repeated digit has strength + shadow + upay in BOTH languages", () => {
+  it("every repeated digit has strength + shadow + upay in BOTH languages (Hinglish voice)", () => {
     for (let d = 1; d <= 9; d++) {
       const r = analyzeRepetitions(1990 + d, ((d * 3) % 12) + 1, d + 10, d, d);
       for (const e of r.entries) {
         expect(e.strengthEn.length).toBeGreaterThan(20);
-        expect(e.strengthHi).toMatch(/[\u0900-\u097F]/);
+        expect(e.strengthHi).toMatch(/\b(hai|hain|ka|ki|ke|ko|mein|saal|nahi|karo|rakh|ban)\w*/);
+        expect(e.strengthHi).not.toMatch(/[\u0900-\u097F]/);
         expect(e.shadowEn.length).toBeGreaterThan(20);
-        expect(e.shadowHi).toMatch(/[\u0900-\u097F]/);
+        expect(e.shadowHi).toMatch(/\b(hai|hain|ka|ki|ke|ko|mein|saal|nahi|karo|rakh|ban)\w*/);
+        expect(e.shadowHi).not.toMatch(/[\u0900-\u097F]/);
         expect(e.upayEn.length).toBeGreaterThan(20);
-        expect(e.upayHi).toMatch(/[\u0900-\u097F]/);
+        expect(e.upayHi.length).toBeGreaterThan(20);
+        expect(e.upayHi).not.toMatch(/[\u0900-\u097F]/);
       }
     }
   });
 });
 
 describe("v3.1 correction #3 — REASONING LANGUAGE (Basis block)", () => {
-  it("BasisBlock renders 'आधार / Basis' label + the closing predict line — never 'Why this reading'", () => {
+  it("BasisBlock renders the 'Basis' label + the closing predict line (Hinglish voice) — never 'Why this reading'", () => {
     const { getByText, queryAllByText } = render(
       <BasisBlock title="Lo Shu Grid" steps={["step one"]} lang="hi" />,
     );
-    expect(getByText(/आधार \/ Basis — Lo Shu Grid/)).toBeInTheDocument();
-    expect(getByText("इसी आधार पर हम आपके लिए यह predict करते हैं।")).toBeInTheDocument();
+    expect(getByText(/Basis — Lo Shu Grid/)).toBeInTheDocument();
+    expect(getByText("Isi basis par hum aapke liye yeh predict karte hain.")).toBeInTheDocument();
     expect(queryAllByText(/Why this reading/i)).toHaveLength(0);
     expect(queryAllByText(/यह क्यों कहा/)).toHaveLength(0);
   });

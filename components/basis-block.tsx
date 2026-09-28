@@ -36,9 +36,9 @@ export function BasisBlock({
       <summary className="flex cursor-pointer items-center gap-2 px-4 py-2.5 font-serif-display text-sm italic text-gold">
         <Info aria-hidden className="size-4 shrink-0" />
         <span aria-hidden className="gold-rule w-6" />
-        {lang === "hi" ? `आधार / Basis — ${title}` : `Basis — ${title}`}
+        {lang === "hi" ? `Basis — ${title}` : `Basis — ${title}`}
         <span className="ml-auto text-xs not-italic text-muted-foreground group-open:hidden">
-          {lang === "hi" ? "दिखाएँ" : "show"}
+          {lang === "hi" ? "dikhao" : "show"}
         </span>
       </summary>
       <div className="border-t border-gold/20 px-4 py-3">
@@ -50,7 +50,7 @@ export function BasisBlock({
         {note ? <p className="mt-2 text-xs italic text-muted-foreground">{note}</p> : null}
         <p className="mt-2 font-serif-display text-xs italic text-gold">
           {lang === "hi"
-            ? "इसी आधार पर हम आपके लिए यह predict करते हैं।"
+            ? "Isi basis par hum aapke liye yeh predict karte hain."
             : "On this basis we predict your reading."}
         </p>
       </div>

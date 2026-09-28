@@ -40,26 +40,26 @@ export interface ColorName {
 }
 
 export const LUCKY_COLORS: Record<number, ColorName[]> = {
-  1: [{ en: "gold", hi: "स्वर्ण" }, { en: "yellow", hi: "पीला" }, { en: "bronze", hi: "कांस्य" }],
-  2: [{ en: "green", hi: "हरा" }, { en: "cream", hi: "क्रीम" }, { en: "white", hi: "सफ़ेद" }],
+  1: [{ en: "gold", hi: "svarn" }, { en: "yellow", hi: "peela" }, { en: "bronze", hi: "kaansya" }],
+  2: [{ en: "green", hi: "hara" }, { en: "cream", hi: "cream" }, { en: "white", hi: "safed" }],
   3: [
-    { en: "mauve", hi: "मॉव" },
-    { en: "violet", hi: "बैंगनी" },
-    { en: "blue", hi: "नीला" },
-    { en: "crimson", hi: "गहरा लाल" },
-    { en: "rose", hi: "गुलाबी" },
+    { en: "mauve", hi: "mov" },
+    { en: "violet", hi: "baingai" },
+    { en: "blue", hi: "neela" },
+    { en: "crimson", hi: "gehra laal" },
+    { en: "rose", hi: "gulaabi" },
   ],
-  4: [{ en: "electric blue", hi: "विद्युत-नीला" }, { en: "grey", hi: "स्लेटी" }],
-  5: [{ en: "grey", hi: "स्लेटी" }, { en: "white", hi: "सफ़ेद" }, { en: "shimmering fabrics", hi: "चमकीले रंग" }],
-  6: [{ en: "blue with rose", hi: "नीला-गुलाबी" }, { en: "pink", hi: "पिंक" }],
-  7: [{ en: "pale green", hi: "हल्का हरा" }, { en: "white", hi: "सफ़ेद" }, { en: "yellow", hi: "पीला" }],
+  4: [{ en: "electric blue", hi: "vidyut-neela" }, { en: "grey", hi: "slei" }],
+  5: [{ en: "grey", hi: "slei" }, { en: "white", hi: "safed" }, { en: "shimmering fabrics", hi: "chamakeele rang" }],
+  6: [{ en: "blue with rose", hi: "neela-gulaabi" }, { en: "pink", hi: "pink" }],
+  7: [{ en: "pale green", hi: "halka hara" }, { en: "white", hi: "safed" }, { en: "yellow", hi: "peela" }],
   8: [
-    { en: "dark grey", hi: "गहरा स्लेटी" },
-    { en: "black", hi: "काला" },
-    { en: "dark blue", hi: "गहरा नीला" },
-    { en: "purple", hi: "बैंगनी" },
+    { en: "dark grey", hi: "gehra slei" },
+    { en: "black", hi: "kaala" },
+    { en: "dark blue", hi: "gehra neela" },
+    { en: "purple", hi: "baingai" },
   ],
-  9: [{ en: "crimson", hi: "गहरा लाल" }, { en: "red", hi: "लाल" }, { en: "rose", hi: "गुलाबी" }],
+  9: [{ en: "crimson", hi: "gehra laal" }, { en: "red", hi: "laal" }, { en: "rose", hi: "gulaabi" }],
 };
 
 export interface GemName {
@@ -68,19 +68,19 @@ export interface GemName {
 }
 
 export const LUCKY_GEMS: Record<number, GemName[]> = {
-  1: [{ en: "topaz", hi: "पुखराज" }, { en: "amber", hi: "एम्बर" }, { en: "yellow diamond", hi: "पीला हीरा" }],
-  2: [{ en: "pearl", hi: "मोती" }, { en: "moonstone", hi: "चंद्रकांता" }, { en: "jade", hi: "जेड" }],
-  3: [{ en: "amethyst", hi: "जमुनिया (अमेथिस्ट)" }],
-  4: [{ en: "sapphire (light or dark)", hi: "नीलम" }],
-  5: [{ en: "diamond", hi: "हीरा" }, { en: "platinum", hi: "प्लैटिनम" }],
-  6: [{ en: "turquoise", hi: "फिरोज़ा" }, { en: "emerald", hi: "पन्ना" }],
+  1: [{ en: "topaz", hi: "Pukhraj" }, { en: "amber", hi: "embar" }, { en: "yellow diamond", hi: "peela Heera" }],
+  2: [{ en: "pearl", hi: "Moti" }, { en: "moonstone", hi: "chndrakaanta" }, { en: "jade", hi: "jed" }],
+  3: [{ en: "amethyst", hi: "jamuniyaa (amethist)" }],
+  4: [{ en: "sapphire (light or dark)", hi: "Neelam" }],
+  5: [{ en: "diamond", hi: "Heera" }, { en: "platinum", hi: "plaitinam" }],
+  6: [{ en: "turquoise", hi: "phiroja" }, { en: "emerald", hi: "Panna" }],
   7: [
-    { en: "moonstone", hi: "चंद्रकांता" },
-    { en: "cat's eye", hi: "लहसुनिया" },
-    { en: "moss agate", hi: "मॉस एगेट" },
+    { en: "moonstone", hi: "chndrakaanta" },
+    { en: "cat's eye", hi: "Lehsunia" },
+    { en: "moss agate", hi: "mos eget" },
   ],
-  8: [{ en: "amethyst", hi: "जमुनिया" }, { en: "dark sapphire", hi: "गहरा नीलम" }],
-  9: [{ en: "ruby", hi: "माणिक्य" }, { en: "garnet", hi: "गार्नेट" }, { en: "bloodstone", hi: "हेलियोट्रोप" }],
+  8: [{ en: "amethyst", hi: "jamuniyaa" }, { en: "dark sapphire", hi: "gehra Neelam" }],
+  9: [{ en: "ruby", hi: "Maanikya" }, { en: "garnet", hi: "gaarnet" }, { en: "bloodstone", hi: "heliyotrop" }],
 };
 
 /**

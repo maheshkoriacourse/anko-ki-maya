@@ -28,9 +28,9 @@ export default function NumberToolsPage() {
   if (!hasProfile || !profile || !reading) {
     return (
       <EmptyState
-        title={hi ? "पहले जन्म-विवरण दीजिए" : "No profile yet"}
-        body={hi ? "मूलांक चाहिए — जन्म-तिथि दीजिए।" : "Your Mulank is needed — add your birth date first."}
-        action={<a href="/" className="text-sm text-primary underline">{hi ? "शुरू करें" : "Start"}</a>}
+        title={hi ? "pehle janm-vivaran do" : "No profile yet"}
+        body={hi ? "Mulank chaahie — janm-tithi do." : "Your Mulank is needed — add your birth date first."}
+        action={<a href="/" className="text-sm text-primary underline">{hi ? "shuru karein" : "Start"}</a>}
       />
     );
   }
@@ -48,25 +48,25 @@ export default function NumberToolsPage() {
   }
 
   const kinds: { id: Kind; icon: React.ReactNode; label: string; labelHi: string; ph: string; phHi: string }[] = [
-    { id: "phone", icon: <Smartphone aria-hidden className="size-4" />, label: "Mobile number", labelHi: "मोबाइल नंबर", ph: "98765 43210", phHi: "९८७६५ ४३२१०" },
-    { id: "house", icon: <Home aria-hidden className="size-4" />, label: "House / flat no.", labelHi: "मकान / फ़्लैट नं.", ph: "B-402", phHi: "बी-४०२" },
-    { id: "vehicle", icon: <Car aria-hidden className="size-4" />, label: "Vehicle no.", labelHi: "गाड़ी नं.", ph: "MH 12 AB 4321", phHi: "एमएच १२ एबी ४३२१" },
+    { id: "phone", icon: <Smartphone aria-hidden className="size-4" />, label: "Mobile number", labelHi: "mobile number", ph: "98765 43210", phHi: "९८७६५ ४३२१०" },
+    { id: "house", icon: <Home aria-hidden className="size-4" />, label: "House / flat no.", labelHi: "makaan / phalait nn.", ph: "B-402", phHi: "bee-४०२" },
+    { id: "vehicle", icon: <Car aria-hidden className="size-4" />, label: "Vehicle no.", labelHi: "gaadi nn.", ph: "MH 12 AB 4321", phHi: "emaech १२ ebee ४३२१" },
   ];
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={hi ? "अंक-उपकरण" : "Ank Tools"}
+        title={hi ? "ank-upakaran" : "Ank Tools"}
         subtitle={
           hi
-            ? "फ़ोन, मकान या गाड़ी का नंबर अपने मूलांक से जाँचिए — अंक-योग का ग्रह आपके चालक-ग्रह से मित्र है या शत्रु, यही सारा खेल है।"
+            ? "phone, makaan ya gaadi ka number apne Mulank se jaachie — ank-yog ka graha aapke chaalak-graha se mitra hai ya shatru, yehi saara khel hai."
             : "Check your phone, house or vehicle number against your Mulank — the digit-sum's planet either befriends or opposes your driver planet."
         }
       />
 
       <Card className="glass">
         <CardContent className="pt-5">
-          <div className="mb-4 flex flex-wrap gap-1.5" role="tablist" aria-label={hi ? "उपकरण" : "Tool"}>
+          <div className="mb-4 flex flex-wrap gap-1.5" role="tablist" aria-label={hi ? "upakaran" : "Tool"}>
             {kinds.map((k) => (
               <button
                 key={k.id}
@@ -92,14 +92,14 @@ export default function NumberToolsPage() {
                 className="mt-1"
               />
             </div>
-            <Button type="submit">{hi ? "जाँचें" : "Check"}</Button>
+            <Button type="submit">{hi ? "Jaanch karo" : "Check"}</Button>
           </form>
 
           {result ? (
             <div className="mt-5 rounded-xl border p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="font-display text-lg font-semibold">
-                  {hi ? `अंक-योग ${devNum(result.digitsum)} — ${grahaFor(result.digitsum).grahaHi}` : `Digit sum ${result.digitsum} — ${grahaFor(result.digitsum).graha}`}
+                  {hi ? `ank-yog ${devNum(result.digitsum)} — ${grahaFor(result.digitsum).grahaHi}` : `Digit sum ${result.digitsum} — ${grahaFor(result.digitsum).graha}`}
                 </p>
                 <Badge variant={result.relation === "friendly" ? "gold" : "secondary"}>
                   {verdictLabel(result.relation, lang)}
@@ -114,15 +114,15 @@ export default function NumberToolsPage() {
       <SanatanDivider />
       <p className="text-xs text-muted-foreground">
         {hi
-          ? "यह जाँच परंपरागत मित्र-ग्रह तालिका पर है — निर्णय आपका; उपयोगिता और व्यवहार-सुविधा भी नंबर चुनते समय वज़न रखते हैं।"
+          ? "yeh jaanch paramparagat mitra-graha table par hai — nirnay aapka; upayogita aur vyavahaar-suvidha bhi number chunate samay vajan rakhate hain."
           : "This check uses the traditional planet-friendship table — the decision is yours; utility and practicality also weigh when choosing a number."}
       </p>
       <ReasoningBlock
-        title={hi ? "अंक-उपकरण" : "Ank Tools"}
+        title={hi ? "ank-upakaran" : "Ank Tools"}
         lang={lang}
         steps={
           result?.steps ?? [
-            hi ? "नंबर दीजिए — जाँच के चरण यहाँ दिखेंगे।" : "Enter a number — the calculation steps appear here.",
+            hi ? "number do — jaanch ke charan yahan dikhenge." : "Enter a number — the calculation steps appear here.",
           ]
         }
       />

@@ -59,7 +59,7 @@ export default function NameStudioPage() {
         title={t("navNameStudio")}
         subtitle={
           lang === "hi"
-            ? "कैल्डियन कंपाउंड-अंक परंपरा में नाम का स्कोर — और 3 सुझाए गए वर्तनी-विकल्प। ब्रांड/कंपनी नाम भी जाँचें।"
+            ? "kaildiyan knpaaund-ank parampara mein naam ka skor — aur 3 sujhaae gae vartai-vikalp. braand/knpai naam bhi jaachen."
             : "Chaldean compound-number scoring for your name — plus 3 suggested spellings. Brand/company names welcome."
         }
       />
@@ -68,26 +68,26 @@ export default function NameStudioPage() {
         <CardContent className="pt-5">
           <form onSubmit={analyze} className="space-y-4">
             <fieldset>
-              <legend className="mb-2 text-sm font-medium">{lang === "hi" ? "नाम का प्रकार" : "Name type"}</legend>
+              <legend className="mb-2 text-sm font-medium">{lang === "hi" ? "naam ka prakaar" : "Name type"}</legend>
               <div className="grid gap-3 sm:grid-cols-2">
                 <label className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3.5 has-[:checked]:border-gold/50 ${mode === "personal" ? "bg-secondary/40" : ""}`}>
                   <input type="radio" name="mode" checked={mode === "personal"} onChange={() => setMode("personal")} className="mt-1 accent-[var(--gold)]" />
                   <span>
-                    <span className="flex items-center gap-1.5 text-sm font-medium"><User aria-hidden className="size-4 text-gold" /> {lang === "hi" ? "व्यक्तिगत नाम" : "Personal name"}</span>
-                    <span className="block text-xs text-muted-foreground">{lang === "hi" ? "आपके मूलांक/जन्म-अंक से ताल-मेल जाँचा जाता है।" : "Scored against your Life Path and birth number."}</span>
+                    <span className="flex items-center gap-1.5 text-sm font-medium"><User aria-hidden className="size-4 text-gold" /> {lang === "hi" ? "vyaktigat naam" : "Personal name"}</span>
+                    <span className="block text-xs text-muted-foreground">{lang === "hi" ? "aapke Mulank/janm-ank se taal-mel jaacha jaata hai." : "Scored against your Life Path and birth number."}</span>
                   </span>
                 </label>
                 <label className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3.5 has-[:checked]:border-gold/50 ${mode === "brand" ? "bg-secondary/40" : ""}`}>
                   <input type="radio" name="mode" checked={mode === "brand"} onChange={() => setMode("brand")} className="mt-1 accent-[var(--gold)]" />
                   <span>
-                    <span className="flex items-center gap-1.5 text-sm font-medium"><Building2 aria-hidden className="size-4 text-gold" /> {lang === "hi" ? "ब्रांड/कंपनी" : "Brand / company"}</span>
-                    <span className="block text-xs text-muted-foreground">{lang === "hi" ? "केवल कंपाउंड-शुभता पर स्कोर।" : "Scored on the compound omen alone."}</span>
+                    <span className="flex items-center gap-1.5 text-sm font-medium"><Building2 aria-hidden className="size-4 text-gold" /> {lang === "hi" ? "braand/knpai" : "Brand / company"}</span>
+                    <span className="block text-xs text-muted-foreground">{lang === "hi" ? "keval knpaaund-shubhata par skor." : "Scored on the compound omen alone."}</span>
                   </span>
                 </label>
               </div>
             </fieldset>
             <div>
-              <Label htmlFor="studio-name">{lang === "hi" ? "नाम" : "Name"}</Label>
+              <Label htmlFor="studio-name">{lang === "hi" ? "naam" : "Name"}</Label>
               <Input
                 id="studio-name"
                 value={name}
@@ -98,7 +98,7 @@ export default function NameStudioPage() {
               />
             </div>
             <Button type="submit">
-              <Wand2 aria-hidden /> {lang === "hi" ? "स्कोर करें" : "Score the name"}
+              <Wand2 aria-hidden /> {lang === "hi" ? "skor karein" : "Score the name"}
             </Button>
           </form>
         </CardContent>
@@ -139,15 +139,15 @@ function ScoreView({
         </CardContent>
       </Card>
 
-      <ReasoningBlock title={lang === "hi" ? "स्कोर-गणित" : "Score math"} steps={c.reasons} lang={lang} />
+      <ReasoningBlock title={lang === "hi" ? "skor-ganit" : "Score math"} steps={c.reasons} lang={lang} />
 
       <section aria-labelledby="sug-h">
         <h2 id="sug-h" className="font-display text-lg font-semibold">
-          {lang === "hi" ? "सुझाए गए वर्तनी" : "Suggested spellings"}
+          {lang === "hi" ? "sujhaae gae vartai" : "Suggested spellings"}
         </h2>
         {result.suggestions.length === 0 ? (
           <p className="mt-2 text-sm text-muted-foreground">
-            {lang === "hi" ? "इस नाम के लिए कोई छोटा वर्तनी-सुधार उपलब्ध नहीं — स्कोर जैसा है वैसा ही रखें।" : "No small spelling shifts available for this name — keep the score as is."}
+            {lang === "hi" ? "is naam ke liye koi chhota vartai-sudhaar upalabdh nahi — skor jaisa hai vaisa hi rakho." : "No small spelling shifts available for this name — keep the score as is."}
           </p>
         ) : (
           <div className="mt-3 grid gap-3 md:grid-cols-3">
@@ -159,7 +159,7 @@ function ScoreView({
                 </CardHeader>
                 <CardContent>
                   <p className="text-xs text-muted-foreground">
-                    {lang === "hi" ? `कुल ${s.total} · "${s.omenTitle}"` : `total ${s.total} · "${s.omenTitle}"`}
+                    {lang === "hi" ? `kul ${s.total} · "${s.omenTitle}"` : `total ${s.total} · "${s.omenTitle}"`}
                   </p>
                 </CardContent>
               </Card>
@@ -168,7 +168,7 @@ function ScoreView({
         )}
         <p className="mt-3 font-serif-display text-xs italic text-muted-foreground">
           {lang === "hi"
-            ? "नाम-सुधार परंपरा में संतुलन-कला है — उच्च स्कोर पारंपरिक सामंजस्य दर्शाता है, परिणाम की गारंटी नहीं।"
+            ? "naam-sudhaar parampara mein santulan-kala hai — uchch skor traditional saamanjasya darshaata hai, parinaam ki guarantee nahi."
             : "Name-tuning is a traditional balance art — a higher score reflects traditional harmony, never a guaranteed outcome."}
         </p>
       </section>

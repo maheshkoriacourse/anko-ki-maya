@@ -1,10 +1,10 @@
 /**
  * Anko Ki Maya v3.1 — NUMBER REPETITIONS ENGINE (owner correction #4,
- * mandatory school method from the students decks: 'वर्तमान अंक गुणन').
+ * mandatory school method from the students decks: 'vartmaan ank gunan').
  *
  * Count each digit's repetitions in the FULL date of birth:
  *   - 2-same  = energy doubled  → strength + a shadow the number extracts
- *   - 3-same  = very intense (triple 3 = 'गुरु का झंडा' — teacher/speaker)
+ *   - 3-same  = very intense (triple 3 = 'Guru ka jhanda' — teacher/speaker)
  *   - same digit as BOTH Mulank and Bhagyank = special callout
  * Every repeated digit carries strength + shadow + upay-for-shadow (EN+HI).
  * Zeros are not counted (no zero in Ank Shastra's grid).
@@ -32,7 +32,7 @@ export interface RepetitionsResult {
 }
 
 /* ------------------------------------------------------------------ */
-/* School copy per digit: strength (प्रबलता) + shadow (छाया) + upay      */
+/* School copy per digit: strength (prabalata) + shadow (chhaya) + upay      */
 /* ------------------------------------------------------------------ */
 
 const REP_COPY: Record<
@@ -50,93 +50,93 @@ const REP_COPY: Record<
 > = {
   1: {
     strengthEn: "Self-leadership doubled — you can start alone where others need a team.",
-    strengthHi: "आत्म-नेतृत्व दोगुना — जहाँ दूसरों को टीम चाहिए, आप अकेले शुरुआत कर सकते हैं।",
+    strengthHi: "aatm-netritv doguna — jahan doosaron ko teem chaahie, aap akele shuruaat kar sakate hain.",
     shadowEn: "double 1 = ego and impatience — the 'my way' streak burns bridges and loses useful people.",
-    shadowHi: "डबल 1 = अहंकार और अधीरता — 'मेरा ही तरीक़ा' का ज़ज़्बा पुल जलाता है और काम के लोग खोता है।",
+    shadowHi: "Double 1 = ahankaar aur adheerata — 'mera hi tareeka' ka jwaalanta pul jalaata hai aur kaam ke log khota hai.",
     upayEn: "Upay for the shadow: one deliberate pause before every decision — Surya's water-offering at sunrise keeps the king-planet humble.",
-    upayHi: "छाया का उपाय: हर निर्णय से पहले एक जान-बूझकर ठहराव — प्रातःकाल सूर्य को जल अर्पण से राजा-ग्रह नम्र रहता है।",
+    upayHi: "chhaya ka upaay: har nirnay se pehle ek jaan-boojhkar thaharaav — praatahkaal Surya ko jal arpan se raja-graha namr rehata hai.",
     tripleEn: "Triple 1 = the commander signature — extreme self-will; leadership arrives only after the ego is trained.",
-    tripleHi: "ट्रिपल 1 = सेनापति का दस्तख़त — अत्यंत स्व-इच्छा; अहंकार के अनुशासित होने के बाद ही नेतृत्व आता है।",
+    tripleHi: "triple 1 = senaapati ka dastakhat — atyant svatantr-ichchha; ahankaar ke anushaasit hone ke baad hi netritv aata hai.",
   },
   2: {
     strengthEn: "Sensitivity doubled — you read people's hearts before they speak.",
-    strengthHi: "संवेदनशीलता दोगुनी — लोग बोलने से पहले आप उनके मन पढ़ लेते हैं।",
+    strengthHi: "snvedanasheelata doguni — log bolane se pehle aap unake man padh lete hain.",
     shadowEn: "double 2 = over-sensitivity — moods swing, criticism lands too deep, waiting stretches too long.",
-    shadowHi: "डबल 2 = अति-संवेदनशीलता — मन उतार-चढ़ाव भरा, आलोचना गहरी चुभती है, इंतज़ार लंबा खिंच जाता है।",
+    shadowHi: "double 2 = ati-snvedanasheelata — man utaar-chadhaav bhara, aalochana gehri chubhai hai, intajaar lnba khinch jaata hai.",
     upayEn: "Upay for the shadow: Monday water-offering to the Moon and one spoken sentence per day instead of swallowed silence.",
-    upayHi: "छाया का उपाय: सोमवार को चंद्रमा को जल-दान, और रोज़ एक कही हुई बात — निगली हुई ख़ामोशी का इलाज बोलना है।",
+    upayHi: "chhaya ka upaay: Somvaar ko Chandrama ko jal-daan, aur roz ek kahee hui baat — nigai hui khaamoi ka ilaaj bolna hai.",
     tripleEn: "Triple 2 = the tide-master — extreme emotional tide; boundaries are the lifetime lesson.",
-    tripleHi: "ट्रिपल 2 = लहर-स्वामी — अत्यंत भाव-लहर; सीमाएँ रखना जीवन-पाठ है।",
+    tripleHi: "triple 2 = lahar-Swami — atyant bhav-lahar; seemaae rakhana jeevan-paath hai.",
   },
   3: {
     strengthEn: "Expression doubled — knowledge flows out of you naturally; people gather to listen.",
-    strengthHi: "अभिव्यक्ति दोगुनी — ज्ञान आपसे सहज बहता है; लोग सुनने के लिए जुटते हैं।",
+    strengthHi: "abhivyakti doguni — gyaan aapse sahaj bahata hai; log sunne ke liye jutate hain.",
     shadowEn: "double 3 = scattered energy — ten bright tables starve the main one; starting many, finishing few.",
-    shadowHi: "डबल 3 = बिखरी ऊर्जा — दस चमकती मेज़ें, एक पटरी नहीं; बहुत शुरू करना, थोड़ा पूरा करना।",
+    shadowHi: "double 3 = bikhri oorja — das chamakti kirchein, ek patang nahi; bahut shuru karo, thoda poora karo.",
     upayEn: "Upay for the shadow: one flagship at a time, Thursday haldi/chana-daal daan to keep Guru focused.",
-    upayHi: "छाया का उपाय: एक समय पर एक ध्वज-परियोजना; गुरुवार हल्दी/चने-दाल दान से गुरु एकाग्र रहता है।",
-    tripleEn: "Triple 3 = गुरु का झंडा — टीचर/स्पीकर: the very intense teacher-speaker signature; the world learns from you, so the world also watches you.",
-    tripleHi: "ट्रिपल 3 = गुरु का झंडा — टीचर/स्पीकर: अत्यंत तीव्र शिक्षक-वक्ता का दस्तख़त; दुनिया आपसे सीखेगी, और दुनिया आपको देखेगी भी।",
+    upayHi: "chhaya ka upaay: ek samay par ek dhvaj-pariyojana; Guruvaar haldi/chane-daal daan se Guru ekaagr rehata hai.",
+    tripleEn: "Triple 3 = Guru ka jhanda — teacher/speaker: the very intense teacher-speaker signature; the world learns from you, so the world also watches you.",
+    tripleHi: "triple 3 = Guru ka jhanda — teacher/speaker: atyant teevr shikshak-vakta ka dastakhat; duniyaa aapse seekhei, aur duniyaa aapko dekhei bhi.",
   },
   4: {
     strengthEn: "Order doubled — systems, routines and paperwork bend to your discipline.",
-    strengthHi: "व्यवस्था दोगुनी — सिस्टम, रुटीन और काग़ज़ात आपके अनुशासन में ढलते हैं।",
+    strengthHi: "vyavastha doguni — system, routine aur kaagzaat aapke anushasan mein dhalate hain.",
     shadowEn: "double 4 = rigidity — rules harden into walls; unexpected change (Rahu's weather) hits hard.",
-    shadowHi: "डबल 4 = कड़ापन — नियम दीवार बन जाते हैं; अचानक बदलाव (राहु का मौसम) भारी पड़ता है।",
+    shadowHi: "double 4 = kadaapan — niyam deewar ban jaate hain; achanak badlaav (Rahu ka mausam) bhaari padata hai.",
     upayEn: "Upay for the shadow: Saturday sapta-dhanya daan and one deliberate change of routine each week.",
-    upayHi: "छाया का उपाय: शनिवार सप्तधान्य दान, और हफ़्ते में एक जान-बूझकर रुटीन-बदलाव।",
+    upayHi: "chhaya ka upaay: Shanivaar saptdhaanya daan, aur hafte mein ek jaan-boojhkar routine-badlaav.",
     tripleEn: "Triple 4 = the fortress — extreme structure; the risk is a life walled in by its own rules.",
-    tripleHi: "ट्रिपल 4 = क़िला — अत्यंत संरचना; जोखिम यह कि अपने ही नियमों की दीवार में जीवन बंद हो जाए।",
+    tripleHi: "triple 4 = kaila — atyant sanrachna; jokhim yeh ki apne hi niyamon ki deewar mein jeevan band ho jaae.",
   },
   5: {
     strengthEn: "double 5 = restlessness turned productive — adaptability doubled; you move faster than markets change.",
-    strengthHi: "डबल 5 = बेचैनी उपयोगी रूप में — अनुकूलन दोगुना; बाज़ार बदलने से पहले आप बदल लेते हैं।",
+    strengthHi: "double 5 = bechaini upayoi roop mein — anukoolan doguna; baazaar badalane se pehle aap badal lete hain.",
     shadowEn: "double 5 = restlessness — the mind will not sit; too many switches scatter money and focus.",
-    shadowHi: "डबल 5 = बेचैनी — मन टिकता नहीं; बहुत ज़्यादा बदलाव पैसा और ध्यान दोनों बिखेरते हैं।",
+    shadowHi: "double 5 = bechaini — man tikata nahi; bahut zyada badlaav paisa aur dhyaan dono bikherate hain.",
     upayEn: "Upay for the shadow: Wednesday moong/green daan and a written rule — no new switch before the old one pays.",
-    upayHi: "छाया का उपाय: बुधवार मूँग/हरा दान, और लिखित नियम — पुराना फल देने से पहले नया बदलाव नहीं।",
+    upayHi: "chhaya ka upaay: Budhvaar moong/hara daan, aur likhit niyam — puraana phal dene se pehle naya badlaav nahi.",
     tripleEn: "Triple 5 = the storm-rider — extreme motion; the lifetime task is one deep anchor.",
-    tripleHi: "ट्रिपल 5 = तूफ़ान-सवार — अत्यंत चंचलता; जीवन-भर का काम एक गहरा लंगर बनाना।",
+    tripleHi: "triple 5 = toophaan-savaar — atyant chnchalata; jeevan-bhar ka kaam ek gehra lngar banaana.",
   },
   6: {
     strengthEn: "Care doubled — home, family and beauty grow wherever you stay long enough.",
-    strengthHi: "देखभाल दोगुनी — जहाँ आप टिकते हैं, घर, परिवार और सौंदर्य वहीं खिलते हैं।",
+    strengthHi: "dekhbhaal doguni — jahan aap tikate hain, ghar, parivaar aur saundarya wahin khilate hain.",
     shadowEn: "double 6 = over-carrying — responsibilities that are not yours pile onto your shoulders.",
-    shadowHi: "डबल 6 = अति-वहन — जो ज़िम्मेदारी आपकी नहीं, वह भी कंधों पर आ जाती है।",
+    shadowHi: "double 6 = ati-vahan — jo zimmewari aapki nahi, woh bhi kndhon par aa jaati hai.",
     upayEn: "Upay for the shadow: Friday white daan and one honest 'no' per week — Shukra wins through softness, not surrender.",
-    upayHi: "छाया का उपाय: शुक्रवार सफ़ेद दान, और हफ़्ते में एक सच्चा 'ना' — शुक्र नरमी से जीतता है, समर्पण से नहीं।",
+    upayHi: "chhaya ka upaay: Shukravaar safed daan, aur hafte mein ek sachcha 'na' — Shukra naramee se jeetata hai, samarpan se nahi.",
     tripleEn: "Triple 6 = the homemaker-heart — extreme devotion to family; self-care is the lesson of life.",
-    tripleHi: "ट्रिपल 6 = गृहस्थ-हृदय — परिवार के लिए अत्यंत समर्पण; अपनी देखभाल ही जीवन-पाठ।",
+    tripleHi: "triple 6 = grihasth-hriday — parivaar ke liye atyant samarpan; apni dekhbhaal hi jeevan-paath.",
   },
   7: {
     strengthEn: "Depth doubled — research, spirituality and single-subject mastery come naturally.",
-    strengthHi: "गहराई दोगुनी — शोध, अध्यात्म और एक विषय में महारत सहज आती है।",
+    strengthHi: "gehrai doguni — shodh, adhyaatm aur ek vishay mein mahaarat sahaj aai hai.",
     shadowEn: "double 7 = over-detachment — retreating when one honest conversation would do; trust gets hard.",
-    shadowHi: "डबल 7 = अति-वैराग्य — जहाँ एक सच्ची बात काफ़ी होती, वहाँ पीछे हट जाना; भरोसा कठिन हो जाता है।",
+    shadowHi: "double 7 = ati-vairaagy — jahan ek sachchee baat kaaphaee hoti, wahan peechhe hat jaana; bharosa kathin ho jaata hai.",
     upayEn: "Upay for the shadow: Saturday mustard-flowers/camphor daan and one open conversation per week.",
-    upayHi: "छाया का उपाय: शनिवार कस्तूरी/धूसर पुष्प दान, और हफ़्ते में एक खुली बातचीत।",
+    upayHi: "chhaya ka upaay: Shanivaar kastoori/dhoosar pushp daan, aur hafte mein ek khui baatacheet.",
     tripleEn: "Triple 7 = the hermit-sage — extreme inwardness; the world must be re-entered by choice, not avoidance.",
-    tripleHi: "ट्रिपल 7 = मुनि-दस्तख़त — अत्यंत अंतर्मुखी; दुनिया में वापसी संकल्प से हो, बचाव से नहीं।",
+    tripleHi: "triple 7 = muni-dastakhat — atyant antarmui; duniyaa mein vaapai sankalp se ho, bachaav se nahi.",
   },
   8: {
     strengthEn: "double 8 = deep-but-delayed karma — money and position arrive in big blocks, never crumbs; what you build stays built.",
-    strengthHi: "डबल 8 = गहरा-पर-विलंबित कर्म — धन और पद टुकड़ों में नहीं, बड़े खंडों में आते हैं; जो बनाया, वह टिकता है।",
+    strengthHi: "double 8 = gehra-par-vilambit karm — dhan aur pad tukadaon mein nahi, bade khndon mein aate hain; jo banaayaa, woh tikata hai.",
     shadowEn: "double 8 = deep-but-delayed karma — early years feel unfairly slow; shortcuts collect interest.",
-    shadowHi: "डबल 8 = गहरा-पर-विलंबित कर्म — पहले वर्ष अन्याय-से धीमे लगते हैं; शॉर्टकट ब्याज लेते हैं।",
+    shadowHi: "double 8 = gehra-par-vilambit karm — pehle saal anyaay-se dheeme lagate hain; shortcut byaaj lete hain.",
     upayEn: "Upay for the shadow: Saturday oil daan, daily cash ledger, and patience honoured as a practice — Shani pays the one who stays.",
-    upayHi: "छाया का उपाय: शनिवार तेल दान, रोज़ रोकड़ा-बही, और धैर्य को साधना बनाइए — शनि टिकने वाले को देता है।",
+    upayHi: "chhaya ka upaay: Shanivaar tel daan, roz roqda-bahee, aur dhairya ko saadhana banao — Shani tikane waale ko deta hai.",
     tripleEn: "Triple 8 = the karmic auditor — extreme weight of cause-and-effect; a life of visible accountability.",
-    tripleHi: "ट्रिपल 8 = कर्म-लेखक — कारण-परिणाम का अत्यंत भारी हिसाब; उत्तरदायित्व सबके सामने दिखता है।",
+    tripleHi: "triple 8 = karm-lekhak — kaaran-parinaam ka atyant bhaari hisaab; uttaradaayitv sabake saamne dikhata hai.",
   },
   9: {
     strengthEn: "Compassion doubled — your cause-voice moves crowds; finishers' energy completes what 8 starts.",
-    strengthHi: "करुणा दोगुनी — आपकी उद्देश्य-वाणी भीड़ चलाती है; समापन-ऊर्जा पूरे चक्र बंद करती है।",
+    strengthHi: "karuna doguni — aapki uddeshya-vaani bheed chalaai hai; samaapan-oorja poore chakra band karti hai.",
     shadowEn: "double 9 = fire without an address — anger flares, and holding on to finished chapters drains it.",
-    shadowHi: "डबल 9 = बिना ठिकाने की अग्नि — क्रोध चटकता है, और ख़त्म अध्यायों को थामे रखना ऊर्जा खींचता है।",
+    shadowHi: "double 9 = bina thikaane ki agni — krodh chatakata hai, aur khatm adhyayon ko thaame rakhana oorja kheenchata hai.",
     upayEn: "Upay for the shadow: Tuesday lal-masoor/tamba daan and one deliberate closure ritual — forgive, then move.",
-    upayHi: "छाया का उपाय: मंगलवार लाल मसूर/तांबा दान, और एक जान-बूझकर समापन-संस्कार — माफ़ कीजिए, फिर बढ़िए।",
+    upayHi: "chhaya ka upaay: Mangalvaar laal masoor/taamba daan, aur ek jaan-boojhkar samaapan-snskaar — maaph karo, phir badhaie.",
     tripleEn: "Triple 9 = the mahayodha — extreme completion-fire; serve a cause bigger than yourself.",
-    tripleHi: "ट्रिपल 9 = महायोद्धा — अत्यंत समापन-अग्नि; अपने से बड़े उद्देश्य की सेवा कीजिए।",
+    tripleHi: "triple 9 = mahaayoddha — atyant samaapan-agni; apne se bade uddeshya ki seva karo.",
   },
 };
 
@@ -215,7 +215,7 @@ export function analyzeRepetitions(
   const steps: string[] = [
     `Full date ${String(day).padStart(2, "0")}-${String(month).padStart(2, "0")}-${year} → digits ${dateStr.split("").join(", ")}; 0 is not counted (no zero in the grid).`,
     `Tally: ${tally}.`,
-    `Rule (school deck 'वर्तमान अंक गुणन'): 2-same = energy doubled (strength + shadow); 3-same = very intense (triple 3 = गुरु का झंडा — teacher/speaker).`,
+    `Rule (school deck 'vartmaan ank gunan'): 2-same = energy doubled (strength + shadow); 3-same = very intense (triple 3 = Guru ka jhanda — teacher/speaker).`,
     `Mulank ${mul} vs Bhagyank ${bhag}: ${mul === bhag ? "SAME digit in both positions — special callout issued." : "different — no combined callout."}`,
   ];
 

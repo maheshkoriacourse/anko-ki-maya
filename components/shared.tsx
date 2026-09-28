@@ -194,6 +194,107 @@ export function DivineHero({
 }
 
 /**
+ * v3.2 LANDING HERO — mahadev-hero.webp full-bleed on '/'.
+ * Mahadev sits center-right (face just above vertical center); a deep
+ * indigo gradient runs left→right so the left column (title + blessing +
+ * form hint) stays readable. Image is eager + fetchpriority=high (LCP on
+ * the landing). Blessing line is a deity line — Devanagari allowed.
+ */
+export function LandingHero({ blessing }: { blessing?: string }) {
+  return (
+    <section className="landing-hero no-print" aria-label="Mahadev hero">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/img/mahadev-hero.webp"
+        alt=""
+        aria-hidden
+        fetchPriority="high"
+        loading="eager"
+        decoding="async"
+        className="landing-hero-img"
+      />
+      <div aria-hidden className="landing-hero-overlay" />
+      <div className="landing-hero-content">
+        <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+          अंकों की माया
+        </h1>
+        <span aria-hidden className="om-divider-mark mt-1 block text-xl">ॐ</span>
+        <p className="mt-2 font-devanagari text-sm text-gold-bright sm:text-base">
+          {blessing ?? "भोलेनाथ की कृपा से · माँ के आशीर्वाद से"}
+        </p>
+        <p className="hero-sub mt-2 max-w-xl text-xs leading-relaxed sm:text-sm">
+          Ank Shastra — aapke numbers aapka past, present aur future batate hain.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * v3.2 DEITY BAND — wide short header band for pages (durga-blessing.webp
+ * on Lucky & Upay). object-position tuned per image so the deity's face
+ * stays fully in frame (never cropped); left gradient keeps a caption
+ * readable. Caption is a deity line — Devanagari allowed here.
+ */
+export function DeityBand({
+  src,
+  caption,
+  objectPosition = "center 18%",
+  height = 200,
+}: {
+  src: string;
+  caption?: string;
+  objectPosition?: string;
+  height?: number;
+}) {
+  return (
+    <section className="deity-band no-print" style={{ height }} aria-hidden={caption ? undefined : true}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        decoding="async"
+        className="deity-band-img"
+        style={{ objectPosition }}
+      />
+      <div aria-hidden className="deity-band-overlay" />
+      {caption ? (
+        <p className="deity-band-caption font-devanagari text-sm text-gold-bright sm:text-base">
+          {caption}
+        </p>
+      ) : null}
+    </section>
+  );
+}
+
+/**
+ * v3.2 RUDRAKSH DIVIDER — thin rudraksh-shivling band placed directly above
+ * the remedies table: rudraksh + shivling + diya = the upay mood-setter.
+ * Purely decorative; gentle vignette keeps it a divider, not a billboard.
+ */
+export function RudrakshDivider({ className = "" }: { className?: string }) {
+  return (
+    <section className={`rudraksh-band no-print ${className}`} aria-hidden>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/img/rudraksh-shivling.webp"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="deity-band-img"
+        style={{ objectPosition: "center 34%" }}
+      />
+      <div aria-hidden className="rudraksh-band-overlay" />
+      <span aria-hidden className="om-divider-mark absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl drop-shadow-[0_1px_8px_rgba(20,17,58,0.9)]">
+        ॐ
+      </span>
+    </section>
+  );
+}
+
+/**
  * v3.1 — small ॐ watermark for section dividers (owner order).
  */
 export function OmDividerMark({ className }: { className?: string }) {
@@ -320,7 +421,7 @@ export function NumberCard({ data, compact = false }: { data: NumberCardData; co
 /* ------------------------------------------------------------------ */
 
 const DAILY_PROMPTS = [
-  "आज मैंने क्या शुरू किया जो अगले नौ साल ढोएगा?",
+  "Aaj maine kya shuru kiya jo agle nau saal dhoega?",
   "Which small win today belongs to this year's Ank Dasha?",
   "What is one thing I will begin this week — name it now.",
   "Where did patience pay off recently?",

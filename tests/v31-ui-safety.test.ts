@@ -20,7 +20,8 @@ const BANNED_TRUNCATION = [
 ];
 
 const REASONING_FILE_CHECKS: [string, RegExp[]][] = [
-  ["components/loshu-kit.tsx", [/आधार \/ Basis/, /इसी आधार पर हम आपके लिए यह predict करते हैं/, /On this basis we predict/]],
+  // v3.2: Basis label + closing predict line — Hinglish voice in HI mode.
+  ["components/loshu-kit.tsx", [/Basis/, /Isi basis par hum aapke liye yeh predict karte hain/, /On this basis we predict/]],
   ["components/shared.tsx", [/Basis — /, /On this basis we predict your reading\./]],
 ];
 
@@ -98,23 +99,23 @@ describe("v3.1 repetitions UI (correction #4)", () => {
   it("numeroscope page has the Repetitions section + Bhagyank note", async () => {
     const loshu = await fs_read("app/loshu/page.tsx");
     expect(loshu).toMatch(/data-testid="repetitions"/);
-    expect(loshu).toMatch(/अंक-पुनरावृत्ति \(Repetitions\)/);
-    expect(loshu).toMatch(/भाग्यांक भी ग्रिड में भरता है/);
+    expect(loshu).toMatch(/Ank-Repetitions/);
+    expect(loshu).toMatch(/Bhagyank bhi grid mein bharta hai/);
     expect(loshu).toMatch(/analyzeRepetitions/);
   });
 
   it("blueprint chapter carries repetition lines with strength/shadow/upay", async () => {
     const bp = await fs_read("app/blueprint/page.tsx");
-    expect(bp).toMatch(/अंक-पुनरावृत्ति/);
+    expect(bp).toMatch(/Ank-Repetitions|Repetitions/);
     expect(bp).toMatch(/reps\.mulankBhagyankSame/);
     expect(bp).toMatch(/analyzeRepetitions/);
   });
 });
 
 describe("v3.1 big-years timeline (correction #2)", () => {
-  it("life-graph page renders the बड़े साल timeline section", async () => {
+  it("life-graph page renders the big-years timeline section", async () => {
     const lg = await fs_read("app/life-graph/page.tsx");
-    expect(lg).toMatch(/बड़े साल — समय-रेखा बड़ी घटनाओं से बनती है/);
+    expect(lg).toMatch(/Bade saal — samay-rekha/);
     expect(lg).toMatch(/graph\.bigYears/);
     expect(lg).toMatch(/geo\.bigPins/);
     expect(lg).toMatch(/geo\.faintPath/);
@@ -138,10 +139,12 @@ describe("v3.1 divine artwork integration (owner cinematic order)", () => {
     expect(css).toMatch(/ken-burns/);
   });
 
-  it("onboarding carries the subdued blurred banner", async () => {
+  it("onboarding carries the mahadev full-bleed landing hero (v3.2)", async () => {
     const ob = await fs_read("app/page.tsx");
-    expect(ob).toMatch(/divine-header\.webp/);
-    expect(ob).toMatch(/blur-\[2px\]/);
+    expect(ob).toMatch(/LandingHero/);
+    const shared = await fs_read("components/shared.tsx");
+    expect(shared).toMatch(/mahadev-hero\.webp/);
+    expect(shared).toMatch(/fetchPriority="high"/);
   });
 });
 

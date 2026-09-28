@@ -159,7 +159,7 @@ export default function SettingsPage() {
               className="max-w-[220px]"
             >
               <option value="en">English</option>
-              <option value="hi">हिन्दी</option>
+              <option value="hi">hini</option>
             </Select>
             <span className="text-xs text-muted-foreground">{t("settingsLanguageHint")}</span>
           </div>

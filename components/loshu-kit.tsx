@@ -7,14 +7,14 @@
 
 import { Check, CircleDashed } from "lucide-react";
 import { Badge } from "@/components/ui";
-import { LO_SHU_CELL_HINT } from "@/lib/meanings";
+import { LO_SHU_CELL_HINT, LO_SHU_CELL_HINT_HI } from "@/lib/meanings";
 import type { Lang } from "@/lib/content";
 
 export function DigitCell({ digit, count, lang }: { digit: number; count: number; lang: Lang }) {
   const present = count > 0;
   const label =
     lang === "hi"
-      ? `अंक ${digit}: ${LO_SHU_CELL_HINT[digit]}${present ? ` — ${count}× उपस्थित` : " — अनुपस्थित"}`
+      ? `Ank ${digit}: ${LO_SHU_CELL_HINT_HI[digit]}${present ? ` — ${count}x maujood` : " — absent"}`
       : `Digit ${digit}: ${LO_SHU_CELL_HINT[digit]}${present ? ` — ×${count} present` : " — missing"}`;
   return (
     <div
@@ -46,12 +46,12 @@ export function PlaneBadge({ complete, lang }: { complete: boolean; lang: Lang }
   return complete ? (
     <Badge variant="gold" className="shrink-0">
       <Check aria-hidden className="size-3" />
-      {lang === "hi" ? "पूर्ण" : "complete"}
+      {lang === "hi" ? "poora" : "complete"}
     </Badge>
   ) : (
     <Badge variant="secondary" className="shrink-0">
       <CircleDashed aria-hidden className="size-3" />
-      {lang === "hi" ? "खुला" : "open"}
+      {lang === "hi" ? "khula" : "open"}
     </Badge>
   );
 }
@@ -78,9 +78,9 @@ export function ReasoningBlock({
     <details className={`group rounded-lg border border-gold/25 bg-muted/30 ${className}`}>
       <summary className="flex cursor-pointer items-center gap-2 px-4 py-2.5 font-serif-display text-sm italic text-gold">
         <span aria-hidden className="gold-rule w-6" />
-        {lang === "hi" ? `आधार / Basis — ${title}` : `Basis — ${title}`}
+        {lang === "hi" ? `Basis — ${title}` : `Basis — ${title}`}
         <span className="ml-auto text-xs not-italic text-muted-foreground group-open:hidden">
-          {lang === "hi" ? "दिखाएँ" : "show"}
+          {lang === "hi" ? "dikhao" : "show"}
         </span>
       </summary>
       <div className="border-t border-gold/20 px-4 py-3">
@@ -91,7 +91,7 @@ export function ReasoningBlock({
         </ol>
         <p className="mt-2 font-serif-display text-xs italic text-gold">
           {lang === "hi"
-            ? "इसी आधार पर हम आपके लिए यह predict करते हैं।"
+            ? "Isi basis par hum aapke liye yeh predict karte hain."
             : "On this basis we predict your reading."}
         </p>
       </div>

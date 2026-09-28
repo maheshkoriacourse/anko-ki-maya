@@ -67,10 +67,10 @@ export default function LifeEventsPage() {
         title={t("lifeEvents")}
         subtitle={
           lang === "hi"
-            ? "अपनी अतीत की बड़ी घटनाएँ दर्ज करें — इंजन उन्हें आपके व्यक्तिगत-वर्ष चक्र पर प्लॉट करेगा।"
+            ? "apni ateet ki badi ghatanaae darj karein — engine unhen aapke vyaktigat-saal chakra par plot karega."
             : "Record your past high-impact events — the engine plots them on your personal-year cycle."
         }
-        actions={<Badge variant="gold"><LineChart aria-hidden className="size-3" /> {list.length} {lang === "hi" ? "घटनाएँ" : "events"}</Badge>}
+        actions={<Badge variant="gold"><LineChart aria-hidden className="size-3" /> {list.length} {lang === "hi" ? "ghatanaae" : "events"}</Badge>}
       />
 
       {/* Add-event form */}
@@ -96,7 +96,7 @@ export default function LifeEventsPage() {
               <Label htmlFor="ev-label">{t("label")}</Label>
               <Input
                 id="ev-label"
-                placeholder={lang === "hi" ? "जैसे: नई नौकरी" : "e.g. moved cities"}
+                placeholder={lang === "hi" ? "jaise: naee naukri" : "e.g. moved cities"}
                 value={form.label}
                 onChange={(e) => setForm({ ...form, label: e.target.value })}
                 className="mt-1"
@@ -117,7 +117,7 @@ export default function LifeEventsPage() {
               <p className="text-center text-xs text-gold">{form.impact}/10</p>
             </div>
             <Button type="submit">
-              <Plus aria-hidden /> {lang === "hi" ? "जोड़ें" : "Add"}
+              <Plus aria-hidden /> {lang === "hi" ? "jodaen" : "Add"}
             </Button>
           </form>
         </CardContent>
@@ -126,10 +126,10 @@ export default function LifeEventsPage() {
       {/* Graph */}
       {list.length === 0 ? (
         <EmptyState
-          title={lang === "hi" ? "अभी कोई घटना दर्ज नहीं" : "No events recorded yet"}
+          title={lang === "hi" ? "abhi koi ghatna darj nahi" : "No events recorded yet"}
           body={
             lang === "hi"
-              ? "3-4 घटनाएँ जोड़ें — चक्र-अनुनाद तभी दिखता है।"
+              ? "3-4 ghatanaae jodaen — chakra-anunaad tai dikhata hai."
               : "Add 3-4 events — the cycle resonance appears from there."
           }
         />
@@ -137,7 +137,7 @@ export default function LifeEventsPage() {
         <Card className="glass constellation-bg">
           <CardHeader>
             <CardTitle>
-              {lang === "hi" ? "घटनाएँ × व्यक्तिगत-वर्ष चक्र" : "Events × personal-year cycle"} · {y}–{nowYear}
+              {lang === "hi" ? "ghatanaae × vyaktigat-saal chakra" : "Events × personal-year cycle"} · {y}–{nowYear}
             </CardTitle>
           </CardHeader>
           <CardContent className="overflow-x-auto">
@@ -145,7 +145,7 @@ export default function LifeEventsPage() {
               viewBox={`0 0 ${geo.width} ${geo.height}`}
               className="h-auto w-full min-w-[640px]"
               role="img"
-              aria-label={lang === "hi" ? "जीवन-घटना ग्राफ़" : "Life events graph"}
+              aria-label={lang === "hi" ? "jeevan-ghatna graph" : "Life events graph"}
             >
               {/* impact gridlines */}
               {[1, 4, 7, 10].map((imp) => {
@@ -192,7 +192,7 @@ export default function LifeEventsPage() {
 
       {/* Event list */}
       {list.length > 0 ? (
-        <section aria-label={lang === "hi" ? "घटना-सूची" : "Recorded events"}>
+        <section aria-label={lang === "hi" ? "ghatna-soochi" : "Recorded events"}>
           <div className="grid gap-2.5 sm:grid-cols-2">
             {analysis.onCycle.map((oc) => (
               <Card key={oc.event.id} interactive>
@@ -200,13 +200,13 @@ export default function LifeEventsPage() {
                   <div className="min-w-0">
                     <p className="text-sm font-medium [overflow-wrap:anywhere]">{oc.event.label}</p>
                     <p className="text-xs text-muted-foreground">
-                      {oc.event.year} · PY{oc.personalYear} · {lang === "hi" ? "प्रभाव" : "impact"} {oc.event.impact}/10
+                      {oc.event.year} · PY{oc.personalYear} · {lang === "hi" ? "prabhaav" : "impact"} {oc.event.impact}/10
                     </p>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label={lang === "hi" ? "हटाएँ" : "Delete event"}
+                    aria-label={lang === "hi" ? "delete" : "Delete event"}
                     onClick={() => setEvents(deleteLifeEvent(oc.event.id))}
                   >
                     <Trash2 aria-hidden className="size-4 text-muted-foreground" />

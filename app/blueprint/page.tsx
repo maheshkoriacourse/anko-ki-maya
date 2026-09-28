@@ -37,6 +37,8 @@ import { reduce } from "@/lib/numerology";
 import { scoreName } from "@/lib/name-studio";
 import { loShuGrid } from "@/lib/loshu";
 import { analyzeRepetitions } from "@/lib/repetitions";
+import { vedicChart, grahaChainLine, doshaReadings, weakestPlanet, dashaMonthFlavor } from "@/lib/vedic";
+import { nakshatraText, dashaText } from "@/lib/vedic-content";
 import { ReasoningBlock } from "@/components/loshu-kit";
 
 function sectionAnchor(id: string): string {
@@ -81,9 +83,9 @@ export default function BlueprintReportPage() {
   if (!hasProfile || !profile || !reading || !graph || !areaReport) {
     return (
       <EmptyState
-        title={hi ? "पहले जन्म-विवरण दीजिए" : "No profile yet"}
-        body={hi ? "रिपोर्ट जन्म-तिथि से गणित होती है — पहले विवरण दीजिए।" : "The report is computed from the birth date — give details first."}
-        action={<Link href="/" className="text-sm text-primary underline">{hi ? "शुरू करें" : "Start"}</Link>}
+        title={hi ? "pehle janm-vivaran do" : "No profile yet"}
+        body={hi ? "report janm-tithi se ganit hoti hai — pehle vivaran do." : "The report is computed from the birth date — give details first."}
+        action={<Link href="/" className="text-sm text-primary underline">{hi ? "shuru karein" : "Start"}</Link>}
       />
     );
   }
@@ -145,12 +147,26 @@ export default function BlueprintReportPage() {
 
   const future3 = graph.future.slice(0, 3);
 
+  // v3.3 secret layer — graha-chain verification, dosha pariksha, weakest
+  // planet (rule d: remedies feed the weakest across BOTH systems), and
+  // dasha-precision flavors for the 6-month weather rows.
+  const vc = vedicChart({ year: y, month: m, day: d, hour: 12, minute: 0 });
+  const chainLine = grahaChainLine(mulank, vc, lang);
+  const doshas = doshaReadings(vc);
+  const wp = weakestPlanet(mulank, bhagyank, vc, chart.missing);
+  const flavorByLabel = new Map<string, ReturnType<typeof dashaMonthFlavor>>();
+  for (const mo of months) {
+    flavorByLabel.set(mo.label, dashaMonthFlavor(mulank, vc, new Date(mo.year, mo.month - 1, 1)));
+  }
+  const bpFlavor = flavorByLabel.get(months[0]?.label ?? "");
+  const vcDashaLord = dashaMonthFlavor(mulank, vc, new Date()).yearThemeEn.split(" ")[0].replace(" mahadasha", "").replace(/^(Surya|Chandra|Guru|Rahu|Budh|Shukra|Ketu|Shani|Mangal)$/, (s) => ({ Surya: "Sun", Chandra: "Moon", Guru: "Jupiter", Rahu: "Rahu", Budh: "Mercury", Shukra: "Venus", Ketu: "Ketu", Shani: "Saturn", Mangal: "Mars" } as Record<string, string>)[s] ?? s);
+
   return (
     <div className="mx-auto max-w-4xl space-y-10">
       <PageHeader
         title={t("navBlueprint")}
         subtitle={hi
-          ? `जन्म ${devNum(d)}-${devNum(m)}-${devNum(y)} · वाचन ${hi ? "हिंदी" : "EN"} · ${devNum(areaReport.sections.length)} जीवन-क्षेत्र`
+          ? `janm ${devNum(d)}-${devNum(m)}-${devNum(y)} · vachan ${hi ? "Hinglish" : "EN"} · ${devNum(areaReport.sections.length)} jeevan-kshetra`
           : `Born ${d}-${m}-${y} · reading in ${lang.toUpperCase()} · ${areaReport.sections.length} life areas`}
         actions={
           <div className="print:hidden flex gap-2">
@@ -164,12 +180,12 @@ export default function BlueprintReportPage() {
         <div className="flex items-center gap-3">
           <DiyaMotif className="size-6 text-kesari" />
           <h2 id="ch1" className="font-display text-2xl font-semibold">
-            {hi ? "पहला अध्याय — अभी का हाल" : "Chapter 1 — Abhi Ka Haal (Your present state)"}
+            {hi ? "pahala adhyay — Abhi ka haal" : "Chapter 1 — Abhi Ka Haal (Your present state)"}
           </h2>
         </div>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "रिपोर्ट यहीं से शुरू होती है: आप इस वक़्त कहाँ खड़े हैं, आपकी ज़िंदगी में इस समय क्या चल रहा है।"
+            ? "report yaheen se shuru hoti hai: aap is vakat kaha khadae hain, aapki jaindai mein is samay kyaa chal raha hai."
             : "The report opens here: where you stand at this moment and what is running through your life right now."}
         </p>
 
@@ -177,30 +193,30 @@ export default function BlueprintReportPage() {
           <CardHeader>
             <CardTitle>
               {hi
-                ? `अंक दशा ${devNum(curPy)} (${grahaFor(curPy).grahaHi}) — ${dashaYear.nameHi}`
+                ? `Ank Dasha ${devNum(curPy)} (${grahaFor(curPy).grahaHi}) — ${dashaYear.nameHi}`
                 : `Ank Dasha ${curPy} (${grahaFor(curPy).graha}) — ${dashaYear.name}`}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed">{hi ? dashaYear.lineHi : dashaYear.lineEn}</p>
             <p className="text-sm leading-relaxed">
-              <span className="font-semibold">{hi ? `इस महीने (अंक ${devNum(curPm)}): ` : `This month (Ank ${curPm}): `}</span>
+              <span className="font-semibold">{hi ? `is mahine (ank ${devNum(curPm)}): ` : `This month (Ank ${curPm}): `}</span>
               {hi ? dashaMonth.lineHi : dashaMonth.lineEn}
             </p>
             <div className="rounded-lg border bg-secondary/40 p-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-gold">
-                {hi ? "मूलांक-भाग्यांक स्थिति" : "Mulank–Bhagyank state"}
+                {hi ? "Mulank-Bhagyank sthiti" : "Mulank–Bhagyank state"}
               </p>
               <p className="mt-1 text-sm">{hi ? state.hi : state.en}</p>
             </div>
             <p className="text-sm leading-relaxed">
               {hi
-                ? `मूलांक ${devNum(mulank)} = ${gMul.grahaHi} — ${gMul.behaviorHi}`
+                ? `Mulank ${devNum(mulank)} = ${gMul.grahaHi} — ${gMul.behaviorHi}`
                 : `Mulank ${mulank} = ${gMul.graha} — ${gMul.behaviorEn}`}
             </p>
             <p className="text-sm leading-relaxed">
               {hi
-                ? `भाग्यांक ${devNum(bhagyank)} = ${gBhag.grahaHi} — ${gBhag.behaviorHi}`
+                ? `Bhagyank ${devNum(bhagyank)} = ${gBhag.grahaHi} — ${gBhag.behaviorHi}`
                 : `Bhagyank ${bhagyank} = ${gBhag.graha} — ${gBhag.behaviorEn}`}
             </p>
             <p className="text-xs text-gold">{hi ? RELATION_LABEL[planetRelation(mulank, bhagyank)].hi : RELATION_LABEL[planetRelation(mulank, bhagyank)].en}</p>
@@ -212,7 +228,7 @@ export default function BlueprintReportPage() {
           <Card key={vi} className={v.kind === "difficult" ? "border-destructive/40 bg-destructive/5" : "border-gold/40 bg-gold/5"}>
             <CardContent className="py-4">
               <p className="text-xs font-semibold uppercase tracking-wide">
-                {hi ? (v.kind === "difficult" ? "कठिन सच — उपाय साथ" : v.kind === "mixed" ? "मिश्रित सच" : "शुभ सच") : (v.kind === "difficult" ? "The hard truth — with its remedy" : v.kind === "mixed" ? "The mixed truth" : "The good truth")}
+                {hi ? (v.kind === "difficult" ? "kathin sach — upaay saath" : v.kind === "mixed" ? "mishrit sach" : "shubh sach") : (v.kind === "difficult" ? "The hard truth — with its remedy" : v.kind === "mixed" ? "The mixed truth" : "The good truth")}
               </p>
               <p className="mt-1.5 text-sm font-medium">{hi ? v.truthHi : v.truthEn}</p>
               <p className="mt-1.5 text-xs text-muted-foreground">{hi ? v.basisHi : v.basisEn}</p>
@@ -229,7 +245,7 @@ export default function BlueprintReportPage() {
           <Card className="border-gold/50 bg-gold/5">
             <CardContent className="py-4">
               <p className="font-display text-lg text-gold">
-                {hi ? `👑 आपके चार्ट में ${devNum(rajyogas.unique.length)} राजयोग हैं` : `👑 Your chart carries ${rajyogas.unique.length} Rajyoga${rajyogas.unique.length > 1 ? "s" : ""}`}
+                {hi ? `👑 aapke chart mein ${devNum(rajyogas.unique.length)} Rajyoga hain` : `👑 Your chart carries ${rajyogas.unique.length} Rajyoga${rajyogas.unique.length > 1 ? "s" : ""}`}
               </p>
               <ul className="mt-1.5 space-y-1 text-sm">
                 {rajyogas.unique.map(({ yoga, sources }) => (
@@ -250,12 +266,12 @@ export default function BlueprintReportPage() {
       {/* ============ CHAPTER 2: PAST ============ */}
       <section aria-labelledby="ch2" id="ch2-past">
         <h2 id="ch2" className="font-display text-2xl font-semibold">
-          {hi ? "दूसरा अध्याय — अतीत: कब क्या हुआ होगा" : "Chapter 2 — The past: when what happened"}
+          {hi ? "doosara adhyay — ateet: kab kyaa hua hoga" : "Chapter 2 — The past: when what happened"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "अंक-गणित हर पिछले वर्ष का 'क्या हुआ होगा' बताता है। जीवन-ग्राफ़ पर ✓ सही चिह्नित वर्ष नीचे गाड़े गए हैं।"
-            : "The numbers compute a 'what happened' line for every past year. Years you marked ✓ सही on the life graph are pinned below."}
+            ? "ank-ganit har pichhle saal ka 'kyaa hua hoga' bataata hai. jeevan-graph par ✓ sahi chihnit saal neeche gaadae gae hain."
+            : "The numbers compute a 'what happened' line for every past year. Years you marked ✓ sahi on the life graph are pinned below."}
         </p>
 
         <div className="mt-4 space-y-2.5">
@@ -266,11 +282,11 @@ export default function BlueprintReportPage() {
               <div key={p.year} className={`rounded-xl border p-3.5 ${isPinned ? "border-kesari/60 bg-kesari/5" : ""}`}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="font-display font-semibold">
-                    {hi ? `${devNum(p.year)} · उम्र ${devNum(p.age)}` : `${p.year} · age ${p.age}`}{" "}
-                    {isPinned ? <Badge variant="gold">✓ {hi ? "सही" : "confirmed"}</Badge> : null}
+                    {hi ? `${devNum(p.year)} · umra ${devNum(p.age)}` : `${p.year} · age ${p.age}`}{" "}
+                    {isPinned ? <Badge variant="gold">✓ {hi ? "sahi" : "confirmed"}</Badge> : null}
                   </p>
                   <span className="text-xs text-muted-foreground">
-                    {hi ? `अंक दशा ${devNum(p.py)} (${grahaFor(p.py).grahaHi})` : `Ank Dasha ${p.py} (${grahaFor(p.py).graha})`}
+                    {hi ? `Ank Dasha ${devNum(p.py)} (${grahaFor(p.py).grahaHi})` : `Ank Dasha ${p.py} (${grahaFor(p.py).graha})`}
                   </span>
                 </div>
                 <p className="mt-1 text-sm">{hi ? p.readingHi : p.readingEn}</p>
@@ -284,8 +300,8 @@ export default function BlueprintReportPage() {
           })}
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          {hi ? `पूरा अतीत जीवन-ग्राफ़ पर (${devNum(graph.past.length)} वर्ष)। ` : `Full past on the life graph (${graph.past.length} years). `}
-          <Link href="/life-graph" className="text-primary underline">{hi ? "ग्राफ़ खोलें" : "Open the graph"}</Link>
+          {hi ? `poora ateet jeevan-graph par (${devNum(graph.past.length)} saal). ` : `Full past on the life graph (${graph.past.length} years). `}
+          <Link href="/life-graph" className="text-primary underline">{hi ? "graph kholen" : "Open the graph"}</Link>
         </p>
         {pn.en || pn.hi ? <p className="mt-1 text-xs text-muted-foreground">{hi ? pn.hi : pn.en}</p> : null}
       </section>
@@ -295,27 +311,36 @@ export default function BlueprintReportPage() {
       {/* ============ CHAPTER 3: FUTURE ============ */}
       <section aria-labelledby="ch3" id="ch3-future">
         <h2 id="ch3" className="font-display text-2xl font-semibold">
-          {hi ? "तीसरा अध्याय — भविष्य: कब क्या होगा" : "Chapter 3 — The future: when what comes"}
+          {hi ? "teesara adhyay — bhavishya: kab kyaa hoga" : "Chapter 3 — The future: when what comes"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          {hi ? "महीने-वार मौसम, फिर 3-वर्ष का नक़्शा, फिर 9-वर्ष का पूरा चक्र।" : "Month-by-month weather, then the 3-year map, then the full 9-year cycle."}
+          {hi ? "mahine-vaar mausam, phir 3-saal ka nakasha, phir 9-saal ka poora chakra." : "Month-by-month weather, then the 3-year map, then the full 9-year cycle."}
         </p>
 
         <Card className="mt-4">
-          <CardHeader><CardTitle className="text-base">{hi ? "अगले 6 महीने" : "Next 6 months"}</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">{hi ? "agle 6 mahine" : "Next 6 months"}</CardTitle></CardHeader>
           <CardContent>
             <ol className="grid gap-2.5 sm:grid-cols-2">
-              {months.map((mo) => (
-                <li key={mo.label} className="rounded-lg border p-3">
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-sm font-medium">{monthName(mo.month)} {mo.year}</span>
-                    <span aria-hidden className="number-glyph text-xl text-primary/80">{hi ? devNum(mo.personalMonth) : mo.personalMonth}</span>
-                  </div>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {ANK_DASHA_MONTH[mo.personalMonth]?.[hi ? "lineHi" : "lineEn"] ?? ""}
-                  </p>
-                </li>
-              ))}
+              {months.map((mo) => {
+                const fv = flavorByLabel.get(mo.label);
+                return (
+                  <li key={mo.label} className="rounded-lg border p-3">
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-sm font-medium">{monthName(mo.month)} {mo.year}</span>
+                      <span aria-hidden className="number-glyph text-xl text-primary/80">{hi ? devNum(mo.personalMonth) : mo.personalMonth}</span>
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {ANK_DASHA_MONTH[mo.personalMonth]?.[hi ? "lineHi" : "lineEn"] ?? ""}
+                    </p>
+                    {/* v3.3: dasha-precision (secret layer) */}
+                    {fv ? (
+                      <p className="mt-1.5 rounded-md border border-gold/25 bg-gold/5 px-2 py-1.5 text-[11px] text-gold">
+                        {hi ? fv.monthFlavorHi : fv.monthFlavorEn}
+                      </p>
+                    ) : null}
+                  </li>
+                );
+              })}
             </ol>
           </CardContent>
         </Card>
@@ -325,7 +350,7 @@ export default function BlueprintReportPage() {
             <Card key={f.year} className="border-dashed">
               <CardContent className="py-3.5">
                 <p className="font-display text-base font-semibold">
-                  {hi ? `${devNum(f.year)} · उम्र ${devNum(f.age)}` : `${f.year} · age ${f.age}`}
+                  {hi ? `${devNum(f.year)} · umra ${devNum(f.age)}` : `${f.year} · age ${f.age}`}
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">{hi ? f.readingHi : f.readingEn}</p>
               </CardContent>
@@ -334,12 +359,12 @@ export default function BlueprintReportPage() {
         </div>
 
         <Card className="mt-4">
-          <CardHeader><CardTitle className="text-base">{hi ? "9-वर्षीय चक्र का नक़्शा" : "The 9-year cycle map"}</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">{hi ? "9-varsheey chakra ka nakasha" : "The 9-year cycle map"}</CardTitle></CardHeader>
           <CardContent>
             <ol className="grid gap-2 sm:grid-cols-3">
               {graph.future.map((f) => (
                 <li key={f.year} className="rounded-lg border p-2.5 text-xs">
-                  <span className="font-semibold">{hi ? devNum(f.year) : f.year}</span> · {hi ? `दशा ${devNum(f.py)}` : `Dasha ${f.py}`}
+                  <span className="font-semibold">{hi ? devNum(f.year) : f.year}</span> · {hi ? `dasha ${devNum(f.py)}` : `Dasha ${f.py}`}
                   <p className="mt-0.5 text-muted-foreground">{hi ? f.readingHi : f.readingEn}</p>
                 </li>
               ))}
@@ -353,15 +378,15 @@ export default function BlueprintReportPage() {
       {/* ============ CHAPTER 4: TEN LIFE-AREA CHAPTERS ============ */}
       <section aria-labelledby="ch4" id="ch4-life-areas">
         <h2 id="ch4" className="font-display text-2xl font-semibold">
-          {hi ? "चौथा अध्याय — दस जीवन-क्षेत्र: पूरा हिसाब" : "Chapter 4 — Ten life areas: the full account"}
+          {hi ? "chautha adhyay — das jeevan-kshetra: poora hisaab" : "Chapter 4 — Ten life areas: the full account"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "हर क्षेत्र में: अतीत में क्या रहा → अभी क्या चल रहा → आगे कब (वर्ष/उम्र के साथ) → उस क्षेत्र का उपाय। शुभ और कठिन दोनों सच, आधार सहित।"
+            ? "har kshetra mein: ateet mein kyaa raha → abhi kyaa chal raha → aage kab (saal/umra ke saath) → us kshetra ka upaay. shubh aur kathin dono sach, aadhaar sahit."
             : "Each area: what the past held → what runs now → what comes (with years/ages) → that area's remedy. Both the good and the hard truth, with basis."}
         </p>
 
-        <nav aria-label={hi ? "क्षेत्र-सूची" : "Area index"} className="mt-3 flex flex-wrap gap-1.5">
+        <nav aria-label={hi ? "kshetra-soochi" : "Area index"} className="mt-3 flex flex-wrap gap-1.5">
           {areaReport.sections.map((a: AreaSection) => (
             <a key={a.areaId} href={`#area-${sectionAnchor(a.areaId)}`} className="rounded-full border px-3 py-1 text-xs hover:bg-accent">
               {hi ? a.titleHi : a.titleEn}
@@ -379,33 +404,33 @@ export default function BlueprintReportPage() {
 
               {/* (a) PAST */}
               <div className="mt-3 rounded-xl border p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "अतीत में क्या रहा" : "What the past held"}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "ateet mein kyaa raha" : "What the past held"}</p>
                 <p className="mt-1.5 text-sm leading-relaxed">{hi ? a.pastHi : a.pastEn}</p>
               </div>
 
               {/* (b) CURRENT */}
               <div className="mt-2 rounded-xl border p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "अभी क्या चल रहा है" : "What runs now"}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "abhi kyaa chal raha hai" : "What runs now"}</p>
                 <p className="mt-1.5 text-sm leading-relaxed">{hi ? a.nowHi : a.nowEn}</p>
               </div>
 
               {/* (c) FUTURE windows with years/ages */}
               <div className="mt-2 rounded-xl border p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "आगे कब — खिड़की-वर्ष" : "What comes — window years"}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "aage kab — khidki-saal" : "What comes — window years"}</p>
                 <ul className="mt-1.5 space-y-1.5">
                   {a.windows.map((w, i) => (
                     <li key={w.year + String(i)} className="text-sm leading-relaxed">
-                      <Badge variant="gold" className="mr-1.5">{hi ? `${devNum(w.year)} · उम्र ${devNum(w.age)}` : `${w.year} · age ${w.age}`}</Badge>
+                      <Badge variant="gold" className="mr-1.5">{hi ? `${devNum(w.year)} · umra ${devNum(w.age)}` : `${w.year} · age ${w.age}`}</Badge>
                       {hi ? w.whyHi : w.why}
                     </li>
                   ))}
                 </ul>
-                {hasConcreteYears(a) ? null : <p className="mt-1 text-xs text-muted-foreground">{hi ? "खिड़की-वर्ष गणना हो रही है।" : "Window years are being computed."}</p>}
+                {hasConcreteYears(a) ? null : <p className="mt-1 text-xs text-muted-foreground">{hi ? "khidki-saal ganana ho rahi hai." : "Window years are being computed."}</p>}
               </div>
 
               {/* (d) REMEDY */}
               <div className="mt-2 rounded-xl border border-gold/30 bg-gold/5 p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "इस क्षेत्र का उपाय" : "Remedy for this area"}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "is kshetra ka upaay" : "Remedy for this area"}</p>
                 <p className="mt-1.5 text-sm">{hi ? a.remedyHi : a.remedyEn}</p>
               </div>
             </section>
@@ -418,7 +443,7 @@ export default function BlueprintReportPage() {
       {/* ============ CHAPTER 5: BLUEPRINT NUMBERS ============ */}
       <section aria-labelledby="ch5" id="ch5-blueprint">
         <h2 id="ch5" className="font-display text-2xl font-semibold">
-          {hi ? "पाँचवाँ अध्याय — ब्लूप्रिंट: मूलांक, भाग्यांक, नामांक" : "Chapter 5 — Blueprint: Mulank, Bhagyank, Namank"}
+          {hi ? "paachava adhyay — blooprint: Mulank, Bhagyank, Namank" : "Chapter 5 — Blueprint: Mulank, Bhagyank, Namank"}
         </h2>
         <div className="mt-3 space-y-4">
           {[mulank, bhagyank].map((n, i) => {
@@ -437,14 +462,14 @@ export default function BlueprintReportPage() {
                 <CardContent>
                   <p className="text-sm leading-relaxed">{hi ? g.behaviorHi : g.behaviorEn}</p>
                   <p className="mt-2 text-xs text-gold">
-                    {hi ? `उपाय: ${remedy.mantra} — ${remedy.worshipDay} को ${devNum(remedy.japa)} जप।` : `Upay: ${remedy.mantra} — ${remedy.japa} japa on ${remedy.worshipDay}.`}
+                    {hi ? `upaay: ${remedy.mantra} — ${remedy.worshipDay} ko ${devNum(remedy.japa)} japa.` : `Upay: ${remedy.mantra} — ${remedy.japa} japa on ${remedy.worshipDay}.`}
                   </p>
                 </CardContent>
               </Card>
             );
           })}
           <Card className="glass">
-            <CardHeader><CardTitle>{t("expression")} · {hi ? `नामांक ${devNum(reading.nameNumbers.expression)}` : `Namank ${reading.nameNumbers.expression}`}</CardTitle></CardHeader>
+            <CardHeader><CardTitle>{t("expression")} · {hi ? `Namank ${devNum(reading.nameNumbers.expression)}` : `Namank ${reading.nameNumbers.expression}`}</CardTitle></CardHeader>
             <CardContent>
               <p className="text-sm">{hi ? nameScore.omen.meaning : nameScore.omen.meaning}</p>
               <p className="mt-1 text-xs text-muted-foreground">{hi ? nameScore.reasons.join(" · ") : nameScore.reasons.join(" · ")}</p>
@@ -452,28 +477,28 @@ export default function BlueprintReportPage() {
           </Card>
         </div>
 
-        {/* v3.1: NUMBER REPETITIONS (owner correction #4 — school deck 'वर्तमान अंक गुणन') */}
+        {/* v3.1: NUMBER REPETITIONS (owner correction #4 — school deck 'vartmaan ank gunan') */}
         <Card className="mt-4 border-gold/40 bg-gold/5">
           <CardHeader>
             <CardTitle className="text-base">
-              {hi ? "अंक-पुनरावृत्ति — पूरी जन्म-तिथि के दोहराए अंक" : "Number repetitions — repeated digits of the full birth date"}
+              {hi ? "ank-repetition — poori janm-tithi ke doharaae ank" : "Number repetitions — repeated digits of the full birth date"}
             </CardTitle>
             <p className="text-xs text-muted-foreground">
               {hi
-                ? "स्कूल-पद्धति: 2-समान = ऊर्जा दोगुनी (ताक़त + छाया दोनों); 3-समान = अत्यंत तीव्र। हर दोहराए अंक का बल, छाया और छाया का उपाय नीचे।"
+                ? "school-paddhati: 2-samaan = oorja doguni (taakat + chhaya dono); 3-samaan = atyant teevr. har doharaae ank ka bal, chhaya aur chhaya ka upaay neeche."
                 : "School method: 2-same = energy doubled (strength AND shadow); 3-same = very intense. Each repeated digit carries its strength, shadow and the upay for the shadow."}
             </p>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-xs text-gold">
               {hi
-                ? `गिनती: ${reps.entries.map((e) => `${devNum(e.digit)}×${devNum(e.count)}`).join(" · ")}${Object.entries(reps.counts).length ? " — 0 ग्रिड से बाहर" : ""}`
+                ? `ginai: ${reps.entries.map((e) => `${devNum(e.digit)}×${devNum(e.count)}`).join(" · ")}${Object.entries(reps.counts).length ? " — 0 grid se bahar" : ""}`
                 : `Tally: ${reps.entries.map((e) => `${e.digit}×${e.count}`).join(" · ")}`}
             </p>
             {reps.entries.length === 0 ? (
               <p className="text-sm text-muted-foreground">
                 {hi
-                  ? "कोई अंक दोहराया नहीं गया — ऊर्जा नौ अंकों में बँटी है; प्रबलता मूलांक-भाग्यांक से पढ़ें।"
+                  ? "koi ank doharaayaa nahi gaya — oorja nau ankon mein bi hai; prabalata Mulank-Bhagyank se padhaen."
                   : "No digit repeats in your date — the energy spreads across nine digits; read strength from Mulank and Bhagyank."}
               </p>
             ) : (
@@ -481,7 +506,7 @@ export default function BlueprintReportPage() {
                 <div key={e.digit} className="rounded-lg border bg-card/60 p-3">
                   <p className="font-display text-sm font-semibold text-gold">
                     {hi
-                      ? `${devNum(e.digit)} × ${devNum(e.count)} — ${e.level === "triple" ? "अत्यंत तीव्र (त्रिक)" : "ऊर्जा दोगुनी (युगल)"}`
+                      ? `${devNum(e.digit)} × ${devNum(e.count)} — ${e.level === "triple" ? "atyant teevr (trik)" : "oorja doguni (yugal)"}`
                       : `${e.digit} × ${e.count} — ${e.level === "triple" ? "very intense (triple)" : "energy doubled (double)"}`}
                   </p>
                   <p className="mt-1 text-sm">{hi ? e.strengthHi : e.strengthEn}</p>
@@ -494,7 +519,7 @@ export default function BlueprintReportPage() {
               <div className="rounded-lg border border-kesari/50 bg-kesari/10 p-3">
                 <p className="font-display text-sm font-semibold text-kesari">
                   {hi
-                    ? `विशेष: मूलांक और भाग्यांक दोनों ${devNum(reps.mulankBhagyankSame.digit)} — यही अंक आपका वाहक भी है और नियति भी। पहला हाफ़ और दूसरा हाफ़, एक ही ग्रह के हाथ में।`
+                    ? `vishesh: Mulank aur Bhagyank dono ${devNum(reps.mulankBhagyankSame.digit)} — yehi ank aapka vaahak bhi hai aur niyati bhi. pahala haaph aur doosara haaph, ek hi graha ke haath men.`
                     : `Special callout: Mulank AND Bhagyank are both ${reps.mulankBhagyankSame.digit} — the same digit drives your first half and rules your second. One planet holds both reins.`}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
@@ -508,10 +533,81 @@ export default function BlueprintReportPage() {
           </CardContent>
         </Card>
 
+        {/* v3.3 SECRET LAYER — Ank+Graha pariksha (rule f + a + d) */}
+        <Card className="glass mt-4" data-testid="vedic-pariksha">
+          <CardHeader>
+            <CardTitle className="text-base">
+              {hi ? "Ank+Graha pariksha — dono system ka hisaab" : "Ank+Graha pariksha — both systems' account"}
+            </CardTitle>
+            <p className="text-xs text-muted-foreground">
+              {hi
+                ? "school ke ank-ganit ke saath graha-table ki jaanch — yahi vachan ko tez banata hai."
+                : "The graha-table check alongside the school's number math — this is what sharpens the reading."}
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {/* rule (c): the running dasha essay + theme (year/month flavor) */}
+            <div className="rounded-lg border bg-secondary/40 p-3 text-sm">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gold">
+                {hi ? "chalti dasha" : "Running dasha"}
+              </p>
+              <p className="mt-1.5">{hi ? dashaText(vcDashaLord, "hi") : dashaText(vcDashaLord, "en")}</p>
+              {bpFlavor ? (
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {hi ? `${bpFlavor.yearThemeHi} — ${bpFlavor.monthFlavorHi}` : `${bpFlavor.yearThemeEn} — ${bpFlavor.monthFlavorEn}`}
+                </p>
+              ) : null}
+            </div>
+
+            {/* rule (a): nakshatra verification essay */}
+            <div className="rounded-lg border border-gold/40 bg-gold/5 p-3 text-sm" data-testid="bp-nakshatra-essay">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gold">
+                {hi ? "janm-nakshatra — mann ki pushti" : "Janma nakshatra — the mind's confirmation"}
+              </p>
+              <p className="mt-1.5">
+                {hi
+                  ? `janm-nakshatra ${vc.nakshatraName} (pada ${devNum(vc.pada)}, rash ${vc.rashiName}) — ${nakshatraText(vc.nakshatra, lang)}`
+                  : `Janma nakshatra ${vc.nakshatraName} (pada ${vc.pada}, rashi ${vc.rashiName}) — ${nakshatraText(vc.nakshatra, lang)}`}
+              </p>
+            </div>
+
+            {/* rule (f): dosha pariksha — care, never fear */}
+            {doshas.map((dsh) => (
+              <div key={dsh.key} className="rounded-lg border p-3 text-sm">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">
+                  {hi ? dsh.titleHi : dsh.titleEn}
+                </p>
+                <p className="mt-1.5">{hi ? dsh.explainHi : dsh.explainEn}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{hi ? dsh.upayHi : dsh.upayEn}</p>
+              </div>
+            ))}
+
+            {/* rule (d): weakest planet → the remedy target */}
+            <div className="rounded-lg border border-kesari/50 bg-kesari/10 p-3 text-sm" data-testid="weakest-planet">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gold">
+                {hi ? "sabse kamzor graha — pehle isi ko bal" : "The weakest planet — feed this one first"}
+              </p>
+              <p className="mt-1.5">
+                {hi
+                  ? `${wp.graha} (ank ${devNum(wp.digit)}) — ${wp.reasonHi}`
+                  : `${wp.graha} (digit ${wp.digit}) — ${wp.reasonEn}`}
+              </p>
+            </div>
+
+            {/* Basis: the graha-chain line closes the pariksha */}
+            <ol className="list-decimal space-y-1 pl-5 text-xs text-muted-foreground">
+              <li>{chainLine}</li>
+            </ol>
+            <p className="font-serif-display text-xs italic text-gold">
+              {hi ? "Isi basis par hum aapke liye yeh predict karte hain." : "On this basis we predict your reading."}
+            </p>
+          </CardContent>
+        </Card>
+
         {/* Karmic debts */}
         {karmHits.hits.length > 0 ? (
           <Card className="mt-4 border-destructive/30 bg-destructive/5">
-            <CardHeader><CardTitle className="text-base">{hi ? "ऋण-अंक (कर्मिक ऋण)" : "Karmic debt numbers"}</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-base">{hi ? "ran-ank (karmic rin)" : "Karmic debt numbers"}</CardTitle></CardHeader>
             <CardContent className="space-y-2">
               {karmHits.hits.map((h: KarmicDebtHit) => (
                 <div key={h.where + h.number}>
@@ -524,10 +620,10 @@ export default function BlueprintReportPage() {
 
         {/* Missing numbers + planes */}
         <Card className="mt-4">
-          <CardHeader><CardTitle className="text-base">{hi ? "अंक-चक्र: खाली अंक और तल" : "Numeroscope: missing numbers and planes"}</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">{hi ? "ank-chakra: khaali ank aur tal" : "Numeroscope: missing numbers and planes"}</CardTitle></CardHeader>
           <CardContent>
             <p className="text-sm">
-              {hi ? `खाली अंक: ${chart.missing.map((x) => devNum(x)).join(", ") || "कोई नहीं"}` : `Missing numbers: ${chart.missing.join(", ") || "none"}`}
+              {hi ? `khaali ank: ${chart.missing.map((x) => devNum(x)).join(", ") || "koi nahi"}` : `Missing numbers: ${chart.missing.join(", ") || "none"}`}
             </p>
             <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
               {chart.planes.map((pl) => (
@@ -543,26 +639,26 @@ export default function BlueprintReportPage() {
       {/* ============ REMEDIES + LUCKY + NAME STUDIO ============ */}
       <section aria-labelledby="remedies" id="ch6-remedies">
         <h2 id="remedies" className="font-display text-2xl font-semibold">
-          {hi ? "उपाय और शुभ-सूची" : "Remedies and the lucky list"}
+          {hi ? "upaay aur shubh-soochi" : "Remedies and the lucky list"}
         </h2>
         <div className="mt-3 grid gap-4 sm:grid-cols-2">
           <Card>
-            <CardHeader><CardTitle className="text-base">{hi ? "मंत्र / यंत्र / दान" : "Mantra / yantra / daan"}</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-base">{hi ? "mantra / yantra / daan" : "Mantra / yantra / daan"}</CardTitle></CardHeader>
             <CardContent className="space-y-1.5 text-sm">
               <p>{hi ? remedy.mantra : remedy.mantra}</p>
-              <p>{hi ? `जप: ${devNum(remedy.japa)} × ${devNum(remedy.japaSets)} सेट` : `Japa: ${remedy.japa} × ${remedy.japaSets} sets`}</p>
+              <p>{hi ? `japa: ${devNum(remedy.japa)} × ${devNum(remedy.japaSets)} set` : `Japa: ${remedy.japa} × ${remedy.japaSets} sets`}</p>
               <p>{hi ? `${remedy.yantra} — ${remedy.worshipDay}` : `${remedy.yantra} — ${remedy.worshipDay}`}</p>
-              <p>{hi ? `दान: ${remedy.daan.join(", ")}` : `Daan: ${remedy.daan.join(", ")}`}</p>
+              <p>{hi ? `daan: ${remedy.daan.join(", ")}` : `Daan: ${remedy.daan.join(", ")}`}</p>
               {remedy.extraNote ? <p className="text-xs text-muted-foreground">{remedy.extraNote}</p> : null}
             </CardContent>
           </Card>
           <Card>
-            <CardHeader><CardTitle className="text-base">{hi ? "शुभ अंक / दिन / रंग / रत्न" : "Lucky numbers / days / colors / gems"}</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-base">{hi ? "shubh ank / din / rang / ratna" : "Lucky numbers / days / colors / gems"}</CardTitle></CardHeader>
             <CardContent className="space-y-1 text-sm">
-              <p>{hi ? "शुभ अंक: " : "Lucky numbers: "}{lucky.numbers.map((n) => (hi ? devNum(n) : n)).join(", ")}</p>
-              <p>{hi ? "शुभ दिन: " : "Days: "}{lucky.days.join(", ")}</p>
-              <p>{hi ? "रंग: " : "Colors: "}{lucky.colors.join(", ")}</p>
-              <p>{hi ? "रत्न: " : "Gems: "}{lucky.gems.join(", ")}</p>
+              <p>{hi ? "shubh ank: " : "Lucky numbers: "}{lucky.numbers.map((n) => (hi ? devNum(n) : n)).join(", ")}</p>
+              <p>{hi ? "shubh din: " : "Days: "}{lucky.days.join(", ")}</p>
+              <p>{hi ? "rang: " : "Colors: "}{lucky.colors.join(", ")}</p>
+              <p>{hi ? "ratna: " : "Gems: "}{lucky.gems.join(", ")}</p>
               {lucky.masterNote ? <p className="text-xs text-muted-foreground">{lucky.masterNote}</p> : null}
             </CardContent>
           </Card>
@@ -577,12 +673,12 @@ export default function BlueprintReportPage() {
       </section>
 
       <SanatanDivider />
-      <ReasoningBlock title={hi ? "गणित के चरण" : "Calculation steps"} lang={lang} steps={reading.lifePath.steps} />
+      <ReasoningBlock title={hi ? "ganit ke charan" : "Calculation steps"} lang={lang} steps={reading.lifePath.steps} />
       <div className="text-center">
         <DisclaimerLine />
       </div>
       <p className="text-center text-xs text-muted-foreground">
-        {hi ? "परंपरागत अंक-शास्त्र आधारित वाचन।" : "Traditional numerology-based reading."}
+        {hi ? "paramparagat ank-shastra aadhaarit vachan." : "Traditional numerology-based reading."}
       </p>
     </div>
   );

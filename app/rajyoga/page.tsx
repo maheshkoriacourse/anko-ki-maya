@@ -30,9 +30,9 @@ export default function RajyogaPage() {
   if (!hasProfile || !profile || !reading) {
     return (
       <EmptyState
-        title={hi ? "पहले जन्म-विवरण दीजिए" : "No profile yet"}
-        body={hi ? "जन्म-तिथि और नाम दीजिए — राजयोग जाँच तुरंत होगी।" : "Add birth details and name — the yoga check runs instantly."}
-        action={<a href="/" className="text-sm text-primary underline">{hi ? "शुरू करें" : "Start"}</a>}
+        title={hi ? "pehle janm-vivaran do" : "No profile yet"}
+        body={hi ? "janm-tithi aur naam do — Rajyoga jaanch turnt hoi." : "Add birth details and name — the yoga check runs instantly."}
+        action={<a href="/" className="text-sm text-primary underline">{hi ? "shuru karein" : "Start"}</a>}
       />
     );
   }
@@ -47,9 +47,9 @@ export default function RajyogaPage() {
   const mulBhagRel = planetRelation(mulank, bhagyank);
 
   const sourceLabel = (s: RajyogaSource): string => {
-    if (s === "combined") return hi ? "संयुक्त (जन्म + नाम) — सबसे प्रबल" : "Combined (birth + name) — strongest";
-    if (s === "birth") return hi ? "जन्म-राजयोग (तिथि से)" : "Birth Rajyoga (from DOB)";
-    return hi ? "नाम-राजयोग (नामांक से)" : "Name Rajyoga (from Namank)";
+    if (s === "combined") return hi ? "snyukt (janm + naam) — sabse prabal" : "Combined (birth + name) — strongest";
+    if (s === "birth") return hi ? "janm-Rajyoga (tithi se)" : "Birth Rajyoga (from DOB)";
+    return hi ? "naam-Rajyoga (Namank se)" : "Name Rajyoga (from Namank)";
   };
 
   return (
@@ -58,10 +58,10 @@ export default function RajyogaPage() {
         title={t("navRajyoga")}
         subtitle={
           hi
-            ? "राजयोग = अंकों की राज-संगतियाँ। जन्म-तिथि के अंक, नाम-अंक और अंक-चक्र मिलकर यह जाँच होती है कि आपके चार्ट में कौन-से शाही योग बैठे हैं।"
+            ? "Rajyoga = ankon ki raaj-sngatiyaa. janm-tithi ke ank, naam-ank aur ank-chakra milakar yeh jaanch hoti hai ki aapke chart mein kaun-se shaahee yog baithe hain."
             : "Rajyoga = royal alignments of numbers. DOB digits, name digits and the grid together decide which royal yogas sit in your chart."
         }
-        actions={<Badge variant="gold"><Crown aria-hidden className="size-3" /> {hi ? `${devNum(result.unique.length)} योग` : `${result.unique.length} yogas`}</Badge>}
+        actions={<Badge variant="gold"><Crown aria-hidden className="size-3" /> {hi ? `${devNum(result.unique.length)} yog` : `${result.unique.length} yogas`}</Badge>}
       />
 
       {/* HEADLINE */}
@@ -74,7 +74,7 @@ export default function RajyogaPage() {
           <p className="mt-2 text-sm text-muted-foreground">{rajyogaHeadlineForGrid(lang)}</p>
           <div className="mx-auto mt-4 max-w-xl rounded-lg border bg-card/60 p-3 text-sm">
             {hi
-              ? `मूलांक ${devNum(mulank)} + भाग्यांक ${devNum(bhagyank)} का संबंध: ${RELATION_LABEL[mulBhagRel].hi} — ${mulBhagRel === "friend" ? "दोनों राज-ग्रह एक-दूसरे को बल देते हैं, यही आपका बना-बनाया राजयोग है।" : mulBhagRel === "tense" ? "मूलांक-भाग्यांक में घर्षण है — सफलता मिलती है, पर उसकी क़ीमत मेहनत में चुकानी पड़ती है।" : mulBhagRel === "karmic" ? "राहु-केतु कर्मिक जोड़ी — अधूरा काम पूरा करने का जन्म।" : "सम-भाव — संतुलित चाल।"}`
+              ? `Mulank ${devNum(mulank)} + Bhagyank ${devNum(bhagyank)} ka sambandh: ${RELATION_LABEL[mulBhagRel].hi} — ${mulBhagRel === "friend" ? "dono raaj-graha ek-doosare ko bal dete hain, yehi aapka bana-banaayaa Rajyoga hai." : mulBhagRel === "tense" ? "Mulank-Bhagyank mein gharshan hai — safalta milai hai, par usai kaeemat mehnat mein chukaai padai hai." : mulBhagRel === "karmic" ? "Rahu-Ketu karmic jodi — adhura kaam poora karne ka janm." : "sam-bhav — sntulit chaal."}`
               : `Mulank ${mulank} + Bhagyank ${bhagyank}: ${RELATION_LABEL[mulBhagRel].en} — ${mulBhagRel === "friend" ? "the two royal planets amplify each other; that IS your built-in yoga." : mulBhagRel === "tense" ? "friction between driver and destiny — success comes, but paid for in work." : mulBhagRel === "karmic" ? "the Rahu-Ketu karmic pair — born to finish unfinished work." : "even-handed — a balanced gait."}`}
           </div>
         </CardContent>
@@ -104,7 +104,7 @@ export default function RajyogaPage() {
                   <p className="text-sm leading-relaxed">{hi ? yoga.effectHi : yoga.effectEn}</p>
                   <p className="mt-2 text-xs text-muted-foreground">
                     {hi
-                      ? `ग्रह-स्वरूप: ${yoga.digits.map((dg) => grahaFor(dg).grahaHi).join(" + ")}`
+                      ? `graha-svaroop: ${yoga.digits.map((dg) => grahaFor(dg).grahaHi).join(" + ")}`
                       : `Planets: ${yoga.digits.map((dg) => grahaFor(dg).graha).join(" + ")}`}
                   </p>
                 </CardContent>
@@ -116,11 +116,11 @@ export default function RajyogaPage() {
         <Card className="border-dashed">
           <CardContent className="py-8 text-center">
             <p className="font-display text-lg text-gold">
-              {hi ? "कोई राजयोग नहीं — और यह पूर्णतः मान्य है" : "No Rajyoga — and that is fully valid"}
+              {hi ? "koi Rajyoga nahi — aur yeh poornath maanya hai" : "No Rajyoga — and that is fully valid"}
             </p>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
               {hi
-                ? "संतुलित अंक-चार्ट बिना शाही योग के भी स्थिरता से राज करता है — स्थिरता ही सबसे दीर्घ राजयोग है।"
+                ? "sntulit ank-chart bina shaahee yog ke bhi sthirta se raaj karta hai — sthirta hi sabse deergh Rajyoga hai."
                 : "A balanced chart rules steadily without royal yogas — steadiness itself is the longest-lasting yoga."}
             </p>
           </CardContent>

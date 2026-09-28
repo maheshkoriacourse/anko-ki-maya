@@ -30,9 +30,9 @@ function verdictForRelation(rel: string): ToolVerdict {
 }
 
 const VERDICT_LABEL: Record<ToolVerdict, { en: string; hi: string }> = {
-  friendly: { en: "Friendly", hi: "अनुकूल" },
-  neutral: { en: "Neutral", hi: "सम-भाव" },
-  tense: { en: "Tense", hi: "तनावपूर्ण" },
+  friendly: { en: "Friendly", hi: "anukool" },
+  neutral: { en: "Neutral", hi: "sam-bhav" },
+  tense: { en: "Tense", hi: "tanaavapoorn" },
 };
 
 /** Digit-sum of any numeric string (ignores +, spaces, dashes). */
@@ -54,7 +54,7 @@ function buildResult(
   const gNum = grahaFor(ds);
   const gMul = grahaFor(mulank);
   const kindWord =
-    kind === "phone" ? { en: "number", hi: "नंबर" } : kind === "house" ? { en: "house/flat number", hi: "मकान/फ़्लैट नंबर" } : { en: "vehicle number", hi: "गाड़ी नंबर" };
+    kind === "phone" ? { en: "number", hi: "number" } : kind === "house" ? { en: "house/flat number", hi: "makaan/phalait number" } : { en: "vehicle number", hi: "gaadi number" };
 
   const lineEn = `${gNum.graha} (${ds}) meets ${gMul.graha} (${mulank}) — ${
     verdict === "friendly"
@@ -63,12 +63,12 @@ function buildResult(
         ? `a tense pairing. This ${kindWord.en} argues with your Mulank — if a swap is easy, take the better vibration; if not, don't fear it, just keep the paperwork clean.`
         : `an even pairing. No bonus, no friction — a serviceable ${kindWord.en}.`
   }`;
-  const lineHi = `${gNum.grahaHi} (${devNum(ds)}) मिले ${gMul.grahaHi} (${devNum(mulank)}) से — ${
+  const lineHi = `${gNum.grahaHi} (${devNum(ds)}) mile ${gMul.grahaHi} (${devNum(mulank)}) se — ${
     verdict === "friendly"
-      ? `मित्र जोड़ी। यह ${kindWord.hi} आपके मूलांक को बल देता है: रखिए, अहम कॉल/काम इसी से कीजिए।`
+      ? `mitra jodi. yeh ${kindWord.hi} aapke Mulank ko bal deta hai: rakho, aham kol/kaam isi se karo.`
       : verdict === "tense"
-        ? `तनाव जोड़ी। यह ${kindWord.hi} आपके मूलांक से बहस करता है — बदलना आसान हो तो बेहतर कंपन लीजिए; न हो तो डरिए नहीं, काग़ज़ात साफ़ रखिए।`
-        : `सम जोड़ी। न बोनस, न घर्षण — चलते-फिरते ${kindWord.hi} है।`
+        ? `tanaav jodi. yeh ${kindWord.hi} aapke Mulank se bahas karta hai — badalana aasaan ho toh behatar knpan leejie; na ho toh darie nahi, kaagzaat saaf rakho.`
+        : `sam jodi. na bonas, na gharshan — chalate-phirate ${kindWord.hi} hai.`
   }`;
 
   return {

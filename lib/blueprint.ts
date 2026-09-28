@@ -117,9 +117,9 @@ export function pinnacleNarrative(data: BlueprintData, lang: Lang): { past: stri
   const nextP = p.find((x) => x.ageStart > nowAge) ?? p[3];
   if (lang === "hi") {
     return {
-      past: `पिछले दशक (लगभग आयु ${pastP.ageStart}–${pastP.ageEnd === Infinity ? "∞" : pastP.ageEnd}) आप शिखर-अंक ${pastP.number} के अधीन थे — ${meaningFor(pastP.number).title} की विषय-रेखा। उस दौर की घटनाएँ यहीं से अपना रंग लेती हैं।`,
-      present: `वर्तमान शिखर-अंक ${curP.number} (आयु ${curP.ageStart}–${curP.ageEnd === Infinity ? "∞" : curP.ageEnd}) — ${meaningFor(curP.number).title}। इसी की छाया में आपके आज के निर्णय पढ़े जाते हैं।`,
-      future: `अगला शिखर-अंक ${nextP.number} लगभग आयु ${nextP.ageStart} से शुरू होगा — ${meaningFor(nextP.number).title}। अब का संवर्धन उस अध्याय की नींव है।`,
+      past: `pichhle dashak (lagabhag aayu ${pastP.ageStart}–${pastP.ageEnd === Infinity ? "∞" : pastP.ageEnd}) aap shikhar-ank ${pastP.number} ke adheen the — ${meaningFor(pastP.number).title} ki vishay-rekha. us daur ki ghatanaae yaheen se apna rang leti hain.`,
+      present: `vartmaan shikhar-ank ${curP.number} (aayu ${curP.ageStart}–${curP.ageEnd === Infinity ? "∞" : curP.ageEnd}) — ${meaningFor(curP.number).title}. isi ki chhaya mein aapke aaj ke nirnay padhae jaate hain.`,
+      future: `agla shikhar-ank ${nextP.number} lagabhag aayu ${nextP.ageStart} se shuru hoga — ${meaningFor(nextP.number).title}. ab ka snvardhan us adhyay ki neev hai.`,
     };
   }
   return {

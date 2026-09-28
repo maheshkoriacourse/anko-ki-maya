@@ -5,9 +5,9 @@
  * (+10 years ahead) and, for each PAST year, generates a "kya hua hoga"
  * reading: PY essence + age-context + karmic/pinnacle/9-year-cycle
  * activation, written in the direct jyotishi voice. The graph fills itself
- * from the numbers — the user only confirms: ✓ सही / ✗ गलत.
+ * from the numbers — the user only confirms: ✓ sahi / ✗ galat.
  *
- * Confirmed (सही) events are pinned on the SVG intensity curve. Confirm/
+ * Confirmed (sahi) events are pinned on the SVG intensity curve. Confirm/
  * reject counts feed a pattern note that sharpens as the user marks years.
  *
  * Hard-ban safety: past readings never mention death, illness/diagnosis,
@@ -30,7 +30,7 @@ export interface PastYearReading {
   /** Karmic/pinnacle/cycle activations that colour this year. */
   activations: string[]; // short EN tags, mirrored in HI via activationTags
   activationTagsHi: string[];
-  /** v3.1: true when this is a बड़े साल (BIG year) — timeline built from these. */
+  /** v3.1: true when this is a bade saal (BIG year) — timeline built from these. */
   big: boolean;
   /** v3.1: why this year is big (tags from BIG_REASON_LABEL). */
   bigReasons: string[];
@@ -50,14 +50,14 @@ export interface FutureYearReading {
 
 export interface YearMark {
   year: number;
-  verdict: "sahi" | "galat"; // ✓ सही / ✗ गलत
+  verdict: "sahi" | "galat"; // ✓ sahi / ✗ galat
 }
 
 export interface LifeGraphResult {
   past: PastYearReading[];
   future: FutureYearReading[];
   currentYear: PastYearReading | null; // this year's reading (not markable)
-  /** v3.1: the बड़े साल (BIG years) — the timeline is built FROM these. */
+  /** v3.1: the bade saal (BIG years) — the timeline is built FROM these. */
   bigYears: PastYearReading[];
   /** Pattern note from marks: sharper as more years are confirmed. */
   patternNoteEn: string | null;
@@ -87,11 +87,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a year of NEW BEGINNINGS — a door opened that changed direction. Either you started something of your own, moved, or felt a strong restless push to break out of an old shell. A year you remember as 'the year everything restarted'.",
     pastHi:
-      "यह नई शुरुआत का वर्ष था — एक दरवाज़ा खुला जिसने दिशा बदली। या तो आपने अपना कोई काम छेड़ा, गृह/स्थान बदला, या पुराने खोल से निकलने की बेचैनी तेज़ महसूस हुई। याद करेंगे तो 'सब कुछ फिर से शुरू हुआ' यही साल।",
+      "yeh naee shuruaat ka saal tha — ek darwaaza khula jisane disha badai. ya toh aapne apna koi kaam chheda, grih/sthaan badala, ya puraane khol se nikalane ki bechaini tez mahasoos huee. yaad karenge toh 'sab kuchh phir se shuru hua' yehi saal.",
     futureEn:
       "A NEW-BEGINNING year: whatever you start here carries the next nine. Name the goal in one line and move in the first half of the year.",
     futureHi:
-      "नई शुरुआत का वर्ष: यहाँ जो शुरू करेंगे, वह अगले नौ साल ढोएगा। लक्ष्य एक लाइन में लिखें और साल के पहले हाफ़ में चल पड़ें।",
+      "naee shuruaat ka saal: yahan jo shuru karenge, woh agle nau saal dhoega. lakshya ek line mein likho aur saal ke pehle haaph mein chal padaen.",
     intensity: 8,
     volatile: true,
   },
@@ -99,11 +99,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a SLOW, PATIENT year — growth underground. Probably felt unrewarding at the time: waiting, small steps, one key relationship or partnership forming quietly. What was planted that year sprouted later.",
     pastHi:
-      "यह धीमा, धैर्य भरा वर्ष था — बीज ज़मीन के नीचे था। उस वक़्त बेफ़िज़ूल लगा होगा: इंतज़ार, छोटे कदम, और कोई एक अहम रिश्ता या साझेदारी चुपचाप बनती हुई। उस साल बोया हुआ बाद में उगा।",
+      "yeh dheema, dhairya bhara saal tha — beej jamein ke neeche tha. us vakat bephaijaool laga hoga: intajaar, chhote kadam, aur koi ek aham rishta ya saajhedari chupachaap banti huee. us saal boyaa hua baad mein uga.",
     futureEn:
       "A PATIENCE year: partnerships ripen, quick wins don't. Feed relationships and let money compound quietly.",
     futureHi:
-      "धैर्य का वर्ष: साझेदारियाँ पकती हैं, झटपट जीत नहीं होती। रिश्तों को सींचें और पैसे को चुपचाप बाढ़ने दें।",
+      "dhairya ka saal: saajhedariyaan pakai hain, jhatpat jeet nahi hoi. rishton ko seenchen aur paise ko chupachaap baadhane dein.",
     intensity: 4,
     volatile: false,
   },
@@ -111,11 +111,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a SOCIAL, EXPRESSIVE year — your name travelled. New friends, public visibility, creative or study wins; also scattered money if you chased every shiny thing. A year of laughter and noise.",
     pastHi:
-      "यह सामाजिक, अभिव्यक्ति भरा वर्ष था — आपका नाम दूर तक गया। नई मुलाक़ातें, सार्वजनिक दिखना, सृजन या पढ़ाई की जीत; हर चमकती चीज़ के पीछे भागे तो पैसा बिखरा भी। हँसी और शोर का साल।",
+      "yeh saamaajik, abhivyakti bhara saal tha — aapka naam door tak gayaa. naee mulaakaaten, saarvajanik dikhna, srijan ya padhai ki jeet; har chamakai cheej ke peechhe bhaage toh paisa bikhara bhi. hansi aur shor ka saal.",
     futureEn:
       "An EXPRESSION year: visibility, networking and creative work pay. Put your work where people can see it.",
     futureHi:
-      "अभिव्यक्ति का वर्ष: दिखना, नेटवर्क और सृजनात्मक काम फलता है। अपना काम उठाकर लोगों के सामने रखें।",
+      "abhivyakti ka saal: dikhna, network aur srijanaatmak kaam phalata hai. apna kaam uthaakar logon ke saamne rakhein.",
     intensity: 6,
     volatile: false,
   },
@@ -123,11 +123,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a HARD-WORK, FOUNDATIONS year — discipline demanded, shortcuts punished. Probably heavy responsibility, routine, savings discipline or a grind that felt thankless. Whatever base you laid that year still carries you.",
     pastHi:
-      "यह कठोर परिश्रम और नींव का वर्ष था — अनुशासन माँगा गया, शॉर्टकट दंडित हुए। भारी ज़िम्मेदारी, रुटीन, बचत का अनुशासन या बेनाम मेहनत — यही रहा होगा। उस साल रखी नींव आज भी आपको ढो रही है।",
+      "yeh kathor parishram aur neev ka saal tha — anushasan maaga gaya, shortcut dndit hue. bhaari zimmewari, routine, bachat ka anushasan ya benaam mehnat — yehi raha hoga. us saal rai neev aaj bhi aapko dho rahi hai.",
     futureEn:
       "A FOUNDATIONS year: build systems, not stunts. Steady bricks this year beat any grand gesture.",
     futureHi:
-      "नींव का वर्ष: सिस्टम बनाएँ, तमाशा नहीं। इस साल की स्थिर ईंटें किसी भव्य कदम से बड़ी हैं।",
+      "neev ka saal: system banao, tamaasha nahi. is saal ki sthir eenten kii bhavy kadam se badi hain.",
     intensity: 3,
     volatile: false,
   },
@@ -135,11 +135,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a CHANGE year — movement, travel, a switch in work or place. Life shook the routine on purpose. Some of it felt like loss at first; it was actually redirection. A year you did something out of character.",
     pastHi:
-      "यह परिवर्तन का वर्ष था — यात्रा, स्थानांतरण, काम या जगह की अदला-बदली। ज़िंदगी ने जान-बूझकर रुटीन हिलाई। शुरुआत में नुकसान जैसा लगा होगा; असल में दिशा-परिवर्तन था। इस साल आपने अपने स्वभाव से हटकर कुछ किया।",
+      "yeh parivartan ka saal tha — yatra, sthaanaantaran, kaam ya jagah ki adala-badai. jaindai ne jaan-boojhkar routine hilaaee. shuruaat mein nuksaan jaisa laga hoga; asal mein disha-parivartan tha. is saal aapne apne svabhaav se hatakar kuchh kiyaa.",
     futureEn:
       "A CHANGE year: travel, switches and fresh markets. Say yes to movement — the routine you leave was the ceiling.",
     futureHi:
-      "परिवर्तन का वर्ष: यात्रा, बदलाव और नए बाज़ार। हाँ कहें — जो रुटीन छूटेगा, वही आपकी छत थी।",
+      "parivartan ka saal: yatra, badlaav aur nae baazaar. ha kaho — jo routine chhootega, wahi aapki chhat i.",
     intensity: 7,
     volatile: true,
   },
@@ -147,11 +147,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a FAMILY-AND-RESPONSIBILITY year — home, marriage-heat or household duty took the front seat. Big decisions about home, family functions, or caring for elders filled the calendar. Beauty and money both improved if you kept balance.",
     pastHi:
-      "यह परिवार और ज़िम्मेदारी का वर्ष था — घर, रिश्ते-विवाह की चर्चा या गृहस्थी का बोझ आगे बैठा। घर से जुड़े बड़े निर्णय, लोक-आचार, या बड़ों की सेवा ने कैलेंडर भर दिया। संतुलन रखा तो शोभा और धन दोनों बढ़े।",
+      "yeh parivaar aur zimmewari ka saal tha — ghar, rishte-vivaah ki charcha ya grihasi ka bojh aage baitha. ghar se judae bade nirnay, lok-aachaar, ya badon ki seva ne kailendar bhar diyaa. santulan rakha toh shobha aur dhan dono badhae.",
     futureEn:
       "A FAMILY year: home, harmony and commitment move. Say the important sentence at the dining table this year.",
     futureHi:
-      "परिवार का वर्ष: घर, सद्भाव और संकल्प चलेंगे। इस साल खाने की मेज़ पर वह अहम बात कह दें।",
+      "parivaar ka saal: ghar, sadbhaav aur sankalp chalenge. is saal khaane ki mej par woh aham baat kah dein.",
     intensity: 7,
     volatile: false,
   },
@@ -159,11 +159,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a QUIET, INWARD year — questions bigger than answers. Probably withdrawal from noise, deep study or spiritual pull, and one period of feeling alone even among people. What you learned that year still runs in your blood.",
     pastHi:
-      "यह शांत, भीतर-मुखी वर्ष था — सवाल जवाबों से बड़े थे। शोर से हटना, गहन अध्ययन या आध्यात्म का खिंचाव, और भीड़ में भी अकेलापन — यही रहा होगा। उस साल सीखा हुआ आज भी आपके ख़ून में बहता है।",
+      "yeh shaant, bheetar-mui saal tha — savaal javaabon se bade the. shor se hatana, gahan adhyayan ya aadhyaatm ka khinchaav, aur bheed mein bhi akelaapan — yehi raha hoga. us saal seekha hua aaj bhi aapke khaoon mein bahata hai.",
     futureEn:
       "An INNER year: study, research and retreat pay. Push loud launches next year — this year master the craft.",
     futureHi:
-      "अंतरंग वर्ष: अध्ययन, शोध और एकांत फलते हैं। शोर-भरा लॉन्च अगले साल के लिए — इस साल कला में महारत।",
+      "antarng saal: adhyayan, shodh aur ekaant phalate hain. shor-bhara launch agle saal ke liye — is saal kala mein mahaarat.",
     intensity: 4,
     volatile: false,
   },
@@ -171,11 +171,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a MONEY-AND-POWER year — career pressure and career reward together. Position, promotion, property, big money-moves; and equally, if you cut corners, a bill arrived. A year of heavy stakes that made you heavier.",
     pastHi:
-      "यह धन और शक्ति का वर्ष था — करियर का दबाव और दावत एक साथ। पद, प्रमोशन, संपत्ति, बड़े आर्थिक निर्णय; और रास्ता काटा तो बिल भी आया। भारी दाँव-पेंच का साल जिसने आपको भारी बनाया।",
+      "yeh dhan aur shakti ka saal tha — career ka dabaav aur daavat ek saath. pad, pramoshan, sampatti, bade aarthik nirnay; aur raasta kaata toh bill bhi aayaa. bhaari daav-pench ka saal jisane aapko bhaari banaayaa.",
     futureEn:
       "A MONEY-AND-POWER year: ask for the position, close the property, sign the deal — and do it clean, because Saturn audits.",
     futureHi:
-      "धन-शक्ति का वर्ष: पद माँगें, संपत्ति पक्की करें, सौदा बाँधें — और साफ़ खेलें, क्योंकि शनि लेखा जोखा करता है।",
+      "dhan-shakti ka saal: pad maango, sampatti pakki karo, sauda baandho — aur saaf khelo, kyunki Shani lekha jokha karta hai.",
     intensity: 9,
     volatile: true,
   },
@@ -183,11 +183,11 @@ const PY_ESSENCE: Record<number, PyEssence> = {
     pastEn:
       "This was a COMPLETION year — something ended so the next cycle could start: a chapter, a job, a bond, an address. Emotions ran high; letting go was the lesson. By year-end you were already a different person.",
     pastHi:
-      "यह समापन का वर्ष था — अगला चक्र शुरू करने के लिए कुछ खत्म हुआ: एक अध्याय, नौकरी, बंधन या पता। भावनाएँ तेज़ चलीं; छोड़ना ही पाठ था। साल खत्म होते-होते आप पहले से अलग इंसान थे।",
+      "yeh samaapan ka saal tha — agla chakra shuru karne ke liye kuchh khatm hua: ek adhyay, naukri, bndhan ya pata. bhaavanaae tez chaleen; chhodana hi paath tha. saal khatm hote-hote aap pehle se alag insaan the.",
     futureEn:
       "A COMPLETION year: close what is finished — gracefully, on purpose. Space you clear now becomes next year's launchpad.",
     futureHi:
-      "समापन का वर्ष: जो पूरा हो चुका है, उसे सम्मान से बंद करें। अब खाली की जगह अगले साल का उड़ान-पट्टर है।",
+      "samaapan ka saal: jo poora ho chuka hai, use samman se band karein. ab khaali ki jagah agle saal ka udaan-pattar hai.",
     intensity: 9,
     volatile: true,
   },
@@ -195,14 +195,14 @@ const PY_ESSENCE: Record<number, PyEssence> = {
 
 /** Age-context lines layered onto PY essence (past readings). */
 function ageContextHi(age: number): string {
-  if (age <= 5) return "बचपन की उम्र — परिवार का माहौल ही उस वर्ष का मौसम था।";
-  if (age <= 12) return "स्कूल-दशा की उम्र — पढ़ाई और घर, दोनों ने रूप दिया।";
-  if (age <= 18) return "किशोर दशा — रुख़, दोस्ती और पहचान की ज़िम्मेदारी इसी वर्ष के अंकों से चली।";
-  if (age <= 25) return "इक्कीस के आसपास की दशा — करियर/पढ़ाई के बड़े निर्णयों की उम्र, अंकों ने रास्ता चुनाया।";
-  if (age <= 35) return "तीस के दशक की चढ़ाई — करियर-रिश्ते-धन के बड़े दाँव इसी दौर के अंकों में बँटे।";
-  if (age <= 45) return "चालीस के दशक — शिखर और ज़िम्मेदारी दोनों का दबाव, अंकों ने लय तय की।";
-  if (age <= 58) return "पचास के दशक — अनुभव का वज़न और नई दिशा की तलाश, इस वर्ष के अंकों से पढ़ी जाती है।";
-  return "उम्र के इस पड़ाव पर अंक दिशा बदलने का संकेत देते हैं — समापन और उत्तराधिकार का दौर।";
+  if (age <= 5) return "bachapan ki umra — parivaar ka maahaul hi us saal ka mausam tha.";
+  if (age <= 12) return "school-dasha ki umra — padhai aur ghar, dono ne roop diyaa.";
+  if (age <= 18) return "kishor dasha — rukh, dosti aur pahachaan ki zimmewari isi saal ke ankon se chai.";
+  if (age <= 25) return "ikkees ke aasapaas ki dasha — career/padhai ke bade nirnayon ki umra, ankon ne raasta chunaayaa.";
+  if (age <= 35) return "tees ke dashak ki chadhaaee — career-rishte-dhan ke bade daav isi daur ke ankon mein bte.";
+  if (age <= 45) return "chaalees ke dashak — shikhar aur zimmewari dono ka dabaav, ankon ne lay tay i.";
+  if (age <= 58) return "pachaas ke dashak — anubhav ka vajan aur naee disha ki talaash, is saal ke ankon se padhi jaati hai.";
+  return "umra ke is padaav par ank disha badalane ka sanket dete hain — samaapan aur uttaraadhikaar ka daur.";
 }
 
 function ageContextEn(age: number): string {
@@ -235,13 +235,13 @@ function activationCopy(tag: string, lang: "en" | "hi"): string {
   if (lang === "hi") {
     switch (tag) {
       case "karmic-debt":
-        return "कर्मिक ऋण-अंक सक्रिय — इस वर्ष मेहनत का पूरा हिसाब माँगा गया; जो काम अधूरा छोड़ा था, उसी ने दोबारा सिर उठाया।";
+        return "karmic rin-ank sakriy — is saal mehnat ka poora hisaab maaga gaya; jo kaam adhura chhoda tha, ui ne dobara sir uthaayaa.";
       case "cycle-end":
-        return "9-वर्षीय चक्र की समाप्ति — एक अध्याय बंद हुआ, अगले साल से नया चक्र चढ़ा।";
+        return "9-varsheey chakra ki samaapti — ek adhyay band hua, agle saal se naya chakra chadha.";
       case "pinnacle":
-        return "शिखर-अंक का स्थानांतरण — जीवन की धारा इसी वर्ष नए चैनल में उतरी।";
+        return "shikhar-ank ka sthaanaantaran — jeevan ki dhaara isi saal nae chainal mein utaree.";
       case "peak-year":
-        return "चक्र के शिखर का वर्ष — जो किया, उसका असर साफ़ दिखा।";
+        return "chakra ke shikhar ka saal — jo kiyaa, usaka asar saaf dikha.";
       default:
         return "";
     }
@@ -265,11 +265,11 @@ function pinnacleAt(pins: Pinnacle[], age: number): Pinnacle {
 }
 
 /* ------------------------------------------------------------------ */
-/* v3.1 BIG-YEAR detection ('बड़े साल') — owner correction #2           */
+/* v3.1 BIG-YEAR detection ('bade saal') — owner correction #2           */
 /* ------------------------------------------------------------------ */
 
 /**
- * A PAST year is BIG ('बड़े साल') when ANY of these fires:
+ * A PAST year is BIG ('bade saal') when ANY of these fires:
  *   1. karmic debt (13/14/16/19) active in the compound PY sum
  *   2. pinnacle boundary/start (a new 9-year pinnacle chapter opens)
  *   3. PY 1 (cycle start) or PY 9 (completion)
@@ -338,53 +338,53 @@ export function digitSurge(
 export const BIG_EVENT_BY_PY: Record<number, { en: string; hi: string }> = {
   1: {
     en: "A big change like a job/admission happened this year — a new chapter opened.",
-    hi: "इस साल नौकरी/एडमिशन जैसा बड़ा बदलाव हुआ होगा — नया अध्याय खुला।",
+    hi: "is saal naukri/admission jaisa bada badlaav hua hoga — naya adhyay khula.",
   },
   2: {
     en: "The year of marriage-love — a bond deepened or a partnership formed.",
-    hi: "शादी-प्यार का साल — कोई रिश्ता गहरा हुआ या साझेदारी बनी।",
+    hi: "shaadi-pyaar ka saal — koi rishta gehra hua ya saajhedari bai.",
   },
   3: {
     en: "Your name travelled — results, recognition or a creative win.",
-    hi: "आपका नाम दूर तक गया — परिणाम, पहचान या सृजन की जीत।",
+    hi: "aapka naam door tak gaya — parinaam, pahachaan ya srijan ki jeet.",
   },
   4: {
     en: "A foundation year — hard grind that quietly rebuilt your base.",
-    hi: "नींव का साल — कठोर मेहनत ने चुपचाप आधार मज़बूत किया।",
+    hi: "neev ka saal — kathor mehnat ne chupachaap aadhaar mazboot kiyaa.",
   },
   5: {
     en: "Travel-foreign signals — movement, switch or relocation energy.",
-    hi: "ट्रैवल-विदेश संकेत — यात्रा, बदलाव या स्थानांतरण की ऊर्जा।",
+    hi: "traival-videsh sanket — yatra, badlaav ya sthaanaantaran ki oorja.",
   },
   6: {
     en: "The year of marriage-love.",
-    hi: "शादी-प्यार का साल।",
+    hi: "shaadi-pyaar ka saal.",
   },
   7: {
     en: "A study-inward year — deep preparation that paid later.",
-    hi: "अध्ययन-अंतरंग वर्ष — गहन तैयारी जो बाद में काम आई।",
+    hi: "adhyayan-antarng saal — gahan taiyaaree jo baad mein kaam aaee.",
   },
   8: {
     en: "A money-income-jump window opened.",
-    hi: "पैसा-इनकम जंप की window खुली।",
+    hi: "paisa-inakam jnp ki window khui.",
   },
   9: {
     en: "A chapter closed — an elder of the house passed, the era of legacy began (read with care).",
-    hi: "किसी बड़े का जाना — घर में विरासत का दौर (सहानुभूति से पढ़ें)।",
+    hi: "kii bade ka jaana — ghar mein virasat ka daur (sahaanubhooti se padhaen).",
   },
 };
 
 /** Short badge labels for each big-year reason. */
 export const BIG_REASON_LABEL: Record<string, { en: string; hi: string }> = {
-  "karmic-debt": { en: "karmic debt active", hi: "कर्मिक ऋण सक्रिय" },
-  "pinnacle-boundary": { en: "pinnacle boundary", hi: "शिखर-बदल की सीमा" },
-  "py-1-start": { en: "PY 1 — cycle start", hi: "दशा 1 — चक्र-आरंभ" },
-  "py-9-completion": { en: "PY 9 — completion", hi: "दशा 9 — समापन" },
-  "py-mulank": { en: "PY = Mulank", hi: "दशा = मूलांक" },
-  "py-bhagyank": { en: "PY = Bhagyank", hi: "दशा = भाग्यांक" },
-  "digit-surge-2": { en: "digit-repetition surge", hi: "अंक-पुनरावृत्ति वृद्धि" },
-  "digit-surge-3": { en: "triple-digit surge", hi: "त्रिक-अंक वृद्धि" },
-  "milestone-age": { en: "karmic milestone age", hi: "कर्मिक मील-पत्थर आयु" },
+  "karmic-debt": { en: "karmic debt active", hi: "karmic rin sakriy" },
+  "pinnacle-boundary": { en: "pinnacle boundary", hi: "shikhar-badal ki seema" },
+  "py-1-start": { en: "PY 1 — cycle start", hi: "dasha 1 — chakra-aarambh" },
+  "py-9-completion": { en: "PY 9 — completion", hi: "dasha 9 — samaapan" },
+  "py-mulank": { en: "PY = Mulank", hi: "dasha = Mulank" },
+  "py-bhagyank": { en: "PY = Bhagyank", hi: "dasha = Bhagyank" },
+  "digit-surge-2": { en: "digit-repetition surge", hi: "ank-repetition vridhi" },
+  "digit-surge-3": { en: "triple-digit surge", hi: "trik-ank vridhi" },
+  "milestone-age": { en: "karmic milestone age", hi: "karmic meel-patthar aayu" },
 };
 
 /* ------------------------------------------------------------------ */
@@ -509,7 +509,7 @@ export function buildLifeGraph(
       `Every year from ${birthYear} to ${nowYear + 10} computed: ${total} readings.`,
       `Past years carry karmic/pinnacle/cycle activation tags; future years carry PY weather.`,
       `Intensity (1-10) = PY shape, boosted by volatile/karmic/pinnacle activations.`,
-      `बड़े साल (BIG years): karmic debt 13/14/16/19 active, pinnacle boundary, PY 1 (cycle start) or PY 9 (completion), PY = Mulank or Bhagyank, digit-repetition surge, or karmic milestone ages 27/36/45/54 — each big year names its likely event type; the timeline is built from these.`,
+      `bade saal (BIG years): karmic debt 13/14/16/19 active, pinnacle boundary, PY 1 (cycle start) or PY 9 (completion), PY = Mulank or Bhagyank, digit-repetition surge, or karmic milestone ages 27/36/45/54 — each big year names its likely event type; the timeline is built from these.`,
     ],
   };
 }
@@ -524,7 +524,7 @@ function bhagyankOf(year: number, month: number, day: number): number {
 /* ------------------------------------------------------------------ */
 
 /**
- * Marks sharpen the pattern note: count सही/गलत, name the strongest
+ * Marks sharpen the pattern note: count sahi/galat, name the strongest
  * confirmed PY cluster and the most rejected year-type.
  */
 export function patternNote(
@@ -552,12 +552,12 @@ export function patternNote(
   }
 
   if (topPy) {
-    const en = `You confirmed ${sahi.length} year${sahi.length > 1 ? "s" : ""} (✓ सही: ${sahiYears.join(", ")}) and rejected ${galat.length} (✗ गलत${galatYears.length ? ": " + galatYears.join(", ") : ""}). Your confirmed events cluster in Personal Year ${topPy[0]} cycles — the ${topPy[1]}× confirmation sharpens every future reading on this graph.`;
-    const hi = `आपने ${sahi.length} वर्ष सही (✓: ${sahiYears.join(", ")}) और ${galat.length} गलत (✗${galatYears.length ? ": " + galatYears.join(", ") : ""}) किए। आपकी पक्की घटनाएँ व्यक्तिगत-वर्ष ${topPy[0]} के चक्र में जमा हैं — ${topPy[1]}× पुष्टि इस ग्राफ़ की आगे की हर रीडिंग को और तेज़ करती है।`;
+    const en = `You confirmed ${sahi.length} year${sahi.length > 1 ? "s" : ""} (✓ sahi: ${sahiYears.join(", ")}) and rejected ${galat.length} (✗ galat${galatYears.length ? ": " + galatYears.join(", ") : ""}). Your confirmed events cluster in Personal Year ${topPy[0]} cycles — the ${topPy[1]}× confirmation sharpens every future reading on this graph.`;
+    const hi = `aapne ${sahi.length} saal sahi (✓: ${sahiYears.join(", ")}) aur ${galat.length} galat (✗${galatYears.length ? ": " + galatYears.join(", ") : ""}) kie. aapki pakki ghatanaae vyaktigat-saal ${topPy[0]} ke chakra mein jama hain — ${topPy[1]}× pushti is graph ki aage ki har reeding ko aur tez karti hai.`;
     return { en, hi };
   }
   const en = `You rejected ${galat.length} reading${galat.length > 1 ? "s" : ""} — your chart runs off-cycle, which is itself a rare signature. Keep marking; the pattern will name itself.`;
-  const hi = `आपने ${galat.length} रीडिंग गलत की — आपका चार्ट चक्र से बाहर चलता है, यह आप में दुर्लभ दस्तख़त है। चिह्न लगाते रहें; पैटर्न अपना नाम खुद बोलेगा।`;
+  const hi = `aapne ${galat.length} reeding galat ki — aapka chart chakra se bahar chalata hai, yeh aap mein durlabh dastakhat hai. chihn lagaate rahen; paitarn apna naam khud bolega.`;
   return { en, hi };
 }
 
@@ -577,9 +577,9 @@ export interface CurvePoint {
   py: number;
   isFuture: boolean;
   isCurrent: boolean;
-  pinned: boolean; // confirmed सही event
-  rejected: boolean; // marked गलत
-  big: boolean; // v3.1 बड़े साल
+  pinned: boolean; // confirmed sahi event
+  rejected: boolean; // marked galat
+  big: boolean; // v3.1 bade saal
   bigReasons: string[]; // v3.1 why big
   eventLabel: string | null; // v3.1 likely event type (lang-neutral key resolved by UI)
   eventLabelHi: string | null;

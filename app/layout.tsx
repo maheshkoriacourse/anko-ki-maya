@@ -35,7 +35,7 @@ const notoDevanagari = Noto_Serif_Devanagari({
 
 export const metadata: Metadata = {
   title: {
-    default: "अंकों की माया — Anko Ki Maya | Ank Shastra: भूत, वर्तमान, भविष्य",
+    default: "अंकों की माया — Anko Ki Maya | Ank Shastra: past, present, future",
     template: "%s · अंकों की माया",
   },
   description:

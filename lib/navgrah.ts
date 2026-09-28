@@ -16,7 +16,7 @@
 export interface NavgrahEntry {
   digit: number; // 1-9
   graha: string; // "Surya"
-  grahaHi: string; // "सूर्य"
+  grahaHi: string; // "Surya"
   natureEn: string; // short nature keywords
   natureHi: string;
   friends: number[];
@@ -30,128 +30,128 @@ export const NAVGRAH: Record<number, NavgrahEntry> = {
   1: {
     digit: 1,
     graha: "Surya",
-    grahaHi: "सूर्य",
+    grahaHi: "Surya",
     natureEn: "leadership, authority, fame",
-    natureHi: "नेतृत्व, अधिकार, प्रतिष्ठा",
+    natureHi: "leadership, adhikaar, pratishtha",
     friends: [1, 2, 3, 5, 9],
     tense: [8],
     karmicPair: null,
     behaviorEn:
       "Surya in your chart runs the king-line: it wants your name on the door, not on the guest list. It gives authority early to the bold and late to the hesitant — but it always gives it to those who keep their word.",
     behaviorHi:
-      "आपके चार्ट में सूर्य राजा-रेखा चलाता है: यह आपका नाम दरवाज़े की पटिया पर चाहता है, मेहमान-सूची में नहीं। बहादुरों को सत्ता जल्दी, झिझकने वालों को देर से देता है — पर देता उन्हीं को है जो अपनी बात पर टिके रहते हैं।",
+      "aapke chart mein Surya raja-rekha chalata hai: yeh aapka naam darwaaze ki patiya par chaahata hai, mehamaan-soochi mein nahi. bahaduron ko satta jaldi, jhijhakane vaalon ko der se deta hai — par deta unhi ko hai jo apni baat par tike rehte hain.",
   },
   2: {
     digit: 2,
     graha: "Chandra",
-    grahaHi: "चंद्रमा",
+    grahaHi: "Chandrama",
     natureEn: "emotion, intuition, the public's heart",
-    natureHi: "भावना, अंतर्ज्ञान, जन-हृदय",
+    natureHi: "bhaavna, antargyaan, jan-dil",
     friends: [1, 2, 3],
     tense: [4, 8],
     karmicPair: null,
     behaviorEn:
       "Chandra in your chart runs the tide-line: moods and markets move together for you. It reads rooms before it reads books, wins people through trust, and pays heavily when you argue with your own gut.",
     behaviorHi:
-      "आपके चार्ट में चंद्रमा लहर-रेखा चलाता है: आपके लिए मन और बाज़ार एक साथ चलते हैं। यह किताबों से पहले कमरा पढ़ती है, भरोसे से लोग जीतती है — और अपनी ही अंतरात्मा से झगड़ा करने पर भारी चूक कराती है।",
+      "aapke chart mein Chandrama lahar-rekha chalata hai: aapke liye man aur baazaar ek saath chalate hain. yeh kitaabon se pehle kamra padhai hai, bharose se log jeetai hai — aur apni hi antaraatma se jhagada karne par bhaari chook karaai hai.",
   },
   3: {
     digit: 3,
     graha: "Guru",
-    grahaHi: "गुरु",
+    grahaHi: "Guru",
     natureEn: "wisdom, expansion, wealth",
-    natureHi: "ज्ञान, विस्तार, धन-वृद्धि",
+    natureHi: "gyaan, vistar, dhan-vridhi",
     friends: [1, 2, 3, 5, 9],
     tense: [6],
     karmicPair: null,
     behaviorEn:
       "Guru in your chart runs the teacher-line: knowledge you refuse to share stagnates; knowledge you teach returns multiplied. Money expands for you through counsel — giving advice, taking advice from the worthy.",
     behaviorHi:
-      "आपके चार्ट में गुरु शिक्षक-रेखा चलाता है: जो ज्ञान आप बाँटते नहीं, वह रुक जाता है; जो बाँटते हैं, वह गुणित होकर लौटता है। धन आपके लिए सलाह से बढ़ता है — देने से भी, सही आदमी से लेने से भी।",
+      "aapke chart mein Guru shikshak-rekha chalata hai: jo gyaan aap baatate nahi, woh ruk jaata hai; jo baatate hain, woh gunit hokar lautata hai. dhan aapke liye salah se badhata hai — dene se bhi, sahi aadmi se lene se bhi.",
   },
   4: {
     digit: 4,
     graha: "Rahu",
-    grahaHi: "राहु",
+    grahaHi: "Rahu",
     natureEn: "innovation, disruption, the unconventional",
-    natureHi: "नवीनता, उलट-बाज़ी, अपरंपरागत",
+    natureHi: "navinta, ulat-baazi, apara-ramparaagat",
     friends: [4, 5, 6, 8],
     tense: [1, 2],
     karmicPair: 7,
     behaviorEn:
       "Rahu in your chart runs the disruptor-line: the orthodox path pays you less than the strange one. Big sudden rises and sudden resets both belong to this planet — your rulebook is to keep cash buffers and keep the paperwork clean.",
     behaviorHi:
-      "आपके चार्ट में राहु उलट-रेखा चलाता है: रूढ़ि वाला रास्ता आपको कम देता है, अजीब वाला ज़्यादा। अचानक चढ़ाई और अचानक गिरावट दोनों इसी ग्रह के हैं — आपका नियम: रोकड़ा बफ़र रखें, काग़ज़ात साफ़ रखें।",
+      "aapke chart mein Rahu ulat-rekha chalata hai: roodhai waala raasta aapko kam deta hai, ajeeb waala jayaada. achanak chadhaaee aur achanak giraavat dono isi graha ke hain — aapka niyam: roqda baphar rakhein, kaagzaat saaf rakhein.",
   },
   5: {
     digit: 5,
     graha: "Budh",
-    grahaHi: "बुध",
+    grahaHi: "Budh",
     natureEn: "logic, commerce, communication",
-    natureHi: "तर्क, व्यापार, संवाद",
+    natureHi: "tark, vyaapaar, samvaad",
     friends: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     tense: [],
     karmicPair: null,
     behaviorEn:
       "Budh in your chart is the universal friend — it negotiates with every planet and loses to none in wit. Numbers, contracts, languages, code: wherever the deal lives, this planet collects commission for you.",
     behaviorHi:
-      "आपके चार्ट में बुध सबका मित्र है — हर ग्रह से सौदा करता है और चतुराई में किसी से हारता नहीं। हिसाब, करार, भाषा, कोड: जहाँ सौदे की बुद्धि चाहिए, वहाँ यह ग्रह आपकी कमाई जोड़ता है।",
+      "aapke chart mein Budh sabaka mitra hai — har graha se sauda karta hai aur chaturaai mein kii se haarata nahi. hisaab, karaar, bhasha, code: jahan saude ki buddhi chaahie, wahan yeh graha aapki kamai jodta hai.",
   },
   6: {
     digit: 6,
     graha: "Shukra",
-    grahaHi: "शुक्र",
+    grahaHi: "Shukra",
     natureEn: "luxury, beauty, love",
-    natureHi: "विलास, सौंदर्य, प्रेम",
+    natureHi: "vilaas, saundarya, prem",
     friends: [3, 5, 6, 8],
     tense: [1, 2],
     karmicPair: null,
     behaviorEn:
       "Shukra in your chart runs the pleasure-and-craft line: comfort, design, art, romance. It pays the one who makes things beautiful and charges interest on neglect — family time and taste both need maintenance.",
     behaviorHi:
-      "आपके चार्ट में शुक्र विलास-और-कारीगरी की रेखा चलाता है: आराम, डिज़ाइन, कला, प्रेम। यह उसी को देता है जो चीज़ों को सुंदर बनाता है और उपेक्षा पर ब्याज वसूलता है — परिवार का समय और शौक़, दोनों की देखभाल ज़रूरी है।",
+      "aapke chart mein Shukra vilaas-aur-kaarigari ki rekha chalata hai: aaraam, design, kala, prem. yeh ui ko deta hai jo cheejaon ko sundar banata hai aur upeksha par byaaj vasoolata hai — parivaar ka samay aur shauk, dono ki dekhbhaal zaroori hai.",
   },
   7: {
     digit: 7,
     graha: "Ketu",
-    grahaHi: "केतु",
+    grahaHi: "Ketu",
     natureEn: "spirituality, research, detachment",
-    natureHi: "अध्यात्म, अनुसंधान, वैराग्य",
+    natureHi: "adhyatm, anushandhaan, vairagya",
     friends: [5, 6, 8],
     tense: [1, 2],
     karmicPair: 4,
     behaviorEn:
       "Ketu in your chart runs the ascetic-scholar line: it gives mastery in one deep subject and indifference to the crowd's applause. Money comes, but only after you stop chasing it sideways and go straight at the craft.",
     behaviorHi:
-      "आपके चार्ट में केतु तपस्वी-पंडित की रेखा चलाता है: एक गहरे विषय में महारत देता है और भीड़ की तालियों से नाता तोड़ता है। धन आता है — पर तब, जब आप इधर-उधर भटकना छोड़ सीधे काम पर जाते हैं।",
+      "aapke chart mein Ketu tapasvi-pandit ki rekha chalata hai: ek gahare vishay mein mahaarat deta hai aur bheed ki taaliyon se naata todta hai. dhan aata hai — par tab, jab aap idhar-udhar bhatakana chhod seedhe kaam par jaate hain.",
   },
   8: {
     digit: 8,
     graha: "Shani",
-    grahaHi: "शनि",
+    grahaHi: "Shani",
     natureEn: "discipline, karma, endurance",
-    natureHi: "अनुशासन, कर्म, सहनशक्ति",
+    natureHi: "anushasan, karm, sahanshakti",
     friends: [3, 5, 6, 8],
     tense: [1, 2],
     karmicPair: null,
     behaviorEn:
       "Shani in your chart is the slow judge: quick success is not its gift — PERMANENT success is. What you earn under Shani stays earned; what you cut corners for, it collects back with interest.",
     behaviorHi:
-      "आपके चार्ट में शनि धीमा न्यायाधीश है: झटपट सफलता इसकी देन नहीं — स्थायी सफलता है। शनि के नीचे कमाया हुआ वहीं का वहीं टिकता है; जिस रास्ते से गड़बड़ की, वह ब्याज समेत वापस वसूल लेता है।",
+      "aapke chart mein Shani dheema nyaayaadheesh hai: jhatpat safalta isai den nahi — sthaayi safalta hai. Shani ke neeche kamaayaa hua wahin ka wahin tikata hai; jis raaste se gadabad ki, woh byaaj samet vaapas vasool leta hai.",
   },
   9: {
     digit: 9,
     graha: "Mangal",
-    grahaHi: "मंगल",
+    grahaHi: "Mangal",
     natureEn: "courage, action, energy",
-    natureHi: "साहस, कार्य, ऊर्जा",
+    natureHi: "saahas, kaarya, oorja",
     friends: [1, 2, 3, 5, 9],
     tense: [4, 8],
     karmicPair: null,
     behaviorEn:
       "Mangal in your chart runs the warrior-line: you win by moving first and apologising never. Fire that builds machines can also burn bridges — this planet's discipline is Tuesday's restraint.",
     behaviorHi:
-      "आपके चार्ट में मंगल योद्धा-रेखा चलाता है: आप पहले बढ़कर जीतते हैं, माफ़ी बाद में भी नहीं माँगते। यही अग्नि मशीनें भी बनाती है और पुल भी जलाती है — इस ग्रह का अनुशासन मंगलवार की संयम-साधना है।",
+      "aapke chart mein Mangal yoddha-rekha chalata hai: aap pehle badhakar jeetate hain, maaphaee baad mein bhi nahi maagate. yehi agni machinen bhi banaai hai aur pul bhi jalaati hai — is graha ka anushasan Mangalvaar ki sanyam-saadhana hai.",
   },
 };
 
@@ -180,10 +180,10 @@ export function planetRelation(a: number, b: number): PlanetRelation {
 }
 
 export const RELATION_LABEL: Record<PlanetRelation, { en: string; hi: string }> = {
-  friend: { en: "friend planets", hi: "मित्र ग्रह" },
-  tense: { en: "tense planets", hi: "तनाव ग्रह" },
-  karmic: { en: "karmic pair (Rahu-Ketu)", hi: "कर्मिक जोड़ी (राहु-केतु)" },
-  neutral: { en: "neutral", hi: "सम-भाव" },
+  friend: { en: "friend planets", hi: "mitra graha" },
+  tense: { en: "tense planets", hi: "tanaav graha" },
+  karmic: { en: "karmic pair (Rahu-Ketu)", hi: "karmic jodi (Rahu-Ketu)" },
+  neutral: { en: "neutral", hi: "sam-bhav" },
 };
 
 /** One-line verdict for two numbers' planets (compat engine + name studio). */
@@ -196,13 +196,13 @@ export function relationLine(a: number, b: number, lang: "en" | "hi"): string {
   if (lang === "hi") {
     switch (rel) {
       case "friend":
-        return `${pairHi} — मित्र ग्रह। दोनों एक-दूसरे की शक्ति बढ़ाते हैं: यह जोड़ी जहाँ बैठती है, वहाँ रफ़्तार दोगुनी।`;
+        return `${pairHi} — mitra graha. dono ek-doosare ki shakti badhaate hain: yeh jodi jahan baithai hai, wahan raftaar dogui.`;
       case "karmic":
-        return `${pairHi} — राहु-केतु की कर्मिक जोड़ी। पिछले जन्म का खाता: अधूरा काम यहाँ पूरा करना है।`;
+        return `${pairHi} — Rahu-Ketu ki karmic jodi. pichhle janm ka khaata: adhura kaam yahan poora karana hai.`;
       case "tense":
-        return `${pairHi} — तनाव ग्रह। यह जोड़ी मेहनत माँगती है: दोनों सच एक साथ रखिएगा, तो दोनों की ताक़त काम आएगी।`;
+        return `${pairHi} — tanaav graha. yeh jodi mehnat maagai hai: dono sach ek saath rakhoge, toh dono ki taakat kaam aaei.`;
       default:
-        return `${pairHi} — सम-भाव। कोई टकराव नहीं, कोई विशेष वरदान नहीं: निष्पक्ष साझेदारी।`;
+        return `${pairHi} — sam-bhaav. koi takaraav nahi, koi vishesh vardaan nahi: nishpaksh saajhedaaree.`;
     }
   }
   switch (rel) {
@@ -242,12 +242,12 @@ export function grahaInChartLine(
           .map((p) => (lang === "hi" ? `${p.labelHi} ${p.number}` : `${p.labelEn} ${p.number}`))
           .join(", ")
       : lang === "hi"
-        ? "आपके चार्ट"
+        ? "aapke chart"
         : "your chart";
-  const is = lang === "hi" ? "है" : "is";
+  const is = lang === "hi" ? "hai" : "is";
   const head =
     lang === "hi"
-      ? `आपका ${posList} = ${g.digit} → ${g.grahaHi} ${is}: ${g.natureHi} का ग्रह।`
+      ? `aapka ${posList} = ${g.digit} → ${g.grahaHi} ${is}: ${g.natureHi} ka graha.`
       : `Your ${posList} = ${g.digit} → ${g.graha}: ${is} the planet of ${g.natureEn}.`;
   return `${head} ${lang === "hi" ? g.behaviorHi : g.behaviorEn}`;
 }
@@ -267,11 +267,11 @@ export function planetChips(digit: number): {
 /* ------------------------------------------------------------------ */
 
 export const TERMS = {
-  mulank: { en: "Mulank (driver number)", hi: "मूलांक — चालक अंक" },
-  bhagyank: { en: "Bhagyank (destiny number)", hi: "भाग्यांक — नियति अंक" },
-  namank: { en: "Namank (name number)", hi: "नामांक — नाम-अंक" },
-  ankDasha: { en: "Ank Dasha", hi: "अंक दशा" },
-  numeroscope: { en: "Numeroscope", hi: "अंक-चक्र" },
+  mulank: { en: "Mulank (driver number)", hi: "Mulank — chaalak ank" },
+  bhagyank: { en: "Bhagyank (destiny number)", hi: "Bhagyank — niyati ank" },
+  namank: { en: "Namank (name number)", hi: "Namank — naam-ank" },
+  ankDasha: { en: "Ank Dasha", hi: "Ank Dasha" },
+  numeroscope: { en: "Numeroscope", hi: "ank-chakra" },
 } as const;
 
 /** Devanagari numeral rendering (०१२३४५६७८९) for Hindi-facing displays. */

@@ -49,7 +49,8 @@ describe("remedies", () => {
       expect(r.mantra).toContain("ॐ");
       expect(r.japa).toBeGreaterThan(0);
       expect(r.japaSets).toBe(4);
-      expect(r.yantra).toContain("यंत्र");
+      // v3.2: yantra names romanized — 'Surya yantra' etc. (yantra = the instrument)
+      expect(r.yantra).toMatch(/yantra/i);
       expect(r.daan.length).toBeGreaterThan(0);
       expect(r.worshipDay).toBeTruthy();
     }
@@ -61,8 +62,8 @@ describe("remedies", () => {
     expect(remedyForNumber(33).baseOfMaster).toBe(6);
   });
 
-  it("gold note mentions सोना", () => {
-    expect(GOLD_NOTE).toContain("सोना");
+  it("gold note mentions sona (gold)", () => {
+    expect(GOLD_NOTE).toMatch(/sona/i);
   });
 });
 

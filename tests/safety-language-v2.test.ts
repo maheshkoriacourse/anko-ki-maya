@@ -36,7 +36,9 @@ const BANNED_EN: RegExp[] = [
   /you are going to (get|marry|die|become|earn)/i,
 ];
 
-// Hindi deterministic-guarantee markers (ज़रूर-होगा family + certainty claims).
+// Hindi deterministic-guarantee markers — v3.2: HI mode is romanized spoken
+// Hinglish, so the ban-list is roman too (the Devanagari originals kept as
+// belt-and-braces; they simply never match romanized copy).
 const BANNED_HI: RegExp[] = [
   /ज़रूर होगा/i,
   /ज़रूर होगी/i,
@@ -51,6 +53,21 @@ const BANNED_HI: RegExp[] = [
   /(बीमारी|रोग) होगा ही/,
   /गर्भवती होगी/,
   /(चोरी|अपराध) करोगे/,
+  // romanized Hinglish guarantee family (v3.2)
+  /\bzaroor hoga\b/i,
+  /\bzaroor hogi\b/i,
+  /\bzaroor honge\b/i,
+  /\bpakka hoga\b/i,
+  /\bpakka hogi\b/i,
+  /\bpakki hogi\b/i,
+  /\bavashya hoga\b/i,
+  /\bnishchit roop se hoga\b/i,
+  /\b100% (guaranteed|pakka|sure)\b/i,
+  /\bguaranteed hoga\b/i,
+  /mrityu hogi|maut hogi/i,
+  /\bgarbhavati hogi\b/i,
+  /\bchhori karo\b/i,
+  /\bapradh karo\b/i,
 ];
 
 // Never predict these topics deterministically in any language.
@@ -106,9 +123,13 @@ describe("Safe language — English corpus", () => {
 });
 
 describe("Safe language — Hindi corpus", () => {
-  const strings = collectStrings().filter((s) => /[\u0900-\u097F]/.test(s));
+  // v3.2: HI corpus is romanized Hinglish — scan strings that look Hinglish
+  // (contain spoken-register markers) instead of Devanagari-script filtering.
+  const strings = collectStrings().filter(
+    (s) => /\b(hai|hain|ka|ki|ke|ko|aap|aapka|aapki|aapke|yeh|saal)\b/i.test(s) && !/^[A-Z][a-z]+ [a-z]+ [a-z]+ [a-z]+$/.test(s) || /[\u0900-\u097F]/.test(s),
+  );
 
-  it("has a meaningful Devanagari corpus", () => {
+  it("has a meaningful Hinglish corpus", () => {
     expect(strings.length).toBeGreaterThan(60);
   });
 
@@ -122,7 +143,7 @@ describe("Safe language — Hindi corpus", () => {
     expect(violations).toEqual([]);
   });
 
-  it("never predicts forbidden topics in Hindi", () => {
+  it("never predicts forbidden topics in Hinglish", () => {
     const violations = strings.filter((s) => FORBIDDEN_TOPIC_PREDICTIONS.some((rx) => rx.test(s)));
     expect(violations).toEqual([]);
   });
@@ -134,9 +155,9 @@ describe("Safe language — approved framing present", () => {
     expect(joined).toMatch(/theme to reflect on|may (be|support|reflect)/i);
   });
 
-  it("uses चिंतन-विषय framing in HI", () => {
+  it("uses parampara/chintan framing in HI (Hinglish voice)", () => {
     const joined = collectStrings().join(" ");
-    expect(joined).toMatch(/चिंतन-विषय|परंपरा|संभव/);
+    expect(joined).toMatch(/parampara|chintan|sambhav/i);
   });
 });
 
@@ -149,12 +170,15 @@ describe("Reasoning-block completeness (THE WHY / यह क्यों कह�
     expect(gy.steps.length).toBeGreaterThan(0);
   });
 
-  it("month narratives exist in both languages", () => {
+  it("month narratives exist in both languages (Hinglish voice)", () => {
     const w = monthWeather(6, 15, 2026, 1, 6);
     for (const m of w.months) {
       expect(m.narrative.length).toBeGreaterThan(60);
-      expect(m.narrativeHi).toMatch(/[\u0900-\u097F]/);
-      expect(m.verdictHi).toMatch(/[\u0900-\u097F]/);
+      // v3.2: HI mode is romanized Hinglish — spoken-register markers
+      expect(m.narrativeHi).toMatch(/\b(hai|ka|ki|ke|mein|mahina)\b/);
+      expect(m.narrativeHi).not.toMatch(/[\u0900-\u097F]/);
+      expect(m.verdictHi.length).toBeGreaterThan(2);
+      expect(m.verdictHi).not.toMatch(/[\u0900-\u097F]/);
     }
   });
 });

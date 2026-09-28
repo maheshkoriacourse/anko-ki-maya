@@ -96,16 +96,16 @@ function windowsFor(
 /* ------------------------------------------------------------------ */
 
 const AREA_REMEDY_HI: Record<string, string> = {
-  love: "शुक्र को बल दें: शुक्रवार को सफ़ेद वस्त्र/मिश्री का दान, 'ॐ शुक्राय नमः' का 108 जप, और रिश्ते में कोमल वाणी — शुक्र नरमी से ही जीतता है।",
-  intimacy: "चंद्र-मंगल संतुलन: सोमवार को चंद्र जल-दान, मंगलवार संयम-साधना, 'ॐ चंद्राय नमः' 108 जप — निकटता मन की शांति से गहरी होती है।",
-  business: "गुरु-बुध की पूजा: बुधवार को हरे वस्त्र/मूँग दान, गुरुवार को पीला/हल्दी दान, नए सौदे अपनी शुभ तिथि पर — 'ॐ बुधाय नमः' 108 जप।",
-  job: "सूर्य-जल अर्पण प्रातःकाल, रविवार आदर-व्रत, 'ॐ सुर्याय नमः' 108 जप; बदलाव के वर्ष (राहु) में काग़ज़ात साफ़ रखें।",
-  money: "शनि-लक्ष्मी अनुशासन: शनिवार तेल-दान, रोकड़ा-बही दैनिक, 'ॐ शनैश्चराय नमः' 108 जप; धन-वृद्धि वर्षों में बचत पहले, खर्च बाद।",
-  children: "बुध-चंद्र विद्या-व्रत: बुधवार बच्चों के साथ अध्ययन-समय, सोमवार श्वेत दान, 'ॐ बुधाय नमः' 108 जप — बच्चों के अंक-विकास पर ध्यान।",
-  foreign: "राहु-चंद्र यात्रा-व्रत: शनिवार सप्तधान्य दान, यात्रा से पूर्व 'ॐ राहवे नमः' 108 जप, विदेश-कार्य अपनी शुभ तिथि पर आरंभ करें।",
-  eldercare: "सूर्य-शनि सेवा-व्रत: रविवार बड़ों की सेवा विशेष, शनिवार तेल/काले वस्त्र दान, 'ॐ शनैश्चराय नमः' 108 जप — सेवा ही इस दौर का उपाय है।",
-  friends: "बुध-गुरु संग-व्रत: बुधवार हरा दान, नई मुलाक़ात शुभ दिन पर, 'ॐ गुरवे नमः' 108 जप — अच्छा संग ही सबसे बड़ा उपाय।",
-  spine: "प्रतिदिन प्रातः सूर्य-जल अर्पण और 'ॐ' का 11 बार उच्चारण — मूलांक और भाग्यांक दोनों का संतुलन इसी दैनिक क्रम से बनता है।",
+  love: "Shukra ko bal do: Shukravaar ko safed vastra/mishri ka daan, 'ॐ Shukraya Namah' ka 108 japa, aur rishton mein komal vaani — Shukra narmi se hi jeetta hai.",
+  intimacy: "Chandra-Mangal santulan: Somvaar ko Chandra jal-daan, Mangalvaar sanyam-saadhana, 'ॐ Chandraya Namah' 108 japa — nikatata man ki shaanti se gehri hoti hai.",
+  business: "Guru-Budh ki pooja: Budhvaar ko hare vastra/moong daan, Guruvaar ko peela/haldi daan, naye saude apni shubh tithi par — 'ॐ Budhaya Namah' 108 japa.",
+  job: "Soory-jal arpan praatahkaal, Ravivaar aadar-vrat, 'ॐ Suryaya Namah' 108 japa; badlaav ke saal (Rahu) mein kaagzaat saaf rakho.",
+  money: "Shani-Lakshmi anushasan: Shanivaar tail-daan, roqda-bahee daily, 'ॐ Shanicharaya Namah' 108 japa; dhan-vridhi ke saalon mein bachat pehle, kharch baad.",
+  children: "Budh-Chandra vidya-vrat: Budhvaar bachchon ke saath study-time, Somvaar shwet daan, 'ॐ Budhaya Namah' 108 japa — bachchon ke ank-vikas par dhyaan.",
+  foreign: "Rahu-Chandra yatra-vrat: Shanivaar saptdhaanya daan, yatra se pehle 'ॐ Rahave Namah' 108 japa, videsh-kaam apni shubh tithi par shuru karo.",
+  eldercare: "Surya-Shani seva-vrat: Ravivaar badon ki seva vishesh, Shanivaar tail/kaale vastra daan, 'ॐ Shanicharaya Namah' 108 japa — seva hi is daur ka upay hai.",
+  friends: "Budh-Guru sang-vrat: Budhvaar hara daan, nayi mulaqaat shubh din par, 'ॐ Gurave Namah' 108 japa — achchha sang hi sabse bada upay.",
+  spine: "Roz praatah soory-jal arpan aur 'ॐ' ka 11 baar uccharan — Mulank aur Bhagyank donon ka santulan isi daily-kram se banta hai.",
 };
 
 const AREA_REMEDY_EN: Record<string, string> = {
@@ -150,7 +150,7 @@ function specFor(areaId: string): AreaSpec {
     love: {
       areaId: "love",
       titleEn: "Love, Romance & Marriage",
-      titleHi: "प्रेम, रोमांच और विवाह",
+      titleHi: "prem, romaanch aur vivaah",
       loveYears: [2, 6, 7],
       pinBoost: [2, 6],
       hookEn: (ys) =>
@@ -159,33 +159,33 @@ function specFor(areaId: string): AreaSpec {
           : "Your love-windows sit in the coming decade — the chart keeps the best chapters later on purpose.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `शादी/प्रेम के लिए आपकी चार्ट में दो सबसे दमदार साल ${ys.slice(0, 2).map((y) => y.year).join(" और ")} हैं — ${grahaFor(6).grahaHi} और ${grahaFor(2).grahaHi} की खिड़कियाँ।`
-          : "आपकी प्रेम-खिड़कियाँ आने वाले दशक में हैं — चार्ट ने सबसे अच्छे अध्याय जान-बूझकर बाद में रखे हैं।",
+          ? `shaadi/prem ke liye aapki chart mein do sabse damadaar saal ${ys.slice(0, 2).map((y) => y.year).join(" aur ")} hain — ${grahaFor(6).grahaHi} aur ${grahaFor(2).grahaHi} ki khidkiyaan.`
+          : "aapki prem-khidkiyaan aane waale dashak mein hain — chart ne sabse achchhe adhyay jaan-boojhkar baad mein rakhe hain.",
       pastEn: (py, inp) =>
         `Love did not pass you by in the last decade: the ${pyFor(inp, inp.nowYear - 5)}-year ${fmtYearList(py) || "years"} carried ${grahaFor(2).graha} tides — a bond either formed, deepened or taught you its lesson there.`,
       pastHi: (py, inp) =>
-        `पिछले दशक में प्रेम आपसे गुज़रा: ${fmtYearList(py) || "उस दौर"} के ${grahaFor(2).grahaHi}-प्रधान वर्षों में कोई बंधन बना, गहरा हुआ या उसने अपनी सीख दी।`,
+        `pichhle dashak mein prem aapse gujara: ${fmtYearList(py) || "us daur"} ke ${grahaFor(2).grahaHi}-pradhaan saalon mein koi bndhan bana, gehra hua ya usane apni seekh i.`,
       nowEn: (curPy, inp) =>
         curPy === 2 || curPy === 6 || curPy === 7
           ? `Right now you stand inside a love-window (Personal Year ${curPy}): ${grahaFor(curPy).graha} is awake in your chart — this IS the season to move the relationship forward, not next year.`
           : `Currently ${grahaFor(curPy).graha} rules — love moves at ${grahaFor(curPy).graha}'s pace this year: ${curPy === 8 ? "status and security over romance; the heart settles after the money is set." : "steady ground; the next window (years " + fmtYearList(windowsFor(inp, [2, 6, 7], inp.nowYear + 1, inp.nowYear + 10, 2, "", "")) + ") will be louder."}`,
       nowHi: (curPy, inp) =>
         curPy === 2 || curPy === 6 || curPy === 7
-          ? `अभी आप प्रेम-खिड़की के भीतर खड़े हैं (व्यक्तिगत वर्ष ${curPy}): चार्ट में ${grahaFor(curPy).grahaHi} जागृत है — रिश्ता आगे बढ़ाने का यही मौसम है, अगला साल नहीं।`
-          : `इस वर्ष ${grahaFor(curPy).grahaHi} का राज है — प्रेम इसी की गति से चलेगा: ${curPy === 8 ? "पहले स्थिरता और अर्थ, फिर मन; पैसा तय होगा तो मन बैठेगा।" : "स्थिर ज़मीन; अगली खिड़की (वर्ष " + fmtYearList(windowsFor(inp, [2, 6, 7], inp.nowYear + 1, inp.nowYear + 10, 2, "", "")) + ") और दमदार होगी।"}`,
+          ? `abhi aap prem-khidki ke bheetar khadae hain (vyaktigat saal ${curPy}): chart mein ${grahaFor(curPy).grahaHi} jaagrit hai — rishta aage badhaane ka yehi mausam hai, agla saal nahi.`
+          : `is saal ${grahaFor(curPy).grahaHi} ka raaj hai — prem isi ki gati se chalega: ${curPy === 8 ? "pehle sthirta aur arth, phir man; paisa tay hoga toh man baithega." : "sthir jamein; agli khidki (saal " + fmtYearList(windowsFor(inp, [2, 6, 7], inp.nowYear + 1, inp.nowYear + 10, 2, "", "")) + ") aur damadaar hoi."}`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Ahead, the marriage/love windows open at ages ${ys.map((y) => y.age).join(", ")} — years ${fmtYearList(ys)}. PY 2 bonds, PY 6 commits, PY 7 deepens; the strongest of these is ${ys[0].year} (age ${ys[0].age}).`
           : "The coming decade holds the commitment chapters — the graph marks them as they approach.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `आगे विवाह/प्रेम की खिड़कियाँ उम्र ${ys.map((y) => y.age).join(", ")} में खुलती हैं — वर्ष ${fmtYearList(ys)}। अंक 2 बंधन, 6 संकल्प, 7 गहराई; इनमें सबसे प्रबल ${ys[0].year} (उम्र ${ys[0].age})।`
-          : "आने वाला दशक संकल्प-अध्याय रखता है — ग्राफ़ उन्हें पास आने पर चिह्नित करेगा।",
+          ? `aage vivaah/prem ki khidkiyaan umra ${ys.map((y) => y.age).join(", ")} mein khulai hain — saal ${fmtYearList(ys)}. ank 2 bndhan, 6 sankalp, 7 gehrai; inamen sabse prabal ${ys[0].year} (umra ${ys[0].age}).`
+          : "aane waala dashak sankalp-adhyay rakhta hai — graph unhen paas aane par chihnit karega.",
     },
     intimacy: {
       areaId: "intimacy",
       titleEn: "Intimacy & Passion",
-      titleHi: "निकटता और मोहब्बत की गहराई",
+      titleHi: "nikatata aur mohabbat ki gehrai",
       loveYears: [6, 9, 2],
       pinBoost: [6, 9],
       hookEn: (ys) =>
@@ -194,33 +194,33 @@ function specFor(areaId: string): AreaSpec {
           : "The passion chapters of your chart open further out — dignity and depth, never noise.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `आपके चार्ट में पैशन की चोटी ${ys.slice(0, 2).map((y) => y.year).join(" और ")} में है — ${grahaFor(9).grahaHi} का जोश, ${grahaFor(6).grahaHi} का नैन-नक़श।`
-          : "आपके चार्ट के पैशन-अध्याय थोड़े आगे खुलते हैं — गरिमा और गहराई, शोर नहीं।",
+          ? `aapke chart mein passion ki choti ${ys.slice(0, 2).map((y) => y.year).join(" aur ")} mein hai — ${grahaFor(9).grahaHi} ka josh, ${grahaFor(6).grahaHi} ka nain-nakash.`
+          : "aapke chart ke passion-adhyay thodae aage khulate hain — garima aur gehrai, shor nahi.",
       pastEn: (py, inp) =>
         `In the last decade, ${fmtYearList(py) || "the middle years"} ran ${grahaFor(9).graha}/${grahaFor(6).graha} currents — passion ran strong there, and where the two planets clashed, tenderness needed repair.`,
       pastHi: (py, inp) =>
-        `पिछले दशक में ${fmtYearList(py) || "बीच के वर्षों"} में ${grahaFor(9).grahaHi}/${grahaFor(6).grahaHi} की धाराएँ चलीं — उस दौर में मोहब्बत में गहराई और जोश दोनों प्रबल रहे।`,
+        `pichhle dashak mein ${fmtYearList(py) || "beech ke saalon"} mein ${grahaFor(9).grahaHi}/${grahaFor(6).grahaHi} ki dhaaraae chaleen — us daur mein mohabbat mein gehrai aur josh dono prabal rahe.`,
       nowEn: (curPy) =>
         curPy === 6 || curPy === 9
           ? `This year (${grahaFor(curPy).graha}) passion stays strong — closeness deepens when you bring patience along with fire.`
           : `This year is a building year for closeness — ${grahaFor(curPy).graha} asks for trust-building first; the fire follows the foundation.`,
       nowHi: (curPy) =>
         curPy === 6 || curPy === 9
-          ? `इस वर्ष (${grahaFor(curPy).grahaHi}) पैशन प्रबल रहता है — आग के साथ धैर्य ले चलें तो निकटता और गहरी होगी।`
-          : `यह वर्ष निकटता की नींव रखता है — ${grahaFor(curPy).grahaHi} पहले भरोसा माँगता है; आग नींव के बाद ही चढ़ती है।`,
+          ? `is saal (${grahaFor(curPy).grahaHi}) passion prabal rehata hai — aag ke saath dhairya le chalen toh nikatata aur gehri hoi.`
+          : `yeh saal nikatata ki neev rakhta hai — ${grahaFor(curPy).grahaHi} pehle bharosa maagata hai; aag neev ke baad hi chadhai hai.`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Deep-intimacy years ahead: ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}) — 'mohabbat mein gehrai ka varsh'. Emotional honesty in those years unlocks everything.`
           : "The decade ahead holds quieter, steadier intimacy chapters — depth over fireworks.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `आगे गहराई के वर्ष: ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")}) — 'मोहब्बत में गहराई का वर्ष'। भावनात्मक ईमानदारी इन वर्षों में सब कुछ खोल देगी।`
-          : "आने वाला दशक शांत, स्थिर निकटता के अध्याय रखता है — चमक से गहराई बेहतर।",
+          ? `aage gehrai ke saal: ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}) — 'mohabbat mein gehrai ka saal'. bhaavanaatmak eemaanadaaree in saalon mein sab kuchh khol dei.`
+          : "aane waala dashak shaant, sthir nikatata ke adhyay rakhta hai — chamak se gehrai behatar.",
     },
     business: {
       areaId: "business",
       titleEn: "Business & Enterprise",
-      titleHi: "व्यापार और उद्यम",
+      titleHi: "vyaapaar aur udyam",
       loveYears: [1, 3, 8],
       pinBoost: [1, 8],
       hookEn: (ys) =>
@@ -229,12 +229,12 @@ function specFor(areaId: string): AreaSpec {
           : "Your venture years are building — the foundation years ARE the launch prep.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `आपके चार्ट के सबसे प्रबल लॉन्च-वर्ष ${ys.slice(0, 2).map((y) => y.year).join(" और ")} हैं — खिड़की से पहले उद्यम न खोलें।`
-          : "आपके उद्यम-वर्ष बन रहे हैं — नींव के ही वर्ष लॉन्च की तैयारी हैं।",
+          ? `aapke chart ke sabse prabal launch-saal ${ys.slice(0, 2).map((y) => y.year).join(" aur ")} hain — khidki se pehle udyam na kholen.`
+          : "aapke udyam-saal ban rahe hain — neev ke hi saal launch ki taiyaaree hain.",
       pastEn: (py, inp) =>
         `In the past decade, ${fmtYearList(py) || "the working years"} carried expansion currents — ventures tried then either scaled or taught their tuition.`,
       pastHi: (py, inp) =>
-        `पिछले दशक के ${fmtYearList(py) || "कार्य-वर्षों"} में विस्तार की धाराएँ थीं — उस दौर के उद्यम या तो बढ़े, या उन्होंने ट्यूशन फ़ीस ली।`,
+        `pichhle dashak ke ${fmtYearList(py) || "kaarya-saalon"} mein vistar ki dhaaraae theen — us daur ke udyam ya toh badhae, ya unhonne tyooshan phaees i.`,
       nowEn: (curPy) =>
         curPy === 8
           ? `You are standing IN a money-power year (${grahaFor(8).graha}): scale revenue, push the big negotiation now — expansion pays this year.`
@@ -243,23 +243,23 @@ function specFor(areaId: string): AreaSpec {
             : `Currently ${grahaFor(curPy).graha} leads — ${curPy === 5 ? "commerce and contacts expand the trade; keep the ledger daily." : "build the pipeline; the big swing comes at the next 8-year."}`,
       nowHi: (curPy) =>
         curPy === 8
-          ? `आप अभी धन-शक्ति के वर्ष में खड़े हैं (${grahaFor(8).grahaHi}): इसी साल रेवेन्यू बढ़ाएँ, बड़ी बातचीत ठीक करें — विस्तार इस वर्ष फलता है।`
+          ? `aap abhi dhan-shakti ke saal mein khadae hain (${grahaFor(8).grahaHi}): isi saal revenue badhao, badi baatacheet theek karein — vistar is saal phalata hai.`
           : curPy === 4
-            ? `अभी ${grahaFor(4).grahaHi} का राज है: संवर्धन, सिस्टम, बही-खाता साफ़ — इस लय के विरुद्ध विस्तार दोगुना महँगा।`
-            : `अभी ${grahaFor(curPy).grahaHi} नेतृत्व कर रहा है — ${curPy === 5 ? "व्यापार और संपर्क बढ़ाएँ; रोकड़ा रोज़ रखें।" : "पाइपलाइन बनाइए; बड़ा दाँव अगले अंक-8 वर्ष में है।"}`,
+            ? `abhi ${grahaFor(4).grahaHi} ka raaj hai: snvardhan, system, bahee-khaata saaf — is lay ke viruddh vistar doguna mahga.`
+            : `abhi ${grahaFor(curPy).grahaHi} netritv kar raha hai — ${curPy === 5 ? "vyaapaar aur sampark badhao; roqda roz rakhein." : "paaipalaain banao; bada daav agle ank-8 saal mein hai."}`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Launch windows: ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}). Partnership years (${grahaFor(5).graha} commerce) follow at ${ys.map((y) => y.year + 1).join(", ")} — expansion vs consolidation is a knife-edge you'll walk there.`
           : "Foundation years ahead are the prep-room of your launch decade.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `लॉन्च-खिड़कियाँ: ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")})। साझेदारी-वर्ष (${grahaFor(5).grahaHi} व्यापार) इसके बाद ${ys.map((y) => y.year + 1).join(", ")} में — विस्तार बनाम संवर्धन वहीं फ़ैसला माँगेगा।`
-          : "आगे के नींव-वर्ष आपके लॉन्च-दशक की तैयारी-कक्षा हैं।",
+          ? `launch-khidkiyaan: ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}). saajhedari-saal (${grahaFor(5).grahaHi} vyaapaar) isake baad ${ys.map((y) => y.year + 1).join(", ")} mein — vistar banaam snvardhan wahin phaaisala maagega.`
+          : "aage ke neev-saal aapke launch-dashak ki taiyaaree-kaksha hain.",
     },
     job: {
       areaId: "job",
       titleEn: "Job & Career",
-      titleHi: "नौकरी और करियर",
+      titleHi: "naukri aur career",
       loveYears: [1, 4, 8],
       pinBoost: [1, 8],
       hookEn: (ys) =>
@@ -268,12 +268,12 @@ function specFor(areaId: string): AreaSpec {
           : "The ladder's next rung is being forged in the current foundation years.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `प्रमोशन/बदलाव की खिड़कियाँ: ${ys.slice(0, 2).map((y) => y.year).join(" और ")} — सीढ़ी के अगले डग ${grahaFor(1).grahaHi} और ${grahaFor(8).grahaHi} तय करेंगे।`
-          : "सीढ़ी की अगली डग इन्हीं नींव-वर्षों में तप रही है।",
+          ? `pramoshan/badlaav ki khidkiyaan: ${ys.slice(0, 2).map((y) => y.year).join(" aur ")} — seedhaee ke agle dag ${grahaFor(1).grahaHi} aur ${grahaFor(8).grahaHi} tay karenge.`
+          : "seedhaee ki agli dag inheen neev-saalon mein tap rahi hai.",
       pastEn: (py, inp) =>
         `The last decade's ${fmtYearList(py) || "work years"} moved your job — a switch, a boss-change or a visibility spike happened under ${grahaFor(1).graha}/${grahaFor(4).graha} currents.`,
       pastHi: (py, inp) =>
-        `पिछले दशक के ${fmtYearList(py) || "कार्य-वर्षों"} में नौकरी हिली — बदलाव, अध्यक्ष-परिवर्तन या दिखने का उछाल, ${grahaFor(1).grahaHi}/${grahaFor(4).grahaHi} की धारा में।`,
+        `pichhle dashak ke ${fmtYearList(py) || "kaarya-saalon"} mein naukri hii — badlaav, adhyaksh-parivartan ya dikhane ka uchhaal, ${grahaFor(1).grahaHi}/${grahaFor(4).grahaHi} ki dhaara men.`,
       nowEn: (curPy) =>
         curPy === 1
           ? `This year ${grahaFor(1).graha} hands you the first move: apply, propose, step up — the boss-line (Surya) is listening this year.`
@@ -282,23 +282,23 @@ function specFor(areaId: string): AreaSpec {
             : `This year rewards steady mastery over job-hopping — ${grahaFor(curPy).graha} tests patience before promotion.`,
       nowHi: (curPy) =>
         curPy === 1
-          ? `इस वर्ष ${grahaFor(1).grahaHi} आपको पहला कदम देता है: आवेदन, प्रस्ताव, उत्तरदायित्व — सूर्य-रेखा इस साल सुन रही है।`
+          ? `is saal ${grahaFor(1).grahaHi} aapko pahala kadam deta hai: aavedan, prastaav, uttaradaayitv — Surya-rekha is saal sun rahi hai.`
           : curPy === 4
-            ? `${grahaFor(4).grahaHi} वर्ष रुटीन जान-बूझकर तोड़ता है — नौकरी-बदलाव की इच्छा सच्ची है; सोच-समझकर चलें, प्रस्ताव लिखित रखें।`
-            : `यह वर्ष नौकरी-बदली से ज़्यादा स्थिर महारत को पुरस्कृत करता है — ${grahaFor(curPy).grahaHi} प्रमोशन से पहले धैर्य की परीक्षा लेता है।`,
+            ? `${grahaFor(4).grahaHi} saal routine jaan-boojhkar todta hai — naukri-badlaav ki ichchha sachchee hai; soch-samajhakar chalen, prastaav likhit rakhein.`
+            : `yeh saal naukri-badai se zyada sthir mahaarat ko puraskrit karta hai — ${grahaFor(curPy).grahaHi} pramoshan se pehle dhairya ki pariksha leta hai.`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Job windows: ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}) — ${grahaFor(8).graha} brings position, ${grahaFor(4).graha} brings the switch. Boss-relations ease in ${grahaFor(1).graha} years.`
           : "The coming years build the resume the next window will spend.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `नौकरी-खिड़कियाँ: ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")}) — ${grahaFor(8).grahaHi} पद देगा, ${grahaFor(4).grahaHi} बदलाव। ${grahaFor(1).grahaHi}-वर्षों में अध्यक्ष-संबंध सरल होंगे।`
-          : "आगे के वर्ष वह रिज़्यूमे बनाएँगे जिसे अगली खिड़की ख़र्च करेगी।",
+          ? `naukri-khidkiyaan: ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}) — ${grahaFor(8).grahaHi} pad dega, ${grahaFor(4).grahaHi} badlaav. ${grahaFor(1).grahaHi}-saalon mein adhyaksh-sambandh saral honge.`
+          : "aage ke saal woh rijayoome banaaege jise agli khidki kharch karei.",
     },
     money: {
       areaId: "money",
       titleEn: "Money & Wealth",
-      titleHi: "धन और संपत्ति",
+      titleHi: "dhan aur sampatti",
       loveYears: [8, 5, 3],
       pinBoost: [8, 5],
       hookEn: (ys) =>
@@ -307,12 +307,12 @@ function specFor(areaId: string): AreaSpec {
           : "Wealth-building starts in the current consolidation years — seed money now.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `आपके कमाई के वर्ष: ${ys.slice(0, 2).map((y) => y.year).join(" और ")}। ${grahaFor(8).grahaHi} अनुशासनी को देता है — उन्हीं वर्षों में बचत कीजिए, चक्रवृद्धि स्थायी होगी।`
-          : "धन-निर्माण इन्हीं संवर्धन-वर्षों से शुरू होता है — अभी बीज-धन जुटाइए।",
+          ? `aapke kamai ke saal: ${ys.slice(0, 2).map((y) => y.year).join(" aur ")}. ${grahaFor(8).grahaHi} anushaasai ko deta hai — unhi saalon mein bachat karo, chakravriddhi sthaayi hoi.`
+          : "dhan-nirmaan inheen snvardhan-saalon se shuru hota hai — abhi beej-dhan jutaaie.",
       pastEn: (py, inp) =>
         `The last decade mixed earning and leaking: ${fmtYearList(py) || "the money years"} paid well under ${grahaFor(8).graha}/${grahaFor(5).graha}, while ${grahaFor(4).graha} years taught where money leaks.`,
       pastHi: (py, inp) =>
-        `पिछले दशक में कमाई और चूहेदानी दोनों चलीं: ${fmtYearList(py) || "धन-वर्षों"} में ${grahaFor(8).grahaHi}/${grahaFor(5).grahaHi} ने अच्छा दिया, ${grahaFor(4).grahaHi}-वर्षों ने चूक की जगह दिखाई।`,
+        `pichhle dashak mein kamai aur choohedaai dono chaleen: ${fmtYearList(py) || "dhan-saalon"} mein ${grahaFor(8).grahaHi}/${grahaFor(5).grahaHi} ne achchha diyaa, ${grahaFor(4).grahaHi}-saalon ne chook ki jagah dikhaaee.`,
       nowEn: (curPy) =>
         curPy === 8
           ? `This IS a money year (${grahaFor(8).graha}): chase receivables, negotiate hard, invest the surplus — don't hoard cash idle.`
@@ -321,23 +321,23 @@ function specFor(areaId: string): AreaSpec {
             : `Money moves moderately this year — ${grahaFor(curPy).graha} wants the ledger daily and the speculation small.`,
       nowHi: (curPy) =>
         curPy === 8
-          ? `यह धन-वर्ष है (${grahaFor(8).grahaHi}): बकाया वसूलें, सख़्त मोल-भाव करें, बचत निवेश करें — नक़द बेकार न पड़े रहने दें।`
+          ? `yeh dhan-saal hai (${grahaFor(8).grahaHi}): baqaya vasoolen, sakhat mol-bhav karein, bachat nivesh karein — nakad bekaar na padae rahane dein.`
           : curPy === 4
-            ? `यह वर्ष बचत का है, ख़र्च का नहीं: ${grahaFor(4).grahaHi} तिजोरी बनाता है। बड़ा क़र्ज़ इस साल टालें।`
-            : `इस वर्ष धन संयम से चलेगा — ${grahaFor(curPy).grahaHi} रोज़ बही-खाता और छोटा सट्टा चाहता है।`,
+            ? `yeh saal bachat ka hai, kharch ka nahi: ${grahaFor(4).grahaHi} tijoree banata hai. bada karj is saal taalo.`
+            : `is saal dhan sanyam se chalega — ${grahaFor(curPy).grahaHi} roz bahee-khaata aur chhota satta chaahata hai.`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Wealth stretches: ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}). Watch money-leaks in ${grahaFor(4).graha} years; ${grahaFor(8).graha} years convert discipline into assets — property/long holdings favour those years.`
           : "The saving years now fund the earning years later — the graph shows the handover.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `धन-विस्तार: ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")})। ${grahaFor(4).grahaHi}-वर्षों में चूहेदानी से सावधान; ${grahaFor(8).grahaHi}-वर्ष अनुशासन को संपत्ति में बदलते हैं — ज़मीन/लंबी होल्डिंग उन्हीं के लिए है।`
-          : "आज के बचत-वर्ष कल के कमाई-वर्षों को वित्त देंगे — ग्राफ़ यह हस्तांतरण दिखाता है।",
+          ? `dhan-vistar: ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}). ${grahaFor(4).grahaHi}-saalon mein choohedaai se saavdhaan; ${grahaFor(8).grahaHi}-saal anushasan ko sampatti mein badalate hain — jamein/lnbee holding unhi ke liye hai.`
+          : "aaj ke bachat-saal kal ke kamai-saalon ko vitt denge — graph yeh hastaantaran dikhaata hai.",
     },
     children: {
       areaId: "children",
       titleEn: "Children & Family Growth",
-      titleHi: "संतान और परिवार-वृद्धि",
+      titleHi: "santaan aur parivaar-vridhi",
       loveYears: [6, 2, 5],
       pinBoost: [6, 2],
       hookEn: (ys) =>
@@ -346,33 +346,33 @@ function specFor(areaId: string): AreaSpec {
           : "Family chapters build in the quieter years — responsibility ripens before arrival.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `परिवार-वृद्धि के वर्ष: ${ys.slice(0, 2).map((y) => y.year).join(" और ")} — ${grahaFor(6).grahaHi} और ${grahaFor(2).grahaHi} के दौर गृह-ज़िम्मेदारी के विषय लाते हैं।`
-          : "परिवार-अध्याय शांत वर्षों में बनते हैं — ज़िम्मेदारी पहले पकती है, आगमन बाद में।",
+          ? `parivaar-vridhi ke saal: ${ys.slice(0, 2).map((y) => y.year).join(" aur ")} — ${grahaFor(6).grahaHi} aur ${grahaFor(2).grahaHi} ke daur grih-zimmewari ke vishay laate hain.`
+          : "parivaar-adhyay shaant saalon mein bante hain — zimmewari pehle pakai hai, aagaman baad men.",
       pastEn: (py, inp) =>
         `Family duty shaped ${fmtYearList(py) || "the home years"} of the last decade — household moves, family functions, or caretaking filled those years.`,
       pastHi: (py, inp) =>
-        `परिवार-कर्तव्य ने पिछले दशक के ${fmtYearList(py) || "गृह-वर्षों"} को रूप दिया — घर की अदला-बदली, लोक-आचार, या देखरेखा ने वर्ष भर दिए।`,
+        `parivaar-kartavya ne pichhle dashak ke ${fmtYearList(py) || "grih-saalon"} ko roop diyaa — ghar ki adala-badai, lok-aachaar, ya dekharekha ne saal bhar die.`,
       nowEn: (curPy) =>
         curPy === 6 || curPy === 2
           ? `This year home takes the front seat (${grahaFor(curPy).graha}): family decisions, home beautification, bonding time — the house rewards attention now.`
           : `This year family matters run at maintenance level — ${grahaFor(curPy).graha} keeps home steady while outer work leads.`,
       nowHi: (curPy) =>
         curPy === 6 || curPy === 2
-          ? `इस वर्ष घर आगे बैठेगा (${grahaFor(curPy).grahaHi}): पारिवारिक निर्णय, घर की शोभा, साथ बिताया समय — घर अभी ध्यान का फल देता है।`
-          : `इस वर्ष घर-बाहर का संतुलन बना रहेगा — ${grahaFor(curPy).grahaHi} घर को स्थिर रखेगा जबकि बाहरी काम आगे चलेगा।`,
+          ? `is saal ghar aage baithega (${grahaFor(curPy).grahaHi}): parivaarik nirnay, ghar ki shobha, saath bitaayaa samay — ghar abhi dhyaan ka phal deta hai.`
+          : `is saal ghar-bahar ka santulan bana rahega — ${grahaFor(curPy).grahaHi} ghar ko sthir rakhega jabaki baaharee kaam aage chalega.`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Family-growth windows: ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}) — home responsibility themes peak there; children's education decisions also cluster in these years.`
           : "The coming decade carries quieter family chapters — steadiness is its own blessing.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `परिवार-वृद्धि की खिड़कियाँ: ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")}) — गृह-ज़िम्मेदारी के विषय वहीं शिखर पर; बच्चों की शिक्षा के निर्णय भी इन्हीं वर्षों में जमते हैं।`
-          : "आने वाला दशक शांत पारिवारिक अध्याय रखता है — स्थिरता स्वयं वरदान है।",
+          ? `parivaar-vridhi ki khidkiyaan: ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}) — grih-zimmewari ke vishay wahin shikhar par; bachchon ki shiksha ke nirnay bhi inheen saalon mein jamate hain.`
+          : "aane waala dashak shaant parivaarik adhyay rakhta hai — sthirta svayn vardaan hai.",
     },
     foreign: {
       areaId: "foreign",
       titleEn: "Foreign Travel & Settlement",
-      titleHi: "विदेश यात्रा और विदेश-वास",
+      titleHi: "videsh yatra aur videsh-vaas",
       loveYears: [4, 5, 7],
       pinBoost: [4, 5],
       hookEn: (ys) =>
@@ -381,33 +381,33 @@ function specFor(areaId: string): AreaSpec {
           : "Abroad-signals build in the coming change-years — passports get stamped when 4/5 knock.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `'विदेश यात्रा के संकेत': आपकी यात्रा-खिड़कियाँ ${ys.slice(0, 2).map((y) => y.year).join(" और ")} हैं — ${grahaFor(4).grahaHi} और ${grahaFor(5).grahaHi} दोनों विदेश-गमन धकेलते हैं।`
-          : "विदेश-संकेत आने वाले परिवर्तन-वर्षों में बनते हैं — 4/5 के दस्तक देते ही पासपोर्ट चलेगा।",
+          ? `'videsh yatra ke sanket': aapki yatra-khidkiyaan ${ys.slice(0, 2).map((y) => y.year).join(" aur ")} hain — ${grahaFor(4).grahaHi} aur ${grahaFor(5).grahaHi} dono videsh-gaman dhakelate hain.`
+          : "videsh-sanket aane waale parivartan-saalon mein bante hain — 4/5 ke dastak dete hi paasaport chalega.",
       pastEn: (py, inp) =>
         `Movement marked the last decade: ${fmtYearList(py) || "the restless years"} — travel, relocation or foreign contact stirred under ${grahaFor(4).graha}/${grahaFor(5).graha} currents.`,
       pastHi: (py, inp) =>
-        `पिछले दशक में गमन रहा: ${fmtYearList(py) || "बेचैन वर्षों"} में — यात्रा, स्थानांतरण या विदेश-संपर्क, ${grahaFor(4).grahaHi}/${grahaFor(5).grahaHi} की धारा में।`,
+        `pichhle dashak mein gaman raha: ${fmtYearList(py) || "bechain saalon"} mein — yatra, sthaanaantaran ya videsh-sampark, ${grahaFor(4).grahaHi}/${grahaFor(5).grahaHi} ki dhaara men.`,
       nowEn: (curPy, inp) =>
         curPy === 4 || curPy === 5
           ? `This year movement is written (${grahaFor(curPy).graha}): travel, transfer or foreign contact — apply now, the window is open.`
           : `This year keeps you rooted — ${grahaFor(curPy).graha} completes local karma first; the foreign window follows at years ${fmtYearList(windowsFor(inp, [4, 5, 7], inp.nowYear + 1, inp.nowYear + 10, 2, "", ""))}.`,
       nowHi: (curPy, inp) =>
         curPy === 4 || curPy === 5
-          ? `इस वर्ष गमन लिखा है (${grahaFor(curPy).grahaHi}): यात्रा, तबादला या विदेश-संपर्क — अभी आवेदन कीजिए, खिड़की खुली है।`
-          : `इस वर्ष जड़ें मज़बूत रखी जाती हैं — ${grahaFor(curPy).grahaHi} पहले स्थानीय कर्म पूरा कराता है; विदेश-खिड़की वर्ष ${fmtYearList(windowsFor(inp, [4, 5, 7], inp.nowYear + 1, inp.nowYear + 10, 2, "", ""))} में।`,
+          ? `is saal gaman likha hai (${grahaFor(curPy).grahaHi}): yatra, tabaadala ya videsh-sampark — abhi aavedan karo, khidki khui hai.`
+          : `is saal jadaen mazboot rai jaati hain — ${grahaFor(curPy).grahaHi} pehle sthaaneey karm poora karaata hai; videsh-khidki saal ${fmtYearList(windowsFor(inp, [4, 5, 7], inp.nowYear + 1, inp.nowYear + 10, 2, "", ""))} men.`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Travel windows: ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}) — ${grahaFor(7).graha} years add long stays for study/research; settlement signals strengthen in ${grahaFor(4).graha} years.`
           : "Rooted years now; the movement chapters come at the next 4/5 cycle.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `यात्रा-खिड़कियाँ: ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")}) — ${grahaFor(7).grahaHi} वर्ष अध्ययन/शोध के लंबे प्रवास जोड़ते हैं; ${grahaFor(4).grahaHi}-वर्षों में विदेश-वास के संकेत पक्के होते हैं।`
-          : "अभी जड़ों के वर्ष; गमन-अध्याय अगले 4/5 चक्र पर आएँगे।",
+          ? `yatra-khidkiyaan: ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}) — ${grahaFor(7).grahaHi} saal adhyayan/shodh ke lnbe pravaas jodate hain; ${grahaFor(4).grahaHi}-saalon mein videsh-vaas ke sanket pakke hote hain.`
+          : "abhi jadon ke saal; gaman-adhyay agle 4/5 chakra par aaege.",
     },
     eldercare: {
       areaId: "eldercare",
       titleEn: "Elders & Family Care",
-      titleHi: "बड़े और परिवार-सेवा",
+      titleHi: "bade aur parivaar-seva",
       loveYears: [6, 2, 4],
       pinBoost: [6],
       hookEn: (ys) =>
@@ -416,33 +416,33 @@ function specFor(areaId: string): AreaSpec {
           : "The care-chapters arrive with the family years — keep the Sundays for the elders from now.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `सेवा-दायित्व की चोटी: ${ys.slice(0, 2).map((y) => y.year).join(" और ")} — वो वर्ष जब बड़ों का आराम आपके कैलेंडर माँगेगा, केवल प्रार्थना नहीं।`
-          : "सेवा-अध्याय पारिवारिक वर्षों के साथ आते हैं — रविवार अब से बड़ों के नाम रखिए।",
+          ? `seva-daayitv ki choti: ${ys.slice(0, 2).map((y) => y.year).join(" aur ")} — woh saal jab badon ka aaraam aapke kailendar maagega, keval praarthana nahi.`
+          : "seva-adhyay parivaarik saalon ke saath aate hain — Ravivaar ab se badon ke naam rakho.",
       pastEn: (py, inp) =>
         `Elders' needs shaped ${fmtYearList(py) || "the home years"} — in ${grahaFor(6).graha}/${grahaFor(2).graha} years the family's centre of gravity shifted toward care.`,
       pastHi: (py, inp) =>
-        `बड़ों की ज़रूरत ने ${fmtYearList(py) || "गृह-वर्षों"} को रूप दिया — ${grahaFor(6).grahaHi}/${grahaFor(2).grahaHi} वर्षों में परिवार का केंद्र-भार सेवा की ओर बढ़ा।`,
+        `badon ki zaroorat ne ${fmtYearList(py) || "grih-saalon"} ko roop diyaa — ${grahaFor(6).grahaHi}/${grahaFor(2).grahaHi} saalon mein parivaar ka kendra-bhaar seva ki or badha.`,
       nowEn: (curPy) =>
         curPy === 6 || curPy === 2
           ? `This period needs extra care for the elders of the family — their comfort and rest deserve a watchful eye this year (${grahaFor(curPy).graha} rules the home).`
           : `This year family-care runs steady — keep the weekly call and the Sunday visit; ${grahaFor(curPy).graha} holds the house while you build outside.`,
       nowHi: (curPy) =>
         curPy === 6 || curPy === 2
-          ? `इस दौर में परिवार के बड़ों का ध्यान ज़्यादा चाहिए — उनकी सेहत और आराम पर इस वर्ष विशेष नज़र रखिए (${grahaFor(curPy).grahaHi} घर का मुखिया है)।`
-          : `इस वर्ष परिवार-सेवा संतुलित चलेगी — साप्ताहिक बात और रविवार की मुलाक़ात बनाए रखिए; ${grahaFor(curPy).grahaHi} घर संभालेगा जब आप बाहर बनाएँगे।`,
+          ? `is daur mein parivaar ke badon ka dhyaan zyada chaahie — unai sehat aur aaraam par is saal vishesh nazar rakho (${grahaFor(curPy).grahaHi} ghar ka mukhiyaa hai).`
+          : `is saal parivaar-seva sntulit chalei — weekly baat aur Ravivaar ki mulaakaat banaae rakho; ${grahaFor(curPy).grahaHi} ghar snbhaalega jab aap bahar banaaege.`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Care windows: ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}) — responsibility themes peak; plan support, comfort and company for the elders in those years.`
           : "The duty chapters come with the family years — prepare the weekly ritual from now.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `सेवा-खिड़कियाँ: ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")}) — ज़िम्मेदारी के विषय वहीं चरम पर; उन वर्षों में बड़ों के लिए सहारा, आराम और साथ पहले से योजना में रखिए।`
-          : "कर्तव्य-अध्याय पारिवारिक वर्षों के साथ आते हैं — साप्ताहिक व्रत अब से तैयार रखिए।",
+          ? `seva-khidkiyaan: ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}) — zimmewari ke vishay wahin charam par; un saalon mein badon ke liye sahaara, aaraam aur saath pehle se yojana mein rakho.`
+          : "kartavya-adhyay parivaarik saalon ke saath aate hain — weekly vrat ab se taiyaar rakho.",
     },
     friends: {
       areaId: "friends",
       titleEn: "Friendships & Alliances",
-      titleHi: "मित्रता और संगति",
+      titleHi: "mitrata aur sngati",
       loveYears: [3, 5, 9],
       pinBoost: [3, 5],
       hookEn: (ys) =>
@@ -451,33 +451,33 @@ function specFor(areaId: string): AreaSpec {
           : "Alliances form in the expressive years ahead — the network builds itself when 3/5 arrive.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `संग-वर्ष: ${ys.slice(0, 2).map((y) => y.year).join(" और ")} — ${grahaFor(3).grahaHi} और ${grahaFor(5).grahaHi} आपकी ज़िंदगी काम के लोगों से भर देंगे।`
-          : "संगति आने वाले अभिव्यक्ति-वर्षों में बनेगी — 3/5 आते ही नेटवर्क स्वयं जुड़ेगा।",
+          ? `sang-saal: ${ys.slice(0, 2).map((y) => y.year).join(" aur ")} — ${grahaFor(3).grahaHi} aur ${grahaFor(5).grahaHi} aapki jaindai kaam ke logon se bhar denge.`
+          : "sngati aane waale abhivyakti-saalon mein banei — 3/5 aate hi network svayn judaega.",
       pastEn: (py, inp) =>
         `Friendship tested and blessed the last decade: ${fmtYearList(py) || "the social years"} — new alliances under ${grahaFor(3).graha}, and at least one trust-lesson under ${grahaFor(4).graha}/${grahaFor(7).graha}.`,
       pastHi: (py, inp) =>
-        `मित्रता ने पिछले दशक में परखा और पुरस्कृत भी किया: ${fmtYearList(py) || "सामाजिक वर्षों"} में — ${grahaFor(3).grahaHi} के नए संग, और कम-से-कम एक विश्वास-पाठ ${grahaFor(4).grahaHi}/${grahaFor(7).grahaHi} में।`,
+        `mitrata ne pichhle dashak mein parakha aur puraskrit bhi kiyaa: ${fmtYearList(py) || "saamaajik saalon"} mein — ${grahaFor(3).grahaHi} ke nae sang, aur kam-se-kam ek vishvaas-paath ${grahaFor(4).grahaHi}/${grahaFor(7).grahaHi} men.`,
       nowEn: (curPy) =>
         curPy === 3 || curPy === 5
           ? `This year your circle widens (${grahaFor(curPy).graha}) — useful alliances form; say yes to the right rooms.`
           : `This year keeps the circle small and true — ${grahaFor(curPy).graha} filters friends; old ones stay, ornamental ones go.`,
       nowHi: (curPy) =>
         curPy === 3 || curPy === 5
-          ? `इस वर्ष आपका घेरा बढ़ेगा (${grahaFor(curPy).grahaHi}) — काम की संगतियाँ बनेंगी; सही कमरों में हाँ कहिए।`
-          : `इस वर्ष घेरा छोटा और सच्चा रहेगा — ${grahaFor(curPy).grahaHi} दोस्त छाँटेगा; पुराने रहेंगे, दिखावटी जाएँगे।`,
+          ? `is saal aapka ghera badhaega (${grahaFor(curPy).grahaHi}) — kaam ki sngatiyaa baneni; sahi kamaron mein ha kahie.`
+          : `is saal ghera chhota aur sachcha rahega — ${grahaFor(curPy).grahaHi} dost chhaatega; puraane rahenge, dikhaavai jaaege.`,
       futureEn: (ys) =>
         ys.length > 0
           ? `Alliance windows: ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}). Caution-in-trust applies in ${grahaFor(4).graha}/${grahaFor(7).graha} years — 'naye dosti mein vishwas se pehle samajhdari'.`
           : "The network years approach — keep the loyal three; the crowd follows them.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `संग-खिड़कियाँ: ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")})। ${grahaFor(4).grahaHi}/${grahaFor(7).grahaHi}-वर्षों में 'नई दोस्ती में विश्वास से पहले समझदारी' लागू।`
-          : "नेटवर्क-वर्ष पास हैं — वफ़ादार तीनों को रखिए; भीड़ उन्हीं के पीछे आएगी।",
+          ? `sang-khidkiyaan: ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}). ${grahaFor(4).grahaHi}/${grahaFor(7).grahaHi}-saalon mein 'naee dosti mein vishvaas se pehle samajhadaaree' laagoo.`
+          : "network-saal paas hain — vaphaadaar teeno ko rakho; bheed unhi ke peechhe aaei.",
     },
     spine: {
       areaId: "spine",
       titleEn: "Your Life Spine — Past, Now, Coming",
-      titleHi: "आपकी जीवन-रेखा — अतीत, वर्तमान, आगे",
+      titleHi: "aapki jeevan-rekha — ateet, vartmaan, aage",
       loveYears: [1, 8, 9],
       pinBoost: [],
       hookEn: (ys) =>
@@ -486,24 +486,24 @@ function specFor(areaId: string): AreaSpec {
           : "The spine reads steady — peaks arrive at the next 1/8/9 cycle.",
       hookHi: (ys) =>
         ys.length > 0
-          ? `वो वर्ष जो सब तय करते हैं: ${ys.slice(0, 3).map((y) => y.year).join(", ")} — शिखर, धन-वर्ष और समापन।`
-          : "जीवन-रेखा स्थिर पढ़ी गई — अगले 1/8/9 चक्र पर शिखर आएँगे।",
+          ? `woh saal jo sab tay karte hain: ${ys.slice(0, 3).map((y) => y.year).join(", ")} — shikhar, dhan-saal aur samaapan.`
+          : "jeevan-rekha sthir padhi gaee — agle 1/8/9 chakra par shikhar aaege.",
       pastEn: (py, inp) =>
         `The last decade ran a full cycle: ${fmtYearList(py) || "the passage years"} covered ${grahaFor(9).graha}'s completion and ${grahaFor(1).graha}'s restart — you crossed both.`,
       pastHi: (py, inp) =>
-        `पिछले दशक ने पूरा चक्र चलाया: ${fmtYearList(py) || "प्रवास-वर्षों"} में ${grahaFor(9).grahaHi} का समापन और ${grahaFor(1).grahaHi} का आरंभ — दोनों आपने पार किए।`,
+        `pichhle dashak ne poora chakra chalaayaa: ${fmtYearList(py) || "pravaas-saalon"} mein ${grahaFor(9).grahaHi} ka samaapan aur ${grahaFor(1).grahaHi} ka aarambh — dono aapne paar kie.`,
       nowEn: (curPy) =>
         `You stand in Personal Year ${curPy} (${grahaFor(curPy).graha}) — ${curPy === 1 ? "the plan year: name the mission." : curPy === 8 ? "the money year: collect and build." : curPy === 9 ? "the closing year: finish what hangs." : "the working year: keep the pace."}`,
       nowHi: (curPy) =>
-        `आप व्यक्तिगत वर्ष ${curPy} (${grahaFor(curPy).grahaHi}) में खड़े हैं — ${curPy === 1 ? "योजना का वर्ष: लक्ष्य नाम दें।" : curPy === 8 ? "धन का वर्ष: वसूलें और बनाएँ।" : curPy === 9 ? "समापन का वर्ष: लटका हुआ पूरा करें।" : "कर्म का वर्ष: लय बनाए रखें।"}`,
+        `aap vyaktigat saal ${curPy} (${grahaFor(curPy).grahaHi}) mein khadae hain — ${curPy === 1 ? "yojana ka saal: lakshya naam dein." : curPy === 8 ? "dhan ka saal: vasoolen aur banaae." : curPy === 9 ? "samaapan ka saal: lataka hua poora karein." : "karm ka saal: lay banaae rakhein."}`,
       futureEn: (ys) =>
         ys.length > 0
           ? `The decade ahead: peaks at ${fmtYearList(ys)} (ages ${ys.map((y) => y.age).join(", ")}) — money-years and completion-years alternate; the graph shows every peak.`
           : "The decade ahead reads steady — its peaks will be marked on the graph as they come.",
       futureHi: (ys) =>
         ys.length > 0
-          ? `आने वाला दशक: शिखर ${fmtYearList(ys)} (उम्र ${ys.map((y) => y.age).join(", ")}) में — धन-वर्ष और समापन-वर्ष बारी-बारी; ग्राफ़ हर चोटी दिखाता है।`
-          : "आने वाला दशक स्थिर पढ़ा गया — उसके शिखर आने पर ग्राफ़ चिह्नित करेगा।",
+          ? `aane waala dashak: shikhar ${fmtYearList(ys)} (umra ${ys.map((y) => y.age).join(", ")}) mein — dhan-saal aur samaapan-saal baari-baari; graph har choti dikhaata hai.`
+          : "aane waala dashak sthir padha gaya — usake shikhar aane par graph chihnit karega.",
     },
   };
   return S[areaId];
@@ -525,8 +525,8 @@ export function buildLifeAreaReport(inp: AreaInput): LifeAreaReport {
 
   for (const id of LIFE_AREA_IDS) {
     const spec = specFor(id);
-    const future = windowsFor(inp, spec.loveYears, inp.nowYear, inp.nowYear + 10, 4, "window year", "खिड़की-वर्ष", spec.pinBoost);
-    const past = windowsFor(inp, spec.loveYears, inp.nowYear - 10, inp.nowYear - 1, 3, "past window", "पुरानी खिड़की", spec.pinBoost);
+    const future = windowsFor(inp, spec.loveYears, inp.nowYear, inp.nowYear + 10, 4, "window year", "khidki-saal", spec.pinBoost);
+    const past = windowsFor(inp, spec.loveYears, inp.nowYear - 10, inp.nowYear - 1, 3, "past window", "puraai khidki", spec.pinBoost);
     sections.push({
       areaId: spec.areaId,
       titleEn: spec.titleEn,
@@ -560,5 +560,5 @@ export function buildLifeAreaReport(inp: AreaInput): LifeAreaReport {
 export function hasConcreteYears(s: AreaSection): boolean {
   const text = `${s.hookEn} ${s.futureEn}`;
   const yearHits = /\b(19|20)\d{2}\b/.test(text);
-  return yearHits && (s.windows.length > 0 || /age|उम्र/.test(text));
+  return yearHits && (s.windows.length > 0 || /age|umra/.test(text));
 }

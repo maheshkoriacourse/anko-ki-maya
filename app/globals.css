@@ -311,6 +311,133 @@
 }
 
 /* ------------------------------------------------------------------ */
+/* v3.2 DIVINE ART BANDS                                               */
+/* ------------------------------------------------------------------ */
+
+/* LANDING HERO — mahadev-hero.webp full-bleed on '/'. Mahadev sits */
+/* center-right; deep indigo gradient left→right keeps the left text */
+/* column readable; bottom melt into the page background.            */
+.landing-hero {
+  position: relative;
+  min-height: 460px;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  isolation: isolate;
+}
+@media (max-width: 640px) {
+  .landing-hero { min-height: 360px; }
+}
+.landing-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  animation: ken-burns 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.landing-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--indigo-deep) 92%, transparent) 0%,
+      color-mix(in srgb, var(--indigo-deep) 72%, transparent) 34%,
+      color-mix(in srgb, var(--indigo-deep) 28%, transparent) 62%,
+      transparent 84%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--indigo-deep) 20%, transparent) 0%,
+      transparent 38%,
+      color-mix(in srgb, var(--indigo-deep) 40%, transparent) 100%
+    );
+}
+.landing-hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 2.25rem 1.75rem;
+  max-width: 30rem;
+}
+@media (max-width: 640px) {
+  .landing-hero-content { padding: 1.4rem 1.2rem; }
+}
+.landing-hero-content h1 {
+  color: #fff7ea;
+  text-shadow: 0 2px 18px rgb(20 17 58 / 0.9), 0 1px 3px rgb(0 0 0 / 0.65);
+}
+.landing-hero-content .hero-sub {
+  color: #ffd98f;
+  text-shadow: 0 1px 12px rgb(20 17 58 / 0.9), 0 1px 2px rgb(0 0 0 / 0.55);
+}
+
+/* DEITY BAND — wide short header band (durga-blessing on Lucky & Upay). */
+/* object-position is passed inline so the face stays in frame; left     */
+/* gradient keeps the caption readable.                                  */
+.deity-band {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  isolation: isolate;
+}
+.deity-band-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.deity-band-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--indigo-deep) 78%, transparent) 0%,
+      color-mix(in srgb, var(--indigo-deep) 42%, transparent) 38%,
+      transparent 66%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 55%,
+      color-mix(in srgb, var(--indigo-deep) 45%, transparent) 100%
+    );
+}
+.deity-band-caption {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 0.9rem;
+  z-index: 1;
+  max-width: 60%;
+  color: #ffd98f;
+  text-shadow: 0 1px 12px rgb(20 17 58 / 0.95), 0 1px 2px rgb(0 0 0 / 0.6);
+}
+
+/* RUDRAKSH DIVIDER — thin band above the remedies table; soft vignette */
+/* turns the photo into a divider, not a billboard.                      */
+.rudraksh-band {
+  position: relative;
+  height: 88px;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+  isolation: isolate;
+}
+.rudraksh-band-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 50%, transparent 30%, color-mix(in srgb, var(--indigo-deep) 55%, transparent) 100%),
+    linear-gradient(180deg, color-mix(in srgb, var(--indigo-deep) 25%, transparent), transparent 30%, color-mix(in srgb, var(--indigo-deep) 35%, transparent) 100%);
+}
+
+/* ------------------------------------------------------------------ */
 /* v3 signature classes (kept names — pages already reference them)     */
 /* ------------------------------------------------------------------ */
 

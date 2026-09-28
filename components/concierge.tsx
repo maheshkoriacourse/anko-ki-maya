@@ -21,12 +21,12 @@ export function ConciergeSection() {
   const bullets =
     lang === "hi"
       ? [
-          "120+ पृष्ठ-समकक्ष व्यक्तिगत ब्लूप्रिंट — इंजन से दो-गुना गहरा, हस्त-निर्मित स्तर",
-          "एक-पर-एक 90-मिनट की वॉक-थ्रू कॉल (हिन्दी या English)",
-          "नाम-अनुकूलन स्टूडियो: आपके नाम और आपके व्यवसाय-नाम दोनों की कैल्डियन जाँच",
-          "12-मास घटना-मौसम कैलेंडर + 3 मोड़-बिंदु महीनों की व्यक्तिगत रणनीति",
-          "परंपरागत उपाय-पत्रक: मंत्र, जप-संख्या, यंत्र, दान — आपके अंकों के अनुसार",
-          "एक वर्ष तक प्रश्नों के लिए WhatsApp समर्थन",
+          "120+ prishth-samakaksh vyaktigat blooprint — engine se do-guna gehra, hast-nirmit star",
+          "ek-par-ek 90-minat ki vok-throo kol (hini ya English)",
+          "naam-anukoolan stoodiyo: aapke naam aur aapke vyavasaay-naam dono ki kaildiyan jaanch",
+          "12-maas ghatna-mausam kailendar + 3 mod-bindu mahinon ki vyaktigat rananeeti",
+          "paramparagat upaay-patrak: mantra, japa-sankhya, yantra, daan — aapke ankon ke anusaar",
+          "ek saal tak prashnon ke liye WhatsApp samarthan",
         ]
       : [
           "120+ page-equivalent personal blueprint — engine-deep, hand-finished",
@@ -39,11 +39,11 @@ export function ConciergeSection() {
 
   const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     lang === "hi"
-      ? "नमस्ते! मैं लाइफ़ ब्लूप्रिंट कंसीयज (₹99,999) के बारे में जानना चाहता/चाहती हूँ।"
+      ? "namaste! main laaiph blooprint knseeyaj (₹99,999) ke baare mein jaanana chaahata/chaahai hoo."
       : "Namaste! I'd like to know more about the Life Blueprint Concierge (₹99,999).",
   )}`;
   const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent(
-    lang === "hi" ? "लाइफ़ ब्लूप्रिंट कंसीयज — पूछताछ" : "Life Blueprint Concierge — inquiry",
+    lang === "hi" ? "laaiph blooprint knseeyaj — poochhataachh" : "Life Blueprint Concierge — inquiry",
   )}`;
 
   return (
@@ -59,7 +59,7 @@ export function ConciergeSection() {
           </span>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              {lang === "hi" ? "सीमित सीटें · आमंत्रण द्वारा" : "Limited seats · by application"}
+              {lang === "hi" ? "seemit seeten · aamntran dvaara" : "Limited seats · by application"}
             </p>
             <h2 id="concierge-h" className="font-display text-2xl font-semibold sm:text-3xl">
               {t("conciergeTitle")}
@@ -94,7 +94,7 @@ export function ConciergeSection() {
           </a>
           <p className="text-xs text-muted-foreground">
             {lang === "hi"
-              ? "कोई ऑनलाइन भुगतान नहीं — पहले बातचीत, फिर निर्णय।"
+              ? "koi online bhugataan nahi — pehle baatacheet, phir nirnay."
               : "No online payments — a conversation first, then the decision."}
           </p>
         </div>

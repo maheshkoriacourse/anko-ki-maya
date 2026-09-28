@@ -10,7 +10,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { DiyaMotif, OmMotif, SanatanDivider } from "@/components/shared";
+import { DiyaMotif, OmMotif, SanatanDivider, LandingHero } from "@/components/shared";
 import { Button, Input, Label, Badge, Card, CardContent } from "@/components/ui";
 import { DisclaimerLine } from "@/components/shared";
 import { ConciergeSection } from "@/components/concierge";
@@ -71,14 +71,14 @@ export default function OnboardingPage() {
   function validate(f: FormState): Partial<Record<keyof FormState, string>> {
     const errs: Partial<Record<keyof FormState, string>> = {};
     if (!sanitizeName(f.birthName) || sanitizeName(f.birthName).length < 2) {
-      errs.birthName = hi ? "जन्म-नाम लिखिए (जन्म-प्रमाण-पत्र वाला)।" : "Please enter your full birth name (as on your birth certificate).";
+      errs.birthName = hi ? "Janm-naam likhiye (janm-pramaan-patra wala)." : "Please enter your full birth name (as on your birth certificate).";
     }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(f.date) || !isValidBirthDate(
       Number(f.date.slice(0, 4)),
       Number(f.date.slice(5, 7)),
       Number(f.date.slice(8, 10)),
     )) {
-      errs.date = hi ? "सही जन्म-तिथि दीजिए (YYYY-MM-DD)।" : "Enter a valid date of birth (YYYY-MM-DD).";
+      errs.date = hi ? "Sahi janm-tithi dijiye (YYYY-MM-DD)." : "Enter a valid date of birth (YYYY-MM-DD).";
     }
     return errs;
   }
@@ -101,30 +101,13 @@ export default function OnboardingPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      {/* v3.1: subdued divine banner on onboarding — blurred, melts downward */}
-      <div aria-hidden className="relative mb-8 h-40 overflow-hidden rounded-2xl sm:h-52">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/img/divine-header.webp"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 size-full scale-110 object-cover object-center opacity-70 blur-[2px]"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, color-mix(in srgb, var(--indigo-deep) 30%, transparent), transparent 42%, var(--background) 100%)",
-          }}
-        />
-      </div>
+      {/* v3.2: mahadev-hero full-bleed landing hero (owner divine-art order) */}
+      <LandingHero />
       <ConciergeSection />
       <div className="my-10 text-center">
         <SanatanDivider className="mx-auto max-w-sm" />
         <p className="mt-4 font-display text-lg text-gold">
-          {hi ? "…या नीचे अपना वाचन शुरू कीजिए — मुफ़्त, निजी, इसी ब्राउज़र में।" : "…or begin your own reading below — free, private, in this browser only."}
+          {hi ? "…ya neeche apna vachan shuru karo — muft, private, isi browser mein." : "…or begin your own reading below — free, private, in this browser only."}
         </p>
       </div>
 
@@ -133,11 +116,11 @@ export default function OnboardingPage() {
           <OmMotif className="text-2xl" />
         </span>
         <h1 className="font-display text-3xl font-semibold tracking-tight">
-          {hi ? "अपना नाम और जन्म-तिथि दीजिए" : "Give your name and birth date"}
+          {hi ? "Apna naam aur janm-tithi do" : "Give your name and birth date"}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {hi
-            ? "अंक शास्त्र इन्हीं दो चीज़ों से आपका भूत, वर्तमान और भविष्य पढ़ता है। कोई सहमति-दीवार नहीं — जानकारी दीजिए, वाचन आपके सामने है।"
+            ? "Ank Shastra inhi do cheezon se aapka past, present aur future padhta hai. Koi sahamti-deewar nahi — jaankari dijiye, vachan aapke saamne hai."
             : "Ank Shastra reads your past, present and future from these two things. Nothing to accept — give the details, the reading stands in front of you."}
         </p>
       </div>
@@ -146,12 +129,12 @@ export default function OnboardingPage() {
         <CardContent className="pt-5">
           <form onSubmit={onSubmit} noValidate className="space-y-5">
             <div>
-              <Label htmlFor="birthName">{hi ? "जन्म-नाम *" : "Birth name *"}</Label>
+              <Label htmlFor="birthName">{hi ? "Janm-naam *" : "Birth name *"}</Label>
               <Input
                 id="birthName"
                 name="birthName"
                 autoComplete="name"
-                placeholder={hi ? "जैसे: आरव मेहता" : "e.g. Aarav Mehta"}
+                placeholder={hi ? "jaise: Aarav Mehta" : "e.g. Aarav Mehta"}
                 value={form.birthName}
                 aria-invalid={!!errors.birthName}
                 aria-describedby={errors.birthName ? "birthName-err" : undefined}
@@ -162,24 +145,24 @@ export default function OnboardingPage() {
                 <p id="birthName-err" role="alert" className="mt-1 text-xs text-destructive">{errors.birthName}</p>
               ) : (
                 <p className="mt-1 text-xs text-muted-foreground">
-                  {hi ? "जन्म-प्रमाण-पत्र वाला नाम — इसी से नामांक और आत्म-इच्छा बनते हैं।" : "As written on your birth certificate — it shapes Namank and Soul Urge."}
+                  {hi ? "Janm-pramaan-patra wala naam — isi se Namank aur Soul Urge banta hai." : "As written on your birth certificate — it shapes Namank and Soul Urge."}
                 </p>
               )}
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <Label htmlFor="preferredName">{hi ? "बुलाया जाने वाला नाम" : "Preferred name"}</Label>
+                <Label htmlFor="preferredName">{hi ? "Bulaya jaane wala naam" : "Preferred name"}</Label>
                 <Input
                   id="preferredName"
-                  placeholder={hi ? "जैसे: आरव" : "e.g. Aarav"}
+                  placeholder={hi ? "jaise: Aarav" : "e.g. Aarav"}
                   value={form.preferredName}
                   onChange={(e) => setForm({ ...form, preferredName: e.target.value })}
                   className="mt-1.5"
                 />
               </div>
               <div>
-                <Label htmlFor="dob">{hi ? "जन्म-तिथि *" : "Date of birth *"}</Label>
+                <Label htmlFor="dob">{hi ? "Janm-tithi *" : "Date of birth *"}</Label>
                 <Input
                   id="dob"
                   type="date"
@@ -199,12 +182,12 @@ export default function OnboardingPage() {
             <div className="flex items-center justify-between gap-3">
               <p className="text-xs text-muted-foreground">
                 {hi
-                  ? "आपका डेटा इसी ब्राउज़र में रहता है — सेटिंग्स से निर्यात/हटाएँ कभी भी।"
+                  ? "Aapka data isi browser mein rehta hai — Settings se export/delete kabhi bhi."
                   : "Your data stays in this browser (localStorage) — export or delete anytime in Settings."}
               </p>
               <Button type="submit" size="lg">
                 <DiyaMotif className="size-5" aria-hidden />
-                {hi ? "मेरा वाचन दिखाओ" : "Reveal my reading"}
+                {hi ? "Mera vachan dikhao" : "Reveal my reading"}
               </Button>
             </div>
           </form>
@@ -213,12 +196,12 @@ export default function OnboardingPage() {
 
       <p className="mt-6 text-center text-xs text-muted-foreground">
         {hi
-          ? "बस देख रहे हैं? डेमो प्रोफ़ाइल (आरव मेहता, १५ जून १९९०) पहले से भरी है — "
+          ? "Sirf dekh rahe ho? Demo profile (Aarav Mehta, 15 June 1990) pehle se bhari hai — "
           : "Just exploring? The demo profile (Aarav Mehta, 15 June 1990) is already loaded — "}
         <a href="/overview" className="text-primary underline underline-offset-4">
-          {hi ? "अभी का हाल देखें" : "go to Abhi Ka Haal"}
+          {hi ? "Abhi ka haal dekho" : "go to Abhi Ka Haal"}
         </a>
-        {hi ? devNum(0).slice(0, 0) : ""} <Badge variant="gold">{hi ? "निःशुल्क" : "free"}</Badge>
+        {hi ? devNum(0).slice(0, 0) : ""} <Badge variant="gold">{hi ? "Free" : "free"}</Badge>
       </p>
       <div className="mt-4 text-center">
         <DisclaimerLine compact />
