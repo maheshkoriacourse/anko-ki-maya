@@ -1,0 +1,58 @@
+/* App-level visual overrides layered on top of globals.css */
+/* Softer scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, currentColor 18%, transparent) transparent;
+}
+
+/* Sidebar nav links */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.nav-link:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.nav-link[data-active="true"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.nav-link[data-active="true"] svg {
+  color: var(--primary-foreground);
+}
+
+/* Big serif number glyph used in number cards */
+.number-glyph {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Subtle divider */
+.hairline {
+  border-color: color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+
+/* Timeline intensity bar */
+.intensity {
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 16%, transparent);
+  overflow: hidden;
+}
+.intensity > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary);
+  opacity: 0.85;
+}
