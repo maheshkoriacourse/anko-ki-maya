@@ -40,6 +40,7 @@ import { loShuGrid } from "@/lib/loshu";
 import { analyzeRepetitions } from "@/lib/repetitions";
 import { vedicChart, grahaChainLine, doshaReadings, weakestPlanet, dashaMonthFlavor } from "@/lib/vedic";
 import { nakshatraText, dashaText } from "@/lib/vedic-content";
+import { MahadashaTimeline } from "@/components/mahadasha-section";
 import { ReasoningBlock } from "@/components/loshu-kit";
 
 function sectionAnchor(id: string): string {
@@ -607,6 +608,9 @@ export default function BlueprintReportPage() {
             </p>
           </CardContent>
         </Card>
+
+        {/* v3.9: full Mahadasha timeline (owner order 30 Sep) */}
+        <MahadashaTimeline birth={{ year: y, month: m, day: d }} now={new Date()} lang={lang} />
 
         {/* Karmic debts */}
         {karmHits.hits.length > 0 ? (

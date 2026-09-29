@@ -17,6 +17,7 @@ import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
 import { t as rawT } from "@/lib/content";
 import { ANK_DASHA_YEAR, ANK_DASHA_MONTH, mulankBhagyankState } from "@/lib/voice";
+import { MasterNumberCard } from "@/components/mahadasha-section";
 import { personalYear, personalMonth, personalDay, upcomingMonths, monthName, type MonthCycle } from "@/lib/numerology";
 import { grahaFor, devNum, planetRelation, RELATION_LABEL } from "@/lib/navgrah";
 import { vedicChart, dashaMonthFlavor, verifyNakshatra, grahaChainLine } from "@/lib/vedic";
@@ -152,6 +153,16 @@ export default function OverviewPage() {
               {hi ? dashaYear.actionHi : dashaYear.actionEn}
             </p>
           </div>
+
+          {/* v3.9: master numbers 11/22/33 — full analysis when present */}
+          <MasterNumberCard
+            lang={lang}
+            candidates={[
+              { label: hi ? "Mulank" : "Mulank", labelHi: "mulank", number: mulank },
+              { label: hi ? "Bhagyank" : "Bhagyank", labelHi: "bhagyank", number: bhagyank },
+              { label: hi ? "Namank" : "Namank", labelHi: "namank", number: reading.nameNumbers.expression },
+            ]}
+          />
 
           {/* Mulank/Bhagyank state */}
           <div className="rounded-xl border p-4">
