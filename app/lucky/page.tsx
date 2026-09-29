@@ -26,6 +26,18 @@ export default function LuckyPage() {
   const { lang } = useT();
   const t = (key: string) => rawT(lang, key);
 
+  // v3.3 rule (h): 'shubh samay' muhurat scorer — user picks a date, the
+  // panchanga tables grade it for a wedding/launch start. Hooks stay ABOVE
+  // every early return (rules-of-hooks).
+  const [muDate, setMuDate] = React.useState<string>("");
+  const [muPurpose, setMuPurpose] = React.useState<"marriage" | "launch">("marriage");
+  const [muResult, setMuResult] = React.useState<ShubhSamay | null>(null);
+  function runMuhurat(e: React.FormEvent) {
+    e.preventDefault();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(muDate)) return;
+    setMuResult(shubhSamay(new Date(`${muDate}T09:00:00`), muPurpose));
+  }
+
   if (!hasProfile || !profile) {
     return <EmptyState title="No profile yet" body="Add your birth details to see your lucky toolkit." />;
   }
@@ -46,17 +58,6 @@ export default function LuckyPage() {
   // v3.3: secret graha-chain verification line — sits inside the Basis block.
   const chainChart = vedicChart({ year: y, month: m, day: d });
   const chainSteps = [...lucky.steps, grahaChainLine(birthNumber, chainChart, lang)];
-
-  // v3.3 rule (h): 'shubh samay' muhurat scorer — user picks a date, the
-  // panchanga tables grade it for a wedding/launch start.
-  const [muDate, setMuDate] = React.useState<string>("");
-  const [muPurpose, setMuPurpose] = React.useState<"marriage" | "launch">("marriage");
-  const [muResult, setMuResult] = React.useState<ShubhSamay | null>(null);
-  function runMuhurat(e: React.FormEvent) {
-    e.preventDefault();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(muDate)) return;
-    setMuResult(shubhSamay(new Date(`${muDate}T09:00:00`), muPurpose));
-  }
 
   return (
     <div className="space-y-8">
