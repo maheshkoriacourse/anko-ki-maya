@@ -151,11 +151,24 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   );
 
   if (bare) {
+    // v3.4 (owner: 'blueprint pe nav options chale jaate'): bare pages keep
+    // their clean print column, but gain a compact NAV CHIPS row so the
+    // app is never more than one tap away on desktop + mobile.
+    const bareNavKeys = [
+      "/overview",
+      "/life-graph",
+      "/numbers",
+      "/loshu",
+      "/forecast",
+      "/lucky",
+      "/report",
+    ] as const;
+    const chips = NAV_ITEMS.filter((i) => (bareNavKeys as readonly string[]).includes(i.href));
     return (
       <div className="min-h-dvh starfield diya-glow">
         {divineBg}
         <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
-          <div className="mb-8 flex items-center justify-between">
+          <div className="mb-3 flex items-center justify-between">
             {brand}
             <div className="flex items-center gap-1.5">
               <LangToggle />
@@ -167,6 +180,22 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <ThemeToggle />
             </div>
           </div>
+          <nav aria-label="Compact primary" className="no-print mb-8 flex flex-wrap gap-2">
+            {chips.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`nav-chip rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+                  isActive(item.href)
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-card/70 text-muted-foreground hover:text-foreground"
+                }`}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {t(item.labelKey)}
+              </Link>
+            ))}
+          </nav>
           {children}
         </div>
       </div>

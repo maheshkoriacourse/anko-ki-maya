@@ -27,6 +27,7 @@ import { chartTruth, truthForYear } from "@/lib/truth";
 import { buildLifeGraph, patternNote, type YearMark } from "@/lib/life-graph";
 import { loadYearMarks } from "@/lib/marks-storage";
 import { ANK_DASHA_YEAR, ANK_DASHA_MONTH, mulankBhagyankState } from "@/lib/voice";
+import { yearDeep } from "@/lib/deep-essays";
 import { personalYear, personalMonth, monthName, upcomingMonths, pinnacles, type MonthCycle } from "@/lib/numerology";
 import { grahaFor, devNum, planetRelation, RELATION_LABEL } from "@/lib/navgrah";
 import { karmicDebts, type KarmicDebtHit } from "@/lib/karmic";
@@ -199,6 +200,9 @@ export default function BlueprintReportPage() {
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm leading-relaxed">{hi ? dashaYear.lineHi : dashaYear.lineEn}</p>
+            {/* v3.5 DEPTH (owner: 'pura details do, context do, examples do'):
+                the year's full 4-beat paragraph under the dasha line. */}
+            <p className="text-sm leading-relaxed text-foreground/90">{yearDeep(curPy, lang)}</p>
             <p className="text-sm leading-relaxed">
               <span className="font-semibold">{hi ? `is mahine (ank ${devNum(curPm)}): ` : `This month (Ank ${curPm}): `}</span>
               {hi ? dashaMonth.lineHi : dashaMonth.lineEn}

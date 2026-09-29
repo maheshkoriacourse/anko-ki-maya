@@ -19,6 +19,8 @@ import {
   personalYear, monthName, reduce,
 } from "@/lib/numerology";
 import { PERSONAL_YEAR_THEMES } from "@/lib/meanings";
+import { yearHeadline, yearDeep } from "@/lib/deep-essays";
+import { useT } from "@/lib/lang";
 
 interface YearRow {
   year: number;
@@ -28,12 +30,13 @@ interface YearRow {
 
 function pyRow(birthMonth: number, birthDay: number, year: number): YearRow {
   const py = personalYear(birthMonth, birthDay, year).number;
-  const label = PERSONAL_YEAR_THEMES[py]?.theme ?? "A reflective year";
+  const label = PERSONAL_YEAR_THEMES[py]?.theme ?? yearHeadline(py, "en");
   return { year, py, label };
 }
 
 export default function LongTermPage() {
   const { profile, today } = useProfile();
+  const { lang } = useT();
   const [ready, setReady] = React.useState(false);
   const [milestones, setMilestones] = React.useState<Milestone[]>([]);
   const [form, setForm] = React.useState({ date: "", title: "", note: "" });
@@ -131,6 +134,7 @@ export default function LongTermPage() {
                       <div className="min-w-0">
                         <p className="text-sm font-medium">{r.year}</p>
                         <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground [overflow-wrap:anywhere] hyphens:auto">{r.label}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-foreground/85">{yearDeep(r.py, lang)}</p>
                       </div>
                     </div>
                   </li>

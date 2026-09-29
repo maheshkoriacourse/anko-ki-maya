@@ -255,17 +255,29 @@ export default function LifeGraphPage() {
                           {hi ? devNum(p.py) : p.py}
                         </span>
                         <div>
+                          {/* v3.5 (owner: 'kya hua hoga / kis baat ka yog hai' +
+                              'kam clutter'): event line replaces the plain
+                              'bada saal · umra' header; year + age fold into
+                              the meta strip. */}
                           <p className="font-display text-base font-semibold">
-                            {hi ? `bada saal ${devNum(p.year)} · umra ${devNum(p.age)}` : `Big year ${p.year} · age ${p.age}`}
-                            {verdict === "sahi" ? <Badge variant="gold" className="ml-2">✓ {hi ? "sahi" : "confirmed"}</Badge> : null}
-                            {verdict === "galat" ? <Badge variant="secondary" className="ml-2">✗ {hi ? "galat" : "wrong"}</Badge> : null}
+                            {hi
+                              ? (p.eventHi ?? "us saal ek badi ghatna ka yog bana")
+                              : (p.eventEn ?? "A major event was likely that year")}
                           </p>
-                          <p className="mt-0.5 flex flex-wrap gap-1.5">
-                            {p.bigReasons.map((r, i) => (
-                              <Badge key={r + i} variant="secondary" className="text-[10px]">
-                                {hi ? BIG_REASON_LABEL[r]?.hi : BIG_REASON_LABEL[r]?.en}
-                              </Badge>
-                            ))}
+                          <p className="mt-0.5 text-xs text-muted-foreground">
+                            {hi ? `bada saal ${devNum(p.year)} · umra ${devNum(p.age)}` : `Big year ${p.year} · age ${p.age}`}
+                            {verdict === "sahi" ? (
+                              <Badge variant="gold" className="ml-2">✓ {hi ? "sahi" : "confirmed"}</Badge>
+                            ) : null}
+                            {verdict === "galat" ? (
+                              <Badge variant="secondary" className="ml-2">✗ {hi ? "galat" : "wrong"}</Badge>
+                            ) : null}
+                          </p>
+                          {/* v3.5 de-clutter: reason badges collapsed to one
+                              quiet line instead of N chips. */}
+                          <p className="mt-1 text-[11px] leading-snug text-gold/80">
+                            {hi ? "aaddhar: " : "basis: "}
+                            {p.bigReasons.map((r) => hi ? BIG_REASON_LABEL[r]?.hi : BIG_REASON_LABEL[r]?.en).filter(Boolean).join(" · ")}
                           </p>
                         </div>
                       </div>
