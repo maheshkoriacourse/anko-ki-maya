@@ -12,6 +12,7 @@ import {
 } from "@/components/ui";
 import { PageHeader, EmptyState, LoadingCards, DisclaimerLine } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
+import { DdmmyyyyDateInput, isoToDdmmyyyy, ddmmyyyyToIso } from "@/components/ddmmyyyy-date";
 import {
   exportAllData, deleteAllData, saveNotifications, loadNotifications,
   DEFAULT_NOTIFICATIONS, type NotificationPrefs,
@@ -26,6 +27,13 @@ export default function SettingsPage() {
   const { lang, setLang } = useLang();
   const t = (key: string) => rawT(lang, key);
   const [ready, setReady] = React.useState(false);
+  // v3.8: DOB as dd/mm/yyyy parts (owner order) — stored profile stays ISO.
+  const [sDobParts, setSDobParts] = React.useState({ dd: "", mm: "", yyyy: "" });
+  React.useEffect(() => {
+    if (sDobParts.dd === "" && sDobParts.mm === "" && sDobParts.yyyy === "" && profile?.birthDate) {
+      setSDobParts(isoToDdmmyyyy(profile.birthDate));
+    }
+  }, [profile?.birthDate]); // eslint-disable-line react-hooks/exhaustive-deps
   const [prefs, setPrefs] = React.useState<NotificationPrefs>(DEFAULT_NOTIFICATIONS);
   const [confirmDelete, setConfirmDelete] = React.useState(false);
   const [saved, setSaved] = React.useState(false);
@@ -90,7 +98,14 @@ export default function SettingsPage() {
               </div>
               <div>
                 <Label htmlFor="s-date">Date of birth</Label>
-                <Input id="s-date" name="birthDate" type="date" defaultValue={profile.birthDate} className="mt-1" />
+                <div className="mt-1">
+                  <DdmmyyyyDateInput
+                    value={sDobParts}
+                    onChange={(next) => setSDobParts(next)}
+                    labels={{ dd: "din (1-31)", mm: "mahina (1-12)", yyyy: "saal" }}
+                  />
+                  <input type="hidden" name="birthDate" value={ddmmyyyyToIso(sDobParts) || profile.birthDate} />
+                </div>
               </div>
               <div>
                 <Label htmlFor="s-system">Numerology system</Label>

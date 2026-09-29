@@ -16,20 +16,21 @@ import { DisclaimerLine } from "@/components/shared";
 import { ConciergeSection } from "@/components/concierge";
 import { useProfile } from "@/components/seeded-profile";
 import { isValidBirthDate, sanitizeName } from "@/lib/numerology";
+import { DdmmyyyyDateInput, ddmmyyyyToIso, isoToDdmmyyyy, type DdmmyyyyParts } from "@/components/ddmmyyyy-date";
 import { useLang } from "@/lib/lang";
 import { devNum } from "@/lib/navgrah";
 
 interface FormState {
   birthName: string;
   preferredName: string;
-  date: string;
+  date: DdmmyyyyParts; // v3.8: dd/mm/yyyy entry (owner order)
   system: "pythagorean" | "chaldean";
 }
 
 const EMPTY: FormState = {
   birthName: "",
   preferredName: "",
-  date: "",
+  date: { dd: "", mm: "", yyyy: "" },
   system: "pythagorean",
 };
 
@@ -57,7 +58,7 @@ export default function OnboardingPage() {
             ...f,
             birthName: p.birthName || f.birthName,
             preferredName: p.preferredName || f.preferredName,
-            date: p.birthDate || f.date,
+            date: p.birthDate ? isoToDdmmyyyy(p.birthDate) : f.date,
             system: (p.system as FormState["system"]) || f.system,
           }));
         } catch {
@@ -73,12 +74,13 @@ export default function OnboardingPage() {
     if (!sanitizeName(f.birthName) || sanitizeName(f.birthName).length < 2) {
       errs.birthName = hi ? "Janm-naam likhiye (janm-pramaan-patra wala)." : "Please enter your full birth name (as on your birth certificate).";
     }
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(f.date) || !isValidBirthDate(
-      Number(f.date.slice(0, 4)),
-      Number(f.date.slice(5, 7)),
-      Number(f.date.slice(8, 10)),
+    const dIso = ddmmyyyyToIso(f.date); // v3.8: entry dd/mm/yyyy → ISO for engine
+    if (!dIso || !isValidBirthDate(
+      Number(dIso.slice(0, 4)),
+      Number(dIso.slice(5, 7)),
+      Number(dIso.slice(8, 10)),
     )) {
-      errs.date = hi ? "Sahi janm-tithi dijiye (YYYY-MM-DD)." : "Enter a valid date of birth (YYYY-MM-DD).";
+      errs.date = hi ? "Sahi janm-tithi dijiye (dd/mm/yyyy)." : "Enter a valid date of birth (dd/mm/yyyy).";
     }
     return errs;
   }
@@ -91,7 +93,7 @@ export default function OnboardingPage() {
     save({
       birthName: sanitizeName(form.birthName),
       preferredName: sanitizeName(form.preferredName),
-      birthDate: form.date,
+      birthDate: ddmmyyyyToIso(form.date),
       birthTime: "",
       birthplace: "",
       system: form.system,
@@ -153,16 +155,19 @@ export default function OnboardingPage() {
               </div>
               <div>
                 <Label htmlFor="dob">{hi ? "Janm-tithi *" : "Date of birth *"}</Label>
-                <Input
-                  id="dob"
-                  type="date"
-                  required
-                  value={form.date}
-                  aria-invalid={!!errors.date}
-                  aria-describedby={errors.date ? "dob-err" : undefined}
-                  onChange={(e) => setForm({ ...form, date: e.target.value })}
-                  className="mt-1.5"
-                />
+                <div className="mt-1.5">
+                  <DdmmyyyyDateInput
+                    value={form.date}
+                    onChange={(next) => setForm({ ...form, date: next })}
+                    invalid={!!errors.date}
+                    describedby={errors.date ? "dob-err" : undefined}
+                    labels={{
+                      dd: hi ? "din (1-31)" : "day (1-31)",
+                      mm: hi ? "mahina (1-12)" : "month (1-12)",
+                      yyyy: hi ? "saal" : "year",
+                    }}
+                  />
+                </div>
                 {errors.date ? (
                   <p id="dob-err" role="alert" className="mt-1 text-xs text-destructive">{errors.date}</p>
                 ) : null}
