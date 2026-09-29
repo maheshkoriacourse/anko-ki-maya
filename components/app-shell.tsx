@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   Sparkles, LayoutDashboard, Hash, CalendarRange, Map, BookOpen,
-  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Languages, Smartphone,
+  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Languages, Smartphone, Sunrise,
 } from "lucide-react";
 import { Button } from "@/components/ui";
 import { DisclaimerLine, OmMotif, SanatanDivider } from "@/components/shared";
@@ -28,6 +28,7 @@ export const NAV_ITEMS = [
   { href: "/loshu", labelKey: "navLoShu", icon: Grid3X3 },
   { href: "/rajyoga", labelKey: "navRajyoga", icon: Sparkles },
   { href: "/forecast", labelKey: "navForecast", icon: CalendarRange },
+  { href: "/din-mausam", labelKey: "navDinMausam", icon: Sunrise },
   { href: "/longterm", labelKey: "navLongterm", icon: Map },
   { href: "/lucky", labelKey: "navLucky", icon: Gem },
   { href: "/name-studio", labelKey: "navNameStudio", icon: Wand2 },
