@@ -43,31 +43,33 @@
 }
 
 .dark {
-  --background: #14113a;          /* deep indigo night */
-  --foreground: #f3e8d8;
-  --card: #1b1747;
-  --card-foreground: #f3e8d8;
-  --popover: #1b1747;
-  --popover-foreground: #f3e8d8;
-  --secondary: #262058;
-  --secondary-foreground: #ffce8f;
-  --muted: #201b50;
-  --muted-foreground: #b9a5d6;
-  --accent: #262058;
-  --accent-foreground: #ffce8f;
+  /* v3.7 THEME: "Occult Sanctum" midnight-gold — deeper night, true metallic
+     gold hairlines, starry corners (owner picked this reference 30 Sep). */
+  --background: #0a0b1e;          /* obsidian midnight (deeper than indigo) */
+  --foreground: #f5ecdc;
+  --card: #12102b;                /* dark violet-navy panel */
+  --card-foreground: #f5ecdc;
+  --popover: #12102b;
+  --popover-foreground: #f5ecdc;
+  --secondary: #1a1840;           /* raised section panel */
+  --secondary-foreground: #f0d58c;
+  --muted: #171534;
+  --muted-foreground: #b3a5c9;
+  --accent: #1a1840;
+  --accent-foreground: #f0d58c;
   --destructive: #e0655a;
   --destructive-foreground: #14113a;
-  --border: #33296b;
-  --input: #33296b;
+  --border: #2a2350;              /* v3.7: subtler indigo hairline */
+  --input: #2a2350;
   --ring: #ff9933;
   --kesari: #ff9933;
   --saffron-deep: #ff8c1a;
   --maroon: #4a1030;
-  --gold: #ffb84d;                /* diya gold on night */
-  --gold-bright: #ffd98f;
-  --indigo: #14113a;
-  --indigo-deep: #0d0b2b;
-  --midnight: #0d0b2b;
+  --gold: #d4af37;                /* v3.7: true metallic gold (was diya orange) */
+  --gold-bright: #f0cf74;         /* v3.7: brighter leaf-gold */
+  --indigo: #0a0b1e;
+  --indigo-deep: #060614;
+  --midnight: #060614;
   --plum: #2c0e20;
 }
 
@@ -215,15 +217,64 @@
   background-size: 42px 42px;
 }
 
+
+/* v3.7 CONSTELLATION CORNERS — faint gold star-clusters + connecting lines,
+   fixed at top-right/top-left (reference page carries Orion-style clusters). */
+.constellation-corners {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='260' viewBox='0 0 360 260'%3E%3Cg stroke='%23d4af37' stroke-opacity='0.20' fill='none'%3E%3Cpath d='M40 30 L110 60 L150 40 L200 90 L260 70'/%3E%3Cpath d='M110 60 L120 130 L200 90'/%3E%3C/g%3E%3Cg fill='%23f0cf74' fill-opacity='0.55'%3E%3Ccircle cx='40' cy='30' r='1.6'/%3E%3Ccircle cx='110' cy='60' r='2.2'/%3E%3Ccircle cx='150' cy='40' r='1.4'/%3E%3Ccircle cx='200' cy='90' r='1.8'/%3E%3Ccircle cx='260' cy='70' r='1.2'/%3E%3Ccircle cx='120' cy='130' r='1.5'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='260' viewBox='0 0 360 260'%3E%3Cg stroke='%23d4af37' stroke-opacity='0.16' fill='none'%3E%3Cpath d='M320 40 L250 80 L280 140 L210 160'/%3E%3C/g%3E%3Cg fill='%23f0cf74' fill-opacity='0.5'%3E%3Ccircle cx='320' cy='40' r='1.8'/%3E%3Ccircle cx='250' cy='80' r='2.0'/%3E%3Ccircle cx='280' cy='140' r='1.4'/%3E%3Ccircle cx='210' cy='160' r='1.3'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: top right, top left;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 360px 260px, 300px 240px;
+  opacity: 0.8;
+}
+
 /* Glassmorphism card (temple-stone feel) */
 .glass {
   background: color-mix(in srgb, var(--card) 78%, transparent);
   backdrop-filter: blur(14px) saturate(1.15);
   -webkit-backdrop-filter: blur(14px) saturate(1.15);
-  border: 1px solid color-mix(in srgb, var(--gold) 22%, var(--border));
+  border: 1px solid color-mix(in srgb, var(--gold) 30%, var(--border)); /* v3.7: golder hairline */
   box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--gold) 9%, transparent), /* v3.7: inner gold whisper */
     0 0 0 1px color-mix(in srgb, var(--foreground) 4%, transparent),
-    0 12px 40px -18px color-mix(in srgb, #000 35%, transparent);
+    0 12px 40px -18px color-mix(in srgb, #000 45%, transparent);
+}
+
+/* v3.7 SANCTUM PAGE FRAME — thin metallic-gold outline around the whole app
+   content (reference: The Occult Sanctum outer frame). */
+.sanctum-frame {
+  position: relative;
+}
+.sanctum-frame::before {
+  content: "";
+  position: fixed;
+  inset: 10px;
+  border: 1px solid color-mix(in srgb, var(--gold) 26%, transparent);
+  border-radius: 18px;
+  pointer-events: none;
+  z-index: 30;
+}
+.sanctum-frame::after {
+  /* second, fainter line — the double-frame of the reference */
+  content: "";
+  position: fixed;
+  inset: 16px;
+  border: 1px solid color-mix(in srgb, var(--gold) 12%, transparent);
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* v3.7: gold-leaf heading glow — section headings carry a warm halo like the
+   reference's 'THE OCCULT STORE / READINGS' titles. */
+.font-display {
+  text-shadow: 0 0 18px color-mix(in srgb, var(--gold) 22%, transparent);
 }
 
 /* ------------------------------------------------------------------ */

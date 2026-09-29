@@ -102,6 +102,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   // v3.1: app-wide fixed divine-bg texture (lazy: painted by CSS after first
   // paint, never blocks LCP).
   const divineBg = <div aria-hidden className="divine-bg-layer" />;
+      <div aria-hidden className="constellation-corners" />;
 
   function isActive(href: string) {
     if (href === "/overview") return pathname === "/overview" || pathname === "/compatibility";
@@ -166,7 +167,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     ] as const;
     const chips = NAV_ITEMS.filter((i) => (bareNavKeys as readonly string[]).includes(i.href));
     return (
-      <div className="min-h-dvh starfield diya-glow">
+      <div className="min-h-dvh starfield diya-glow sanctum-frame">
         {divineBg}
         <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
           <div className="mb-3 flex items-center justify-between">
@@ -204,7 +205,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-dvh starfield diya-glow-fixed">
+    <div className="min-h-dvh starfield diya-glow-fixed sanctum-frame">
       {divineBg}
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-card/70 px-4 py-6 backdrop-blur md:flex no-print">
