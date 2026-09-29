@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import {
   Sparkles, LayoutDashboard, Hash, CalendarRange, Map, BookOpen,
   Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Languages, Smartphone, Sunrise,
-} from "lucide-react";
+  ScrollText } from "lucide-react";
 import { Button } from "@/components/ui";
 import { DisclaimerLine, OmMotif, SanatanDivider } from "@/components/shared";
 import { useHasProfile } from "@/components/seeded-profile";
@@ -29,6 +29,7 @@ export const NAV_ITEMS = [
   { href: "/rajyoga", labelKey: "navRajyoga", icon: Sparkles },
   { href: "/forecast", labelKey: "navForecast", icon: CalendarRange },
   { href: "/din-mausam", labelKey: "navDinMausam", icon: Sunrise },
+  { href: "/dossier", labelKey: "navDossier", icon: ScrollText },
   { href: "/longterm", labelKey: "navLongterm", icon: Map },
   { href: "/lucky", labelKey: "navLucky", icon: Gem },
   { href: "/name-studio", labelKey: "navNameStudio", icon: Wand2 },
@@ -97,7 +98,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const isCompatibility = pathname === "/compatibility";
   const isReport = pathname === "/report";
   const isBlueprint = pathname === "/blueprint";
-  const bare = isOnboarding || isCompatibility || isReport || isBlueprint;
+  const isDossier = pathname === "/dossier";
+  const bare = isOnboarding || isCompatibility || isReport || isBlueprint || isDossier;
 
   // v3.1: app-wide fixed divine-bg texture (lazy: painted by CSS after first
   // paint, never blocks LCP).
