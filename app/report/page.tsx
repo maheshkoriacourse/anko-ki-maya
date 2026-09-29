@@ -13,6 +13,7 @@ import { useProfile } from "@/components/seeded-profile";
 import { meaningFor, PERSONAL_YEAR_THEMES } from "@/lib/meanings";
 import { personalYear, personalMonth, upcomingMonths, monthName, isValidBirthDate } from "@/lib/numerology";
 import { loShuGrid } from "@/lib/loshu";
+import { loadLang } from "@/lib/lang";
 
 export default function ReportPage() {
   const { profile, reading, today } = useProfile();
@@ -31,7 +32,7 @@ export default function ReportPage() {
   const m = Number(birthDate.slice(5, 7));
   const d = Number(birthDate.slice(8, 10));
   const safe = isValidBirthDate(y, m, d);
-  const loShu = safe ? loShuGrid(y, m, d) : null;
+  const loShu = safe ? loShuGrid(y, m, d, loadLang()) : null;
 
   const py = safe ? personalYear(m, d, today.getFullYear()) : null;
   const pm = safe && py ? personalMonth(py.number, today.getMonth() + 1) : null;

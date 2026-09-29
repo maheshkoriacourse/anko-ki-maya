@@ -51,7 +51,8 @@ export function assembleBlueprint(
 ): BlueprintData {
   const reading = fullReading({ birthName, preferredName, year, month, day, system });
   const karmic = karmicSnapshot(reading);
-  const loShu = loShuGrid(year, month, day);
+  // v3.4: bilingual — blueprint carries its own lang, forward it.
+  const loShu = loShuGrid(year, month, day, lang);
   const yogas = gridYogas(loShu.counts);
   const py = personalYear(month, day, today.getFullYear()).number;
   const pm = personalMonth(py, today.getMonth() + 1).number;

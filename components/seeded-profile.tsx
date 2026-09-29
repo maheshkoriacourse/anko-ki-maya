@@ -10,6 +10,7 @@ import * as React from "react";
 import { loadProfile, saveProfile, demoProfile, type Profile } from "@/lib/storage";
 import { fullReading, upcomingMonths, type FullReading } from "@/lib/numerology";
 import { loShuGrid, type LoShuResult } from "@/lib/loshu";
+import { useLang } from "@/lib/lang";
 
 interface Ctx {
   profile: Profile | null;
@@ -32,6 +33,8 @@ export function SeededProfileBoot({ children }: { children?: React.ReactNode }) 
   const [profile, setProfile] = React.useState<Profile | null>(null);
   const [hydrated, setHydrated] = React.useState(false);
   const today = React.useMemo(() => new Date(), []);
+  // v3.4: loShu notes follow the persisted language toggle.
+  const { lang: loShuLang } = useLang();
 
   React.useEffect(() => {
     let p = profileFromStorage();
@@ -60,6 +63,7 @@ export function SeededProfileBoot({ children }: { children?: React.ReactNode }) 
           Number(profile.birthDate.slice(0, 4)),
           Number(profile.birthDate.slice(5, 7)),
           Number(profile.birthDate.slice(8, 10)),
+          loShuLang,
         )
       : null;
     return {
@@ -81,7 +85,7 @@ export function SeededProfileBoot({ children }: { children?: React.ReactNode }) 
         setProfile(null);
       },
     };
-  }, [profile, today]);
+  }, [profile, today, loShuLang]);
 
   // The provider is ALWAYS mounted; pre-hydration renders serve null profile.
   // Pages show their own skeleton until effects run (no hydration mismatch).

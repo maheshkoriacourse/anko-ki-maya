@@ -123,7 +123,7 @@ export default function BlueprintReportPage() {
     birthDay: d,
     maturitySum: reading.maturity.number,
   });
-  const chart = loShuGrid(y, m, d);
+  const chart = loShuGrid(y, m, d, lang);
   const reps = analyzeRepetitions(y, m, d, mulank, bhagyank);
 
   const truthCtx = {
