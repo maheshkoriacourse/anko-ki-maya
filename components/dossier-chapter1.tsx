@@ -32,7 +32,7 @@ export function DossierChapter1() {
         <p className="text-[11px] uppercase tracking-[0.3em] text-gold/90">
           {hi ? "chapter ek" : "Chapter One"}
         </p>
-        <CardTitle className="font-display text-2xl">
+        <CardTitle className="font-dossier text-2xl">
           {hi ? "aap asli mein kaun ho?" : "Who are you, really?"}
         </CardTitle>
       </CardHeader>
@@ -49,13 +49,13 @@ export function DossierChapter1() {
             backgroundPosition: "center",
           }}
         >
-          <p className="max-w-[220px] text-center font-display text-sm text-gold/80">
+          <p className="max-w-[220px] text-center font-dossier text-sm text-gold/80">
             {hi ? "aapka aarchetype-chitra yahan khandit hoga — akashic chitrafal" : "Your archetype portrait will be inscribed here"}
           </p>
         </div>
 
         <div className="text-center">
-          <p className="font-display text-3xl text-gold">{hi ? a.nameHi : a.name}</p>
+          <p className="font-dossier text-3xl text-gold">{hi ? a.nameHi : a.name}</p>
           <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{hi ? a.elementHi : a.element}</p>
           <p className="mx-auto mt-3 max-w-md text-sm italic leading-relaxed text-foreground/90">
             "…{hi ? a.crestHi : a.crestEn}"

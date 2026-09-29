@@ -40,7 +40,7 @@ export default function DossierPage() {
 
   if (!ready) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-12 text-center font-display text-gold/70">
+      <div className="mx-auto max-w-3xl px-4 py-12 text-center font-dossier text-gold/70">
         {hi ? "dossier band ho raha — ek kshan" : "Unsealing your dossier — one moment"}
       </div>
     );

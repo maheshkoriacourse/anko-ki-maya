@@ -45,21 +45,21 @@
 .dark {
   /* v3.7 THEME: "Occult Sanctum" midnight-gold — deeper night, true metallic
      gold hairlines, starry corners (owner picked this reference 30 Sep). */
-  --background: #0a0b1e;          /* obsidian midnight (deeper than indigo) */
+  --background: #0B1026;          /* AKASHIC spec: deep cosmic navy */
   --foreground: #f5ecdc;
-  --card: #12102b;                /* dark violet-navy panel */
+  --card: #10142e;                /* AKASHIC: navy panel (between navy and obsidian) */
   --card-foreground: #f5ecdc;
   --popover: #12102b;
   --popover-foreground: #f5ecdc;
-  --secondary: #1a1840;           /* raised section panel */
+  --secondary: #161a38;           /* raised section panel */
   --secondary-foreground: #f0d58c;
-  --muted: #171534;
+  --muted: #0e1226;
   --muted-foreground: #b3a5c9;
   --accent: #1a1840;
   --accent-foreground: #f0d58c;
   --destructive: #e0655a;
   --destructive-foreground: #14113a;
-  --border: #2a2350;              /* v3.7: subtler indigo hairline */
+  --border: #243055;   /* navy-hairline (copper-shifted) */              /* v3.7: subtler indigo hairline */
   --input: #2a2350;
   --ring: #ff9933;
   --kesari: #ff9933;
@@ -67,6 +67,9 @@
   --maroon: #4a1030;
   --gold: #d4af37;                /* v3.7: true metallic gold (was diya orange) */
   --gold-bright: #f0cf74;         /* v3.7: brighter leaf-gold */
+  --copper: #B87333;              /* AKASHIC: ancient-wisdom bronze */
+  --saffron: #FFB347;             /* AKASHIC: vedic energy glow */
+  --obsidian: #080808;            /* AKASHIC: premium luxury black */
   --indigo: #0a0b1e;
   --indigo-deep: #060614;
   --midnight: #060614;
@@ -99,6 +102,9 @@
   --color-ring: var(--ring);
   --color-gold: var(--gold);
   --color-gold-bright: var(--gold-bright);
+  --color-copper: var(--copper);
+  --color-saffron: var(--saffron);
+  --color-obsidian: var(--obsidian);
   --color-kesari: var(--kesari);
   --color-saffron-deep: var(--saffron-deep);
   --color-maroon: var(--maroon);
@@ -165,6 +171,19 @@
 @utility font-display {
   font-family: var(--font-display);
 }
+
+/* v5.1 AKASHIC DOSSIER type system — Cinzel for EN display headings, Inter body for dossier pages,
+   Noto Serif Display for sacred quotes. Rozha stays for Devanagari display. */
+@utility font-dossier {
+  font-family: var(--font-cinzel), var(--font-rozha), Georgia, serif;
+}
+@utility font-quote {
+  font-family: var(--font-noto-display), var(--font-mukta), Georgia, serif;
+}
+@utility font-inter {
+  font-family: var(--font-inter), var(--font-mukta), system-ui, sans-serif;
+}
+
 
 @utility font-serif-display {
   font-family: var(--font-serif);

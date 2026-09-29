@@ -128,7 +128,7 @@ export function DossierGate({ onOpenChapter }: { onOpenChapter?: () => void }) {
       <Card className="glass">
         <CardContent className="py-10 text-center">
           <OmMotif className="mx-auto size-8 text-gold" />
-          <p className="mt-3 font-display text-xl">
+          <p className="mt-3 font-dossier text-xl">
             {hi ? "pehle apna janm-vivaran do — dossier taiyahar ka aarambh wahi se hota hai" : "Add your birth details first — the dossier always begins there."}
           </p>
           <a href="/" className="mt-4 inline-block text-sm text-primary underline">
@@ -162,7 +162,7 @@ export function DossierGate({ onOpenChapter }: { onOpenChapter?: () => void }) {
           <p className="mt-2 text-[11px] tracking-widest text-muted-foreground">
             {hi ? "aapki kahani ke pattern hain. hum unhe kholte hain." : "Your story has patterns. Let us reveal them."}
           </p>
-          <h1 className="mt-8 font-display text-3xl leading-snug sm:text-4xl">
+          <h1 className="mt-8 font-dossier text-3xl leading-snug sm:text-4xl">
             {hi ? (
               <>jeevan-dossier: <span className="text-gold">{devNum(profile.preferredName || profile.birthName)}</span></>
             ) : (
