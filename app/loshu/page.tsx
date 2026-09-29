@@ -63,6 +63,23 @@ export default function LoShuPage() {
         actions={<Badge variant="gold"><Eye aria-hidden className="size-3" /> {lang === "hi" ? "grid vishleshan" : "Grid analysis"}</Badge>}
       />
 
+      {/* v3.4 discoverability (owner: 'repetitions kaha pe hai? remedies kaha pe hai?') —
+          jump chips at top: Repetitions section on this page + remedies on /lucky */}
+      <div className="flex flex-wrap gap-2" data-testid="loshu-jump-chips">
+        <a
+          href="#repetitions-h"
+          className="rounded-full border border-gold/40 bg-gold/5 px-3 py-1 text-xs font-medium text-gold transition hover:bg-gold/15"
+        >
+          {lang === "hi" ? "↓ Ank-Repetitions" : "↓ Repetitions"}
+        </a>
+        <a
+          href="/lucky"
+          className="rounded-full border border-gold/40 bg-gold/5 px-3 py-1 text-xs font-medium text-gold transition hover:bg-gold/15"
+        >
+          {lang === "hi" ? "→ Upay (Lucky aur Upay)" : "→ Remedies (/lucky)"}
+        </a>
+      </div>
+
       {/* v3.1: Bhagyank note — 'Bhagyank bhi grid mein bharta hai' */}
       <div
         data-testid="bhagyank-note"
@@ -264,6 +281,24 @@ export default function LoShuPage() {
           </div>
         )}
       </section>
+
+      {/* v3.4 remedies teaser card (owner: 'remedies kaha pe hai?') — points to /lucky */}
+      <div
+        data-testid="loshu-remedies-teaser"
+        className="rounded-xl border border-gold/40 bg-gold/5 px-4 py-3"
+      >
+        <p className="text-sm">
+          {lang === "hi"
+            ? "upay kaha hain? — Lucky aur Upay page par: rang, din, ank aur aapke planet-baal upay ek saath."
+            : "Where are the remedies? — On the Lucky aur Upay page: colours, days, numbers and your planet-bal remedies together."}
+        </p>
+        <a
+          href="/lucky"
+          className="mt-1 inline-block text-sm font-medium text-gold underline underline-offset-4"
+        >
+          {lang === "hi" ? "Lucky aur Upay kholo →" : "Open Lucky & Upay →"}
+        </a>
+      </div>
 
       <div className="flex justify-center py-2">
         <StarMotif className="size-8 text-gold opacity-60" />

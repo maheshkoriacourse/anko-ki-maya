@@ -8,7 +8,7 @@
  */
 
 import * as React from "react";
-import { CalendarDays, Flame, Smartphone, Crown, Grid3X3, Gem } from "lucide-react";
+import { CalendarDays, Flame, Smartphone, Crown, Grid3X3, Gem, Repeat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/components/ui";
 import {
   PageHeader, NumberCard, JournalShortcut, DiyaMotif, YantraMotif, EmptyState, LoadingCards, DivineHero,
@@ -347,13 +347,14 @@ export default function OverviewPage() {
             { href: "/rajyoga", icon: <Crown aria-hidden className="size-5 text-gold" />, labelKey: "navRajyoga", desc: hi ? "aapke chart ke shaahee yog" : "Royal yogas in your chart" },
             { href: "/number-tools", icon: <Smartphone aria-hidden className="size-5 text-gold" />, labelKey: "navNumberTools", desc: hi ? "phone/makaan/gaadi jaanch" : "Phone/house/vehicle check" },
             { href: "/loshu", icon: <Grid3X3 aria-hidden className="size-5 text-gold" />, labelKey: "navLoShu", desc: hi ? "ank-chakra: tal, vikarn, yutiyaan" : "Numeroscope: planes, diagonals, yogas" },
+            { href: "/loshu#repetitions-h", icon: <Repeat aria-hidden className="size-5 text-gold" />, label: hi ? "Ank-Repetitions" : "Repetitions", desc: hi ? "doharaae ank — bal aur chhaya" : "Repeated digits — strength & shadow" },
             { href: "/lucky", icon: <Gem aria-hidden className="size-5 text-gold" />, labelKey: "navLucky", desc: hi ? "ank, din, rang, ratna, upaay" : "Numbers, days, colors, gems, upay" },
           ].map((tile) => (
             <a key={tile.href} href={tile.href} className="group">
               <Card interactive className="h-full glass">
                 <CardContent className="flex flex-col items-start gap-1.5 py-4">
                   {tile.icon}
-                  <span className="text-sm font-medium group-hover:underline">{t(tile.labelKey)}</span>
+                  <span className="text-sm font-medium group-hover:underline">{t(tile.labelKey ?? tile.label!)}</span>
                   <span className="text-xs text-muted-foreground">{tile.desc}</span>
                 </CardContent>
               </Card>
