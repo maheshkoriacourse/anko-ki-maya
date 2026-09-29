@@ -12,6 +12,7 @@ import { useProfile } from "@/components/seeded-profile";
 import { meaningFor } from "@/lib/meanings";
 import type { LoShuResult } from "@/lib/loshu";
 import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { pinnacleDeep, pinnacleHeadline, challengeDeep, challengeHeadline } from "@/lib/deep-essays";
 import { birthdayNumber, lifePath } from "@/lib/numerology";
 
 /* ------------------------------------------------------------------ */
@@ -255,12 +256,13 @@ export default function NumbersPage() {
             <CardContent className="space-y-3">
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {reading.pinnacles.map((p) => (
-                  <div key={p.index} className="rounded-lg border p-3 text-center">
+                  <div key={p.index} className="rounded-lg border p-4 text-left">
                     <span aria-hidden className="number-glyph text-4xl text-primary">{p.number}</span>
-                    <p className="mt-1 text-xs font-medium">Pinnacle {p.index}</p>
+                    <p className="mt-1 text-xs font-semibold">{pinnacleHeadline(p.number, "en")}</p>
                     <p className="text-[11px] text-muted-foreground">
-                      ages {p.ageStart}–{p.ageEnd === Infinity ? "onward" : p.ageEnd}
+                      {p.ageStart}–{p.ageEnd === Infinity ? "onward" : p.ageEnd} saal ki umar
                     </p>
+                    <p className="mt-2 text-[13px] leading-relaxed">{pinnacleDeep(p.number, "en")}</p>
                   </div>
                 ))}
               </div>
@@ -278,9 +280,11 @@ export default function NumbersPage() {
             <CardContent className="space-y-3">
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {reading.challenges.map((c) => (
-                  <div key={c.index} className="rounded-lg border p-3 text-center">
+                  <div key={c.index} className="rounded-lg border p-4 text-left">
                     <span aria-hidden className="number-glyph text-4xl text-primary/80">{c.number}</span>
-                    <p className="mt-1 text-xs font-medium">{c.label} challenge</p>
+                    <p className="mt-1 text-xs font-semibold">{challengeHeadline(c.number, "en")}</p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">{c.label} challenge</p>
+                    <p className="mt-2 text-[13px] leading-relaxed">{challengeDeep(c.number, "en")}</p>
                   </div>
                 ))}
               </div>

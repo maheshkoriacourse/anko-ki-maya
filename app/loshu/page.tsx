@@ -19,6 +19,7 @@ import { gridYogas } from "@/lib/grid-yogas";
 import { devNum } from "@/lib/navgrah";
 import { vedicChart, grahaChainLine, verifyNakshatra } from "@/lib/vedic";
 import { ReasoningBlock, PlaneBadge, DigitCell } from "@/components/loshu-kit";
+import { planeDeep, diagonalDeep } from "@/lib/loshu-deep";
 import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
 import { birthdayNumber, lifePath } from "@/lib/numerology";
 
@@ -205,7 +206,22 @@ export default function LoShuPage() {
                 <p className="text-xs text-gold">{p.digits.join("-")}</p>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">{p.note}</p>
+                {(() => {
+                  const present = p.digits.filter((dg) => loShu.counts[dg] > 0).length;
+                  const dp = planeDeep(p.key, present, lang);
+                  return (
+                    <>
+                      <p className="text-sm font-semibold">{dp.head}</p>
+                      <p className="mt-1.5 text-sm leading-relaxed">{dp.body}</p>
+                      <div className="mt-2 rounded-lg border border-gold/30 bg-gold/5 px-3 py-2">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-gold">
+                          {lang === "hi" ? "upay" : "upay"}
+                        </p>
+                        <p className="mt-1 text-sm leading-relaxed">{dp.upay}</p>
+                      </div>
+                    </>
+                  );
+                })()}
               </CardContent>
             </Card>
           ))}
@@ -226,7 +242,21 @@ export default function LoShuPage() {
                 <p className="text-xs text-gold">{d.digits.join("-")}</p>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">{d.note}</p>
+                {(() => {
+                  const dd = diagonalDeep(d.key, d.complete, lang);
+                  return (
+                    <>
+                      <p className="text-sm font-semibold">{dd.head}</p>
+                      <p className="mt-1.5 text-sm leading-relaxed">{dd.body}</p>
+                      <div className="mt-2 rounded-lg border border-gold/30 bg-gold/5 px-3 py-2">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-gold">
+                          {lang === "hi" ? "upay" : "upay"}
+                        </p>
+                        <p className="mt-1 text-sm leading-relaxed">{dd.upay}</p>
+                      </div>
+                    </>
+                  );
+                })()}
               </CardContent>
             </Card>
           ))}

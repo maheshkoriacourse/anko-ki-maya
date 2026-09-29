@@ -184,3 +184,184 @@ export function yearHeadline(py: number, lang: "en" | "hi") {
   const d = PERSONAL_YEAR_DEEP[py] ?? PERSONAL_YEAR_DEEP[1];
   return lang === "hi" ? d.headlineHi : d.headlineEn;
 }
+/* ------------------------------------------------------------------ */
+/* v4.1 PINNACLE + CHALLENGE DEEP (owner: "cycles section no           */
+/* explanation — can't understand anything") — 4-beat bilingual         */
+/* explanations per pinnacle/challenge number, school voice.            */
+/* ------------------------------------------------------------------ */
+
+export const PINNACLE_DEEP: Record<number, DeepEssay> = {
+  1: {
+    headlineEn: "Pinnacle 1 — the stand-alone chapter",
+    headlineHi: "Pinnacle 1 — akela khada hone ka chapter",
+    deepEn:
+      "This chapter pulls you toward independence: your own name carries weight now, and things bought on borrowed authority stop working. Careers peak here when you lead something visibly — a team, a practice, your own firm. Work it like this: build the thing that can't be taken — your skill, your client list, your body of work. Example: this is the chapter where a bank officer becomes the branch head everyone calls by name. Watch out: pride at the top of this chapter reads as ego from outside; carry people along or the same people stop opening doors.",
+    deepHi:
+      "Ye chapter aapko swatantrata ki taraf kheenchta hai: aapke naam ka wajan badhta hai, udhaar ki authority pe lena band ho jaata hai. Careers yahan tab chamakte hain jab aap kuch dikha ke lead karte ho — team, practice, apna kaam. Aise chalao: wahi banao jo koi chheen na sake — hunar, client-list, body of work. Misaal: yahi wo chapter hai jab bank officer branch-head banta hai jo sab naam se jaante hain. Dhyan: is chapter ki chadhai pe ahankaar neeche se ego dikhta hai; logon ko saath le chalo warna wahi darwaaze band karte hain.",
+  },
+  2: {
+    headlineEn: "Pinnacle 2 — partnerships and quiet power",
+    headlineHi: "Pinnacle 2 — saajhedaari aur khamosh taakat",
+    deepEn:
+      "This chapter rewards patience and alliances: the big things here arrive through one steady relationship — a partner, a loyal team, one institution that keeps calling you back. It is not a spotlight chapter, it is a trust chapter. Work it like this: choose two or three relationships and water them for years; take the slower, surer deal. Example: this is the chapter where a quiet personal bank relationship manager becomes the person HNI clients ask for by name. Watch out: this chapter's danger is disappearing behind others' names while your own growth politely waits — keep one visible calling card of your own.",
+    deepHi:
+      "Ye chapter sabr aur jodiyon ko pay karta hai: badi cheezein yahan ek pakka rishta lake aati hain — partner, wafadaar team, ek sanstha jo baar-baar aapko bulaati hai. Yeh spot-light ka chapter nahi, bharose ka hai. Aise chalao: do-teen rishte chuno aur saalon tak unhe paani do; dheema par pakka sauda lo. Misaal: yahi wo chapter hai jab chupchaap RM HNI clients ke naam se maangte hain. Dhyan: is chapter ka khatra — logo ke naam ke peeche gaayab ho jaana, jabki aapki apni growth politely intezaar karti hai; apna ek dikhta raasta rakho.",
+  },
+  3: {
+    headlineEn: "Pinnacle 3 — voice, children and creative growth",
+    headlineHi: "Pinnacle 3 — awaaz, santan aur srijan ki vridhi",
+    deepEn:
+      "This chapter expands through expression: teaching, writing, speaking, building for children and family — the growth here compounds every time you give the gift out loud. Careers that bloom: training, content, marketing, any role where your words move people to act. Work it like this: put your voice on record once a week — post, teach, speak; keep the family close in decisions. Example: this is the chapter where someone becomes the mentor juniors quote years later. Watch out: scattering across five creative half-projects ends none of them; finish one visible work per year of this chapter.",
+    deepHi:
+      "Ye chapter awaaz se faailta hai: sikhana, likhna, bolna, bachhon aur ghar ke liye banana — jaise-jaise aap apni baat zubaan se dete hain, yehi compounding hota hai. Blooming careers: training, content, marketing, har role jismein aapke shabd log ko kaam par utaarte hon. Aise chalao: hafte mein ek baar apni awaaz rekhar karo — post, sikhao, bolo; parivaar ko faisle mein rakho. Misaal: yahi wo chapter hai jahan koi woh guru ban jaata hai jise juniors saalon baad quote karte hain. Dhyan: paanch aadhe srijan-faiyle saalon bhar latke reh jaate hain — is chapter ke har saal ek poora dikhta kaam khatam karo.",
+  },
+  4: {
+    headlineEn: "Pinnacle 4 — the slow build that stays built",
+    headlineHi: "Pinnacle 4 — dheema banaav jo bana rehta hai",
+    deepEn:
+      "This chapter is Shani's: slow, exacting, unglamorous — and the one that leaves you owning real things at its end: property, savings, an unshakeable reputation, systems that run without you. Careers: operations, credit, compliance, long-horizon roles. Work it like this: pick the boring discipline and repeat it — SIPs of effort; do not change course mid-chapter for a fast lane. Example: this is the chapter where someone who saved quietly for ten years wakes up debt-free with a paid house. Watch out: grinding without rest — this chapter punishes skipped health and skipped family like compound interest; take the one full day off weekly.",
+    deepHi:
+      "Ye chapter Shani ka hai: dheemay, sakht, chamak-heen — aur akhir mein aapse asli cheezein rakhwata hai: property, bachat, pakki izzat, aise system jo aapke bina chalte hain. Careers: operations, credit, compliance, lambi-nazar wale roles. Aise chalao: ek boring anushasan chuno aur dohrao — mehnat ka SIP; chapter ke beech tez lane ke chakkar mein rasta na badlo. Misaal: yahi wo chapter hai jab das saal chupchaap bachane wala aadmi rin-mukt jaagta hai, ghar makuulat. Dhyan: aaram chhod ke ghisna — is chapter mein sehat aur parivaar ka skipped hisaab byaaj ke saath aata hai; hafte mein ek poora chhutti rakho.",
+  },
+  5: {
+    headlineEn: "Pinnacle 5 — motion, markets and reinvention",
+    headlineHi: "Pinnacle 5 — chaal, bazaar aur apne-aap ko badalna",
+    deepEn:
+      "This chapter runs on change: travel, new trades, new audiences, reinventions of self. Money and opportunity here love movement — multiple income lines are natural in this chapter. Work it like this: say yes to the unfamiliar room, learn the new tool early, keep one anchor discipline so the motion has a spine. Example: this is the chapter where a career pivots — the banker who starts writing, the CA who starts a fintech. Watch out: restlessness — five re-inventions a year leave no compounding; every new bet needs its minimum season to pay.",
+    deepHi:
+      "Ye chapter badalne par chalta hai: saffar, naye dhandhe, naye audience, apni naya roop. Yahan paisa aur avsar chaal ko pyaar karte hain — kai income-lines Natural hain. Aise chalao: anjaan kamre mein haan kaho, naya tool jaldi seekho, ek anchor-anushasan rakho taaki chaal ki reedh rahe. Misaal: yahi wo chapter hai jab career turn leta hai — bankar jo likhta hai, CA jo fintech khadta hai. Dhyan: bechaini — ek saal mein paanch baar naya roop, koi compounding nahi; har naye bet ko uska kam-se-kam mausam chahiye chukkane ko.",
+  },
+  6: {
+    headlineEn: "Pinnacle 6 — home, duty and the family ledger",
+    headlineHi: "Pinnacle 6 — ghar, zimmedari aur parivaar ka hisaab",
+    deepEn:
+      "This chapter centres the household: parents' care, children's futures, the house itself, and authority in caring professions. Careers bloom in medicine, education, HR, family business leadership. Work it like this: the family and community you serve are also your network of return — invest with both eyes open; put the financial plan for parents and kids in writing. Example: this is the chapter where someone quietly becomes the pillar every relative leans on — and their word becomes bankable. Watch out: over-carrying — carrying everyone until your own tank empties; service that excludes self-care collapses mid-chapter.",
+    deepHi:
+      "Ye chapter ghar ko kendra mein rakhta hai: maa-baap ki dekhbhaal, bachhon ka bhavishya, ghar khud, aur seva-bhaav wale profession mein authority. Careers: medicine, education, HR, parivaarik vyapaar ki netritva. Aise chalao: parivaar aur samaj jo aap sevate ho, wahi aap ki wapsi ka network hai — dono aankhein kholkar invest karo; maa-baap aur bachhon ka financial plan likh ke rakho. Misaal: yahi wo chapter hai jahan koi chupchaap sabki tek ban jaata hai — aur uski baat bank jaisi maani jaati hai. Dhyan: atyaadhik bojh — sabko uthao-apna tank khaali; aise seva jo swa-kehyal ko chhod de, chapter ke beech mein girti hai.",
+  },
+  7: {
+    headlineEn: "Pinnacle 7 — depth, study and the inner lane",
+    headlineHi: "Pinnacle 7 — gehraai, adhyayan aur bhitar ka raasta",
+    deepEn:
+      "This chapter thins the crowd and deepens the person: it favours study, research, spiritual practice, specialist mastery over general visibility. Careers: analysis, research, teaching a niche, healing, writing. Work it like this: choose one deep lane and give it years; guard one daily quiet hour as if it were a client meeting — it is, with the long-term client. Example: this is the chapter where a generalist quietly becomes 'the person whose one subject is dangerous'. Watch out: isolation — Ketu's lane turns you hermit without a plan; keep exactly three people in your week, chosen well.",
+    deepHi:
+      "Ye chapter bheed ko patla karta hai aur insaan ko gehra: adhyayan, research, ruhaani taaqat, khaas maharat se aam pehchaan ke upar. Careers: vishleshan, research, ek niche ka sikhana, healing, likhna. Aise chalao: ek gehri lane chuno aur saal de do; roz ki khamosh ghanta rakho — wahi lambi-nazar wala client hai. Misaal: yahi wo chapter hai jab aam-dimaag chupchaap 'bana baya jiski ek subject khatarnak' ban jaata hai. Dhyan: akele-ghoomna — Ketu ki lane bina plan ke sanyaasi bana deti hai; hafte mein theek teen log rakho, soch ke chune hue.",
+  },
+  8: {
+    headlineEn: "Pinnacle 8 — assets, authority and the long ledger",
+    headlineHi: "Pinnacle 8 — sampatti, adhikaar aur lambi bahi-khata",
+    deepEn:
+      "This chapter is the harvest-of-scale one: positions grow, holdings grow, but every gain is measured and billed. Careers: leadership in money institutions, entrepreneurship at scale, any role where balance-sheets answer to you. Work it like this: play the long ledger — real assets, clean accounts, name-backed guarantees; avoid borrowing to look big. Example: this is the chapter where someone becomes known as 'the one whose word his bank'. Watch out: the same scale taxes health and home quietly; the 8-chapter end-game is only counted as success if the body and the family arrive with you.",
+    deepHi:
+      "Ye chapter scale ki kataai ka hai: pad badhte hain, sampatti badhti hai — par har labh naapa aur bill hua. Careers: paison ki sansthaon mein leadership, bade scale ka dhanda, har role jahan balance-sheet aapse jawab deti hai. Aise chalao: lambi bahi-khata khelo — asli sampatti, saaf khaate, naam ki zanjeer; bada dikhne ke liye udhaar mat lo. Misaal: yahi wo chapter hai jab koi 'jiski baat bank hai' kehlaya. Dhyan: wahi scale sehat aur ghar par chupchaap cash maangta hai; 8-chapter ki antim jama sirf tab hai jab badan aur parivaar aapke saath pahunchen.",
+  },
+  9: {
+    headlineEn: "Pinnacle 9 — the wide world and what you leave behind",
+    headlineHi: "Pinnacle 9 — vishaal duniya aur jo aapke baad bache",
+    deepEn:
+      "This chapter turns the face outward: legacy, institutions, public good, letting the small self go. Careers: advising at scale, public writing/teaching, social leadership, the senior-mentor seat. Work it like this: give away what you know — the more you hand to others mid-chapter, the more returns named after you come back at its end. Example: this is the chapter where the professional becomes the institution's memory everyone calls. Watch out: holding on — grudges, old titles, expired ambitions all cost more in this chapter than they pay; empty the drawers deliberately.",
+    deepHi:
+      "Ye chapter chehra duniya ki taraf modta hai: virasat, sanstha, lok-hit, chhota aham chhodna. Careers: bade par salah, sabke samne likhna/sikhana, samajik netritva, senior-mentor ki seat. Aise chalao: jo jaante ho, baanto — jitna chapter ke beech mein do, uske ant mein utna hi aapke naam wapas aata hai. Misaal: yahi wo chapter hai jab professional 'wahi jiski yaad sanstha hai' ban jaata hai, jise sab bulaate hain. Dhyan: pakad ke rakhna — purani dushmani, purane pad, expir ambeejo — is chapter mein utna kharch utna labh nahi; drawers khud khol ke khaali karo.",
+  },
+};
+
+export const CHALLENGE_DEEP: Record<number, DeepEssay> = {
+  0: {
+    headlineEn: "Challenge 0 — the free and the fearsome: all choices open",
+    headlineHi: "Challenge 0 — sab khula, sab aapki marzi",
+    deepEn:
+      "Zero gives no fixed test — it hands you every choice at once, which is its own trap: nothing external forces growth, so most people drift and call it freedom. Work it like this: choose your own two disciplines and post them where you see them daily; zero periods reward the self-made syllabus. Example: the person who picks 'one skill + one health habit' for this whole period walks out sharper than periods with harder tests. Watch out: no teacher, no deadline — mark your own attendance weekly.",
+    deepHi:
+      "Shunya ko koi pakka imtihaan nahi — woh sabhi vikalp ek saath deta hai, aur yehi jaal hai: bahar se koi growth zabardasti nahi, isliye zyada log bha jaate hain aur azaadi kehte hain. Aise chalao: apne do anushasan chuno aur roz aankhon ke saamne chipkao; zero period swa-banaye syllabus ko pay karta hai. Misaal: is poore period ke liye jo 'ek hunar + ek sehat-aadat' utha leta hai, wo sakht imtihaan waale period se bhi gehra nikalta hai. Dhyan: na guru, na deadline — apni hazri har hafte khud lagao.",
+  },
+  1: {
+    headlineEn: "Challenge 1 — the test of voice: assert without stepping on necks",
+    headlineHi: "Challenge 1 — awaaz ka test: bolna, par gale par pair rakhe bina",
+    deepEn:
+      "This period keeps tripping your ability to stand up for yourself: either you swallow your no and others walk over you, or you push too hard and turn allies into enemies. Work it like this: practise the clean one-line no — 'ye mere hisaab mein fit nahi'; say it early and once. Example: the colleague who learns this line in this period becomes the person whose no is respected without a fight. Watch out: the pendulum — meek week followed by explosive week teaches nobody; steady voice beats loud voice in this test.",
+    deepHi:
+      "Ye period aapki apni vakalat baar-baar thokta hai: ya aap apna 'nahi' nigal jaate ho aur log aap par guzar jaate hain, ya itna tez dhakkate ho ki mitra virodhi ban jaate hain. Aise chalao: ek line ka saaf 'nahi' seekho — 'ye mere hisaab mein fit nahi'; pehle kaho, ek baar kaho. Misaal: jo saathi ye line is period mein seekh leta hai, uska nahi aage se adhikar maang kar respect laata hai. Dhyan: pendulum — ek hafte bheegi billi, doosre hafte aag; is imtihaan mein shaant awaaz, tez awaaz se bhaari padti hai.",
+  },
+  2: {
+    headlineEn: "Challenge 2 — the test of skin: taking small slights too seriously",
+    headlineHi: "Challenge 2 — khaal ka test: chhoti baat ko zakhm banan a",
+    deepEn:
+      "This period sharpens your sensitivity until small slights bleed big: a tone in a call, a delayed reply, a seat in a meeting. The growth is thickening the skin WITHOUT hardening the heart. Work it like this: before reacting to any slight, ask 'kaunsa kaam iska jawab hai?' — none in 90% of cases. Example: the professional who stops scoring every meeting learns that the table's silence was never about them. Watch out: reading rejection into neutral events — not every short reply is a message; the period literally rehearses misreading.",
+    deepHi:
+      "Ye period aapki samvedana ko itna tez karta hai ki chhoti baat khoon kar deti hai: call ka lehja, late jawab, meeting ki seat. Vridhi: khaal mota karna, bin dil saksa kar ke. Aise chalao: kisi bhi baat pe re-act se pehle poochho — 'iska jawab kaunsa kaam dein?' — 90% mein jawab: koi nahi. Misaal: jo professional har meeting ka score karna band karta hai, usko dikhta hai ki table ka chup hon usse juri hi nahi tha. Dhyan: bina-buniyaad rejection padhna — har chhota reply sandesh nahi; ye period galat-padhnayi ki rehearsal karwata hai.",
+  },
+  3: {
+    headlineEn: "Challenge 3 — the test of finishing what you start saying",
+    headlineHi: "Challenge 3 — jo shuru karte ho, poora bolna",
+    deepEn:
+      "This period scatters your expression: many starts, five projects half-spoken, none landing. The growth is completing — one piece of work, one conversation, one piece of writing — visibly finished. Work it like this: the rule of one: one thing shipped out per week, however small. Example: the ten-article starter who picks one article and finishes it becomes the author in this period. Watch out: self-criticism stalling the pen — first drafts are supposed to be ugly; ship them anyway.",
+    deepHi:
+      "Ye period aapki bayani bikherti hai: bahut shuruat, paanch adhure project, kuch bhi dhanka nahi. Vridhi: poora karna — ek kaam, ek baat-cheet, ek likhai — aankhon ke saamne khatam. Aise chalao: ek ka niyam — hafte mein ek cheez ship karo, chhoti hi sahi. Misaal: das-article-shuru-karne wala is period mein ek article chun ke poora karta hai aur author ban jaata hai. Dhyan: aatm-aalochana kalam rok deti hai — pehle draft badsurat hote hi hain; phir bhi bhejo.",
+  },
+  4: {
+    headlineEn: "Challenge 4 — the test of the boring middle",
+    headlineHi: "Challenge 4 — bore beech ka test",
+    deepEn:
+      "This period tests whether you can work the unglamorous middle: systems, receipts, order, the third month of every regime, where nothing shines and everything decisive lives. Work it like this: make the middle beautiful — clean desk, clean ledger, clean sleep; the results arrive at the chapter's end, not its middle. Example: the manager who files every receipt in this period finds the audit passing itself later. Watch out: rebelling against method exactly when method starts working — do not change the routine in week nine; that is the test talking.",
+    deepHi:
+      "Ye period check karta hai — chamak-heen beech ka kaam kar sakta ho? system, rasid, tarteeb, har routine ka teesra mahina — jahan kuch nahi chamakta aur sab faisla hota hai. Aise chalao: beech ko sundar banao — saaf desk, saaf hisaab, saaf neend; result chapter ke ant mein aata hai, beech mein nahi. Misaal: jo manager is period mein har rasid file karta hai, uska audit baad mein khud pass hota hai. Dhyan: method se baghawat — theek jab method kaam karne lagta hai; navmein hafte mein routine mat badlo — ye imtihaan bolta hai.",
+  },
+  5: {
+    headlineEn: "Challenge 5 — the test of handles: freedom without self-control",
+    headlineHi: "Challenge 5 — handle ka test: bina patti ki azaadi",
+    deepEn:
+      "This period tempts you with many doors and tests whether you can keep hold of the steering: excess in spend, drink, promises, opinions. The growth is freedom WITH handles — enjoy the wide lane with two hands on the wheel. Work it like this: pre-commit limits (the drink rule, the spend ceiling, the yes-quota) before the week starts, not during. Example: the person who decided 'weekdays dry' in this period keeps every other freedom intact — handles don't shrink the road, they keep you on it. Watch out: chasing everything until nothing compound.",
+    deepHi:
+      "Ye period kai darwaaze khol ke dekhta hai — steering pakad sakte ho? kharch mein ati, daru mein ati, waade mein ati, rai mein ati. Vridhi: azaadi HANDLE ke saath — chaudi lane pe maza, par dono haath wheel par. Aise chalao: hafte shuru hone se pehle limit chun lo (daru-rule, kharch-ceilng, haan-quota), week ke dauran nahi. Misaal: is period mein jo 'weekday dry' chun leta hai, baaki sab azaadiyo ko poora bhaanpan nahi — handle road chhota nahi karte, road par rakhte hain. Dhyan: sab ki bheed — kuch compound nahi hota.",
+  },
+  6: {
+    headlineEn: "Challenge 6 — the test of carrying without controlling",
+    headlineHi: "Challenge 6 — uthana, par sab sambhalte na jaana",
+    deepEn:
+      "This period hands you more people to care for and immediately tests whether care turns into control: advising becomes ordering, help becomes score-keeping. The growth is generous service without strings; let people live even when you pay for their roof. Work it like this: help once, silently, then drop the receipt — no reminders. Example: the parent who funds the child's plan without weekly audits gets the child's trust and the plan's success both. Watch out: martyrdom at home — the 'main hi sab karoon' tone converts love into debt; say what you need too.",
+    deepHi:
+      "Ye period aapko zyada log uthata deta hai aur turant check karta hai — khayal, control banta hai? salah hukum ban jaati hai, madad bahi-baant ban jaati hai. Vridhi: bina shaart seva — log jeeyein, chahe chhat aapke paise se bane. Aise chalao: ek baar madad karo, chupchaap, phir rasid girao — reminder nahi. Misaal: jo maan apne bachhe ka plan bina roz-audit fund karta hai, usko bachhe ka bharosa bhi milta hai aur plan ki kamyabi bhi. Dhyan: ghar mein mahaanta ka tone — 'main hi sab karoon' prem ko rin bana deta hai; aapki zaroorat bhi bolo.",
+  },
+  7: {
+    headlineEn: "Challenge 7 — the test of trust against the inner lawyer",
+    headlineHi: "Challenge 7 — shak ka vakil jeetna",
+    deepEn:
+      "This period hands everyone a defence attorney inside your head: every kindness gets cross-examined, every silence gets read as verdict. The growth is practising trust as a DAILY ACT, not as a feeling: extend one open-card offer a week. Work it like this: when the inner lawyer speaks, ask for the one piece of evidence that would prove the bad theory — it rarely exists. Example: the manager who assumes the late report means overload (not disrespect) keeps the team intact through this period. Watch out: withdrawing into the mind-trial — three people you cut off early in this period were probably innocent.",
+    deepHi:
+      "Ye period sabke sir mein vakil bitha deta hai: har ehmaani aankhon ke saamne cross hai, har chup kaunsi saza hai. Vridhi: bharosa MESHOSOOS nahi, roz ka KAM ho — hafte mein ek khul-card offer do. Aise chalao: jab andar ka vakil bole, poochho — 'bura saabit karne ke liye kaunsa pramaan chahiye?' — wo aksar hota hi nahi. Misaal: jo manager late report ko bhari hui team samajhta hai (bina apmaan) is period me team ko waisa hi sambhal ke rakhta hai. Dhyan: dimaag ke muqadme mein ghus jaana — is period mein jin teeno ko aap jaldi kaat gaye, wo sab jaan-bujh ke kar rahe the ya nahi — aap ne dhyan hi nahi diya.",
+  },
+  8: {
+    headlineEn: "Challenge 8 — the test of money's grip: power without clench",
+    headlineHi: "Challenge 8 — paise ki pakad ka test: taakat bin murdaar bhinchn",
+    deepEn:
+      "This period tests your relationship with power and money: either you chase both anxiously and lose dignity in the chasing, or you fear them and refuse your own due. The growth is the firm open hand. Work it like this: negotiate hard for your worth ONCE in this period — then rest; price your work at the respectful number and stop apologising. Example: the professional who asks for the salary bump in this period learns the ask WAS the test. Watch out: measuring self-worth in the wrong currency — a body that sleeps and a family that laughs is also a balance sheet.",
+    deepHi:
+      "Ye period aapka paise-taakat ke saath rishta aazmaata hai: dono pareshani se bhaagte ho aur bhaagte mein laaj daav par lagti hai, ya dono se dar ke apna haq thukrate ho. Vridhi: pakki khuli muthi. Aise chalao: is period mein apne daam par sakht mol-bhav EK baar karo — phir aaram; respectful number par apna kaam rakho aur maafi band. Misaal: is period mein salary baare mein jo poochta hai, seekhta hai ki poochna HI imtihaan tha. Dhyan: apne aap ko galat currency mein naapna — neend leta badan, hansta parivaar — ye bhi balance-sheet hai.",
+  },
+  9: {
+    headlineEn: "Challenge 9 — the test of dropping the old keys",
+    headlineHi: "Challenge 9 — purani chabiyan chhodne ka test",
+    deepEn:
+      "This period keeps asking you to let go: old titles, old grudges, expired ambitions, and people whose role in your story is over. You may have to leave before the door closes, and that is the uncomfortable part. Work it like this: write the release list — things you keep only because they are heavy; empty one item per month. Example: the executive who stops chasing the title he missed walks into the role he actually owns. Watch out: bitterness compounding — resentment in this period is interest-free for it, and it charges you daily.",
+    deepHi:
+      "Ye period baar-baar chhodne ko kehta hai: purane pad, purani kharcheeri, expired sapne, aur wo log jinka role aapki story mein khatam ho chuka. Darwaza band hone se pehle chhodna padta hai — yehi takleef wala hissa hai. Aise chalao: release-list likho — wo cheezein jo sirf isliye rakhi hain kyunki bhaari hain; mahine mein ek item khaali karo. Misaal: jo executive apne chhouka pad ko bhaagne band karta hai, wo asli role mein chala jaata hai jo uska tha hi. Dhyan: kadwaahat ka byaaj — is period mein nafrat par byaaj nahi milta, roz khaat hai aapko.",
+  },
+};
+
+/** Shorthand getters for the cycles section. */
+export function pinnacleDeep(n: number, lang: "en" | "hi") {
+  const d = PINNACLE_DEEP[n] ?? PINNACLE_DEEP[1];
+  return lang === "hi" ? d.deepHi : d.deepEn;
+}
+export function pinnacleHeadline(n: number, lang: "en" | "hi") {
+  const d = PINNACLE_DEEP[n] ?? PINNACLE_DEEP[1];
+  return lang === "hi" ? d.headlineHi : d.headlineEn;
+}
+export function challengeDeep(n: number, lang: "en" | "hi") {
+  const d = CHALLENGE_DEEP[n] ?? CHALLENGE_DEEP[0];
+  return lang === "hi" ? d.deepHi : d.deepEn;
+}
+export function challengeHeadline(n: number, lang: "en" | "hi") {
+  const d = CHALLENGE_DEEP[n] ?? CHALLENGE_DEEP[0];
+  return lang === "hi" ? d.headlineHi : d.headlineEn;
+}
