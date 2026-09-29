@@ -101,8 +101,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   // v3.1: app-wide fixed divine-bg texture (lazy: painted by CSS after first
   // paint, never blocks LCP).
-  const divineBg = <div aria-hidden className="divine-bg-layer" />;
-      <div aria-hidden className="constellation-corners" />;
+  const divineBg = (
+    <>
+      <div aria-hidden className="divine-bg-layer" />
+      <div aria-hidden className="constellation-corners" />
+    </>
+  );
 
   function isActive(href: string) {
     if (href === "/overview") return pathname === "/overview" || pathname === "/compatibility";
