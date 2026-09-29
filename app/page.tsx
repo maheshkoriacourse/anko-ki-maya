@@ -10,7 +10,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { DiyaMotif, OmMotif, SanatanDivider, LandingHero } from "@/components/shared";
+import { DiyaMotif, OmMotif, SanatanDivider } from "@/components/shared";
 import { Button, Input, Label, Badge, Card, CardContent } from "@/components/ui";
 import { DisclaimerLine } from "@/components/shared";
 import { ConciergeSection } from "@/components/concierge";
@@ -101,17 +101,7 @@ export default function OnboardingPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      {/* v3.2: mahadev-hero full-bleed landing hero (owner divine-art order) */}
-      <LandingHero />
-      <ConciergeSection />
       <div className="my-10 text-center">
-        <SanatanDivider className="mx-auto max-w-sm" />
-        <p className="mt-4 font-display text-lg text-gold">
-          {hi ? "…ya neeche apna vachan shuru karo — muft, private, isi browser mein." : "…or begin your own reading below — free, private, in this browser only."}
-        </p>
-      </div>
-
-      <div className="mb-8 text-center">
         <span aria-hidden className="mandala-ring mx-auto mb-4 grid size-16 place-items-center rounded-full bg-primary text-primary-foreground">
           <OmMotif className="text-2xl" />
         </span>
@@ -206,6 +196,16 @@ export default function OnboardingPage() {
       <div className="mt-4 text-center">
         <DisclaimerLine compact />
       </div>
+
+      {/* v3.4 (owner order): Mahadev blessings + concierge at the BOTTOM of the
+          landing — form first, divine art + premium offer as the closing. */}
+      <div className="mt-10 text-center">
+        <SanatanDivider className="mx-auto max-w-sm" />
+        <p className="mt-4 font-display text-lg text-gold">
+          {hi ? "Bhole ki kripa bhi dekh lo — ya seedha premium vachan" : "Take Bhole's darshan — or go straight premium"}
+        </p>
+      </div>
+      <ConciergeSection />
     </div>
   );
 }

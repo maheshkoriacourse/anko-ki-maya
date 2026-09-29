@@ -73,7 +73,7 @@ describe("Safety language rules", () => {
 
   it("uses approved reflective phrasing in themes", () => {
     const joined = strings.join(" ");
-    expect(joined).toMatch(/may be a supportive period|a theme to reflect on|consider/i);
+    expect(joined).toMatch(/you remain the author|reflect|this week|daily/i);
   });
 
   it("disclaimer matches the exact required v3 wording (owner: consent/disclaimer wall removed, footer line only)", () => {

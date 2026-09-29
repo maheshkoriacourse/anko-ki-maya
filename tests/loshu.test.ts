@@ -108,12 +108,20 @@ describe("Lo Shu v3.1 — other cases", () => {
     expect(bhagyankFold(2000, 11, 29)).toBe(6);
   });
 
-  it("missing-number notes stay gentle for every digit", () => {
+  it("missing-number notes stay direct with a working instruction for every digit", () => {
+    const r0 = loShuGrid(2000, 1, 1);
     for (let d = 1; d <= 9; d++) {
       const r = loShuGrid(2000, 1, 1);
       if (r.missing.includes(d)) {
         const note = r.missingNotes.find((n) => n.startsWith(`Missing ${d}:`))!;
-        expect(note.toLowerCase()).toContain("reflect");
+        // v3.4 direct voice: note must end with an actionable instruction line.
+        expect(note.trim().endsWith(".")).toBe(true);
+        expect(note.split(" ").length).toBeGreaterThan(10);
+      }
+    }
+    if (r0.missing.length > 0) {
+      for (const n of r0.missingNotes) {
+        expect(n.toLowerCase()).not.toMatch(/guarantee|destined|will definitely/);
       }
     }
   });

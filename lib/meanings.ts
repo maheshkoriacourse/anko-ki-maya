@@ -2,9 +2,9 @@
  * Anko Ki Maya — original interpretive copy.
  *
  * Every line here is written for this project. Do NOT paste interpretation
- * text from other websites/books (copyright + tone). Safe-language rules
- * (README → "Safety language rules") apply to every string in this file:
- * themes, possibilities and reflection prompts — never guarantees.
+ * text from other websites/books (copyright + tone). Direct jyotishi voice
+ * (numerology-product-lab rules) applies to every string in this file:
+ * SACH → KAARAN → UPAY, spoken-simple — never guarantees, never hedging.
  */
 
 export const DISCLAIMER = "Traditional numerology-based reading.";
@@ -25,11 +25,11 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   1: {
     title: "The Initiator",
     essence:
-      "A vibration of independent beginnings — may reflect a person who prefers to lead, originate and think for themselves.",
+      "A vibration of independent beginnings — this number reads a person who prefers to lead, originate and think for themselves.",
     strengths:
       "Original thinking, courage to start, comfort with standing alone.",
     growthEdge:
-      "May notice a pull between independence and asking for help; a theme to reflect on is balancing self-leadership with collaboration.",
+      "Independence pulls one way, help-seeking pulls the other — the work is leading yourself while still asking for support in time.",
     reflectionQuestions: [
       "Where in my life am I being invited to begin something of my own?",
       "When did I last ask for support — and how did that feel?",
@@ -39,10 +39,10 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   2: {
     title: "The Partner",
     essence:
-      "A vibration of sensitivity and partnership — may reflect a person who notices nuance, builds bridges and values harmony.",
+      "A vibration of sensitivity and partnership — this number reads a person who notices nuance, builds bridges and values harmony.",
     strengths: "Empathy, patience, diplomacy, attention to detail in relationships.",
     growthEdge:
-      "May notice a theme around saying no and honouring their own pace — worth reflecting on boundaries.",
+      "The number 2 carries the saying-no struggle and honors-own-pace struggle — boundaries are the work to build.",
     reflectionQuestions: [
       "Which relationship deserves more of my honest attention?",
       "Where might I be agreeing when I want to pause?",
@@ -52,10 +52,10 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   3: {
     title: "The Communicator",
     essence:
-      "A vibration of expression and joy — may reflect a person who uplifts through words, art and humour.",
+      "A vibration of expression and joy — this number reads a person who uplifts through words, art and humour.",
     strengths: "Creativity, storytelling, optimism, social warmth.",
     growthEdge:
-      "May notice energy scattered across many projects; a theme to reflect on is finishing what sparkles.",
+      "Energy scatters across many shiny projects — the work is finishing what you start before starting the next.",
     reflectionQuestions: [
       "What do I most want to express right now?",
       "Which creative thread is asking for consistent attention?",
@@ -65,10 +65,10 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   4: {
     title: "The Builder",
     essence:
-      "A vibration of structure and steadiness — may reflect a person who turns ideas into reliable systems.",
+      "A vibration of structure and steadiness — this number reads a person who turns ideas into reliable systems.",
     strengths: "Discipline, loyalty, practical craft, patience with long efforts.",
     growthEdge:
-      "May notice rigidity under change; a theme to reflect on is letting routines flex without losing foundations.",
+      "Routine turns rigid under change — bend the plan, keep the foundation.",
     reflectionQuestions: [
       "What am I building that deserves patience?",
       "Where could a little more spontaneity serve me?",
@@ -78,10 +78,10 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   5: {
     title: "The Explorer",
     essence:
-      "A vibration of freedom and curiosity — may reflect a person who learns by moving, tasting and adapting.",
+      "A vibration of freedom and curiosity — this number reads a person who learns by moving, tasting and adapting.",
     strengths: "Adaptability, magnetic energy, courage to change course.",
     growthEdge:
-      "May notice restlessness between commitments; a theme to reflect on is freedom with follow-through.",
+      "Restlessness keeps pulling between commitments — keep the freedom, add the follow-through.",
     reflectionQuestions: [
       "Where is novelty enriching me — and where is it distracting me?",
       "What change have I been circling without stepping into?",
@@ -91,10 +91,10 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   6: {
     title: "The Nurturer",
     essence:
-      "A vibration of care and responsibility — may reflect a person who creates beauty and takes care of people and places.",
+      "A vibration of care and responsibility — this number reads a person who creates beauty and takes care of people and places.",
     strengths: "Warmth, dependability, aesthetic sense, devotion to loved ones.",
     growthEdge:
-      "May notice over-giving; a theme to reflect on is care that includes the self.",
+      "Over-giving is the pattern here — care must include yourself in the ledger.",
     reflectionQuestions: [
       "Who or what am I caring for — and is the ledger balanced?",
       "Where might service be hiding perfectionism?",
@@ -104,10 +104,10 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   7: {
     title: "The Seeker",
     essence:
-      "A vibration of depth and analysis — may reflect a person who needs quiet, study and meaning beneath surfaces.",
+      "A vibration of depth and analysis — this number reads a person who needs quiet, study and meaning beneath surfaces.",
     strengths: "Insight, focus, comfort with solitude, love of learning.",
     growthEdge:
-      "May notice withdrawal when connection is needed; a theme to reflect on is sharing inner findings with trusted people.",
+      "Withdrawal wins exactly when connection is needed — share your inner findings with the few people you trust.",
     reflectionQuestions: [
       "What question has been living in me this season?",
       "Where do I find meaningful stillness?",
@@ -117,10 +117,10 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   8: {
     title: "The Steward",
     essence:
-      "A vibration of stewardship and material mastery — may reflect a person who shapes resources, organisations and long games.",
+      "A vibration of stewardship and material mastery — this number reads a person who shapes resources, organisations and long games.",
     strengths: "Ambition with stamina, fairness, comfort with responsibility.",
     growthEdge:
-      "May notice work-life imbalance; a theme to reflect on is wealth in the wider sense — time, health, relationships.",
+      "Work-life imbalance builds quietly — real wealth counts time, health and relationships alongside money.",
     reflectionQuestions: [
       "What am I building toward, and why does it matter to me?",
       "How do I define abundance beyond money?",
@@ -130,10 +130,10 @@ export const NUMBER_MEANINGS: Record<number, NumberMeaning> = {
   9: {
     title: "The Humanitarian",
     essence:
-      "A vibration of compassion and completion — may reflect a person drawn to causes, wisdom and the bigger picture.",
+      "A vibration of compassion and completion — this number reads a person drawn to causes, wisdom and the bigger picture.",
     strengths: "Generosity, forgiveness, artistic breadth, global-mindedness.",
     growthEdge:
-      "May notice difficulty letting go; a theme to reflect on is closing chapters with gratitude.",
+      "Letting go is the hard part — close each chapter with gratitude, then move.",
     reflectionQuestions: [
       "What cause makes me lose track of time?",
       "What am I ready to release or complete?",
@@ -150,10 +150,10 @@ export const MASTER_MEANINGS: Record<number, NumberMeaning> = {
   11: {
     title: "Master 11 — The Intuitive",
     essence:
-      "An intensified 2: heightened intuition and inspiration — may reflect a person who senses undercurrents early.",
+      "An intensified 2: heightened intuition and inspiration — this number reads a person who senses undercurrents early.",
     strengths: "Vision, empathy, magnetic presence, spiritual curiosity.",
     growthEdge:
-      "Intensity can tip into self-doubt; a theme to reflect on is grounding inspiration into small daily actions.",
+      "Intensity tips into self-doubt — ground the inspiration in one small daily action.",
     reflectionQuestions: [
       "Which quiet inner signal have I been honouring — and which ignoring?",
       "What would it look like to trust my timing?",
@@ -163,10 +163,10 @@ export const MASTER_MEANINGS: Record<number, NumberMeaning> = {
   22: {
     title: "Master 22 — The Builder of Big Things",
     essence:
-      "An intensified 4: visionary building — may reflect a person who dreams in systems and serves many people through structure.",
+      "An intensified 4: visionary building — this number reads a person who dreams in systems and serves many people through structure.",
     strengths: "Practical idealism, patience with legacy-scale projects, leadership.",
     growthEdge:
-      "The scale of ambition can feel heavy; a theme to reflect on is progress over perfection.",
+      "The scale of ambition feels heavy — count progress over perfection.",
     reflectionQuestions: [
       "What long project deserves my steadier devotion?",
       "How can I break the big vision into this week's brick?",
@@ -176,10 +176,10 @@ export const MASTER_MEANINGS: Record<number, NumberMeaning> = {
   33: {
     title: "Master 33 — The Teacher of the Heart",
     essence:
-      "An intensified 6: devoted service — may reflect a person whose care lifts whole communities, not just circles.",
+      "An intensified 6: devoted service — this number reads a person whose care lifts whole communities, not just circles.",
     strengths: "Deep compassion, healing presence, creative mentorship.",
     growthEdge:
-      "Carrying others can eclipse the self; a theme to reflect on is sustainable giving.",
+      "Carrying others can eclipse you — make the giving sustainable.",
     reflectionQuestions: [
       "Where does my care have the most ripple effect?",
       "What boundaries protect my ability to serve?",

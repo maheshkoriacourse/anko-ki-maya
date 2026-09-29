@@ -15,17 +15,23 @@ describe("v3.1 correction #2 — LIFE GRAPH BIG-YEAR detection", () => {
 
   it("known DOB 15/6/1990 → expected big-years list", () => {
     const bigYears = graph.bigYears.map((p) => p.year);
-    // Cycle-driven certainties (PY repeats every 9 years): PY 9 years
-    // (1995/2004/2013/2022), PY 1 years (1996/2005/2014/2023), PY 6 =
-    // Mulank (1992/2001/2010/2019), PY 4 = Bhagyank (1990/1999/2008/2017),
-    // karmic-debt years (compound 13/14/16/19), surge years (1993/2002/2020),
-    // milestone ages 27/36 (2017/2026).
-    for (const y of [1995, 1996, 1999, 2005, 2013, 2014, 2017, 2020, 2022, 2023]) {
+    // v3.4 SCORED OUTLIER model: big = weighted score >= 3, capped top-9.
+    // For DOB 15/6/1990 the surviving set is 1996/2002/2005/2014/2017/2020/
+    // 2022/2023 (+2026 as the current year) — each with a heavyweight reason:
+    // PY 1 starts (karmic debt on top), surge years (debt+surge), 2017/2026
+    // (bhagyank+cycle-end+milestone), 2022 (pinnacle boundary + PY 9 end).
+    for (const y of [1996, 2002, 2005, 2014, 2017, 2020, 2022, 2023, 2026]) {
       expect(bigYears).toContain(y);
     }
-    // Non-big years must NOT be in the list: 1994 (PY 8 is not 1/9/mulank/
-    // bhagyank and no karmic/milestone) is a plain year for this DOB.
+    // v3.4 sharpening: 4..9 big years total, timeline stays selective —
+    // plain years (1994 PY 8, 1995 PY 9 solo, 1999 PY 4 solo, 2001/2010/2019
+    // PY 6 solo, 2013 PY 9 solo) fall below the outlier bar now.
+    expect(bigYears.length).toBeGreaterThanOrEqual(4);
+    expect(bigYears.length).toBeLessThanOrEqual(9);
     expect(bigYears).not.toContain(1994);
+    expect(bigYears).not.toContain(1995);
+    expect(bigYears).not.toContain(1999);
+    expect(bigYears).not.toContain(2013);
   });
 
   it("every big year names its LIKELY EVENT TYPE directly", () => {
@@ -40,23 +46,27 @@ describe("v3.1 correction #2 — LIFE GRAPH BIG-YEAR detection", () => {
     }
   });
 
-  it("event-type mapping: PY 6 → marriage-love; PY 1 → job/admission change; PY 9 → completion/legacy", () => {
-    const py6 = graph.bigYears.find((p) => p.py === 6)!;
-    expect(py6.eventEn).toMatch(/marriage-love/i);
-    expect(py6.eventHi).toContain("shaadi-pyaar");
+  it("event-type mapping: PY 1 → job/admission change (1996); PY 4 → foundation (2017); PY 9 → completion/legacy (2022)", () => {
     const py1 = graph.bigYears.find((p) => p.py === 1)!;
     expect(py1.eventEn).toMatch(/job\/admission/i);
     expect(py1.eventHi).toContain("naukri/admission");
+    const py4 = graph.bigYears.find((p) => p.py === 4)!;
+    expect(py4.eventEn).toMatch(/foundation/i);
+    expect(py4.eventHi).toContain("neev");
     const py9 = graph.bigYears.find((p) => p.py === 9)!;
     expect(py9.eventEn).toMatch(/chapter closed|legacy/i);
     expect(py9.eventHi).toContain("virasat");
   });
 
-  it("non-big years carry no event and are excluded from the timeline", () => {
+  it("non-big years carry no event (sub-threshold years keep their reason evidence)", () => {
     for (const p of graph.past.filter((p) => !p.big)) {
       expect(p.eventEn).toBeNull();
       expect(p.eventHi).toBeNull();
-      expect(p.bigReasons).toHaveLength(0);
+      // v3.4: non-big years MAY retain reason-tags (evidence of near-misses
+      // is fine) but every retained tag must be labelled.
+      for (const r of p.bigReasons) {
+        expect(BIG_REASON_LABEL[r]).toBeTruthy();
+      }
     }
     expect(graph.past.length).toBeGreaterThan(graph.bigYears.length);
   });
@@ -67,11 +77,13 @@ describe("v3.1 correction #2 — LIFE GRAPH BIG-YEAR detection", () => {
     expect(age27.bigReasons).toContain("milestone-age");
   });
 
-  it("PY = Mulank and PY = Bhagyank years are flagged", () => {
-    const mulankYear = graph.bigYears.find((p) => p.bigReasons.includes("py-mulank"));
-    expect(mulankYear?.py).toBe(6);
+  it("PY = Mulank and PY = Bhagyank reason tags exist in the ENGINE (kept for tag coverage)", () => {
+    // v3.4: solo py-mulank / py-bhagyank years (score 1) no longer qualify as
+    // big — the tags still exist and mark 2017/2026 (bhagyank) on this DOB.
     const bhagyankYear = graph.bigYears.find((p) => p.bigReasons.includes("py-bhagyank"));
     expect(bhagyankYear?.py).toBe(4);
+    const mulankTag = BIG_REASON_LABEL["py-mulank"];
+    expect(mulankTag).toBeTruthy();
   });
 
   it("digit-repetition surge years are detected (2020 for 15/6/1990)", () => {

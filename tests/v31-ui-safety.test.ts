@@ -139,9 +139,13 @@ describe("v3.1 divine artwork integration (owner cinematic order)", () => {
     expect(css).toMatch(/ken-burns/);
   });
 
-  it("onboarding carries the mahadev full-bleed landing hero (v3.2)", async () => {
+  it("onboarding closes with divine order — mahadev art stays in shared.tsx (v3.4: form first, blessings last)", async () => {
     const ob = await fs_read("app/page.tsx");
-    expect(ob).toMatch(/LandingHero/);
+    // v3.4 owner restructure: the landing no longer OPENS with the hero —
+    // form first, Mahadev blessings + concierge close the page.
+    expect(ob).not.toMatch(/LandingHero/);
+    expect(ob).toMatch(/v3\.4 \(owner order\)/);
+    expect(ob).toMatch(/ConciergeSection/);
     const shared = await fs_read("components/shared.tsx");
     expect(shared).toMatch(/mahadev-hero\.webp/);
     expect(shared).toMatch(/fetchPriority="high"/);

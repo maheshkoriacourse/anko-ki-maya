@@ -26,7 +26,7 @@ function LoShuGridPanel({ loShu }: { loShu: LoShuResult }) {
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           Your birth-date digits mapped onto the classic 3×3 grid. Counts are
-          themes to reflect on — never fixed traits.
+          working strengths and work-through gaps — never fixed traits.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -260,7 +260,7 @@ export default function NumbersPage() {
             <CardHeader>
               <CardTitle>Challenge numbers</CardTitle>
               <p className="text-xs text-muted-foreground">
-                Growth themes to reflect on — never obstacles with guaranteed outcomes.
+                Growth work to do — never obstacles with guaranteed outcomes.
               </p>
             </CardHeader>
             <CardContent className="space-y-3">

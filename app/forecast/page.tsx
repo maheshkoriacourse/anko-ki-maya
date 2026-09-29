@@ -108,7 +108,7 @@ export default function ForecastPage() {
                 </p>
                 <p className="text-muted-foreground">
                   <span className="font-medium">Watch-out:</span>{" "}
-                  {PERSONAL_MONTH_WATCHOUTS[pm] ?? "a theme to reflect on: moving faster than your values"}.
+                  {PERSONAL_MONTH_WATCHOUTS[pm] ?? "watch-out: moving faster than your values — slow the step, keep the direction"}.
                 </p>
                 <p className="rounded-lg bg-secondary/50 p-2.5 text-xs">
                   <span className="font-semibold uppercase tracking-wide text-muted-foreground">Journal prompt</span>
@@ -119,7 +119,7 @@ export default function ForecastPage() {
                   <WhyThisReading title={`${m.label} · Personal Month`} steps={steps} />
                 </div>
                 <p className="text-[11px] text-muted-foreground">
-                  {idx === 0 ? "Current month — a theme to reflect on, not a promise." : "A possibility to reflect on when the month arrives."}
+                  {idx === 0 ? "Current month — read it as weather, not a promise." : "The window opens when the month arrives — act inside it."}
                 </p>
               </CardContent>
             </Card>

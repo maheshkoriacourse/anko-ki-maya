@@ -13,8 +13,8 @@
  *  - Bridge numbers = gaps between Life Path / Expression / Soul / Personality.
  *  - Rational thought = first-name consonant sum blended with the birth day.
  *
- * Safe-language rule: the engine only reports structure. Copy layers add the
- * reflective framing ("a theme to reflect on"), never guarantees.
+ * Safe-language rule: the engine only reports structure — copy layers voice
+ * the interpretation, never guarantees.
  */
 
 import { reduce, letterValue, lifePath, type NumerologySystem, type FullReading } from "./numerology";

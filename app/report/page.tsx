@@ -79,7 +79,7 @@ export default function ReportPage() {
         ) : null}
         {pm ? (
           <p className="mt-2 text-xs text-muted-foreground">
-            This month&apos;s Personal Month is {pm.number} — {monthName(today.getMonth() + 1)} may be a supportive period for steady reflection.
+            This month&apos;s Personal Month is {pm.number} — {monthName(today.getMonth() + 1)} rewards steady reflection.
           </p>
         ) : null}
       </section>

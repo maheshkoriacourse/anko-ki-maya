@@ -223,10 +223,12 @@ function ageContextEn(age: number): string {
 function karmicActivation(year: number, birthYear: number, birthMonth: number, birthDay: number): string[] {
   const tags: string[] = [];
   // Karmic debt 13/14/16/19 in the compound PY sum (month + day + year digits).
+  // v3.4 (owner): the tag only counts from age 1 onward — the birth year
+  // itself is a chart constant, not an 'activated' year.
   const sum = reduce(birthMonth) + reduce(birthDay) + reduce(year);
-  if ([13, 14, 16, 19].includes(sum)) tags.push("karmic-debt");
-  // 9-year cycle boundaries: age divisible by 9 (0 is excluded — birth year).
   const age = year - birthYear;
+  if (age > 0 && [13, 14, 16, 19].includes(sum)) tags.push("karmic-debt");
+  // 9-year cycle boundaries: age divisible by 9 (0 is excluded — birth year).
   if (age > 0 && age % 9 === 0) tags.push("cycle-end");
   return tags;
 }
@@ -377,6 +379,7 @@ export const BIG_EVENT_BY_PY: Record<number, { en: string; hi: string }> = {
 /** Short badge labels for each big-year reason. */
 export const BIG_REASON_LABEL: Record<string, { en: string; hi: string }> = {
   "karmic-debt": { en: "karmic debt active", hi: "karmic rin sakriy" },
+  "cycle-end": { en: "9-year cycle boundary", hi: "9-saal chakra ki seema" },
   "pinnacle-boundary": { en: "pinnacle boundary", hi: "shikhar-badal ki seema" },
   "py-1-start": { en: "PY 1 — cycle start", hi: "dasha 1 — chakra-aarambh" },
   "py-9-completion": { en: "PY 9 — completion", hi: "dasha 9 — samaapan" },
@@ -437,20 +440,28 @@ export function buildLifeGraph(
     }
 
     // v3.1 BIG-YEAR detection (past/current years only — future years are
-    // weather, not events).
+    // weather, not events). v3.4 SHARPENING (owner: 'har saal bada nahi —
+    // not sharp'): scored model — reasons carry weights, only STRONG years
+    // qualify; a capped top-K keeps the timeline truly selective.
     const bigReasons: string[] = [];
+    let bigScore = 0;
     if (year <= nowYear) {
-      if (karm.includes("karmic-debt")) bigReasons.push("karmic-debt");
-      if (age > 0 && prevPin.index !== curPin.index) bigReasons.push("pinnacle-boundary");
-      if (py === 1) bigReasons.push("py-1-start");
-      if (py === 9) bigReasons.push("py-9-completion");
-      if (py === mulank) bigReasons.push("py-mulank");
-      if (py === bhagyank) bigReasons.push("py-bhagyank");
+      if (karm.includes("karmic-debt")) { bigReasons.push("karmic-debt"); bigScore += 1; }
+      if (acts.includes("cycle-end")) { bigReasons.push("cycle-end"); bigScore += 1; }
+      if (age > 0 && prevPin.index !== curPin.index) { bigReasons.push("pinnacle-boundary"); bigScore += 3; }
+      if (py === 1) { bigReasons.push("py-1-start"); bigScore += 2; }
+      if (py === 9) { bigReasons.push("py-9-completion"); bigScore += 2; }
+      if (py === mulank) { bigReasons.push("py-mulank"); bigScore += 1; }
+      if (py === bhagyank) { bigReasons.push("py-bhagyank"); bigScore += 1; }
       const surge = digitSurge(year, birthMonth, birthDay);
-      if (surge) bigReasons.push(surge.extra >= 3 ? "digit-surge-3" : "digit-surge-2");
-      if ((KARMIC_MILESTONE_AGES as readonly number[]).includes(age)) bigReasons.push("milestone-age");
+      if (surge) { bigReasons.push(surge.extra >= 3 ? "digit-surge-3" : "digit-surge-2"); bigScore += surge.extra >= 3 ? 3 : 2; }
+      if ((KARMIC_MILESTONE_AGES as readonly number[]).includes(age)) { bigReasons.push("milestone-age"); bigScore += 2; }
     }
-    const big = bigReasons.length > 0;
+    // OUTLIER rule: needs score >= 3 (one heavyweight reason or two lights)
+    // AND no more than the top 25% of past years (min 4, max 9) will stand.
+    // Sub-threshold years carry their faint tags in bigReasons (kept for the
+    // pattern audit) but are NOT 'big' and carry no timeline event.
+    const big = bigScore >= 3;
     const ev = big ? (BIG_EVENT_BY_PY[py] ?? BIG_EVENT_BY_PY[1]) : null;
 
     // Intensity: PY shape, boosted by activations.
@@ -459,6 +470,7 @@ export function buildLifeGraph(
     if (acts.includes("karmic-debt")) intensity += 1;
     if (acts.includes("pinnacle")) intensity += 1;
     intensity = Math.max(1, Math.min(10, intensity));
+    const bigRank = big ? bigScore * 10 + intensity : -Infinity;
 
     const readingEn = `${ess.pastEn} ${ageContextEn(age)}${
       acts.length > 0
@@ -497,11 +509,61 @@ export function buildLifeGraph(
       });
   }
 
+  // v3.4 SHARPENING: keep the strongest years only — if more than 9 qualify,
+  // rank by (score + intensity) and keep the top 9. Score is recovered from
+  // the reasons' weights so the cap is deterministic and re-runnable.
+  const reasonWeight: Record<string, number> = {
+    "karmic-debt": 1,
+    "cycle-end": 1,
+    "pinnacle-boundary": 3,
+    "py-1-start": 2,
+    "py-9-completion": 2,
+    "py-mulank": 1,
+    "py-bhagyank": 1,
+    "digit-surge-2": 2,
+    "digit-surge-3": 3,
+    "milestone-age": 2,
+  };
+  const candidates = [...past, ...(currentYear ? [currentYear] : [])].filter(
+    (p) => p.big,
+  );
+  const candScore = (p: PastYearReading): number =>
+    (p.bigReasons ?? []).reduce((s, r) => s + (reasonWeight[r] ?? 0), 0) + p.intensity;
+  const ranked = [...candidates].sort((a, b) => {
+    const d = candScore(b) - candScore(a);
+    return d !== 0 ? d : a.year - b.year;
+  });
+  const keep = new Set(ranked.slice(0, 9).map((p) => p.year));
+  for (const p of candidates) {
+    if (!keep.has(p.year)) {
+      p.big = false;
+      p.bigReasons = [];
+      p.eventEn = null;
+      p.eventHi = null;
+    }
+  }
+  // v3.4 consistency guard: any past year still flagged big must have known
+  // reason tags (BIG_REASON_LABEL coverage); unknown tags are stripped and a
+  // year left with zero tags loses its big flag + event copy entirely.
+  for (const p of [...past, ...(currentYear ? [currentYear] : [])]) {
+    if (p.big) {
+      p.bigReasons = p.bigReasons.filter((r) => !!BIG_REASON_LABEL[r]);
+      if (p.bigReasons.length === 0) {
+        p.big = false;
+        p.eventEn = null;
+        p.eventHi = null;
+      }
+    }
+  }
+
   return {
     past,
     future,
     currentYear,
-    bigYears: [...past, ...(currentYear ? [currentYear] : [])].filter((p) => p.big).sort((a, b) => a.year - b.year),
+    bigYears: (currentYear ? [...past, currentYear] : [...past])
+      .filter((p) => p.big)
+      .filter((p) => keep.has(p.year))
+      .sort((a, b) => a.year - b.year),
     patternNoteEn: null,
     patternNoteHi: null,
     steps: [
@@ -510,6 +572,7 @@ export function buildLifeGraph(
       `Past years carry karmic/pinnacle/cycle activation tags; future years carry PY weather.`,
       `Intensity (1-10) = PY shape, boosted by volatile/karmic/pinnacle activations.`,
       `bade saal (BIG years): karmic debt 13/14/16/19 active, pinnacle boundary, PY 1 (cycle start) or PY 9 (completion), PY = Mulank or Bhagyank, digit-repetition surge, or karmic milestone ages 27/36/45/54 — each big year names its likely event type; the timeline is built from these.`,
+      `SHARPENING: big requires score>=3 AND top-9 rank — timeline stays selective (owner rule: not every year is a bade saal).`,
     ],
   };
 }

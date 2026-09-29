@@ -335,7 +335,7 @@ export function challenges(
       `C2 = |day − year| = ${c2}`,
       `C3 = |C1 − C2| = ${c3}`,
       `C4 = |month − year| = ${c4}`,
-      `Challenges are growth themes to reflect on — not obstacles with guaranteed outcomes.`,
+      `Challenges are growth work to do — not obstacles with guaranteed outcomes.`,
     ],
   };
 }
