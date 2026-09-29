@@ -66,7 +66,7 @@ export default function DossierPage() {
           </p>
         </div>
       ) : chapter === 0 ? (
-        <DossierGate />
+        <DossierGate onOpenChapter={advance} />
       ) : (
         <div className="space-y-6">
           <DossierChapter1 />

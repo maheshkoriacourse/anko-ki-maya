@@ -108,7 +108,7 @@ function microPredictionsFor(
   return pool.slice(0, 10);
 }
 
-export function DossierGate() {
+export function DossierGate({ onOpenChapter }: { onOpenChapter?: () => void }) {
   const { profile, hasProfile } = useProfile();
   const { lang } = useLang();
   const hi = lang === "hi";
@@ -256,7 +256,7 @@ export function DossierGate() {
               ? `aapke ${devNum(String(yesCount))} haan — dossier pehli chapter taiyar hai.`
               : `${yesCount} truths confirmed. Your first chapter is prepared.`}
           </p>
-          <Button className="mt-3" data-testid="open-chapter-1">
+          <Button className="mt-3" data-testid="open-chapter-1" onClick={onOpenChapter}>
             {hi ? "pehli chapter kholo" : "OPEN CHAPTER 1 →"}
           </Button>
           <p className="mt-2 text-xs text-muted-foreground">
