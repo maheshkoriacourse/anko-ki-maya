@@ -13,6 +13,8 @@ import { useProfile } from "@/components/seeded-profile";
 import { useLang } from "@/lib/lang";
 import { DossierGate } from "@/components/dossier-gate";
 import { DossierChapter1 } from "@/components/dossier-chapter1";
+import { DossierHiddenStory } from "@/components/dossier-hiddenstory";
+import { DossierLifeMap } from "@/components/dossier-lifemap";
 
 const PROGRESS_KEY = "akm.v1.dossierProgress";
 
@@ -70,13 +72,17 @@ export default function DossierPage() {
       ) : (
         <div className="space-y-6">
           <DossierChapter1 />
-          <button
-            onClick={advance}
-            data-testid="next-chapter"
-            className="mx-auto block rounded-lg border border-gold/50 bg-gold/10 px-5 py-2.5 text-sm font-semibold text-gold hover:bg-gold/20"
-          >
-            {hi ? "agli chapter: jeevan-map →" : "Next chapter: Your Life Map →"}
-          </button>
+          {chapter >= 2 && <DossierHiddenStory onNext={advance} />}
+          {chapter >= 3 && <DossierLifeMap />}
+          {chapter < 2 && (
+            <button
+              onClick={advance}
+              data-testid="next-chapter"
+              className="mx-auto block rounded-lg border border-gold/50 bg-gold/10 px-5 py-2.5 text-sm font-semibold text-gold hover:bg-gold/20"
+            >
+              {hi ? "agli chapter: chhupi kahani →" : "Next chapter: The hidden story →"}
+            </button>
+          )}
         </div>
       )}
 
