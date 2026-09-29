@@ -17,6 +17,7 @@ import { DossierHiddenStory } from "@/components/dossier-hiddenstory";
 import { DossierLifeMap } from "@/components/dossier-lifemap";
 import { DossierPeople, DossierWealth, DossierCareer } from "@/components/dossier-civil-chapters";
 import { DossierYearAhead, DossierFiveYears, DossierFutureLetter } from "@/components/dossier-year";
+import { DossierPlaybook } from "@/components/dossier-playbook";
 
 const PROGRESS_KEY = "akm.v1.dossierProgress";
 
@@ -82,6 +83,7 @@ export default function DossierPage() {
           {chapter >= 7 && <DossierYearAhead onNext={advance} />}
           {chapter >= 8 && <DossierFiveYears onNext={advance} />}
           {chapter >= 9 && <DossierFutureLetter />}
+          {chapter >= 10 && <DossierPlaybook />}
           {chapter < 2 && (
             <button
               onClick={advance}
