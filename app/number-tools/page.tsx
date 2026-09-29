@@ -14,6 +14,8 @@ import { useT } from "@/lib/lang";
 import { analyzePhone, analyzeHouse, analyzeVehicle, verdictLabel, type NumberToolResult } from "@/lib/number-tools";
 import { devNum, grahaFor } from "@/lib/navgrah";
 import { ReasoningBlock } from "@/components/loshu-kit";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 type Kind = "phone" | "house" | "vehicle";
 
@@ -63,6 +65,9 @@ export default function NumberToolsPage() {
             : "Check your phone, house or vehicle number against your Mulank — the digit-sum's planet either befriends or opposes your driver planet."
         }
       />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)} lang={lang} />
+
 
       <Card className="glass">
         <CardContent className="pt-5">

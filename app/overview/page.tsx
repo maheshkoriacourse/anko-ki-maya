@@ -22,6 +22,8 @@ import { personalYear, personalMonth, personalDay, upcomingMonths, monthName, ty
 import { grahaFor, devNum, planetRelation, RELATION_LABEL } from "@/lib/navgrah";
 import { vedicChart, dashaMonthFlavor, verifyNakshatra, grahaChainLine } from "@/lib/vedic";
 import { nakshatraText } from "@/lib/vedic-content";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 export default function OverviewPage() {
   const { profile, reading, today, hasProfile } = useProfile();
@@ -108,6 +110,9 @@ export default function OverviewPage() {
         actions={
           <Badge variant="gold" className="hero-badge">
             <DiyaMotif aria-hidden className="size-3.5" />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)} lang={lang} />
+
             {hi ? "jyotish ka ank-hissa" : "Ank Shastra"}
           </Badge>
         }

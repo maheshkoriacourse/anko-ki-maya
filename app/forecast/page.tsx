@@ -13,6 +13,8 @@ import { useT } from "@/lib/lang";
 import { PERSONAL_MONTH_WATCHOUTS, LIFE_AREA_PROMPT } from "@/lib/meanings";
 import { monthHeadline, monthDeep } from "@/lib/deep-essays";
 import { upcomingMonths, monthName, type MonthCycle } from "@/lib/numerology";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 const LIFE_AREAS = ["Career", "Relationships", "Money Mindset", "Wellbeing", "Creativity"] as const;
 type LifeArea = (typeof LIFE_AREAS)[number];
@@ -111,6 +113,9 @@ export default function ForecastPage() {
                 months[5] ? `${monthName(months[5].month)} ${months[5].year}` : ""
               } — for each month: what flows, what stalls, how to work it, and what to guard. This reads the weather, it never announces fixed events.`}
       />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(_bn(profile.birthDate ? Number(profile.birthDate.slice(8,10)) : 0).number, _lp(Number(profile.birthDate.slice(0,4)), Number(profile.birthDate.slice(5,7)), Number(profile.birthDate.slice(8,10))).number, undefined, profile.birthDate)} lang={lang} />
+
 
       <div>
         <p className="mb-2 text-sm font-medium">{hi ? "Jeevan-kshetra lens" : "Life-area lens"}</p>

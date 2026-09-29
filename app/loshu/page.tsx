@@ -19,6 +19,8 @@ import { gridYogas } from "@/lib/grid-yogas";
 import { devNum } from "@/lib/navgrah";
 import { vedicChart, grahaChainLine, verifyNakshatra } from "@/lib/vedic";
 import { ReasoningBlock, PlaneBadge, DigitCell } from "@/components/loshu-kit";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber, lifePath } from "@/lib/numerology";
 
 export default function LoShuPage() {
   const { loShu, hasProfile, profile, reading } = useProfile();
@@ -60,8 +62,18 @@ export default function LoShuPage() {
             ? "aapki janmatithi ke ank + Bhagyank 3×3 jaaduee varg mein kaha baithate hain — tal, vikarn, baan aur yutiyaa. Bhagyank bhi grid mein bharta hai."
             : "Where the digits of your birth date AND your Bhagyank sit in the 3×3 magic square — planes, diagonals, arrows and yogas. The Bhagyank digit also fills the grid."
         }
-        actions={<Badge variant="gold"><Eye aria-hidden className="size-3" /> {lang === "hi" ? "grid vishleshan" : "Grid analysis"}</Badge>}
+        actions={<Badge variant="gold"><Eye aria-hidden className="size-3" />
+ {lang === "hi" ? "grid vishleshan" : "Grid analysis"}</Badge>}
       />
+
+      {/* v4.0: page-level sanket — honest warnings, app-wide (owner order) */}
+      {profile ? (
+        <SanketBanner
+          core={coreFromReading(birthdayNumber(Number(profile.birthDate.slice(8, 10))).number, lifePath(Number(profile.birthDate.slice(0, 4)), Number(profile.birthDate.slice(5, 7)), Number(profile.birthDate.slice(8, 10))).number, undefined, profile.birthDate)}
+          lang={lang}
+        />
+      ) : null}
+
 
       {/* v3.4 discoverability (owner: 'repetitions kaha pe hai? remedies kaha pe hai?') —
           jump chips at top: Repetitions section on this page + remedies on /lucky */}

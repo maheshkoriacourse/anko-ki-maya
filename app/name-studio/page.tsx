@@ -15,6 +15,8 @@ import { t as rawT } from "@/lib/content";
 import { optimizeName, scoreName } from "@/lib/name-studio";
 import { reduceFully } from "@/lib/numerology";
 import { ReasoningBlock } from "@/components/loshu-kit";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber, lifePath } from "@/lib/numerology";
 
 export default function NameStudioPage() {
   const { profile, hasProfile } = useProfile();
@@ -63,6 +65,16 @@ export default function NameStudioPage() {
             : "Chaldean compound-number scoring for your name — plus 3 suggested spellings. Brand/company names welcome."
         }
       />
+
+      {/* v4.0: page-level sanket — honest warnings, app-wide (owner order) */}
+      {profile ? (
+        <SanketBanner
+          core={coreFromReading(birthdayNumber(Number(profile.birthDate.slice(8, 10))).number, lifePath(Number(profile.birthDate.slice(0, 4)), Number(profile.birthDate.slice(5, 7)), Number(profile.birthDate.slice(8, 10))).number, undefined, profile.birthDate)}
+          lang={lang}
+        />
+      ) : null}
+
+
 
       <Card>
         <CardContent className="pt-5">

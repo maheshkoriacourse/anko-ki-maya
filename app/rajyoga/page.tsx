@@ -16,6 +16,8 @@ import { t as rawT } from "@/lib/content";
 import { detectRajyogas, rajyogaHeadline, rajyogaHeadlineForGrid, strongestSource, type RajyogaSource } from "@/lib/rajyoga";
 import { devNum, grahaFor, planetRelation, RELATION_LABEL } from "@/lib/navgrah";
 import { ReasoningBlock } from "@/components/loshu-kit";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 export default function RajyogaPage() {
   const { profile, reading, hasProfile } = useProfile();
@@ -61,7 +63,10 @@ export default function RajyogaPage() {
             ? "Rajyoga = ankon ki raaj-sngatiyaa. janm-tithi ke ank, naam-ank aur ank-chakra milakar yeh jaanch hoti hai ki aapke chart mein kaun-se shaahee yog baithe hain."
             : "Rajyoga = royal alignments of numbers. DOB digits, name digits and the grid together decide which royal yogas sit in your chart."
         }
-        actions={<Badge variant="gold"><Crown aria-hidden className="size-3" /> {hi ? `${devNum(result.unique.length)} yog` : `${result.unique.length} yogas`}</Badge>}
+        actions={<Badge variant="gold"><Crown aria-hidden className="size-3" />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)} lang={lang} />
+ {hi ? `${devNum(result.unique.length)} yog` : `${result.unique.length} yogas`}</Badge>}
       />
 
       {/* HEADLINE */}

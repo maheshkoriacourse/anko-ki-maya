@@ -24,6 +24,8 @@ import {
 import { loadYearMarks, saveYearMark } from "@/lib/marks-storage";
 import { devNum, grahaFor } from "@/lib/navgrah";
 import { ReasoningBlock } from "@/components/loshu-kit";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 export default function LifeGraphPage() {
   const { profile, reading, hasProfile } = useProfile();
@@ -77,6 +79,9 @@ export default function LifeGraphPage() {
           </Badge>
         }
       />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)} lang={lang} />
+
 
       {/* THE GRAPH */}
       <Card className="glass yantra-bg">

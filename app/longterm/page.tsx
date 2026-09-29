@@ -21,6 +21,8 @@ import {
 import { PERSONAL_YEAR_THEMES } from "@/lib/meanings";
 import { yearHeadline, yearDeep } from "@/lib/deep-essays";
 import { useT } from "@/lib/lang";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 interface YearRow {
   year: number;
@@ -108,6 +110,9 @@ export default function LongTermPage() {
         title="Long-Term Map"
         subtitle="1-year, 3-year and 9-year cycles as interpretive themes. Cycles are reflective emphases, not guaranteed outcomes."
       />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(_bn(profile.birthDate ? Number(profile.birthDate.slice(8,10)) : 0).number, _lp(Number(profile.birthDate.slice(0,4)), Number(profile.birthDate.slice(5,7)), Number(profile.birthDate.slice(8,10))).number, undefined, profile.birthDate)} lang={lang} />
+
 
       <Card>
         <CardHeader>

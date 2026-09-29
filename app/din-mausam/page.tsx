@@ -16,6 +16,8 @@ import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
 import { computeDaySignals, type DayWarning } from "@/lib/day-weather";
 import { devNum } from "@/lib/navgrah";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 const WARN_STYLE: Record<DayWarning["level"], { box: string; icon: React.ReactNode; labelEn: string; labelHi: string }> = {
   dhyan: {
@@ -160,6 +162,9 @@ export default function DinMausamPage() {
             : "Every day has weather: which current flows, where friction builds, and where to keep guard — every warning carries its own remedy. This reads weather, never announces events."
         }
       />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(_bn(profile.birthDate ? Number(profile.birthDate.slice(8,10)) : 0).number, _lp(Number(profile.birthDate.slice(0,4)), Number(profile.birthDate.slice(5,7)), Number(profile.birthDate.slice(8,10))).number, undefined, profile.birthDate)} lang={lang} />
+
 
       <div className="grid gap-4 lg:grid-cols-2">
         <DayCard

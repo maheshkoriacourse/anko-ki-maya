@@ -11,6 +11,8 @@ import { PageHeader, WhyThisReading, EmptyState, LoadingCards, StarMotif } from 
 import { useProfile } from "@/components/seeded-profile";
 import { meaningFor } from "@/lib/meanings";
 import type { LoShuResult } from "@/lib/loshu";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber, lifePath } from "@/lib/numerology";
 
 /* ------------------------------------------------------------------ */
 /* Lo Shu grid component (accessible 3×3)                               */
@@ -180,6 +182,16 @@ export default function NumbersPage() {
         title="Your Numbers"
         subtitle={`For ${profile.preferredName || profile.birthName} · ${profile.birthDate.split("-").reverse().join("-")} · ${profile.system === "chaldean" ? "Chaldean" : "Pythagorean"} system. Every card shows exactly how its number was calculated.`}
       />
+
+      {/* v4.0: page-level sanket — honest warnings, app-wide (owner order) */}
+      {profile ? (
+        <SanketBanner
+          core={coreFromReading(birthdayNumber(Number(profile.birthDate.slice(8, 10))).number, lifePath(Number(profile.birthDate.slice(0, 4)), Number(profile.birthDate.slice(5, 7)), Number(profile.birthDate.slice(8, 10))).number, undefined, profile.birthDate)}
+          lang="en"
+        />
+      ) : null}
+
+
 
       <Tabs
         ariaLabel="Numbers sections"

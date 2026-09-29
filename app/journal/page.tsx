@@ -19,6 +19,8 @@ import {
 } from "@/lib/storage";
 import { personalYear } from "@/lib/numerology";
 import { PERSONAL_MONTH_THEMES } from "@/lib/meanings";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber, lifePath } from "@/lib/numerology";
 
 function thisMonthTag(profileBirthDate: string, now: Date): string {
   const bm = Number(profileBirthDate.slice(5, 7));
@@ -110,10 +112,20 @@ export default function JournalPage() {
         subtitle="Your private reflection space — stored only in this browser. Pattern insights are generated only from what you write."
         actions={
           <Button size="sm" onClick={startNew}>
-            <Plus aria-hidden /> New entry
+            <Plus aria-hidden />
+ New entry
           </Button>
         }
       />
+
+      {/* v4.0: page-level sanket — honest warnings, app-wide (owner order) */}
+      {profile ? (
+        <SanketBanner
+          core={coreFromReading(birthdayNumber(Number(profile.birthDate.slice(8, 10))).number, lifePath(Number(profile.birthDate.slice(0, 4)), Number(profile.birthDate.slice(5, 7)), Number(profile.birthDate.slice(8, 10))).number, undefined, profile.birthDate)}
+          lang={"en"}
+        />
+      ) : null}
+
 
       <JournalShortcut />
 

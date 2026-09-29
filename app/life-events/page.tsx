@@ -16,6 +16,8 @@ import { t as rawT } from "@/lib/content";
 import { analyzeLifeEvents, graphGeometry, type LifeEvent } from "@/lib/life-events";
 import { loadLifeEvents, upsertLifeEvent, deleteLifeEvent } from "@/lib/life-storage";
 import { ReasoningBlock } from "@/components/loshu-kit";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 export default function LifeEventsPage() {
   const { profile, hasProfile } = useProfile();
@@ -70,7 +72,10 @@ export default function LifeEventsPage() {
             ? "apni ateet ki badi ghatanaae darj karein — engine unhen aapke vyaktigat-saal chakra par plot karega."
             : "Record your past high-impact events — the engine plots them on your personal-year cycle."
         }
-        actions={<Badge variant="gold"><LineChart aria-hidden className="size-3" /> {list.length} {lang === "hi" ? "ghatanaae" : "events"}</Badge>}
+        actions={<Badge variant="gold"><LineChart aria-hidden className="size-3" />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(_bn(profile.birthDate ? Number(profile.birthDate.slice(8,10)) : 0).number, _lp(Number(profile.birthDate.slice(0,4)), Number(profile.birthDate.slice(5,7)), Number(profile.birthDate.slice(8,10))).number, undefined, profile.birthDate)} lang={lang} />
+ {list.length} {lang === "hi" ? "ghatanaae" : "events"}</Badge>}
       />
 
       {/* Add-event form */}

@@ -20,6 +20,8 @@ import { expandedRemedyFor, DAILY_HABITS, NEELAM_CAUTION_EN, NEELAM_CAUTION_HI }
 import { devNum } from "@/lib/navgrah";
 import { vedicChart, grahaChainLine, shubhSamay, type ShubhSamay } from "@/lib/vedic";
 import { ReasoningBlock } from "@/components/loshu-kit";
+import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
+import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 export default function LuckyPage() {
   const { profile, hasProfile } = useProfile();
@@ -68,7 +70,10 @@ export default function LuckyPage() {
             ? "Janm-ank aur Mulank ke hisaab se traditional associations — number, din, rang, ratna aur upay. Yeh parampara ke connections hain, koi guarantee nahi."
             : "Traditional associations for your birth and life-path numbers — digits, days, colors, gems and remedies. Associations of tradition, not guarantees."
         }
-        actions={<Badge variant="gold"><Gem aria-hidden className="size-3" /> {lang === "hi" ? "traditional" : "traditional"}</Badge>}
+        actions={<Badge variant="gold"><Gem aria-hidden className="size-3" />
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner core={coreFromReading(_bn(profile.birthDate ? Number(profile.birthDate.slice(8,10)) : 0).number, _lp(Number(profile.birthDate.slice(0,4)), Number(profile.birthDate.slice(5,7)), Number(profile.birthDate.slice(8,10))).number, undefined, profile.birthDate)} lang={lang} />
+ {lang === "hi" ? "traditional" : "traditional"}</Badge>}
       />
 
       {/* v3.2: durga-blessing header band — Maa ka ashirwad on the Upay page */}
