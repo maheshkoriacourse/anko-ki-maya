@@ -174,13 +174,13 @@ export default function OnboardingPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-xs text-muted-foreground">
                 {hi
                   ? "Aapka data isi browser mein rehta hai — Settings se export/delete kabhi bhi."
                   : "Your data stays in this browser (localStorage) — export or delete anytime in Settings."}
               </p>
-              <Button type="submit" size="lg">
+              <Button type="submit" size="lg" className="mx-auto whitespace-nowrap sm:mx-0">
                 <DiyaMotif className="size-5" aria-hidden />
                 {hi ? "Mera vachan dikhao" : "Reveal my reading"}
               </Button>
