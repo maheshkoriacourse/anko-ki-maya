@@ -12,8 +12,8 @@
 
 :root {
   --radius: 1rem;
-  --background: #fdf6ec;          /* warm kesari-cream */
-  --foreground: #2b1206;          /* deep maroon-brown ink */
+  --background: #FAF3E3;          /* v6.2 akashic-ivory (warmer, spec-family) */
+  --foreground: #1B2033;          /* v6.2: deep cosmic-navy ink (navy family) */
   --card: #fffaf1;
   --card-foreground: #2b1206;
   --popover: #fffaf1;
@@ -34,7 +34,7 @@
   --kesari: #ff9933;              /* THE saffron */
   --saffron-deep: #e06c00;
   --maroon: #6d1a12;              /* deep maroon */
-  --gold: #b8860b;                /* temple gold */
+  --gold: #A98112;                /* v6.2: antique-gold (light-mode toned) */
   --gold-bright: #d9a441;
   --indigo: #1e1b4a;              /* deep indigo-night */
   --indigo-deep: #14113a;
