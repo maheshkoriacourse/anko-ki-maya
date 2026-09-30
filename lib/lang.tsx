@@ -39,6 +39,14 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
     saveLang(l);
   }, []);
 
+  // HINDI-TOTAL-LOOK (owner order 30 Sep: hindi option => menu/nav/font/headers SAB Devanagari feel):
+  React.useEffect(() => {
+    try {
+      document.documentElement.dataset.lang = lang;      // CSS hooks
+      document.documentElement.lang = lang === "hi" ? "hi" : "en";
+    } catch { /* ssr-safe */ }
+  }, [lang]);
+
   const value = React.useMemo(() => ({ lang, setLang }), [lang, setLang]);
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
 }

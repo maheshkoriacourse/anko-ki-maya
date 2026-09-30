@@ -174,6 +174,24 @@
 
 /* v5.1 AKASHIC DOSSIER type system — Cinzel for EN display headings, Inter body for dossier pages,
    Noto Serif Display for sacred quotes. Rozha stays for Devanagari display. */
+
+/* ===== v6.2 HINDI-TOTAL-LOOK (owner 30 Sep: font-look bhi Hindi me switch ho) =====
+   Roman text bhi hi-mode me Devanagari-flavored type se dikhe — pura UI nav/fonts/display
+   Devanagari-first. EN mode untouched. */
+[data-lang="hi"] {
+  --font-sans: var(--font-mukta), var(--font-noto-devanagari), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-noto-devanagari), var(--font-rozha), Georgia, serif;
+  --font-serif: var(--font-noto-devanagari), var(--font-rozha), Georgia, serif;
+}
+/* display utilities follow the html switch */
+@layer utilities {
+  [data-lang="hi"] .font-dossier { font-family: var(--font-noto-devanagari), var(--font-rozha), Georgia, serif; }
+  [data-lang="hi"] .font-quote   { font-family: var(--font-noto-devanagari), var(--font-rozha), Georgia, serif; }
+  [data-lang="hi"] .font-inter   { font-family: var(--font-mukta), system-ui, sans-serif; }
+  /* latin-only Cinzel in hi-mode → Devanagari-first (nav/headings) */
+  [data-lang="hi"] .font-cinzel { font-family: var(--font-noto-devanagari), Georgia, serif; }
+}
+
 @utility font-dossier {
   font-family: var(--font-cinzel), var(--font-rozha), Georgia, serif;
 }
