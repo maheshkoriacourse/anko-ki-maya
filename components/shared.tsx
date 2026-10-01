@@ -35,8 +35,9 @@ export function PageHeader({
   return (
     <header className="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
-        {subtitle ? <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{subtitle}</p> : null}
+        <h1 className="font-dossier text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
+        <hr aria-hidden className="gold-hairline mt-2.5 w-40 border-0" />
+        {subtitle ? <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{subtitle}</p> : null}
       </div>
       {actions ? <div className="flex items-center gap-2">{actions}</div> : null}
     </header>

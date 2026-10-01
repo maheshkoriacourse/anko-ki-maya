@@ -141,10 +141,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     </nav>
   );
 
-  const brand = (
+  const brandOnly = (
     <Link
       href="/"
-      className="mb-6 flex items-center gap-2.5 px-1"
+      className="mb-1 flex items-center gap-2.5 px-1"
       aria-label="Anko Ki Maya home"
     >
       <span
@@ -153,10 +153,23 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       >
         <OmMotif className="text-lg" />
       </span>
-      <span className="font-display text-lg font-semibold tracking-tight">
+      <span className="sidebar-brand font-dossier text-lg tracking-tight">
         {t("appName")}
       </span>
     </Link>
+  );
+  const brand = (
+    <div>
+      {brandOnly}
+      <hr aria-hidden className="sidebar-brand-rule m-0 px-1" />
+      <div className="mb-4 mt-3 flex items-center justify-between px-1">
+        <span className="sidebar-foot text-[11px] opacity-0 md:hidden">v3 · Sanatan</span>
+        <div className="ml-auto flex items-center gap-1.5">
+          <LangToggle />
+          <ThemeToggle />
+        </div>
+      </div>
+    </div>
   );
 
   if (bare) {
@@ -215,24 +228,17 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-dvh starfield diya-glow-fixed sanctum-frame">
       {divineBg}
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r bg-card/70 px-4 py-6 backdrop-blur md:flex no-print">
+      <aside className="shell-sidebar hidden w-64 flex-col px-4 py-6 md:flex no-print">
         {brand}
         <div className="min-h-0 flex-1 overflow-y-auto pr-1">
           {nav}
         </div>
-        <div className="mt-4 flex items-center justify-between px-1 pt-3">
-          <span className="text-[11px] text-muted-foreground">v3 · Sanatan</span>
-          <div className="flex items-center gap-1.5">
-            <LangToggle />
-            <ThemeToggle />
-          </div>
-        </div>
       </aside>
 
       {/* Mobile top bar — lang toggle ALWAYS visible */}
-      <header className="sticky top-0 z-40 flex items-center justify-between border-b bg-card/80 px-4 py-3 backdrop-blur md:hidden no-print">
-        {brand}
-        <div className="flex items-center gap-1.5">
+      <header className="shell-topbar sticky top-0 z-40 flex items-center justify-between gap-2 px-3 py-3 backdrop-blur md:hidden no-print">
+        {brandOnly}
+        <div className="flex shrink-0 items-center gap-1.5">
           <LangToggle />
           <ThemeToggle />
         </div>
@@ -252,7 +258,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* Mobile bottom nav */}
       <nav
         aria-label="Primary mobile"
-        className="fixed inset-x-0 bottom-0 z-50 border-t bg-card/95 backdrop-blur md:hidden no-print"
+        className="shell-bottomnav fixed inset-x-0 bottom-0 z-50 backdrop-blur md:hidden no-print"
       >
         <ul className="mx-auto flex max-w-md items-stretch justify-between px-1">
           {NAV_ITEMS.slice(0, 5).map((item) => (
@@ -260,8 +266,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <Link
                 href={item.href}
                 className={`flex flex-col items-center gap-0.5 px-1 py-2 text-[10px] font-medium ${
-                  isActive(item.href) ? "text-primary" : "text-muted-foreground"
+                  isActive(item.href) ? "text-gold-bright" : "text-muted-foreground"
                 }`}
+                data-active={isActive(item.href)}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 aria-label={t(item.labelKey)}
               >

@@ -110,43 +110,46 @@ export default function OverviewPage() {
         actions={
           <Badge variant="gold" className="hero-badge">
             <DiyaMotif aria-hidden className="size-3.5" />
-      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
-      <SanketBanner core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)} lang={lang} />
-
             {hi ? "jyotish ka ank-hissa" : "Ank Shastra"}
           </Badge>
         }
       />
 
+      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
+      <SanketBanner
+        core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)}
+        lang={lang}
+      />
+
       {/* ---------- ABHI KA HAAL (chapter-1 hero) ---------- */}
       <Card className="glass yantra-bg">
         <CardHeader>
-          <CardTitle className="font-display text-xl">
+          <CardTitle className="akashic-heading font-display text-xl">
             {hi ? "Abhi ka haal — aap is vakat kaha khadae hain" : "Abhi Ka Haal — where you stand right now"}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-5">
           {/* Ank Dasha trio */}
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-xl border border-gold/40 bg-gold/5 p-4 text-center">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gold">{t("personalYear")}</p>
-              <p aria-hidden className="number-glyph mt-1 text-5xl text-kesari">{hi ? devNum(currentPY.number) : currentPY.number}</p>
+            <div className="akashic-card gold-hairline-double-bottom rounded-xl border bg-gold/5 px-5 py-6 text-center">
+              <p className="akashic-heading text-xs font-semibold uppercase tracking-widest text-gold">{t("personalYear")}</p>
+              <p aria-hidden className="number-glyph font-dossier mt-1 text-6xl text-gold dark:text-gold-bright">{hi ? devNum(currentPY.number) : currentPY.number}</p>
               <p className="mt-1 text-xs text-muted-foreground">{today.getFullYear()} · {grahaFor(currentPY.number).graha}</p>
             </div>
-            <div className="rounded-xl border p-4 text-center">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gold">{t("personalMonth")}</p>
-              <p aria-hidden className="number-glyph mt-1 text-5xl text-primary dark:text-gold-bright">{hi ? devNum(pmNow) : pmNow}</p>
+            <div className="akashic-card rounded-xl border bg-gold/5 px-5 py-6 text-center">
+              <p className="akashic-heading text-xs font-semibold uppercase tracking-widest text-gold">{t("personalMonth")}</p>
+              <p aria-hidden className="number-glyph font-dossier mt-1 text-6xl text-gold dark:text-gold-bright">{hi ? devNum(pmNow) : pmNow}</p>
               <p className="mt-1 text-xs text-muted-foreground">{monthName(today.getMonth() + 1)}</p>
             </div>
-            <div className="rounded-xl border p-4 text-center">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gold">{t("personalDay")}</p>
-              <p aria-hidden className="number-glyph mt-1 text-5xl text-primary dark:text-gold-bright">{hi ? devNum(pDay.number) : pDay.number}</p>
+            <div className="akashic-card rounded-xl border bg-gold/5 px-5 py-6 text-center">
+              <p className="akashic-heading text-xs font-semibold uppercase tracking-widest text-gold">{t("personalDay")}</p>
+              <p aria-hidden className="number-glyph font-dossier mt-1 text-6xl text-gold dark:text-gold-bright">{hi ? devNum(pDay.number) : pDay.number}</p>
               <p className="mt-1 text-xs text-muted-foreground">{today.getDate()} {monthName(today.getMonth() + 1).slice(0, 3)}</p>
             </div>
           </div>
 
           {/* Direct dasha narrative */}
-          <div className="rounded-xl border bg-secondary/40 p-4">
+          <div className="akashic-card rounded-xl border bg-secondary/40 px-5 py-5">
             <p className="text-xs font-semibold uppercase tracking-wide text-gold">{dashaYear.name}</p>
             <p className="mt-1.5 text-sm font-medium leading-relaxed">{hi ? dashaYear.lineHi : dashaYear.lineEn}</p>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -170,7 +173,7 @@ export default function OverviewPage() {
           />
 
           {/* Mulank/Bhagyank state */}
-          <div className="rounded-xl border p-4">
+          <div className="akashic-card rounded-xl border px-5 py-5">
             <p className="text-xs font-semibold uppercase tracking-wide text-gold">
               {hi ? "Mulank · Bhagyank ki sthiti" : "Mulank · Bhagyank state"}
             </p>
@@ -215,7 +218,7 @@ export default function OverviewPage() {
       {/* ---------- CORE NUMBER CARDS ---------- */}
       <section aria-labelledby="core-numbers">
         <div className="mb-3 flex items-center justify-between">
-          <h2 id="core-numbers" className="font-display text-lg font-semibold">{t("coreNumbers")}</h2>
+          <h2 id="core-numbers" className="akashic-heading font-display text-lg font-semibold">{t("coreNumbers")}</h2>
           <a href="/numbers" className="text-sm text-primary underline-offset-4 hover:underline">
             {hi ? "poora vivaran →" : "Full breakdown →"}
           </a>
@@ -277,7 +280,7 @@ export default function OverviewPage() {
 
       {/* ---------- 6-MONTH WEATHER ---------- */}
       <section aria-labelledby="timeline">
-        <h2 id="timeline" className="mb-3 font-display text-lg font-semibold">
+        <h2 id="timeline" className="akashic-heading mb-3 font-display text-lg font-semibold">
           {hi ? "agle 6 mahine — ank-dasha mausam" : "Next 6 months — Ank Dasha weather"}
         </h2>
         <Card>
@@ -287,10 +290,10 @@ export default function OverviewPage() {
                 const intensity = m.personalMonth <= 9 ? m.personalMonth : 9;
                 const flavor = monthFlavor.get(m.label);
                 return (
-                  <li key={m.label} className="rounded-lg border p-3.5">
+                  <li key={m.label} className="akashic-card rounded-xl border px-4 py-4">
                     <div className="flex items-baseline justify-between gap-2">
                       <span className="text-sm font-medium">{monthName(m.month)} {m.year}</span>
-                      <span aria-hidden className="number-glyph text-2xl text-primary/80">{hi ? devNum(m.personalMonth) : m.personalMonth}</span>
+                      <span aria-hidden className="number-glyph font-dossier text-2xl text-gold dark:text-gold-bright">{hi ? devNum(m.personalMonth) : m.personalMonth}</span>
                     </div>
                     <div className="intensity mt-2" aria-hidden>
                       <span style={{ width: `${(intensity / 9) * 100}%` }} />
@@ -321,7 +324,7 @@ export default function OverviewPage() {
 
       {/* ---------- HOT WINDOWS ---------- */}
       <section aria-labelledby="windows">
-        <h2 id="windows" className="mb-3 font-display text-lg font-semibold">
+        <h2 id="windows" className="akashic-heading mb-3 font-display text-lg font-semibold">
           {hi ? "garm khidkiyaan" : "Hot windows"}
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
@@ -354,7 +357,7 @@ export default function OverviewPage() {
 
       {/* ---------- DEEP-DIVE TILES ---------- */}
       <section aria-labelledby="tiles">
-        <h2 id="tiles" className="mb-3 font-display text-lg font-semibold">
+        <h2 id="tiles" className="akashic-heading mb-3 font-display text-lg font-semibold">
           {hi ? "gehrai mein jaaie" : "Go deeper"}
         </h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

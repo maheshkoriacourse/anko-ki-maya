@@ -50,7 +50,7 @@ export function SanketBanner({
     return (
       <div
         data-testid="sanket-clean"
-        className={`rounded-xl border border-border bg-secondary/30 px-4 py-3 text-sm ${extraClassName}`}
+        className={`saffron-accent-edge akashic-card rounded-xl !border-gold/40 bg-secondary/30 px-5 py-4 text-sm ${extraClassName}`}
       >
         <p className="text-xs font-semibold uppercase tracking-wide text-gold">
           {hi ? "aaj ka sanket" : "Today's sanket"}
@@ -64,8 +64,8 @@ export function SanketBanner({
     );
   }
   return (
-    <div className={`space-y-2 ${extraClassName}`} data-testid="sanket-banner">
-      <p className="text-xs font-semibold uppercase tracking-wide text-gold">
+    <div className={`space-y-2.5 ${extraClassName}`} data-testid="sanket-banner">
+      <p className="text-xs font-semibold uppercase tracking-widest text-gold">
         {hi
           ? `sanket — ${devNum(String(warnings.length))} baat jo dhyan mangti hai`
           : `Sanket — ${warnings.length} ${warnings.length === 1 ? "thing" : "things"} that need your eyes`}
@@ -76,16 +76,16 @@ export function SanketBanner({
           <div
             key={wt.id}
             data-testid={`sanket-${wt.id}`}
-            className={`rounded-xl border ${st.box} px-4 py-3`}
+            className={`saffron-accent-edge akashic-card rounded-xl ${st.box} px-5 py-4`}
           >
             <div className="flex items-baseline justify-between gap-2">
-              <p className={`text-xs font-semibold uppercase tracking-wide ${st.chip}`}>
+              <p className={`text-xs font-semibold uppercase tracking-widest ${st.chip}`}>
                 {hi ? st.labelHi : st.labelEn}
               </p>
             </div>
-            <p className="mt-1.5 text-sm leading-relaxed">{hi ? wt.hi : wt.en}</p>
+            <p className="mt-2 text-sm leading-relaxed">{hi ? wt.hi : wt.en}</p>
             <p className="mt-1 text-xs text-muted-foreground">{hi ? wt.basisHi : wt.basisEn}</p>
-            <div className="mt-2 rounded-lg border border-border bg-background/40 px-3 py-2">
+            <div className="mt-3 rounded-lg border border-border bg-background/40 px-3 py-2">
               <p className="text-xs font-semibold uppercase tracking-wide text-gold/90">
                 {hi ? "upay" : "The fix"}
               </p>

@@ -40,6 +40,14 @@
   --indigo-deep: #14113a;
   --midnight: #14113a;
   --plum: #4a1030;
+  --saffron: #d97706;             /* v6.3: light-mode toned saffron glow */
+  --copper: #a5612a;              /* v6.3: light-mode toned bronze */
+  --obsidian: #080808;
+  /* v6.3 AKASHIC vignette — gold/copper light pools + soft inked edges */
+  --bg-vignette:
+    radial-gradient(1100px 640px at 86% -8%, rgb(169 129 18 / 0.07), transparent 62%),
+    radial-gradient(880px 520px at -8% 24%, rgb(184 115 51 / 0.055), transparent 64%),
+    radial-gradient(140% 108% at 50% 42%, transparent 60%, rgb(27 32 51 / 0.08) 100%);
 }
 
 .dark {
@@ -74,6 +82,12 @@
   --indigo-deep: #060614;
   --midnight: #060614;
   --plum: #2c0e20;
+  /* v6.3: saffron/copper/gold pools + cinematic vignette on the cosmos */
+  --bg-vignette:
+    radial-gradient(1000px 600px at 50% -6%, rgb(255 179 71 / 0.055), transparent 62%),
+    radial-gradient(800px 480px at 88% 6%, rgb(212 175 55 / 0.05), transparent 60%),
+    radial-gradient(720px 480px at 2% 80%, rgb(184 115 51 / 0.055), transparent 66%),
+    radial-gradient(145% 115% at 50% 40%, transparent 56%, rgb(4 5 14 / 0.6) 100%);
 }
 
 @theme inline {
@@ -124,6 +138,8 @@
   }
   body {
     background-color: var(--background);
+    background-image: var(--bg-vignette);
+    background-attachment: fixed;
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
   }
@@ -154,9 +170,12 @@
   animation: divine-breathe 24s ease-in-out infinite alternate;
 }
 
+/* v6.3: dark-toned artwork cleans down to invisible on ivory — light mode
+   reads as clean temple-ivory (vignette + gold washes carry the bg); the
+   cinematic layer stays at full strength in dark. Element kept in DOM. */
 .light .divine-bg-layer,
 :not(.dark) .divine-bg-layer {
-  opacity: 0.16;
+  display: none;
 }
 
 @keyframes divine-breathe {
@@ -739,3 +758,301 @@
 .constellation-bg {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' viewBox='0 0 440 440'%3E%3Cg fill='none' stroke='%23b8860b' stroke-opacity='0.08'%3E%3Ccircle cx='220' cy='220' r='205'/%3E%3Cg%3E%3Cpath d='M220 55 L342 300 L98 300 Z'/%3E%3Cpath d='M220 385 L98 140 L342 140 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
+
+/* ------------------------------------------------------------------ */
+/* v6.3 AKASHIC LUXURY SYSTEM — main app pages carry the same ₹1L-tier  */
+/* DNA as /dossier: gold hairlines, layered shadows, double-line        */
+/* ornamental separators, serif gold numerals. (Background vignette     */
+/* itself ships as body --bg-vignette in the :root/.dark token blocks.) */
+/* Netflix + Apple + Ancient India. Token-driven: BOTH modes inherit.   */
+/* ------------------------------------------------------------------ */
+
+/* THE AKASHIC CARD — gold hairline + layered lift shadows. Reusable    */
+/* on any <div>/<Card>; the dossier look without touching page JSX.     */
+.akashic-card {
+  position: relative;
+  background: color-mix(in srgb, var(--card) 92%, var(--gold) 8%);
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+  border-radius: var(--radius);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 6px 22px -12px color-mix(in srgb, var(--gold) 33%, rgba(0, 0, 0, 0.28)),
+    0 18px 44px -18px rgba(0, 0, 0, 0.25);
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    border-color 220ms ease;
+}
+.akashic-card:hover {
+  border-color: color-mix(in srgb, var(--gold) 62%, transparent);
+  transform: translateY(-1px);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 8px 30px -12px color-mix(in srgb, var(--gold) 46%, rgba(0, 0, 0, 0.3)),
+    0 24px 56px -20px rgba(0, 0, 0, 0.3);
+}
+.akashic-card::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid color-mix(in srgb, var(--gold) 12%, transparent);
+  border-radius: calc(var(--radius) - 3px);
+  pointer-events: none;
+}
+/* serif display numerals sit in gold inside akashic cards */
+.akashic-card .number-glyph {
+  color: var(--gold);
+  font-family: var(--font-cinzel), var(--font-noto-devanagari), var(--font-rozha), var(--font-display);
+}
+/* v6.3 hi-mode: all akashic display type goes Devanagari-first (same law as .font-cinzel) */
+[data-lang="hi"] .akashic-heading,
+[data-lang="hi"] .akashic-card .number-glyph,
+[data-lang="hi"] .sidebar-brand {
+  font-family: var(--font-noto-devanagari), var(--font-rozha), Georgia, serif;
+}
+/* v6.3 dark: deepen the panel onto obsidian, lift the gold hairline so the
+   glass card edge actually reads as metal on midnight (was mint-green on
+   cream, invisible on #0B1026). */
+.dark .akashic-card {
+  background: color-mix(in srgb, var(--card) 78%, #04050c 22%);
+}
+.dark .akashic-card::before {
+  border-color: rgb(212 175 55 / 0.16);
+}
+.dark .akashic-card .number-glyph {
+  color: var(--gold-bright);
+}
+
+/* ornamental section separator — thin DOUBLE-LINE gold rule            */
+.gold-hairline-double {
+  height: 7px;
+  border: none;
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 55%, transparent) 18%, color-mix(in srgb, var(--gold) 55%, transparent) 82%, transparent) 0 0 / 100% 1px no-repeat,
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 38%, transparent) 18%, color-mix(in srgb, var(--gold) 38%, transparent) 82%, transparent) 0 5px / 100% 1px no-repeat;
+}
+/* bottom-edge variant — under card headings (trio tiles, dasha blocks) */
+.gold-hairline-double-bottom {
+  padding-bottom: 9px;
+  background-image:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 50%, transparent) 15%, color-mix(in srgb, var(--gold) 50%, transparent) 85%, transparent),
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 30%, transparent) 18%, color-mix(in srgb, var(--gold) 30%, transparent) 82%, transparent);
+  background-size: 100% 1px, 100% 1px;
+  background-position: 0 calc(100% - 4px), 0 100%;
+  background-repeat: no-repeat;
+}
+/* LoShu grid-cell variant: double-line rule on all four inner edges —
+   reads as an etched gold temple-grid without eating the small square  */
+.gold-hairline-cell {
+  background-image:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 48%, transparent) 14%, color-mix(in srgb, var(--gold) 48%, transparent) 86%, transparent),
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 48%, transparent) 14%, color-mix(in srgb, var(--gold) 48%, transparent) 86%, transparent),
+    linear-gradient(0deg, transparent, color-mix(in srgb, var(--gold) 48%, transparent) 14%, color-mix(in srgb, var(--gold) 48%, transparent) 86%, transparent),
+    linear-gradient(0deg, transparent, color-mix(in srgb, var(--gold) 48%, transparent) 14%, color-mix(in srgb, var(--gold) 48%, transparent) 86%, transparent);
+  background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
+  background-position: 0 3px, 0 calc(100% - 3px), 3px 0, calc(100% - 3px) 0;
+  background-repeat: no-repeat;
+}
+/* single gold hairline alias for cards + inline rules */
+.gold-hairline {
+  min-height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 70%, transparent), transparent);
+  border: none;
+}
+
+/* serif display heading + hairline underline (section headings)        */
+.akashic-heading {
+  font-family: var(--font-cinzel), var(--font-rozha), Georgia, serif;
+  letter-spacing: 0.04em;
+  color: var(--foreground);
+}
+.akashic-heading::after {
+  content: "";
+  display: block;
+  width: 4.5rem;
+  height: 1px;
+  margin-top: 0.5rem;
+  background: linear-gradient(90deg, var(--gold), transparent 85%);
+}
+/* inline variant: no block underline (spans inside captions/badges)     */
+span.akashic-heading::after {
+  display: none;
+}
+
+/* saffron accent — vedic energy glow (highlight sweep)                 */
+.saffron-accent {
+  color: var(--kesari);
+  text-shadow: 0 0 16px color-mix(in srgb, var(--saffron-deep, #e06c00) 38%, transparent);
+}
+
+/* saffron-glow EDICT edge — used on sanket/edict bands (overview)      */
+.saffron-accent-edge {
+  box-shadow:
+    -2px 0 0 0 var(--kesari),
+    -8px 0 24px -10px color-mix(in srgb, var(--kesari) 55%, transparent),
+    0 0 30px -16px color-mix(in srgb, var(--gold) 48%, transparent);
+}
+.dark .saffron-accent-edge {
+  box-shadow:
+    -2px 0 0 0 var(--kesari),
+    -10px 0 26px -10px color-mix(in srgb, var(--kesari) 62%, transparent),
+    0 0 34px -16px color-mix(in srgb, var(--gold) 55%, transparent);
+}
+
+/* page-level luxury sheen wrapper (opt-in, no fixed elements)          */
+.akashic-sheen {
+  background-image:
+    radial-gradient(70% 38% at 50% 0%, color-mix(in srgb, var(--gold) 9%, transparent), transparent 72%),
+    radial-gradient(46% 34% at 8% 4%, color-mix(in srgb, var(--kesari, #ff9933) 5%, transparent), transparent 70%),
+    radial-gradient(46% 34% at 94% 12%, color-mix(in srgb, var(--indigo) 7%, transparent), transparent 72%);
+}
+
+/* ------------------------------------------------------------------ */
+/* v6.3 APP-SHELL SANCTUM SIDEBAR — deep navy panel, gold section       */
+/* glyphs, dossier wordmark + gold underline rule, gold left-rule       */
+/* active state with soft glow (matches /dossier luxury). Mobile bar    */
+/* and bottom nav stay token-driven for both modes.                     */
+/* ------------------------------------------------------------------ */
+.shell-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  /* display:flex lives in the ≥768px block ONLY — an unlayered display here
+     would beat Tailwind's `hidden` utility (layered) and leak the sidebar
+     onto mobile. Below md the aside stays display:none. */
+  --sb-bg-light: color-mix(in srgb, var(--indigo) 92%, #fff 8%);
+  --sb-bg-dark: #0e1330;
+  --sb-bg: var(--sb-bg-dark);
+  --sb-line: color-mix(in srgb, var(--gold) 26%, transparent);
+}
+@media (min-width: 768px) {
+  .shell-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 16rem;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--gold) 5%, transparent), transparent 3px),
+      linear-gradient(180deg, var(--sb-bg) 0%, color-mix(in srgb, var(--sb-bg) 82%, var(--indigo-deep)) 100%);
+    border-right: 1px solid var(--sb-line);
+    box-shadow:
+      inset -1px 0 0 color-mix(in srgb, var(--gold) 9%, transparent),
+      0 0 44px -18px color-mix(in srgb, var(--gold) 30%, transparent),
+      24px 0 60px -30px rgba(0, 0, 0, 0.55);
+    z-index: 40;
+  }
+}
+/* brand: wordmark in font-dossier + gold underline rule */
+.sidebar-brand {
+  font-family: var(--font-cinzel), var(--font-rozha), Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff8ea;
+  text-shadow: 0 0 20px color-mix(in srgb, var(--gold) 28%, transparent);
+}
+.sidebar-brand-rule {
+  height: 1px;
+  border: none;
+  margin-block: 0.45rem;
+  background: linear-gradient(90deg, var(--gold) 0%, color-mix(in srgb, var(--gold) 65%, transparent) 40%, transparent 95%);
+}
+.sidebar-glyph {
+  color: var(--gold-bright);
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--gold) 45%, transparent));
+  opacity: 0.95;
+}
+.shell-sidebar .nav-link {
+  color: color-mix(in srgb, var(--gold-bright) 74%, var(--gold) 26%);
+  border-left: 2px solid transparent;
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding-left: 0.85rem;
+}
+.shell-sidebar .nav-link:hover {
+  background: color-mix(in srgb, var(--gold) 12%, transparent);
+  color: var(--gold-bright);
+}
+.shell-sidebar .nav-link[data-active="true"] {
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+  border-left-color: var(--kesari);
+  border-left-width: 2px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--gold) 38%, transparent);
+  box-shadow: inset 0 0 18px -8px color-mix(in srgb, var(--gold) 42%, transparent);
+}
+.shell-sidebar .nav-link[data-active="true"] svg {
+  color: var(--gold-bright);
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--gold) 50%, transparent));
+}
+.shell-sidebar .sidebar-foot {
+  color: color-mix(in srgb, #c9b98a 70%, transparent);
+  letter-spacing: 0.05em;
+}
+/* mobile top bar carries its own navy band (sidebar hidden <md) */
+.shell-topbar {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--gold) 6%, transparent), transparent 3px),
+    linear-gradient(180deg, #10143a 0%, #0e1330 100%);
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 24%, transparent);
+}
+.shell-topbar .sidebar-brand { color: #fff8ea; }
+.shell-topbar .nav-chip.active {
+  background: color-mix(in srgb, var(--gold) 16%, transparent);
+  border-color: var(--kesari);
+  color: var(--gold-bright);
+}
+.shell-bottomnav {
+  background:
+    linear-gradient(180deg, #10143a 0%, #0e1330 100%);
+  border-top: 1px solid color-mix(in srgb, var(--gold) 24%, transparent);
+}
+.shell-bottomnav a { color: color-mix(in srgb, var(--gold-bright) 72%, transparent); }
+.shell-bottomnav a[data-active="true"] { color: var(--gold-bright); }
+
+/* light mode — pin :not(.dark) to the HTML element. A bare `:not(.dark)`
+   also matches <body> (next-themes puts the class on <html> only) and
+   would leak light styles into dark mode. */
+html:not(.dark) .shell-sidebar {
+  --sb-bg: color-mix(in srgb, #fffaf1 88%, var(--gold) 12%);
+  --sb-line: color-mix(in srgb, var(--gold) 34%, var(--border));
+}
+html:not(.dark) .shell-sidebar .nav-link {
+  color: var(--muted-foreground);
+  border-left-color: transparent;
+}
+html:not(.dark) .shell-sidebar .nav-link:hover {
+  background: color-mix(in srgb, var(--gold) 9%, transparent);
+  color: var(--saffron-deep);
+}
+html:not(.dark) .shell-sidebar .nav-link[data-active="true"] {
+  background: color-mix(in srgb, var(--gold) 9%, transparent);
+  border-left-color: var(--kesari);
+  color: var(--saffron-deep);
+  text-shadow: 0 0 13px color-mix(in srgb, var(--gold) 32%, transparent);
+  box-shadow: inset 0 0 18px -10px color-mix(in srgb, var(--gold) 40%, transparent);
+}
+html:not(.dark) .shell-sidebar .nav-link[data-active="true"] svg {
+  color: var(--saffron-deep);
+}
+html:not(.dark) .shell-sidebar .sidebar-glyph {
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gold) 40%, transparent));
+}
+html:not(.dark) .sidebar-brand {
+  color: var(--maroon);
+  text-shadow: none;
+}
+html:not(.dark) .sidebar-brand-rule {
+  background: linear-gradient(90deg, var(--gold) 0%, color-mix(in srgb, var(--gold) 60%, transparent) 45%, transparent 95%);
+}
+html:not(.dark) .shell-topbar .sidebar-brand {
+  color: var(--maroon);
+}
+html:not(.dark) .shell-topbar {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--gold) 7%, transparent), transparent 3px),
+    linear-gradient(180deg, #fff8ec 0%, #fdf3df 100%);
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+}
+html:not(.dark) .shell-bottomnav {
+  background: linear-gradient(180deg, #fffaf1 0%, #fdf3df 100%);
+  border-top: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+}
+html:not(.dark) .shell-bottomnav a[data-active="true"] { color: var(--saffron-deep); }

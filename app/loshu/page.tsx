@@ -81,13 +81,13 @@ export default function LoShuPage() {
       <div className="flex flex-wrap gap-2" data-testid="loshu-jump-chips">
         <a
           href="#repetitions-h"
-          className="rounded-full border border-gold/40 bg-gold/5 px-3 py-1 text-xs font-medium text-gold transition hover:bg-gold/15"
+          className="rounded-full border border-gold/40 bg-gold/5 px-3.5 py-1.5 text-xs font-medium text-gold transition hover:bg-gold/15 hover:shadow-[0_0_18px_-6px_color-mix(in_srgb,var(--gold)_60%,transparent)]"
         >
           {lang === "hi" ? "↓ Ank-Repetitions" : "↓ Repetitions"}
         </a>
         <a
           href="/lucky"
-          className="rounded-full border border-gold/40 bg-gold/5 px-3 py-1 text-xs font-medium text-gold transition hover:bg-gold/15"
+          className="rounded-full border border-gold/40 bg-gold/5 px-3.5 py-1.5 text-xs font-medium text-gold transition hover:bg-gold/15 hover:shadow-[0_0_18px_-6px_color-mix(in_srgb,var(--gold)_60%,transparent)]"
         >
           {lang === "hi" ? "→ Upay (Lucky aur Upay)" : "→ Remedies (/lucky)"}
         </a>
@@ -96,9 +96,9 @@ export default function LoShuPage() {
       {/* v3.1: Bhagyank note — 'Bhagyank bhi grid mein bharta hai' */}
       <div
         data-testid="bhagyank-note"
-        className="rounded-xl border border-gold/40 bg-gold/5 px-4 py-3 text-sm"
+        className="akashic-card saffron-accent-edge rounded-xl px-5 py-4 text-sm"
       >
-        <span className="font-medium text-gold">
+        <span className="font-dossier font-medium text-gold">
           {lang === "hi" ? "Bhagyank bhi grid mein bharta hai — " : "The Bhagyank digit also fills the grid — "}
         </span>
         {lang === "hi"
@@ -110,7 +110,7 @@ export default function LoShuPage() {
       {nakBadge ? (
         <div
           data-testid="nakshatra-badge"
-          className="rounded-xl border border-gold/40 bg-gold/5 px-4 py-3 text-sm"
+          className="akashic-card saffron-accent-edge rounded-xl px-5 py-4 text-sm"
         >
           <span className="font-medium text-gold">✦ </span>
           {nakBadge}
@@ -125,10 +125,11 @@ export default function LoShuPage() {
               <DigitCell key={cell.digit} digit={cell.digit} count={cell.count} lang={lang} />
             ))}
           </div>
-          <div className="mt-6 grid gap-2 text-center text-xs text-muted-foreground sm:grid-cols-3">
-            <p><span className="font-medium text-gold">{lang === "hi" ? "man-tal" : "Mind plane"}</span> 4-9-2</p>
-            <p><span className="font-medium text-gold">{lang === "hi" ? "bhav-tal" : "Emotion plane"}</span> 3-5-7</p>
-            <p><span className="font-medium text-gold">{lang === "hi" ? "karm-tal" : "Action plane"}</span> 8-1-6</p>
+          <hr aria-hidden className="gold-hairline-double mx-auto mt-7 w-2/3" />
+          <div className="mt-5 grid gap-2 text-center text-xs text-muted-foreground sm:grid-cols-3">
+            <p><span className="font-dossier font-medium text-gold">{lang === "hi" ? "man-tal" : "Mind plane"}</span> 4-9-2</p>
+            <p><span className="font-dossier font-medium text-gold">{lang === "hi" ? "bhav-tal" : "Emotion plane"}</span> 3-5-7</p>
+            <p><span className="font-dossier font-medium text-gold">{lang === "hi" ? "karm-tal" : "Action plane"}</span> 8-1-6</p>
           </div>
         </CardContent>
       </Card>
@@ -136,7 +137,7 @@ export default function LoShuPage() {
       {/* v3.1: REPETITIONS section (owner correction #4) */}
       {reps ? (
         <section aria-labelledby="repetitions-h" data-testid="repetitions">
-          <h2 id="repetitions-h" className="font-display text-lg font-semibold">
+          <h2 id="repetitions-h" className="akashic-heading font-display text-lg font-semibold">
             {lang === "hi" ? "Ank-Repetitions" : "Repetitions"}
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -144,7 +145,7 @@ export default function LoShuPage() {
               ? "poori janm-tithi mein doharaae gae ank — 2-samaan = oorja doguni (bal + chhaya), 3-samaan = atyant teevr."
               : "Repeated digits of the full birth date — 2-same = energy doubled (strength + shadow), 3-same = very intense."}
           </p>
-          <div className="mt-3 grid gap-3 md:grid-cols-2">
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
             {reps.entries.length === 0 ? (
               <p className="text-sm text-muted-foreground md:col-span-2">
                 {lang === "hi"
@@ -153,7 +154,8 @@ export default function LoShuPage() {
               </p>
             ) : (
               reps.entries.map((e) => (
-                <Card key={e.digit} interactive>
+                // level-gold edict border (matches this page's other gold bands).
+                <Card key={e.digit} interactive className="!border-gold/40">
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between gap-2">
                       {lang === "hi" ? `ank ${devNum(e.digit)} × ${devNum(e.count)}` : `Digit ${e.digit} × ${e.count}`}
@@ -194,8 +196,8 @@ export default function LoShuPage() {
 
       {/* Planes */}
       <section aria-labelledby="planes-h">
-        <h2 id="planes-h" className="font-display text-lg font-semibold">{t("planes")}</h2>
-        <div className="mt-3 grid gap-3 md:grid-cols-3">
+        <h2 id="planes-h" className="akashic-heading font-display text-lg font-semibold">{t("planes")}</h2>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
           {loShu.planes.map((p) => (
             <Card key={p.key} interactive>
               <CardHeader>
@@ -230,8 +232,8 @@ export default function LoShuPage() {
 
       {/* Diagonals */}
       <section aria-labelledby="diag-h">
-        <h2 id="diag-h" className="font-display text-lg font-semibold">{t("diagonals")}</h2>
-        <div className="mt-3 grid gap-3 md:grid-cols-2">
+        <h2 id="diag-h" className="akashic-heading font-display text-lg font-semibold">{t("diagonals")}</h2>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
           {loShu.diagonals.map((d) => (
             <Card key={d.key} interactive>
               <CardHeader>
@@ -265,7 +267,7 @@ export default function LoShuPage() {
 
       {/* Grid yogas */}
       <section aria-labelledby="yogas-h">
-        <h2 id="yogas-h" className="font-display text-lg font-semibold">{t("gridYogas")}</h2>
+        <h2 id="yogas-h" className="akashic-heading font-display text-lg font-semibold">{t("gridYogas")}</h2>
         {yogas.yogas.length === 0 ? (
           <p className="mt-3 text-sm text-muted-foreground">
             {lang === "hi"
@@ -273,7 +275,7 @@ export default function LoShuPage() {
               : "No defined yoga pattern in this grid — the digits sing solo."}
           </p>
         ) : (
-          <div className="mt-3 grid gap-3 md:grid-cols-2">
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
             {yogas.yogas.map((y) => (
               <Card key={y.id} interactive>
                 <CardHeader>
@@ -294,7 +296,7 @@ export default function LoShuPage() {
 
       {/* Missing numbers */}
       <section aria-labelledby="missing-h">
-        <h2 id="missing-h" className="font-display text-lg font-semibold">{t("missingNumbers")}</h2>
+        <h2 id="missing-h" className="akashic-heading font-display text-lg font-semibold">{t("missingNumbers")}</h2>
         {loShu.missing.length === 0 ? (
           <p className="mt-3 text-sm text-muted-foreground">
             {lang === "hi"
@@ -327,7 +329,7 @@ export default function LoShuPage() {
       {/* v3.4 remedies teaser card (owner: 'remedies kaha pe hai?') — points to /lucky */}
       <div
         data-testid="loshu-remedies-teaser"
-        className="rounded-xl border border-gold/40 bg-gold/5 px-4 py-3"
+        className="akashic-card rounded-xl px-5 py-4"
       >
         <p className="text-sm">
           {lang === "hi"

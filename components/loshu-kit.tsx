@@ -22,13 +22,13 @@ export function DigitCell({ digit, count, lang }: { digit: number; count: number
       aria-label={label}
       className={`relative grid aspect-square place-items-center rounded-xl border transition-colors ${
         present
-          ? "glass border-gold/40 bg-gold/5"
+          ? "akashic-card gold-hairline-cell bg-gold/5"
           : "border-dashed opacity-45"
       }`}
     >
       <span
         aria-hidden
-        className={`number-glyph text-4xl sm:text-5xl ${present ? "text-primary dark:text-gold-bright" : "text-muted-foreground"}`}
+        className={`number-glyph font-dossier text-4xl sm:text-5xl ${present ? "text-gold dark:text-gold-bright" : "text-muted-foreground"}`}
       >
         {digit}
       </span>

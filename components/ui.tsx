@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 /* ------------------------------------------------------------------ */
 
 const cardVariants = cva(
-  "rounded-xl border bg-card text-card-foreground shadow-sm",
+  "akashic-card rounded-xl border bg-card text-card-foreground",
   {
     variants: {
       interactive: {
-        true: "transition-colors hover:border-primary/40",
+        true: "cursor-pointer transition-colors hover:border-primary/40",
         false: "",
       },
     },
