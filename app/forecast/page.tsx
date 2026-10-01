@@ -6,68 +6,28 @@
  */
 
 import * as React from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, Tabs } from "@/components/ui";
 import { PageHeader, WhyThisReading, EmptyState, LoadingCards } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
-import { PERSONAL_MONTH_WATCHOUTS, LIFE_AREA_PROMPT } from "@/lib/meanings";
-import { monthHeadline, monthDeep } from "@/lib/deep-essays";
+import { LIFE_AREA_PROMPT } from "@/lib/meanings";
 import { upcomingMonths, monthName, type MonthCycle } from "@/lib/numerology";
-import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
-import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
+import { loadLifeContext, type LifeContext } from "@/lib/storage";
+import { ShortHorizonReading } from "@/components/short-horizon-reading";
+import { cleanQuoteText, cycleCaution, focusAction, focusSignal, personalCycleTheme } from "@/lib/personal-insights";
 
 const LIFE_AREAS = ["Career", "Relationships", "Money Mindset", "Wellbeing", "Creativity"] as const;
 type LifeArea = (typeof LIFE_AREAS)[number];
 
-function suggestedFocus(pm: number, area: LifeArea, hi = false): string {
-  const base: Record<number, { en: string; hi: string }> = {
-    1: { en: "make the one small, self-led move yourself", hi: "ek chhota self-led move khud karo" },
-    2: { en: "have the one honest conversation", hi: "ek imaandaar baat-cheet kar lo" },
-    3: { en: "put one piece of your work in front of people", hi: "apne kaam ka ek tukda sabke saamne rakho" },
-    4: { en: "tighten one routine that keeps slipping", hi: "ek routine pakki karo jo phisal rahi hai" },
-    5: { en: "change one scene — the trip, the room, the market", hi: "ek badlav do — safar, kamra, ya bazaar" },
-    6: { en: "do one act of care — for them or for you", hi: "ek dekhbhaal ka kaam karo — unke liye ya apne liye" },
-    7: { en: "give one quiet hour to study", hi: "padhai ko ek khamosh ghanta do" },
-    8: { en: "make one calm money or career review", hi: "paisa ya career ki ek thandi jaanch karo" },
-    9: { en: "close one open loop, gracefully", hi: "ek adhura kaam sundairta se band karo" },
-  };
-  const b = base[pm] ?? { en: "take one small reflective step", hi: "ek chhota soch-baar kadam uthao" };
-  const core = hi ? b.hi : b.en;
-  return hi ? `${core} — ${areaHiName(area)} ki nazar se.` : `${core} — through the lens of ${area.toLowerCase()}.`;
-}
-
-const AREA_HI: Record<LifeArea, string> = {
-  Career: "career",
-  Relationships: "rishtey",
-  "Money Mindset": "paisa-ka-soch",
-  Wellbeing: "sehat-sukoon",
-  Creativity: "srijan",
-};
-function areaHiName(a: LifeArea): string {
-  return AREA_HI[a];
-}
-
-const HI_WATCHOUTS: Record<number, string> = {
-  1: "tezyee dhairya-waalon ko jalaa deti hai — alliance pehle, jaldi baad mein",
-  2: "doosron ke mood apne andar uthaye bina jaane — apna dhyan bhi rakho",
-  3: "das chamakte mein baithak asal wale ko bhookha chhod dete hain",
-  4: "jahan plan ko mornaa zaroori hai, wahan zidd na karo",
-  5: "jaldi ka bada daav — pehle sauda likho, phir kadam lo",
-  6: "jo zimmedari aapki nahi, wo uthaate-uthaate khud peechhe reh jaoge",
-  7: "jab ek imaandaar baat kaafi ho, to pichhe hat jaana mat",
-  8: "shortcut — Shani ka bill isi saal mein aata hai",
-  9: "jo saaf khatam hai, use thaam ke rakhna — haath bhaari karta hai",
-};
-
-function areaPrompt(pm: number, area: LifeArea, hi = false): string {
-  void pm;
+function areaPrompt(area: LifeArea, hi = false): string {
   if (!hi) return LIFE_AREA_PROMPT[area];
   const hiPrompts: Record<LifeArea, string> = {
-    Career: "is mahine career mein konsa ek kadam pakka ho sakta hai — aur usse aaj kya rok raha hai?",
-    Relationships: "kis ek rishtey ko is mahine aapka paani chahiye — aur kya aapko uski zaroorat hai?",
-    "Money Mindset": "is mahine paisa kahan chhup-chaap baha raha hai — aur konsa ek band karna keemti hoga?",
-    Wellbeing: "is mahine sehat-sukoon ke liye konsa ek chhota rooj pakka hoga — aur use konsi cheez torh degi?",
-    Creativity: "is mahine andar jo banaya, use saamne kyun nahi dikhaya — kis ka darr hai?",
+    Career: "Is mahine ka career decision kya hai, aur uska agla chhota kadam kya ho sakta hai?",
+    Relationships: "Kaunsi baat rishte mein saaf kehni hai? Aapki apni zaroorat kya hai?",
+    "Money Mindset": "Kharch ya vaade mein kaunsi ek cheez aap likhit mein dekh sakte hain?",
+    Wellbeing: "Kaunsi chhoti routine aap agle do hafton tak realistically nibha sakte hain?",
+    Creativity: "Kaunsa chhota, poora kiya hua kaam aap is mahine share karenge?",
   };
   return hiPrompts[area];
 }
@@ -78,7 +38,20 @@ export default function ForecastPage() {
   const hi = lang === "hi";
   const [ready, setReady] = React.useState(false);
   const [area, setArea] = React.useState<LifeArea>("Career");
+  const [lifeContext, setLifeContext] = React.useState<LifeContext | null>(null);
   React.useEffect(() => setReady(true), []);
+  React.useEffect(() => {
+    if (!profile) return;
+    const context = loadLifeContext(profile.birthDate);
+    setLifeContext(context);
+    if (context) {
+      const areaByFocus: Record<string, LifeArea> = {
+        career: "Career", money: "Money Mindset", relationships: "Relationships",
+        family: "Relationships", wellbeing: "Wellbeing", purpose: "Creativity", creativity: "Creativity",
+      };
+      setArea(areaByFocus[context.focus] ?? "Career");
+    }
+  }, [profile]);
 
   if (!ready) return <LoadingCards count={3} label="Loading your forecast" />;
 
@@ -86,8 +59,8 @@ export default function ForecastPage() {
     return (
       <EmptyState
         title="No profile yet"
-        body="Add your birth details to see your six-month reflection themes."
-        action={<a href="/" className="text-sm text-primary underline">Start onboarding</a>}
+        body="Add your birth details to see your personal-year reflection and planning calendar."
+        action={<Link href="/" className="text-sm text-primary underline">Start onboarding</Link>}
       />
     );
   }
@@ -99,22 +72,39 @@ export default function ForecastPage() {
     birthDay,
     today.getFullYear(),
     today.getMonth() + 1,
-    6,
+    12,
   );
+  const focusForArea = (selected: LifeArea): NonNullable<LifeContext>["focus"] => {
+    if (selected === "Money Mindset") return "money";
+    if (selected === "Relationships") return "relationships";
+    if (selected === "Wellbeing") return "wellbeing";
+    if (selected === "Creativity") return "creativity";
+    return "career";
+  };
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={hi ? "Agale chhe mahine ka Panch-Aangrahi vachan" : "Six-Month Forecast"}
+        title={hi ? "Agle 12 mahine · aapka faisla-calendar" : "Your next 12 months · a decision calendar"}
         subtitle={
           hi
-            ? `${monthName(today.getMonth() + 1)} ${today.getFullYear()} – ${months[5] ? `${monthName(months[5].month)} ${months[5].year}` : ""} tak — har mahine ka poora vishleshan: kya chalega, kya atkega, kaise kaam karo, aur kis se bacho. ye bhaav batata hai, koi fix ghatna ka ailaan nahi.`
-            : `Full reading for ${monthName(today.getMonth() + 1)} ${today.getFullYear()} – ${
-                months[5] ? `${monthName(months[5].month)} ${months[5].year}` : ""
+            ? `${monthName(today.getMonth() + 1)} ${today.getFullYear()} – ${months[11] ? `${monthName(months[11].month)} ${months[11].year}` : ""} tak — har mahine ko ek planning lens samjhein, tay ghatna ka ailaan nahi.`
+            : `A month-by-month planning lens for ${monthName(today.getMonth() + 1)} ${today.getFullYear()} – ${
+                months[11] ? `${monthName(months[11].month)} ${months[11].year}` : ""
               } — for each month: what flows, what stalls, how to work it, and what to guard. This reads the weather, it never announces fixed events.`}
       />
-      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
-      <SanketBanner core={coreFromReading(_bn(profile.birthDate ? Number(profile.birthDate.slice(8,10)) : 0).number, _lp(Number(profile.birthDate.slice(0,4)), Number(profile.birthDate.slice(5,7)), Number(profile.birthDate.slice(8,10))).number, undefined, profile.birthDate)} lang={lang} />
+      <ShortHorizonReading birthDate={profile.birthDate} today={today} lang={lang} />
+
+      <Card className="border-gold/35 bg-gold/5">
+        <CardHeader>
+          <CardTitle>{hi ? "Is calendar ka markaz" : "The goal at the centre of this calendar"}</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-[1.3fr_1fr_1fr]">
+          <div><p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "Aapka 12-mahine ka iraada" : "Your 12-month outcome"}</p><p className="mt-1">{lifeContext?.desiredOutcome || (hi ? "Abhi iraada nahi joda" : "Add an outcome in your calibration to make these prompts more personal.")}</p></div>
+          <div><p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "Faisla saamne hai" : "Decision in front of you"}</p><p className="mt-1">{lifeContext?.importantDecision || (hi ? "Koi khaas faisla nahi joda" : "No specific decision added.")}</p></div>
+          <div><p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "Mushkil ho toh" : "When you feel stuck"}</p><p className="mt-1 text-sm">{hi ? "Faisle ko chhote parikshan mein baantein; pehle kya jaan-na hai, likhein; phir bharosemand vyakti se baat karein." : "Shrink the decision to a reversible test. Write down what you still need to learn, set a review date, and talk it through with someone you trust."}</p></div>
+        </CardContent>
+      </Card>
 
 
       <div>
@@ -140,35 +130,25 @@ export default function ForecastPage() {
                 <div>
                   <CardTitle>{m.label}</CardTitle>
                   <p className="mt-0.5 text-xs font-medium text-gold">
-                    {hi ? `vyaktigat mahina ${pm}` : `Personal Month ${pm}`}
+                    {hi ? `vyaktigat mahina ${pm} · ${area}` : `Personal Month ${pm} · ${area}`}
                   </p>
                 </div>
                 <span aria-hidden className="number-glyph text-5xl text-primary/85">{pm}</span>
               </CardHeader>
               <CardContent className="flex flex-1 flex-col gap-3 text-sm">
-                {/* v3.5 DEPTH (owner: '1/2 sentence se kya engage hoga, pura
-                    details do') — headline + 4-beat paragraph replace the
-                    'Theme:/Opportunities:' one-liners. */}
                 <p className="font-display text-base font-semibold">
-                  {monthHeadline(pm, lang)}
+                  {personalCycleTheme(pm, lang)}
                 </p>
-                <p className="leading-relaxed text-foreground/90">{monthDeep(pm, lang)}</p>
-                <p>
-                  <span className="font-medium">{hi ? "is kshetra mein is mahine: " : "In this area this month: "}</span>
-                  {suggestedFocus(pm, area, hi)}
-                </p>
-                <p className="text-muted-foreground">
-                  <span className="font-medium">{hi ? "saweedhaan: " : "Watch-out: "}</span>{" "}
-                  {hi
-                    ? HI_WATCHOUTS[pm] ?? ("apni seema se tez chalna — kadam dheema, disha samaan rakho.")
-                    : (PERSONAL_MONTH_WATCHOUTS[pm] ?? "watch-out: moving faster than your values — slow the step, keep the direction")}.
-                </p>
+                <p className="text-sm"><span className="font-medium">{hi ? "Sambhavit trigger: " : "Possible trigger: "}</span>{focusSignal(focusForArea(area), lang)}</p>
+                <div className="rounded-lg border bg-background/50 p-3 text-xs"><p><span className="font-semibold uppercase tracking-wide text-gold">{hi ? "Mauke ka behtar istemaal" : "Constructive use"}</span><br />{focusAction(focusForArea(area), lang)}</p><p className="mt-2"><span className="font-semibold uppercase tracking-wide text-kesari">{hi ? "Kis baat se bachein" : "Downside to guard against"}</span><br />{cycleCaution(pm, lang)}</p><p className="mt-2"><span className="font-semibold uppercase tracking-wide text-muted-foreground">{hi ? "Mahine ke ant ka check" : "End-of-month check"}</span><br />{lifeContext?.desiredOutcome ? (hi ? `Kya aap apne iraade “${cleanQuoteText(lifeContext.desiredOutcome)}” ki taraf ek dikhne wala kadam badhe?` : `What observable step moved you toward your stated outcome?`) : (hi ? "Kaunsa dikhne wala kadam aapne poora kiya?" : "What visible step did you complete?")}</p></div>
+                {idx === 0 && lifeContext?.currentChallenge ? <div className="rounded-lg border border-kesari/30 bg-kesari/5 p-3"><p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "Is report mein aapka sawaal" : "Your stated challenge"}</p><p className="mt-1 text-sm">{lifeContext.currentChallenge}</p><p className="mt-1 text-xs text-muted-foreground">{hi ? "Yeh kalendar aapke diye sawaal ko planning mein jodta hai; ghatna ki bhavishyavaani nahi karta." : "The calendar uses your own words as a planning prompt; it does not predict an event."}</p></div> : null}
+                <details className="rounded-lg border px-3 py-2 text-xs text-muted-foreground"><summary className="cursor-pointer font-medium">{hi ? "Yeh month-number kaise nikla?" : "How was this month number calculated?"}</summary><p className="mt-2">{steps.join(" · ")}</p><p className="mt-2">{hi ? "Yeh hisaab paramparagat cycle dikhata hai, ghatna ki guarantee nahi." : "This calculation identifies a traditional cycle; it does not establish that an event will happen."}</p></details>
                 <p className="rounded-lg bg-secondary/50 p-2.5 text-xs">
                   <span className="font-semibold uppercase tracking-wide text-muted-foreground">
                     {hi ? "Soch-ne ka saval" : "Journal prompt"}
                   </span>
                   <br />
-                  {areaPrompt(pm, area, hi)}
+                  {areaPrompt(area, hi)}
                 </p>
                 <div className="mt-auto">
                   <WhyThisReading title={`${m.label} · ${hi ? "vyaktigat mahina" : "Personal Month"}`} steps={steps} />

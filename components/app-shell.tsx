@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   Sparkles, LayoutDashboard, Hash, CalendarRange, Map, BookOpen,
-  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Languages, Smartphone, Sunrise,
- ScrollText, CalendarHeart } from "lucide-react";
+  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Smartphone, Sunrise,
+  ScrollText, CalendarHeart, Compass, Crown } from "lucide-react";
 import { Button } from "@/components/ui";
 import { DisclaimerLine, OmMotif, SanatanDivider } from "@/components/shared";
 import { useHasProfile } from "@/components/seeded-profile";
@@ -23,11 +23,14 @@ import { t as rawT } from "@/lib/content";
  */
 export const NAV_ITEMS = [
   { href: "/overview", labelKey: "navOverview", icon: LayoutDashboard },
+  { href: "/blueprint", labelKey: "navBlueprint", icon: FileText },
   { href: "/life-graph", labelKey: "navLifeGraph", icon: LineChart },
+  { href: "/forecast", labelKey: "navForecast", icon: CalendarRange },
+  { href: "/journal", labelKey: "navJournal", icon: BookOpen },
+  { href: "/calibration", labelKey: "navCalibration", icon: Compass },
   { href: "/numbers", labelKey: "navNumbers", icon: Hash },
   { href: "/loshu", labelKey: "navLoShu", icon: Grid3X3 },
   { href: "/rajyoga", labelKey: "navRajyoga", icon: Sparkles },
-  { href: "/forecast", labelKey: "navForecast", icon: CalendarRange },
   { href: "/din-mausam", labelKey: "navDinMausam", icon: Sunrise },
   { href: "/dashboard3", labelKey: "navDashboard3", icon: CalendarHeart },
   { href: "/dossier", labelKey: "navDossier", icon: ScrollText },
@@ -35,10 +38,18 @@ export const NAV_ITEMS = [
   { href: "/lucky", labelKey: "navLucky", icon: Gem },
   { href: "/name-studio", labelKey: "navNameStudio", icon: Wand2 },
   { href: "/number-tools", labelKey: "navNumberTools", icon: Smartphone },
-  { href: "/journal", labelKey: "navJournal", icon: BookOpen },
-  { href: "/blueprint", labelKey: "navBlueprint", icon: FileText },
   { href: "/settings", labelKey: "navSettings", icon: Settings },
+  { href: "/concierge", labelKey: "navConcierge", icon: Crown },
 ] as const;
+
+const PRIMARY_HREFS = new Set(["/overview", "/blueprint", "/life-graph", "/forecast", "/journal"]);
+const MOBILE_LABELS: Record<string, { en: string; hi: string }> = {
+  "/overview": { en: "Today", hi: "Abhi" },
+  "/blueprint": { en: "Report", hi: "Report" },
+  "/life-graph": { en: "Timeline", hi: "Past" },
+  "/forecast": { en: "Next", hi: "Aage" },
+  "/journal": { en: "Journal", hi: "Journal" },
+};
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -56,7 +67,7 @@ function ThemeToggle() {
   );
 }
 
-/** EN ⇄ हिन्दी toggle — ALWAYS in the top nav (owner order). */
+/** EN ⇄ Roman Hinglish toggle — ALWAYS in the top nav (owner order). */
 function LangToggle() {
   const { lang, setLang } = useLang();
   const [mounted, setMounted] = React.useState(false);
@@ -84,7 +95,7 @@ function LangToggle() {
           lang === "hi" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
         }`}
       >
-        हिं
+        HI
       </button>
     </div>
   );
@@ -116,28 +127,38 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return pathname.startsWith(href);
   }
 
+  function navLinks(items: readonly (typeof NAV_ITEMS)[number][]) {
+    return items.map((item) => (
+      <li key={item.href}>
+        <Link
+          href={item.href}
+          className="nav-link"
+          aria-current={isActive(item.href) ? "page" : undefined}
+          data-active={isActive(item.href)}
+          tabIndex={hasProfile ? 0 : -1}
+          aria-disabled={!hasProfile}
+          onClick={(e) => { if (!hasProfile) e.preventDefault(); }}
+        >
+          <item.icon className="sidebar-glyph size-5" aria-hidden />
+          <span>{t(item.labelKey)}</span>
+        </Link>
+      </li>
+    ));
+  }
+
   const nav = (
     <nav aria-label="Primary">
       <ul className="space-y-1">
-        {NAV_ITEMS.map((item) => (
-          <li key={item.href}>
-            <Link
-              href={item.href}
-              className="nav-link"
-              aria-current={isActive(item.href) ? "page" : undefined}
-              data-active={isActive(item.href)}
-              tabIndex={hasProfile ? 0 : -1}
-              aria-disabled={!hasProfile}
-              onClick={(e) => {
-                if (!hasProfile) e.preventDefault();
-              }}
-            >
-              <item.icon className="sidebar-glyph size-5" aria-hidden />
-              <span>{t(item.labelKey)}</span>
-            </Link>
-          </li>
-        ))}
+        {navLinks(NAV_ITEMS.filter((item) => PRIMARY_HREFS.has(item.href)))}
       </ul>
+      <details className="mt-4 rounded-xl border border-border/70 p-2">
+        <summary className="cursor-pointer rounded-lg px-3 py-2 text-sm font-semibold text-muted-foreground hover:bg-accent hover:text-foreground">
+          {lang === "hi" ? "Ank aur tools" : "Explore your chart"}
+        </summary>
+        <ul className="mt-2 space-y-1">
+          {navLinks(NAV_ITEMS.filter((item) => !PRIMARY_HREFS.has(item.href)))}
+        </ul>
+      </details>
     </nav>
   );
 
@@ -176,22 +197,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     // v3.4 (owner: 'blueprint pe nav options chale jaate'): bare pages keep
     // their clean print column, but gain a compact NAV CHIPS row so the
     // app is never more than one tap away on desktop + mobile.
-    const bareNavKeys = [
-      "/overview",
-      "/life-graph",
-      "/numbers",
-      "/loshu",
-      "/forecast",
-      "/lucky",
-      "/report",
-    ] as const;
-    const chips = NAV_ITEMS.filter((i) => (bareNavKeys as readonly string[]).includes(i.href));
+    const chips = NAV_ITEMS.filter((item) => PRIMARY_HREFS.has(item.href));
     return (
       <div className="min-h-dvh starfield diya-glow sanctum-frame">
         {divineBg}
         <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
           <div className="mb-3 flex items-center justify-between">
-            {brand}
+            {brandOnly}
             <div className="flex items-center gap-1.5">
               <LangToggle />
               {isReport || isBlueprint ? (
@@ -202,7 +214,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <ThemeToggle />
             </div>
           </div>
-          <nav aria-label="Compact primary" className="no-print mb-8 flex flex-wrap gap-2">
+          {hasProfile ? <nav aria-label="Compact primary" className="no-print mb-8 flex flex-wrap gap-2">
             {chips.map((item) => (
               <Link
                 key={item.href}
@@ -217,7 +229,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 {t(item.labelKey)}
               </Link>
             ))}
-          </nav>
+          </nav> : null}
           {children}
         </div>
       </div>
@@ -261,7 +273,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         className="shell-bottomnav fixed inset-x-0 bottom-0 z-50 backdrop-blur md:hidden no-print"
       >
         <ul className="mx-auto flex max-w-md items-stretch justify-between px-1">
-          {NAV_ITEMS.slice(0, 5).map((item) => (
+          {NAV_ITEMS.filter((item) => PRIMARY_HREFS.has(item.href)).map((item) => (
             <li key={item.href} className="flex-1">
               <Link
                 href={item.href}
@@ -273,7 +285,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 aria-label={t(item.labelKey)}
               >
                 <item.icon className="size-5" aria-hidden />
-                <span aria-hidden>{t(item.labelKey).split(" ")[0]}</span>
+                <span aria-hidden>{MOBILE_LABELS[item.href]?.[lang] ?? t(item.labelKey).split(" ")[0]}</span>
               </Link>
             </li>
           ))}

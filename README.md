@@ -1,60 +1,31 @@
 # Anko Ki Maya
 
-**Numbers for self-reflection — never prediction.**
+Anko Ki Maya is a numerology-informed reflection and decision-planning app. Its calculations follow traditional number systems; its interpretation is not evidence about a person, proof of past events, or a guarantee of future events.
 
-A polished, responsive Next.js numerology **self-reflection** web app. Explore
-Life Path, Expression, Soul Urge, Personal Year/Month cycles, the 3×3 Lo Shu
-Grid and long-term cycles as *interpretive themes* — with transparent
-"why this reading?" calculation steps on every screen.
+**Live:** https://anko-ki-maya.vercel.app · **Repo:** https://github.com/maheshkoriacourse/anko-ki-maya
 
-**Live:** https://anko-ki-maya.vercel.app ·
-**Repo:** https://github.com/maheshkoriacourse/anko-ki-maya
+## Product status and boundaries
 
----
+The Blueprint now invites a person to share their current challenge, desired outcome, decision, and optional timeline notes. It uses those details to frame questions and reversible planning exercises. A past-week section offers memory prompts that remain unconfirmed unless the customer says they fit. Near-term and annual calendars are planning windows, not event predictions.
 
-## Positioning (hard rule)
+The product is still a prototype, not a substantiated ₹99,999 report. The present implementation is not a human-reviewed service; it has no payment flow, verified astrologer/numerologist, defined delivery SLA, refund policy, or native-language sign-off. Some legacy chart routes still contain deterministic and overconfident language and need review before the product is marketed as a premium report. Do not present numerology as medical, legal, financial, or mental-health advice. Gem and remedy associations are cultural traditions, not guaranteed outcomes or purchase advice.
 
-> Anko Ki Maya is for entertainment and self-reflection only. It is not
-> medical, legal, financial, mental-health, or factual predictive advice.
+## Main customer journey
 
-This is **not a prediction engine**. Every forecast/reading is written as
-themes, opportunities and reflection windows — never guarantees about
-marriage, death, illness, money, pregnancy, crime, disasters or any specific
-life event. See [Safety language rules](#safety-language-rules) below. The
-disclaimer appears in onboarding consent, Settings, and the footer of every
-page, and is enforced by automated tests (`tests/safety-language.test.ts`).
-
-## Features
-
-- **Onboarding** — birth name, preferred name, DOB; optional birth time/place
-  (clearly labelled); Pythagorean default with Chaldean "coming soon" badge;
-  mandatory consent checkbox + disclaimer before results.
-- **Overview dashboard** — greeting + current Personal Year theme, cards for
-  Life Path / Expression / Soul Urge / Birthday / Personal Year / Personal
-  Month (each with a "Why this reading?" explainer), next-6-months theme
-  timeline, reflection windows, daily reflection prompt + journal shortcut.
-- **Your Numbers** — full breakdown of every number with transparent
-  calculation steps, strengths, growth edges and reflection questions — plus
-  the **Lo Shu Grid** (3×3, planes + diagonals, strengths, gentle
-  missing-number reflections) and pinnacle/challenge timing.
-- **Six-Month Forecast** — one card per month (theme, opportunities,
-  watch-out, suggested focus, journal prompt) with life-area tabs: Career,
-  Relationships, Money Mindset, Wellbeing, Creativity.
-- **Long-Term Map** — 1/3/9-year Personal Year timelines, pinnacles and
-  challenges, and **user-added private milestones** (the app only highlights
-  reflective cycle windows around user goals).
-- **Journal** — mood, category, date, optional linked cycle; search/filter;
-  pattern insights computed only from user-entered content.
-- **Compatibility** (consent-gated, nothing stored), **print-friendly report**
-  (window.print() → PDF, no paid API), notification preferences (UI-only v1),
-  JSON export + delete-all, dark mode (class toggle, persisted).
+- **Welcome and profile:** birth name and date; optional birth time and birthplace are not yet collected at onboarding.
+- **Calibration:** current focus, challenge, intended outcome, important decision, optional life anchors, preferences, and separately stated consents. Data is stored in the browser.
+- **Overview:** concise present-cycle view and a context summary.
+- **Life Blueprint:** current crossroads, three structured reflections with visible calculation/context basis, past-cycle memory prompts, traditional number interpretations, life-area lenses, and cultural remedies.
+- **Forecast:** previous-week memory check, today, next-week and next-month planning windows, plus a 12-month decision calendar.
+- **Supporting routes:** life graph, numbers, Lo Shu, journal, long-term cycles, compatibility, name studio, numeroscope tools, and other chart explorations.
+- **Concierge:** proposed private human service and ₹99,999 inquiry price. Contact channels work only when explicitly configured; inquiry is not payment or a confirmed booking.
 
 ## Quick start
 
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm test           # vitest — 52 tests
+npm test           # Vitest suite
 npm run build      # production build (0 errors)
 ```
 

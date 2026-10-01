@@ -26,6 +26,7 @@ import { devNum, grahaFor } from "@/lib/navgrah";
 import { ReasoningBlock } from "@/components/loshu-kit";
 import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
 import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
+import { LifeContextBrief } from "@/components/life-context-brief";
 
 export default function LifeGraphPage() {
   const { profile, reading, hasProfile } = useProfile();
@@ -68,8 +69,8 @@ export default function LifeGraphPage() {
         title={t("navLifeGraph")}
         subtitle={
           hi
-            ? "engine ne aapke janm se aaj tak ke har saal ka 'kyaa hua hoga' vachan ankon se bhar diyaa hai — aap bas ✓ sahi / ✗ galat chihnit karo. bade saal samay-rekha banaate hain; baakaee saal pheei prishthabhoomi-vakr."
-            : "The engine has filled a 'what happened' reading for every year birth→now from your numbers — you only mark ✓ right / ✗ wrong. Big years build the timeline; the rest stays a faint background curve."
+            ? "Har saal ka ank-cycle manan ka lens hai, ghatna ka saboot nahi. Apne yaadgar saal jodein, phir dekhein ki kaun-se themes aapke anubhav se milte hain."
+            : "Each annual number cycle is a reflection lens, not evidence that an event occurred. Add the years you remember, then see which themes fit your experience."
         }
         actions={
           <Badge variant="gold">
@@ -79,6 +80,7 @@ export default function LifeGraphPage() {
           </Badge>
         }
       />
+      <LifeContextBrief birthDate={profile.birthDate} lang={lang} />
       {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
       <SanketBanner core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)} lang={lang} />
 
@@ -95,11 +97,11 @@ export default function LifeGraphPage() {
             <span className="flex items-center gap-3 text-xs text-muted-foreground">
               <span className="flex items-center gap-1">
                 <span aria-hidden className="inline-block size-2.5 rounded-full bg-gold" />
-                {hi ? "pakki ghatna (sahi)" : "confirmed (sahi)"}
+                {hi ? "aapka anubhav" : "fits my experience"}
               </span>
               <span className="flex items-center gap-1">
                 <span aria-hidden className="inline-block size-2.5 rounded-full border border-muted-foreground bg-transparent" />
-                {hi ? "galat chihnit" : "marked wrong"}
+                {hi ? "mera anubhav nahi" : "not my experience"}
               </span>
             </span>
           </CardTitle>
@@ -323,12 +325,12 @@ export default function LifeGraphPage() {
       {/* PAST YEAR-BY-YEAR READINGS (full list, below the big-years timeline) */}
       <section aria-labelledby="past-readings-h">
         <h2 id="past-readings-h" className="font-display text-xl font-semibold">
-          {hi ? "ateet — saal-dar-saal 'kyaa hua hoga'" : "The past — year-by-year 'what happened'"}
+          {hi ? "Peechhe ke ank-cycle — aapke anubhav ke saath" : "Past cycles — checked against your life"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "har vachan aapke ankon se ganit hai — padho, chihn lagao; pakke saal graph par gaad jaaenge."
-            : "Every reading is computed from your numbers — read, mark; confirmed years pin onto the graph."}
+            ? "Yeh cycle-theme hain, kisi nishchit ghatna ka daava nahi. Jo mile use apne jeevan ke waaqe se jodein; jo na mile use chhod dein."
+            : "These are cycle themes, not claims about specific events. Connect a fit to a moment you remember; leave the rest unconfirmed."}
         </p>
         <div className="mt-4 space-y-3">
           {[...graph.past].reverse().map((p) => {
@@ -398,7 +400,7 @@ export default function LifeGraphPage() {
       {/* FUTURE 10 YEARS */}
       <section aria-labelledby="future-readings-h">
         <h2 id="future-readings-h" className="font-display text-xl font-semibold">
-          {hi ? "bhavishya — agle 10 saal" : "The future — next 10 years"}
+          {hi ? "Agle 10 saal — yojana ke liye cycle-theme" : "Next 10 years — cycle themes for planning"}
         </h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {graph.future.map((f) => (
@@ -423,8 +425,8 @@ export default function LifeGraphPage() {
       <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
         <Info aria-hidden className="size-3.5" />
         {hi
-          ? "vachan ank-ganit se bante hain; aapke chihn isi browser mein saheje jaate hain aur paitarn-note ko tez karte hain."
-          : "Readings are computed from the numbers; your marks stay in this browser and sharpen the pattern note."}
+          ? "Aapke jawaab isi browser mein rehte hain. Yeh paramparagat ank-manthan hai, pakki ghatnaon ki bhavishyavaani nahi."
+          : "Your responses stay in this browser. These are traditional number reflections, not certain event predictions."}
         <YantraMotif className="size-4 text-gold" />
       </div>
     </div>

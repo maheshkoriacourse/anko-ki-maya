@@ -11,14 +11,13 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { DiyaMotif, OmMotif, SanatanDivider } from "@/components/shared";
-import { Button, Input, Label, Badge, Card, CardContent } from "@/components/ui";
+import { Button, Input, Label, Card, CardContent } from "@/components/ui";
 import { DisclaimerLine } from "@/components/shared";
 import { ConciergeSection } from "@/components/concierge";
 import { useProfile } from "@/components/seeded-profile";
 import { isValidBirthDate, sanitizeName } from "@/lib/numerology";
 import { DdmmyyyyDateInput, ddmmyyyyToIso, isoToDdmmyyyy, type DdmmyyyyParts } from "@/components/ddmmyyyy-date";
 import { useLang } from "@/lib/lang";
-import { devNum } from "@/lib/navgrah";
 
 interface FormState {
   birthName: string;
@@ -98,7 +97,7 @@ export default function OnboardingPage() {
       birthplace: "",
       system: form.system,
     });
-    router.push("/overview");
+    router.push("/calibration");
   }
 
   return (
@@ -112,8 +111,8 @@ export default function OnboardingPage() {
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {hi
-            ? "Ank Shastra inhi do cheezon se aapka past, present aur future padhta hai. Koi sahamti-deewar nahi — jaankari dijiye, vachan aapke saamne hai."
-            : "Ank Shastra reads your past, present and future from these two things. Nothing to accept — give the details, the reading stands in front of you."}
+            ? "Ank Shastra ko paramparagat nazariye ki tarah dekhein. Janm-vivaran se ank nikalte hain; aapki zindagi ka sandarbh reading ko maayne deta hai."
+            : "Explore numerology as a traditional interpretive lens. Your birth details calculate the numbers; your lived context makes the reading meaningful."}
         </p>
       </div>
 
@@ -189,15 +188,20 @@ export default function OnboardingPage() {
         </CardContent>
       </Card>
 
-      <p className="mt-6 text-center text-xs text-muted-foreground">
-        {hi
-          ? "Sirf dekh rahe ho? Demo profile (Aarav Mehta, 15 June 1990) pehle se bhari hai — "
-          : "Just exploring? The demo profile (Aarav Mehta, 15 June 1990) is already loaded — "}
+      {hasProfile ? <p className="mt-6 text-center text-xs text-muted-foreground">
+        {hi ? "Pehle se profile hai? " : "Already have a profile? "}
         <a href="/overview" className="text-primary underline underline-offset-4">
-          {hi ? "Abhi ka haal dekho" : "go to Abhi Ka Haal"}
+          {hi ? "Apni current reading kholein" : "Continue to your reading"}
         </a>
-        {hi ? devNum(0).slice(0, 0) : ""} <Badge variant="gold">{hi ? "Free" : "free"}</Badge>
-      </p>
+      </p> : null}
+      <Card className="mt-6 border-gold/25 bg-card/85">
+        <CardContent className="space-y-3 py-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">{hi ? "Reading ka namoona · sirf misaal" : "A sample of the reading · illustration only"}</p>
+          <p className="font-display text-lg font-semibold">{hi ? "Sanket se zyada kaam ki baat" : "A useful signal, not a dramatic promise"}</p>
+          <p className="text-sm leading-relaxed text-muted-foreground">{hi ? "Maan lijiye aapne bataya ki career mein zimmedaari badh rahi hai, par role aur samay-seema saaf nahi. Reading aapko koi promotion pakka nahi batayegi; woh kahegi: kaam badhne par adhikaar, samay aur muawza likhit mein saaf karein—phir dekhein ki mauka aapke 12-mahine ke iraade ko sach mein aage badhata hai ya nahi." : "Say you tell us your responsibilities at work are growing, but role and timing remain unclear. The reading will not promise a promotion. It will help you name the decision: clarify ownership, timeline, and compensation in writing, then test whether the opportunity advances your 12-month goal."}</p>
+          <p className="text-xs text-muted-foreground">{hi ? "Yeh kalpanik misaal hai, kisi customer ki reading nahi. Personal insight aapke ank aur aapke diye sandarbh ko saath rakhega." : "This is a fictional illustration, not a customer reading. Your report combines your calculated numbers with context you choose to provide."}</p>
+        </CardContent>
+      </Card>
       <div className="mt-4 text-center">
         <DisclaimerLine compact />
       </div>
@@ -207,7 +211,7 @@ export default function OnboardingPage() {
       <div className="mt-10 text-center">
         <SanatanDivider className="mx-auto max-w-sm" />
         <p className="mt-4 font-display text-lg text-gold">
-          {hi ? "Bhole ki kripa bhi dekh lo — ya seedha premium vachan" : "Take Bhole's darshan — or go straight premium"}
+          {hi ? "Vyaktigat, zimmedaar aur kaam aane wali reading" : "Personal guidance, with care and clear limits"}
         </p>
       </div>
       <ConciergeSection />

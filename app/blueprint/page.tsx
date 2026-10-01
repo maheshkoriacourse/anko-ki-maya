@@ -15,7 +15,7 @@ import {
   Card, CardContent, CardHeader, CardTitle, Badge, Button,
 } from "@/components/ui";
 import {
-  PageHeader, EmptyState, LoadingCards, SanatanDivider, DiyaMotif, YantraMotif, DisclaimerLine,
+  PageHeader, EmptyState, LoadingCards, SanatanDivider, DiyaMotif, DisclaimerLine,
 } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
@@ -26,9 +26,8 @@ import {
 import { chartTruth, truthForYear } from "@/lib/truth";
 import { buildLifeGraph, patternNote, type YearMark } from "@/lib/life-graph";
 import { loadYearMarks } from "@/lib/marks-storage";
-import { ANK_DASHA_YEAR, ANK_DASHA_MONTH, mulankBhagyankState } from "@/lib/voice";
-import { yearDeep } from "@/lib/deep-essays";
-import { personalYear, personalMonth, monthName, upcomingMonths, pinnacles, type MonthCycle } from "@/lib/numerology";
+import { mulankBhagyankState } from "@/lib/voice";
+import { personalYear, personalMonth, monthName, upcomingMonths, type MonthCycle } from "@/lib/numerology";
 import { grahaFor, devNum, planetRelation, RELATION_LABEL } from "@/lib/navgrah";
 import { karmicDebts, type KarmicDebtHit } from "@/lib/karmic";
 import { detectRajyogas } from "@/lib/rajyoga";
@@ -42,6 +41,10 @@ import { vedicChart, grahaChainLine, doshaReadings, weakestPlanet, dashaMonthFla
 import { nakshatraText, dashaText } from "@/lib/vedic-content";
 import { MahadashaTimeline } from "@/components/mahadasha-section";
 import { ReasoningBlock } from "@/components/loshu-kit";
+import { LifeContextBrief } from "@/components/life-context-brief";
+import { PersonalSignals } from "@/components/personal-signals";
+import { PatternCrossroads } from "@/components/pattern-crossroads";
+import { personalCycleTheme } from "@/lib/personal-insights";
 
 function sectionAnchor(id: string): string {
   return id.replace(/[^a-z0-9-]/g, "-");
@@ -102,8 +105,6 @@ export default function BlueprintReportPage() {
   const curPy = personalYear(m, d, nowYear).number;
   const curPm = personalMonth(curPy, nowMonth).number;
   const state = mulankBhagyankState(mulank, bhagyank, curPy, lang);
-  const dashaYear = ANK_DASHA_YEAR[curPy] ?? ANK_DASHA_YEAR[1];
-  const dashaMonth = ANK_DASHA_MONTH[curPm] ?? ANK_DASHA_MONTH[1];
   const gMul = grahaFor(mulank);
   const gBhag = grahaFor(bhagyank);
 
@@ -112,11 +113,6 @@ export default function BlueprintReportPage() {
     birthNumber: mulank,
     system: profile.system,
   });
-  const lpCompound = reduce(
-    profile.birthName.split("").reduce((s, ch) => s + 0, y + m + d),
-  );
-  void lpCompound;
-
   const karmHits = karmicDebts({
     lifePathCompoundSum: bhagyank,
     expressionTotal: reading.nameNumbers.expression,
@@ -152,7 +148,13 @@ export default function BlueprintReportPage() {
   // v3.3 secret layer — graha-chain verification, dosha pariksha, weakest
   // planet (rule d: remedies feed the weakest across BOTH systems), and
   // dasha-precision flavors for the 6-month weather rows.
-  const vc = vedicChart({ year: y, month: m, day: d, hour: 12, minute: 0 });
+  const birthClock = profile.birthTime?.match(/^(\d{2}):(\d{2})$/);
+  const vc = vedicChart({
+    year: y,
+    month: m,
+    day: d,
+    ...(birthClock ? { hour: Number(birthClock[1]), minute: Number(birthClock[2]) } : {}),
+  });
   const chainLine = grahaChainLine(mulank, vc, lang);
   const doshas = doshaReadings(vc);
   const wp = weakestPlanet(mulank, bhagyank, vc, chart.missing);
@@ -177,36 +179,56 @@ export default function BlueprintReportPage() {
         }
       />
 
+      <nav aria-label={hi ? "Report adhyay-soochi" : "Report chapters"} className="print:hidden rounded-xl border bg-card/75 p-3">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{hi ? "Report mein seedhe jaayein" : "Jump to a chapter"}</p>
+        <div className="flex flex-wrap gap-2">
+          {[
+            ["#ch1-abhi-ka-haal", hi ? "Abhi ka haal" : "Present"],
+            ["#ch2-past", hi ? "Ateet" : "Past"],
+            ["#ch3-future", hi ? "Aage ke sanket" : "Looking ahead"],
+            ["#ch4-life-areas", hi ? "Jeevan-kshetra" : "Life areas"],
+            ["#ch5-blueprint", hi ? "Mukhya ank" : "Core numbers"],
+            ["#ch6-remedies", hi ? "Paramparagat upaay" : "Traditional practices"],
+          ].map(([href, label]) => (
+            <a key={href} href={href} className="rounded-full border px-3 py-1.5 text-xs transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{label}</a>
+          ))}
+        </div>
+      </nav>
+
       {/* ============ CHAPTER 1: ABHI KA HAAL ============ */}
       <section aria-labelledby="ch1" id="ch1-abhi-ka-haal">
         <div className="flex items-center gap-3">
           <DiyaMotif className="size-6 text-kesari" />
           <h2 id="ch1" className="font-display text-2xl font-semibold">
-            {hi ? "pahala adhyay — Abhi ka haal" : "Chapter 1 — Abhi Ka Haal (Your present state)"}
+            {hi ? "pehla adhyay — Abhi ka haal" : "Chapter 1 — Abhi Ka Haal (Your present state)"}
           </h2>
         </div>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "report yaheen se shuru hoti hai: aap is vakat kaha khadae hain, aapki jaindai mein is samay kyaa chal raha hai."
+            ? "Yeh report aapke aaj ke jeevan aur saamne chal rahe faislon se shuru hoti hai."
             : "The report opens here: where you stand at this moment and what is running through your life right now."}
         </p>
+
+        <div className="mt-4">
+          <LifeContextBrief birthDate={profile.birthDate} lang={lang} />
+        </div>
+        <PersonalSignals birthDate={profile.birthDate} mulank={mulank} bhagyank={bhagyank} lang={lang} />
+        <PatternCrossroads birthDate={profile.birthDate} lang={lang} />
 
         <Card className="glass yantra-bg mt-4">
           <CardHeader>
             <CardTitle>
               {hi
-                ? `Ank Dasha ${devNum(curPy)} (${grahaFor(curPy).grahaHi}) — ${dashaYear.nameHi}`
-                : `Ank Dasha ${curPy} (${grahaFor(curPy).graha}) — ${dashaYear.name}`}
+                ? `Is saal ka ank-theme ${devNum(curPy)} · ${grahaFor(curPy).grahaHi}`
+                : `Current Personal Year ${curPy} · ${grahaFor(curPy).graha}`}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <p className="text-sm leading-relaxed">{hi ? dashaYear.lineHi : dashaYear.lineEn}</p>
-            {/* v3.5 DEPTH (owner: 'pura details do, context do, examples do'):
-                the year's full 4-beat paragraph under the dasha line. */}
-            <p className="text-sm leading-relaxed text-foreground/90">{yearDeep(curPy, lang)}</p>
+            <p className="text-sm leading-relaxed">{hi ? "Paramparagat ank-theme: " : "Traditional number theme: "}{personalCycleTheme(curPy, lang)}. {hi ? "Yeh vyakhya kisi khaas ghatna ka daava nahi karti; apne anubhav aur saamne ke faislon ke saath ise jaanchein." : "This interpretation does not claim a specific event; test it against your experience and the decisions in front of you."}</p>
+            <p className="text-sm leading-relaxed text-foreground/90">{hi ? "Kaam ki baat: is theme se juda ek chhota kadam chunein, uska dikhne wala nateeja tay karein, aur review ki tareekh likhein." : "Make it practical: choose one small step linked to this theme, define an observable result, and set a review date."}</p>
             <p className="text-sm leading-relaxed">
-              <span className="font-semibold">{hi ? `is mahine (ank ${devNum(curPm)}): ` : `This month (Ank ${curPm}): `}</span>
-              {hi ? dashaMonth.lineHi : dashaMonth.lineEn}
+              <span className="font-semibold">{hi ? `Is mahine ka ank-theme (${devNum(curPm)}): ` : `This month's number theme (${curPm}): `}</span>
+              {personalCycleTheme(curPm, lang)}
             </p>
             <div className="rounded-lg border bg-secondary/40 p-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-gold">
@@ -271,12 +293,12 @@ export default function BlueprintReportPage() {
       {/* ============ CHAPTER 2: PAST ============ */}
       <section aria-labelledby="ch2" id="ch2-past">
         <h2 id="ch2" className="font-display text-2xl font-semibold">
-          {hi ? "doosara adhyay — ateet: kab kyaa hua hoga" : "Chapter 2 — The past: when what happened"}
+          {hi ? "doosara adhyay — ateet: yaad-dasht ki jaanch" : "Chapter 2 — The past: check this against your memory"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "ank-ganit har pichhle saal ka 'kyaa hua hoga' bataata hai. jeevan-graph par ✓ sahi chihnit saal neeche gaadae gae hain."
-            : "The numbers compute a 'what happened' line for every past year. Years you marked ✓ sahi on the life graph are pinned below."}
+            ? "Yeh paramparagat ank-theme hain, aapke ateet ke tathya nahi. Har saal ko apni yaad se milayein; jo sahi na lage use confirm na karein."
+            : "These are traditional number themes, not facts about your past. Check each year against your memory; leave anything that does not fit unconfirmed."}
         </p>
 
         <div className="mt-4 space-y-2.5">
@@ -295,6 +317,7 @@ export default function BlueprintReportPage() {
                   </span>
                 </div>
                 <p className="mt-1 text-sm">{hi ? p.readingHi : p.readingEn}</p>
+                {!isPinned ? <p className="mt-1 text-xs text-muted-foreground">{hi ? "Yeh sirf ank-cycle se nikla anumaan hai—apni yaad se milne par hi sahi maanें." : "This is only a number-cycle hypothesis; count it as accurate only if it matches your own memory."}</p> : null}
                 {yr.kind !== "strong" ? (
                   <p className="mt-1 text-xs text-muted-foreground">
                     {hi ? `${yr.truthHi} — ${yr.remedyHi}` : `${yr.truthEn} — ${yr.remedyEn}`}
@@ -316,10 +339,10 @@ export default function BlueprintReportPage() {
       {/* ============ CHAPTER 3: FUTURE ============ */}
       <section aria-labelledby="ch3" id="ch3-future">
         <h2 id="ch3" className="font-display text-2xl font-semibold">
-          {hi ? "teesara adhyay — bhavishya: kab kyaa hoga" : "Chapter 3 — The future: when what comes"}
+          {hi ? "teesara adhyay — aage ke sanket aur planning" : "Chapter 3 — Forward-looking themes and planning"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          {hi ? "mahine-vaar mausam, phir 3-saal ka nakasha, phir 9-saal ka poora chakra." : "Month-by-month weather, then the 3-year map, then the full 9-year cycle."}
+          {hi ? "Har saal ka ank-theme ek planning lens hai—kisi ghatna ke samay ya hone ki guarantee nahi." : "Each yearly number theme is a planning lens, not a forecast of when or whether an event will happen."}
         </p>
 
         <Card className="mt-4">
@@ -327,22 +350,13 @@ export default function BlueprintReportPage() {
           <CardContent>
             <ol className="grid gap-2.5 sm:grid-cols-2">
               {months.map((mo) => {
-                const fv = flavorByLabel.get(mo.label);
                 return (
                   <li key={mo.label} className="rounded-lg border p-3">
                     <div className="flex items-baseline justify-between">
                       <span className="text-sm font-medium">{monthName(mo.month)} {mo.year}</span>
                       <span aria-hidden className="number-glyph text-xl text-primary/80">{hi ? devNum(mo.personalMonth) : mo.personalMonth}</span>
                     </div>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {ANK_DASHA_MONTH[mo.personalMonth]?.[hi ? "lineHi" : "lineEn"] ?? ""}
-                    </p>
-                    {/* v3.3: dasha-precision (secret layer) */}
-                    {fv ? (
-                      <p className="mt-1.5 rounded-md border border-gold/25 bg-gold/5 px-2 py-1.5 text-[11px] text-gold">
-                        {hi ? fv.monthFlavorHi : fv.monthFlavorEn}
-                      </p>
-                    ) : null}
+                    <p className="mt-1 text-xs text-muted-foreground">{personalCycleTheme(mo.personalMonth, lang)}</p>
                   </li>
                 );
               })}
@@ -383,12 +397,17 @@ export default function BlueprintReportPage() {
       {/* ============ CHAPTER 4: TEN LIFE-AREA CHAPTERS ============ */}
       <section aria-labelledby="ch4" id="ch4-life-areas">
         <h2 id="ch4" className="font-display text-2xl font-semibold">
-          {hi ? "chautha adhyay — das jeevan-kshetra: poora hisaab" : "Chapter 4 — Ten life areas: the full account"}
+          {hi ? "chautha adhyay — das jeevan-kshetra: paramparagat lens" : "Chapter 4 — Ten life areas: a traditional lens"}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {hi
-            ? "har kshetra mein: ateet mein kyaa raha → abhi kyaa chal raha → aage kab (saal/umra ke saath) → us kshetra ka upaay. shubh aur kathin dono sach, aadhaar sahit."
-            : "Each area: what the past held → what runs now → what comes (with years/ages) → that area's remedy. Both the good and the hard truth, with basis."}
+            ? "Neeche ke jeevan-kshetra ank-cycle par aadharit paramparagat vichaar hain; yeh aapke ateet ke satyapit tathya ya aane waali ghatnaon ki pakki tareekh nahi."
+            : "Each area offers a cycle-based reflection, possible planning windows, and practical questions—not verified history or a forecast of events."}
+        </p>
+        <p className="mt-2 rounded-lg border border-gold/25 bg-gold/5 p-3 text-xs text-muted-foreground">
+          {hi
+            ? "Yeh hissa janm-tithi aur paramparagat ank-ganit se banta hai, aapke job, rishte, paison ya sehat ke itihaas se nahi. Khaas daave ko sach tabhi maanein jab woh aapke anubhav se mile."
+            : "These passages are generated from birth-date cycles, not from your job, relationship, money, or health history. Treat any specific claim as unverified unless it matches your own experience."}
         </p>
 
         <nav aria-label={hi ? "kshetra-soochi" : "Area index"} className="mt-3 flex flex-wrap gap-1.5">
@@ -409,19 +428,19 @@ export default function BlueprintReportPage() {
 
               {/* (a) PAST */}
               <div className="mt-3 rounded-xl border p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "ateet mein kyaa raha" : "What the past held"}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "Paramparagat ateet-lens · yaad se jaanchein" : "Traditional past-cycle lens · check your memory"}</p>
                 <p className="mt-1.5 text-sm leading-relaxed">{hi ? a.pastHi : a.pastEn}</p>
               </div>
 
               {/* (b) CURRENT */}
               <div className="mt-2 rounded-xl border p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "abhi kyaa chal raha hai" : "What runs now"}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "Vartamaan cycle-vichaar" : "Current cycle reflection"}</p>
                 <p className="mt-1.5 text-sm leading-relaxed">{hi ? a.nowHi : a.nowEn}</p>
               </div>
 
               {/* (c) FUTURE windows with years/ages */}
               <div className="mt-2 rounded-xl border p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "aage kab — khidki-saal" : "What comes — window years"}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? "Aage ke cycle-saal · planning prompts" : "Future cycle years · planning prompts"}</p>
                 <ul className="mt-1.5 space-y-1.5">
                   {a.windows.map((w, i) => (
                     <li key={w.year + String(i)} className="text-sm leading-relaxed">
@@ -448,11 +467,12 @@ export default function BlueprintReportPage() {
       {/* ============ CHAPTER 5: BLUEPRINT NUMBERS ============ */}
       <section aria-labelledby="ch5" id="ch5-blueprint">
         <h2 id="ch5" className="font-display text-2xl font-semibold">
-          {hi ? "paachava adhyay — blooprint: Mulank, Bhagyank, Namank" : "Chapter 5 — Blueprint: Mulank, Bhagyank, Namank"}
+          {hi ? "paanchava adhyay — ank-vyakhya: Mulank, Bhagyank, Namank" : "Chapter 5 — Number interpretations: Mulank, Bhagyank, Namank"}
         </h2>
         <div className="mt-3 space-y-4">
           {[mulank, bhagyank].map((n, i) => {
             const g = grahaFor(n);
+            const numberRemedy = remedyForNumber(n).remedy;
             return (
               <Card key={n + String(i)} className="glass">
                 <CardHeader>
@@ -467,7 +487,7 @@ export default function BlueprintReportPage() {
                 <CardContent>
                   <p className="text-sm leading-relaxed">{hi ? g.behaviorHi : g.behaviorEn}</p>
                   <p className="mt-2 text-xs text-gold">
-                    {hi ? `upaay: ${remedy.mantra} — ${remedy.worshipDay} ko ${devNum(remedy.japa)} japa.` : `Upay: ${remedy.mantra} — ${remedy.japa} japa on ${remedy.worshipDay}.`}
+                    {hi ? `Paramparagat upaay: ${numberRemedy.mantra} — ${numberRemedy.worshipDay} ko ${devNum(numberRemedy.japa)} japa.` : `Traditional practice: ${numberRemedy.mantra} — ${numberRemedy.japa} japa on ${numberRemedy.worshipDay}.`}
                   </p>
                 </CardContent>
               </Card>
@@ -569,6 +589,11 @@ export default function BlueprintReportPage() {
               <p className="text-xs font-semibold uppercase tracking-wide text-gold">
                 {hi ? "janm-nakshatra — mann ki pushti" : "Janma nakshatra — the mind's confirmation"}
               </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {hi
+                  ? `Yeh Vedic hissa ${vc.timeUnknown ? "janm-samay na milne par Moon-chart approximation" : "aapke diye janm-samay"} aur Mumbai reference location par aadharit hai. Janm-sthan ko abhi coordinates mein nahi badla jaata; ise exact kundali ya alag se pushti na samjhein.`
+                  : `This Vedic section uses ${vc.timeUnknown ? "a Moon-chart approximation because no birth time was provided" : "your supplied birth time"} and Mumbai as a reference location. Birthplace is not yet converted to coordinates; treat this as an approximation, not a verified exact chart.`}
+              </p>
               <p className="mt-1.5">
                 {hi
                   ? `janm-nakshatra ${vc.nakshatraName} (pada ${devNum(vc.pada)}, rash ${vc.rashiName}) — ${nakshatraText(vc.nakshatra, lang)}`
@@ -604,7 +629,7 @@ export default function BlueprintReportPage() {
               <li>{chainLine}</li>
             </ol>
             <p className="font-serif-display text-xs italic text-gold">
-              {hi ? "Isi basis par hum aapke liye yeh predict karte hain." : "On this basis we predict your reading."}
+              {hi ? "Yeh ank aur parampara se liya gaya vyakhya-aadhaar hai—ghatna ka saboot nahi." : "This is the interpretive basis drawn from number cycles and tradition—not evidence that an event will occur."}
             </p>
           </CardContent>
         </Card>
@@ -665,8 +690,9 @@ export default function BlueprintReportPage() {
             <CardContent className="space-y-1 text-sm">
               <p>{hi ? "shubh ank: " : "Lucky numbers: "}{lucky.numbers.map((n) => (hi ? devNum(n) : n)).join(", ")}</p>
               <p>{hi ? "shubh din: " : "Days: "}{lucky.days.join(", ")}</p>
-              <p>{hi ? "rang: " : "Colors: "}{lucky.colors.join(", ")}</p>
-              <p>{hi ? "ratna: " : "Gems: "}{lucky.gems.join(", ")}</p>
+              <p>{hi ? "Parampara ke rang: " : "Traditional color associations: "}{lucky.colors.map((color) => color[hi ? "hi" : "en"]).join(", ")}</p>
+              <p>{hi ? "Parampara ke ratna: " : "Traditional gem associations: "}{lucky.gems.map((gem) => gem[hi ? "hi" : "en"]).join(", ")}</p>
+              <p className="text-xs text-muted-foreground">{hi ? "Yeh sanskritik ank-sambandh hain, khareedne ki salah nahi. Ratna pehenne se pehle kisi vishvasniya expert se poochhein; koi nateeja guaranteed nahi." : "These are cultural number associations, not purchase advice. Seek qualified advice before wearing a gemstone; no outcome is guaranteed."}</p>
               {lucky.masterNote ? <p className="text-xs text-muted-foreground">{lucky.masterNote}</p> : null}
             </CardContent>
           </Card>

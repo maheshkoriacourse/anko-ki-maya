@@ -9,6 +9,7 @@
  */
 
 import * as React from "react";
+import { usePathname } from "next/navigation";
 import { pageSanket, type CoreNumbers } from "@/lib/sanket";
 import { devNum } from "@/lib/navgrah";
 
@@ -42,6 +43,11 @@ export function SanketBanner({
   lang: "en" | "hi";
   extraClassName?: string;
 }) {
+  // Priority signals belong on the overview only. Showing the same three
+  // warnings on every tool/report page made the app feel repetitive and
+  // crowded; the source pages keep their own relevant interpretation.
+  const pathname = usePathname();
+  if (pathname !== "/overview") return null;
   const hi = lang === "hi";
   const warnings = React.useMemo(() => pageSanket(core), [
     core.mulank, core.bhagyank, core.namank, core.birthMonth, core.birthDay, core.birthYear,

@@ -8,25 +8,24 @@
  */
 
 import * as React from "react";
-import { CalendarDays, Flame, Smartphone, Crown, Grid3X3, Gem, Repeat } from "lucide-react";
+import Link from "next/link";
+import { CalendarDays, Smartphone, Crown, Grid3X3, Gem, Repeat, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/components/ui";
 import {
-  PageHeader, NumberCard, JournalShortcut, DiyaMotif, YantraMotif, EmptyState, LoadingCards, DivineHero,
+  NumberCard, JournalShortcut, DiyaMotif, YantraMotif, EmptyState, LoadingCards, DivineHero,
 } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
 import { t as rawT } from "@/lib/content";
-import { ANK_DASHA_YEAR, ANK_DASHA_MONTH, mulankBhagyankState } from "@/lib/voice";
 import { MasterNumberCard } from "@/components/mahadasha-section";
 import { personalYear, personalMonth, personalDay, upcomingMonths, monthName, type MonthCycle } from "@/lib/numerology";
-import { grahaFor, devNum, planetRelation, RELATION_LABEL } from "@/lib/navgrah";
-import { vedicChart, dashaMonthFlavor, verifyNakshatra, grahaChainLine } from "@/lib/vedic";
-import { nakshatraText } from "@/lib/vedic-content";
-import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
-import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
+import { grahaFor, devNum } from "@/lib/navgrah";
+import { vedicChart, grahaChainLine } from "@/lib/vedic";
+import { LifeContextBrief } from "@/components/life-context-brief";
+import { personalCycleTheme } from "@/lib/personal-insights";
 
 export default function OverviewPage() {
-  const { profile, reading, today, hasProfile } = useProfile();
+  const { profile, reading, today } = useProfile();
   const { lang } = useT();
   const t = (key: string) => rawT(lang, key);
   const hi = lang === "hi";
@@ -43,7 +42,7 @@ export default function OverviewPage() {
       <EmptyState
         title={hi ? "pehle janm-vivaran do" : "No profile yet"}
         body={hi ? "naam aur janm-tithi do — vachan turnt khulega." : "Give name and birth date — the reading opens instantly."}
-        action={<a href="/" className="text-sm text-primary underline">{hi ? "shuru karein" : "Start onboarding"}</a>}
+        action={<Link href="/" className="text-sm text-primary underline">{hi ? "shuru karein" : "Start onboarding"}</Link>}
       />
     );
   }
@@ -55,14 +54,8 @@ export default function OverviewPage() {
   const bhagyank = reading.lifePath.number;
 
   const currentPY = personalYear(birthMonth, birthDay, today.getFullYear());
-  const dashaYear = ANK_DASHA_YEAR[currentPY.number] ?? ANK_DASHA_YEAR[1];
   const pmNow = personalMonth(currentPY.number, today.getMonth() + 1).number;
-  const dashaMonth = ANK_DASHA_MONTH[pmNow] ?? ANK_DASHA_MONTH[1];
   const pDay = personalDay(pmNow, today.getDate());
-  const state = mulankBhagyankState(mulank, bhagyank, currentPY.number, lang);
-  const gMul = grahaFor(mulank);
-  const gBhag = grahaFor(bhagyank);
-  const mulBhagRel = planetRelation(mulank, bhagyank);
 
   const months: MonthCycle[] = upcomingMonths(
     birthMonth,
@@ -74,28 +67,14 @@ export default function OverviewPage() {
 
   // v3.3 secret layer — dasha-precision for each month card + nakshatra
   // verification of the Mulank reading + the graha-chain Basis line.
+  const birthClock = profile.birthTime?.match(/^(\d{2}):(\d{2})$/);
   const vc = vedicChart({
     year: Number(profile.birthDate.slice(0, 4)),
     month: birthMonth,
     day: birthDay,
-    hour: 12,
-    minute: 0,
+    ...(birthClock ? { hour: Number(birthClock[1]), minute: Number(birthClock[2]) } : {}),
   });
-  const monthFlavor = new Map<string, ReturnType<typeof dashaMonthFlavor>>();
-  for (const m of months) {
-    monthFlavor.set(m.label, dashaMonthFlavor(mulank, vc, new Date(m.year, m.month - 1, 1)));
-  }
-  const nakVerify = verifyNakshatra(mulank, vc);
   const chainLine = grahaChainLine(mulank, vc, lang);
-
-  const hotMonths = months
-    .filter((m) => [1, 3, 8, 9].includes(m.personalMonth))
-    .slice(0, 3)
-    .map((m) => ({
-      label: m.label,
-      pm: m.personalMonth,
-      text: ANK_DASHA_MONTH[m.personalMonth]?.[hi ? "lineHi" : "lineEn"] ?? "",
-    }));
 
   return (
     <div className="space-y-8">
@@ -104,8 +83,8 @@ export default function OverviewPage() {
         title={hi ? `namaste, ${firstName}` : `Namaste, ${firstName}`}
         subtitle={
           hi
-            ? `Ank Dasha ${devNum(currentPY.number)} chal rahi hai — ${dashaYear.nameHi}. neeche poora hisaab: abhi kaha khadae hain, aage kyaa chalega.`
-            : `Ank Dasha ${currentPY.number} runs now — ${dashaYear.name}. Below: where you stand and what runs next.`
+          ? `Is saal ka Personal Year ${devNum(currentPY.number)} hai. Neeche cycle ki paramparagat vyakhya, aapka apna sandarbh aur faislon ko parakhne ke sawaal dekhein.`
+          : `Your Personal Year is ${currentPY.number}. Below are its traditional interpretation, your own context, and questions to help you assess decisions.`
         }
         actions={
           <Badge variant="gold" className="hero-badge">
@@ -115,17 +94,13 @@ export default function OverviewPage() {
         }
       />
 
-      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
-      <SanketBanner
-        core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)}
-        lang={lang}
-      />
+      <LifeContextBrief birthDate={profile.birthDate} lang={lang} />
 
       {/* ---------- ABHI KA HAAL (chapter-1 hero) ---------- */}
       <Card className="glass yantra-bg">
         <CardHeader>
           <CardTitle className="akashic-heading font-display text-xl">
-            {hi ? "Abhi ka haal — aap is vakat kaha khadae hain" : "Abhi Ka Haal — where you stand right now"}
+            {hi ? "Abhi ka haal — aaj ka cycle aur aapka sandarbh" : "Abhi Ka Haal — your current cycle and context"}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -150,15 +125,17 @@ export default function OverviewPage() {
 
           {/* Direct dasha narrative */}
           <div className="akashic-card rounded-xl border bg-secondary/40 px-5 py-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gold">{dashaYear.name}</p>
-            <p className="mt-1.5 text-sm font-medium leading-relaxed">{hi ? dashaYear.lineHi : dashaYear.lineEn}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? `Is saal ka ank-theme ${devNum(currentPY.number)} · ${grahaFor(currentPY.number).grahaHi}` : `Current Personal Year ${currentPY.number} · ${grahaFor(currentPY.number).graha}`}</p>
+            <p className="mt-1.5 text-sm font-medium leading-relaxed">
+              {hi ? "Paramparagat ank-theme: " : "Traditional number theme: "}{personalCycleTheme(currentPY.number, lang)}. {hi ? "Yeh kisi ghatna ka saboot ya pakki bhavishyavaani nahi; apne faislon ko parakhne ka ek sawaal samjhein." : "This is not evidence of an event or a certain prediction; use it as a question for your decisions."}
+            </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">{hi ? "is mahine: " : "This month: "}</span>
-              {hi ? dashaMonth.lineHi : dashaMonth.lineEn}
+              <span className="font-semibold text-foreground">{hi ? "Is mahine ka ank-theme: " : "This month's number theme: "}</span>
+              {personalCycleTheme(pmNow, lang)}
             </p>
             <p className="mt-2 text-sm">
-              <span className="font-semibold">{hi ? "is saal ka vrat: " : "This year's vow: "}</span>
-              {hi ? dashaYear.actionHi : dashaYear.actionEn}
+              <span className="font-semibold">{hi ? "Aapke liye agla kadam: " : "A practical next step: "}</span>
+              {hi ? "Apne saamne ke faisle ka ek chhota, palatne-yogya parikshan chunein; tareekh aur review ka nateeja likh lein." : "Choose one small, reversible test for the decision in front of you; write down a date and what result you will review."}
             </p>
           </div>
 
@@ -172,43 +149,33 @@ export default function OverviewPage() {
             ]}
           />
 
-          {/* Mulank/Bhagyank state */}
+          {/* Birth and life-path numbers as symbolic lenses, not diagnoses. */}
           <div className="akashic-card rounded-xl border px-5 py-5">
             <p className="text-xs font-semibold uppercase tracking-wide text-gold">
-              {hi ? "Mulank · Bhagyank ki sthiti" : "Mulank · Bhagyank state"}
+              {hi ? "Mukhya ankon ke paramparagat sambandh" : "Traditional associations for your core numbers"}
             </p>
-            <p className="mt-1.5 text-sm leading-relaxed">{hi ? state.hi : state.en}</p>
-            <p className="mt-2 text-sm leading-relaxed">
+            <p className="mt-1.5 text-sm leading-relaxed">
               {hi
-                ? `Mulank ${devNum(mulank)} = ${gMul.grahaHi}: ${gMul.behaviorHi}`
-                : `Mulank ${mulank} = ${gMul.graha}: ${gMul.behaviorEn}`}
-            </p>
-            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-              {hi
-                ? `Bhagyank ${devNum(bhagyank)} = ${gBhag.grahaHi}: ${gBhag.behaviorHi}`
-                : `Bhagyank ${bhagyank} = ${gBhag.graha}: ${gBhag.behaviorEn}`}
-            </p>
-            <p className="mt-2 text-xs text-gold">
-              {hi
-                ? `dono grahon ka sambandh: ${RELATION_LABEL[mulBhagRel].hi}`
-                : `Planet relation: ${RELATION_LABEL[mulBhagRel].en}`}
+                ? `Parampara mein Mulank ${devNum(mulank)} (${grahaFor(mulank).grahaHi}) aur Bhagyank ${devNum(bhagyank)} (${grahaFor(bhagyank).grahaHi}) alag prateekatmak drishtikon dete hain. Yeh aapki personality ya bhavishya ka pramaan nahi.`
+                : `In this tradition, Mulank ${mulank} (${grahaFor(mulank).graha}) and Bhagyank ${bhagyank} (${grahaFor(bhagyank).graha}) offer separate symbolic lenses. They do not prove a personality trait or predict your future.`}
             </p>
 
-            {/* v3.3: nakshatra verification badge (rule a — double pramanikaran) */}
+            {/* A traditional correspondence—not independent verification or diagnosis. */}
             <div
-              data-testid="nakshatra-verify"
               className="rounded-lg border border-gold/40 bg-gold/5 px-3 py-2.5"
             >
               <p className="text-xs font-medium text-gold">
-                ✦ {hi ? nakVerify.badgeHi : nakVerify.badgeEn}
+                ✦ {hi ? "Paramparagat janma-nakshatra sambandh" : "Traditional birth-star association"}
               </p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                {hi ? nakVerify.lineHi : nakVerify.lineEn}
+                {hi
+                  ? `Janma nakshatra ${vc.nakshatraName} (pada ${devNum(vc.pada)}) ek paramparagat symbolic association hai—vyaktitva ki jaanch ya bhavishyavaani nahi.`
+                  : `Janma nakshatra ${vc.nakshatraName} (pada ${vc.pada}) is a traditional symbolic association—not a validated personality assessment or prediction.`}
               </p>
               <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
                 {hi
-                  ? `janm-nakshatra ${vc.nakshatraName} (pada ${devNum(vc.pada)}) — ${nakshatraText(vc.nakshatra, lang)}`
-                  : `Janma nakshatra ${vc.nakshatraName} (pada ${vc.pada}) — ${nakshatraText(vc.nakshatra, lang)}`}
+                  ? `Vedic hissa ${vc.timeUnknown ? "janm-samay na milne par Moon-chart approximation" : "aapke diye janm-samay"} aur Mumbai reference location ka istemaal karta hai. Janm-sthan ko coordinates mein badla nahi jaata; ise exact kundali ya alag se pushti na samjhein.`
+                  : `The Vedic section uses ${vc.timeUnknown ? "a Moon-chart approximation because no birth time was provided" : "your supplied birth time"} and Mumbai as a reference location. Birthplace is not converted to coordinates; treat this as an approximation, not independent verification.`}
               </p>
             </div>
           </div>
@@ -287,67 +254,36 @@ export default function OverviewPage() {
           <CardContent className="py-5">
             <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {months.map((m) => {
-                const intensity = m.personalMonth <= 9 ? m.personalMonth : 9;
-                const flavor = monthFlavor.get(m.label);
                 return (
                   <li key={m.label} className="akashic-card rounded-xl border px-4 py-4">
                     <div className="flex items-baseline justify-between gap-2">
                       <span className="text-sm font-medium">{monthName(m.month)} {m.year}</span>
                       <span aria-hidden className="number-glyph font-dossier text-2xl text-gold dark:text-gold-bright">{hi ? devNum(m.personalMonth) : m.personalMonth}</span>
                     </div>
-                    <div className="intensity mt-2" aria-hidden>
-                      <span style={{ width: `${(intensity / 9) * 100}%` }} />
-                    </div>
                     <p className="mt-2 text-xs leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
-                      {ANK_DASHA_MONTH[m.personalMonth]?.[hi ? "lineHi" : "lineEn"] ?? ""}
+                      {personalCycleTheme(m.personalMonth, lang)}
                     </p>
-                    {/* v3.3: dasha-precision layer (secret engine) */}
-                    {flavor ? (
-                      <div className="mt-2 rounded-md border border-gold/25 bg-gold/5 px-2.5 py-2 text-[11px] leading-relaxed" data-testid="dasha-flavor">
-                        <p className="font-medium text-gold">{hi ? flavor.monthFlavorHi : flavor.monthFlavorEn}</p>
-                        <p className="mt-1 text-muted-foreground">{hi ? flavor.weekTextureHi : flavor.weekTextureEn}</p>
-                      </div>
-                    ) : null}
-                    <span className="sr-only">Ank month intensity {intensity} of 9.</span>
                   </li>
                 );
               })}
             </ol>
             <p className="mt-4 text-xs text-muted-foreground">
               {hi
-                ? "ank 8/9/1 ke mahine sabse prabal — unhi mein bade nirnay leejie."
-                : "Months 8/9/1 run strongest — make the big moves inside those."}
+                ? "Yeh ank-theme ek planning prompt hai; bade faisle apne saadhan, likhit shartein aur bharosemand salah dekhkar karein."
+                : "These number themes are planning prompts; weigh your resources, written terms, and trusted advice before a major decision."}
             </p>
           </CardContent>
         </Card>
       </section>
 
-      {/* ---------- HOT WINDOWS ---------- */}
-      <section aria-labelledby="windows">
-        <h2 id="windows" className="akashic-heading mb-3 font-display text-lg font-semibold">
-          {hi ? "garm khidkiyaan" : "Hot windows"}
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {hotMonths.length > 0 ? (
-            hotMonths.map((w) => (
-              <Card key={w.label} className="bg-accent/40">
-                <CardHeader className="flex-row items-center gap-2 pb-1">
-                  <Flame aria-hidden className="saffron-accent size-4 text-kesari" />
-                  <CardTitle className="text-sm">{w.label} · {hi ? `ank ${devNum(w.pm)}` : `PM ${w.pm}`}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-xs text-muted-foreground">{w.text}</CardContent>
-              </Card>
-            ))
-          ) : (
-            <div className="sm:col-span-3">
-              <EmptyState
-                title={hi ? "is aadhe saal koi prabal khidki nahi" : "No hot windows this half-year"}
-                body={hi ? "chheh-mahine ka poora mausam upar hai." : "The full six-month weather is above."}
-              />
-            </div>
-          )}
-        </div>
-      </section>
+      <a href="/forecast" className="group block">
+        <Card interactive className="glass">
+          <CardContent className="flex flex-wrap items-center justify-between gap-3 py-4">
+            <div><p className="font-medium">{hi ? "Agle 12 mahine ka planning calendar" : "Plan across the next 12 months"}</p><p className="mt-1 text-sm text-muted-foreground">{hi ? "Har month ka cycle-theme, sambhavit rukavat aur ek practical agla kadam dekhein." : "Review each month's cycle theme, possible friction, and a practical next step."}</p></div>
+            <span className="inline-flex items-center gap-2 text-sm text-primary group-hover:underline">{hi ? "Calendar kholen" : "Open calendar"}<ArrowRight aria-hidden className="size-4" /></span>
+          </CardContent>
+        </Card>
+      </a>
 
       {/* Daily prompt + journal shortcut */}
       <section aria-labelledby="prompt">
@@ -409,7 +345,7 @@ export default function OverviewPage() {
           <li>{chainLine}</li>
         </ol>
         <p className="mt-2 font-serif-display text-xs italic text-gold">
-          {hi ? "Isi basis par hum aapke liye yeh predict karte hain." : "On this basis we predict your reading."}
+          {hi ? "Yeh ank aur parampara se liya gaya vyakhya-aadhaar hai—ghatna ka saboot nahi." : "This is the interpretive basis drawn from number cycles and tradition—not evidence that an event will occur."}
         </p>
       </details>
     </div>

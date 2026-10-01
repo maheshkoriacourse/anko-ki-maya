@@ -18,7 +18,44 @@ export const KEYS = {
   journal: `${PREFIX}.journal`,
   milestones: `${PREFIX}.milestones`,
   compatibility: `${PREFIX}.compatibility`,
+  lifeContext: `${PREFIX}.lifeContext`,
+  insightFeedback: `${PREFIX}.insightFeedback`,
 } as const;
+
+export type LifeFocus = "career" | "money" | "relationships" | "family" | "wellbeing" | "purpose" | "creativity";
+
+export interface LifeAnchor {
+  id: string;
+  year: number;
+  area: LifeFocus;
+  note: string;
+}
+
+/** Optional, user-authored context that makes reflections specific to a real life. */
+export interface LifeContext {
+  birthDate: string;
+  focus: LifeFocus;
+  currentChallenge: string;
+  desiredOutcome: string;
+  importantDecision: string;
+  careerCrossroad?: string;
+  moneyCrossroad?: string;
+  relationshipCrossroad?: string;
+  anchors: LifeAnchor[];
+  energyLevel?: number;
+  stressLevel?: number;
+  workStyle?: string;
+  relationshipStyle?: string;
+  moneyStyle?: string;
+  spiritualPractice?: string;
+  readingTone?: ReadingTone;
+  journalAnalysisConsent?: boolean;
+  secondPersonConsent?: boolean;
+  updatedAt: string;
+}
+
+export type InsightResponse = "fits" | "partly" | "not-me";
+export type ReadingTone = "gentle" | "balanced" | "candid";
 
 export const JOURNAL_CATEGORIES = [
   "Reflection", "Gratitude", "Career", "Relationships",
@@ -157,6 +194,30 @@ export function loadMilestones(): Milestone[] {
   return safeGet<Milestone[]>(KEYS.milestones) ?? [];
 }
 
+export function loadLifeContext(birthDate?: string): LifeContext | null {
+  const context = safeGet<LifeContext>(KEYS.lifeContext);
+  if (!context || (birthDate && context.birthDate !== birthDate)) return null;
+  return context;
+}
+
+export function saveLifeContext(context: Omit<LifeContext, "updatedAt">): LifeContext {
+  const full = { ...context, updatedAt: new Date().toISOString() };
+  safeSet(KEYS.lifeContext, full);
+  return full;
+}
+
+export function loadInsightFeedback(profileKey: string): Record<string, InsightResponse> {
+  const all = safeGet<Record<string, Record<string, InsightResponse>>>(KEYS.insightFeedback) ?? {};
+  return all[profileKey] ?? {};
+}
+
+export function saveInsightFeedback(profileKey: string, insightId: string, response: InsightResponse): Record<string, InsightResponse> {
+  const all = safeGet<Record<string, Record<string, InsightResponse>>>(KEYS.insightFeedback) ?? {};
+  all[profileKey] = { ...(all[profileKey] ?? {}), [insightId]: response };
+  safeSet(KEYS.insightFeedback, all);
+  return all[profileKey];
+}
+
 export function upsertMilestone(m: Milestone): Milestone[] {
   const all = loadMilestones();
   const idx = all.findIndex((x) => x.id === m.id);
@@ -196,6 +257,8 @@ export function exportAllData(): string {
       notifications: loadNotifications(),
       journal: loadJournal(),
       milestones: loadMilestones(),
+      lifeContext: loadLifeContext(),
+      insightFeedback: safeGet<Record<string, Record<string, InsightResponse>>>(KEYS.insightFeedback) ?? {},
     },
     null,
     2,
