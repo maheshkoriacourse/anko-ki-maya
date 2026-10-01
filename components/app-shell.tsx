@@ -132,7 +132,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 if (!hasProfile) e.preventDefault();
               }}
             >
-              <item.icon className="size-5" aria-hidden />
+              <item.icon className="sidebar-glyph size-5" aria-hidden />
               <span>{t(item.labelKey)}</span>
             </Link>
           </li>

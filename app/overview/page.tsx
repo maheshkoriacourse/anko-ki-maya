@@ -332,7 +332,7 @@ export default function OverviewPage() {
             hotMonths.map((w) => (
               <Card key={w.label} className="bg-accent/40">
                 <CardHeader className="flex-row items-center gap-2 pb-1">
-                  <Flame aria-hidden className="size-4 text-kesari" />
+                  <Flame aria-hidden className="saffron-accent size-4 text-kesari" />
                   <CardTitle className="text-sm">{w.label} · {hi ? `ank ${devNum(w.pm)}` : `PM ${w.pm}`}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-xs text-muted-foreground">{w.text}</CardContent>
