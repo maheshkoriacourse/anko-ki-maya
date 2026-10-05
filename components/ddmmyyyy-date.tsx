@@ -79,7 +79,7 @@ export function DdmmyyyyDateInput({
 
   return (
     <div className="flex items-center gap-2" role="group" aria-label="Date of birth in(dd-mm-yyyy)">
-      <div className="w-14">
+      <div className="w-14 shrink-0">
         <Input
           ref={ddRef}
           inputMode="numeric"
@@ -96,7 +96,7 @@ export function DdmmyyyyDateInput({
         />
       </div>
       <span aria-hidden className="text-muted-foreground select-none">/</span>
-      <div className="w-14">
+      <div className="w-14 shrink-0">
         <Input
           ref={mmRef}
           inputMode="numeric"
@@ -113,13 +113,15 @@ export function DdmmyyyyDateInput({
         />
       </div>
       <span aria-hidden className="text-muted-foreground select-none">/</span>
-      <div className="flex-1 min-w-0">
+      <div className="w-24 shrink-0">
         <Input
           ref={yyyyRef}
+          type="text"
           inputMode="numeric"
           pattern="[0-9]*"
           maxLength={4}
           placeholder="YYYY"
+          autoComplete="bday-year"
           aria-label={labels.yyyy}
           aria-invalid={invalid}
           aria-describedby={describedby}

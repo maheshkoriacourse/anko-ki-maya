@@ -177,7 +177,7 @@ export default function OnboardingPage() {
                 <div className="mt-1.5">
                   <DdmmyyyyDateInput
                     value={form.date}
-                    onChange={(next) => setForm({ ...form, date: next })}
+                    onChange={(next) => setForm((current) => ({ ...current, date: next }))}
                     invalid={!!errors.date}
                     describedby={errors.date ? "dob-err" : undefined}
                     labels={{
