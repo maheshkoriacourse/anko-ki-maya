@@ -172,7 +172,7 @@ export default function OnboardingPage() {
                   className="mt-1.5"
                 />
               </div>
-              <div>
+              <div className="min-w-0 sm:col-span-2">
                 <Label htmlFor="dob">{hi ? "Janm-tithi *" : "Date of birth *"}</Label>
                 <div className="mt-1.5">
                   <DdmmyyyyDateInput
