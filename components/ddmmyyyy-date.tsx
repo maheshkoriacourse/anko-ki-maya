@@ -78,8 +78,8 @@ export function DdmmyyyyDateInput({
   const ringCls = invalid ? "border-destructive" : "";
 
   return (
-    <div className="flex items-center gap-2" role="group" aria-label="Date of birth in(dd-mm-yyyy)">
-      <div className="w-14 shrink-0">
+    <div className="flex w-full min-w-0 items-center gap-2" role="group" aria-label="Date of birth in(dd-mm-yyyy)">
+      <div className="min-w-0 flex-1">
         <Input
           ref={ddRef}
           inputMode="numeric"
@@ -95,8 +95,8 @@ export function DdmmyyyyDateInput({
           className={`text-center tracking-wider ${ringCls}`}
         />
       </div>
-      <span aria-hidden className="text-muted-foreground select-none">/</span>
-      <div className="w-14 shrink-0">
+      <span aria-hidden className="shrink-0 select-none text-muted-foreground">/</span>
+      <div className="min-w-0 flex-1">
         <Input
           ref={mmRef}
           inputMode="numeric"
@@ -112,8 +112,8 @@ export function DdmmyyyyDateInput({
           className={`text-center tracking-wider ${ringCls}`}
         />
       </div>
-      <span aria-hidden className="text-muted-foreground select-none">/</span>
-      <div className="w-24 shrink-0">
+      <span aria-hidden className="shrink-0 select-none text-muted-foreground">/</span>
+      <div className="min-w-0 flex-[1.35]">
         <Input
           ref={yyyyRef}
           type="text"
