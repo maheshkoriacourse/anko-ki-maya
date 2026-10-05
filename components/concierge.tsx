@@ -40,19 +40,19 @@ export function ConciergeSection() {
 
   const waHref = WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     lang === "hi"
-      ? "namaste! main laaiph blooprint knseeyaj (₹99,999) ke baare mein jaanana chaahata/chaahai hoo."
+      ? "Namaste, mujhe Life Blueprint Concierge (₹99,999) ke baare mein jaankari chahiye."
       : "Namaste! I'd like to know more about the Life Blueprint Concierge (₹99,999).",
   )}` : undefined;
   const mailHref = EMAIL ? `mailto:${EMAIL}?subject=${encodeURIComponent(
-    lang === "hi" ? "laaiph blooprint knseeyaj — poochhataachh" : "Life Blueprint Concierge — inquiry",
+    lang === "hi" ? "Life Blueprint Concierge — jaankari" : "Life Blueprint Concierge — inquiry",
   )}` : undefined;
 
   return (
     <section
       aria-labelledby="concierge-h"
-      className="glass constellation-bg relative overflow-hidden rounded-2xl"
+      className="landing-concierge-card relative overflow-hidden rounded-2xl"
     >
-      <div className="aurora-wash absolute inset-0" aria-hidden />
+      <div className="landing-concierge-wash absolute inset-0" aria-hidden />
       <div className="relative p-6 sm:p-10">
         <div className="flex flex-wrap items-center gap-3">
           <span aria-hidden className="grid size-12 place-items-center rounded-xl bg-gold/15 text-gold">
@@ -60,7 +60,7 @@ export function ConciergeSection() {
           </span>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              {lang === "hi" ? "seemit seeten · aamntran dvaara" : "Limited seats · by application"}
+              {lang === "hi" ? "SEEMIT SLOTS · AAVEDAN KE BAAD" : "LIMITED PLACES · APPLICATION FIRST"}
             </p>
             <h2 id="concierge-h" className="font-display text-2xl font-semibold sm:text-3xl">
               {t("conciergeTitle")}

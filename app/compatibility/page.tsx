@@ -317,7 +317,7 @@ export default function CompatibilityPage() {
                 )}
               </ol>
               <p className="mt-1.5 font-serif-display text-xs italic text-gold">
-                {hi ? "Isi basis par hum aapke liye yeh predict karte hain." : "On this basis we predict your reading."}
+                {hi ? "Yeh ank-ganna ka aadhar hai; isse rishta kaisa chalega, yeh pakka nahi hota." : "This shows the calculation; it cannot determine how a relationship will turn out."}
               </p>
             </details>
           </CardContent>
@@ -353,7 +353,7 @@ export default function CompatibilityPage() {
                       {pair.steps.map((s, i) => <li key={i}>{s}</li>)}
                     </ol>
                     <p className="mt-1.5 font-serif-display text-xs italic text-gold">
-                      {hi ? "Isi basis par hum aapke liye yeh predict karte hain." : "On this basis we predict your reading."}
+                      {hi ? "Yeh ank-ganna ka aadhar hai; isse rishta kaisa chalega, yeh pakka nahi hota." : "This shows the calculation; it cannot determine how a relationship will turn out."}
                     </p>
                   </details>
                 </CardContent>

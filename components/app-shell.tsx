@@ -193,6 +193,35 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     </div>
   );
 
+  if (isOnboarding) {
+    return (
+      <div className="landing-shell min-h-dvh">
+        <header className="landing-site-header no-print">
+          <div className="landing-site-header-inner">
+            {brandOnly}
+            <nav aria-label="About Anko Ki Maya" className="landing-header-links">
+              <Link href="#approach">{lang === "hi" ? "Hamara tareeqa" : "Our approach"}</Link>
+              <Link href="#sample-reading">{lang === "hi" ? "Reading ka namoona" : "A sample reading"}</Link>
+              <Link href="/concierge">{lang === "hi" ? "Private blueprint" : "Private blueprint"}</Link>
+            </nav>
+            <div className="landing-header-actions">
+              <LangToggle />
+              <ThemeToggle />
+              <Link href="#begin-reading" className="landing-header-cta">
+                {lang === "hi" ? "Shuru karein" : "Begin"}
+              </Link>
+            </div>
+          </div>
+        </header>
+        {children}
+        <footer className="landing-site-footer">
+          <SanatanDivider className="mb-4 opacity-60" />
+          <DisclaimerLine />
+        </footer>
+      </div>
+    );
+  }
+
   if (bare) {
     // v3.4 (owner: 'blueprint pe nav options chale jaate'): bare pages keep
     // their clean print column, but gain a compact NAV CHIPS row so the

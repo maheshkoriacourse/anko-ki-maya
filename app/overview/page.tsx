@@ -322,7 +322,7 @@ export default function OverviewPage() {
         <YantraMotif className="mx-auto size-8 text-gold/70" />
         <p className="mt-2 text-center text-xs text-muted-foreground">
           <a href="/blueprint" className="text-primary underline underline-offset-4">
-            {hi ? "poora laaiph blooprint report" : "Open the full Life Blueprint report"}
+            {hi ? "poori Life Blueprint report" : "Open the full Life Blueprint report"}
           </a>
           {" · "}
           <a href="/compatibility" className="text-primary underline underline-offset-4">

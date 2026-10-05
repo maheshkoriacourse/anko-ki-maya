@@ -50,8 +50,8 @@ export function BasisBlock({
         {note ? <p className="mt-2 text-xs italic text-muted-foreground">{note}</p> : null}
         <p className="mt-2 font-serif-display text-xs italic text-gold">
           {lang === "hi"
-            ? "Isi basis par hum aapke liye yeh predict karte hain."
-            : "On this basis we predict your reading."}
+            ? "Yeh ank-ganna ka aadhar hai; vyakhya ko nishchit bhavishyavaani na samjhein."
+            : "This shows the calculation behind the reflection; it is not a certain prediction."}
         </p>
       </div>
     </details>

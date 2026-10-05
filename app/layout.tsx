@@ -57,13 +57,13 @@ export const metadata: Metadata = {
     template: "%s · अंकों की माया",
   },
   description:
-    "Ank Shastra — jyotish ka ank-branch. Aapke ank aapke bhoot, vartmaan aur bhavishya ka hisaab dete hain: Ank Dasha, Rajyoga, Lo Shu/Numeroscope, upay — traditional numerology-based reading.",
+    "Anko Ki Maya is a numerology-informed reflection on personal patterns, lived context, and decisions ahead—not a guaranteed prediction. Explore number cycles, Lo Shu, and optional traditional practices.",
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fdf6ec" },
-    { media: "(prefers-color-scheme: dark)", color: "#14113a" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f2ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#131720" },
   ],
 };
 
