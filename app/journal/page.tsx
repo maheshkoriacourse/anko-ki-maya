@@ -6,19 +6,19 @@
  */
 
 import * as React from "react";
+import Link from "next/link";
 import { Plus, Search, Trash2, PenLine } from "lucide-react";
 import {
   Card, CardContent, CardHeader, CardTitle, Button, Input, Label, Textarea,
-  Select, Badge, Tabs,
+  Select, Badge,
 } from "@/components/ui";
 import { PageHeader, EmptyState, LoadingCards, JournalShortcut } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
 import {
   loadJournal, upsertJournalEntry, deleteJournalEntry,
-  JOURNAL_CATEGORIES, MOODS, type JournalEntry, type JournalCategory, type Mood,
+  JOURNAL_CATEGORIES, MOODS, type JournalEntry, type JournalCategory,
 } from "@/lib/storage";
 import { personalYear } from "@/lib/numerology";
-import { PERSONAL_MONTH_THEMES } from "@/lib/meanings";
 import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
 import { birthdayNumber, lifePath } from "@/lib/numerology";
 
@@ -62,22 +62,20 @@ function patternInsights(entries: JournalEntry[]): string[] {
 }
 
 export default function JournalPage() {
-  const { profile, today } = useProfile();
-  const [ready, setReady] = React.useState(false);
-  const [entries, setEntries] = React.useState<JournalEntry[]>([]);
+  const { profile, today, hydrated } = useProfile();
+  if (!hydrated) return <LoadingCards count={2} label="Loading your journal" />;
+  if (!profile) return <EmptyState title="No profile yet" body="Start a profile to create a private journal." action={<Link href="/" className="text-sm text-primary underline">Start onboarding</Link>} />;
+  return <JournalContent key={profile.birthDate} profile={profile} today={today} />;
+}
+
+function JournalContent({ profile, today }: { profile: NonNullable<ReturnType<typeof useProfile>["profile"]>; today: Date }) {
+  const [entries, setEntries] = React.useState<JournalEntry[]>(() => loadJournal().filter((entry) => entry.ownerBirthDate === profile.birthDate));
   const [query, setQuery] = React.useState("");
   const [moodFilter, setMoodFilter] = React.useState<string>("all");
   const [catFilter, setCatFilter] = React.useState<string>("all");
   const [editing, setEditing] = React.useState<JournalEntry | null>(null);
 
-  React.useEffect(() => {
-    setReady(true);
-    setEntries(loadJournal());
-  }, []);
-
-  if (!ready) return <LoadingCards count={2} label="Loading your journal" />;
-
-  const cycleTag = profile ? thisMonthTag(profile.birthDate, today) : "";
+  const cycleTag = thisMonthTag(profile.birthDate, today);
 
   const filtered = entries.filter((e) => {
     if (query && !e.text.toLowerCase().includes(query.toLowerCase())) return false;
@@ -96,6 +94,7 @@ export default function JournalPage() {
   function startNew() {
     setEditing({
       id: crypto.randomUUID(),
+      ownerBirthDate: profile.birthDate,
       createdAt: new Date().toISOString(),
       date: new Date().toISOString().slice(0, 10),
       mood: "Neutral",
@@ -117,6 +116,9 @@ export default function JournalPage() {
           </Button>
         }
       />
+      <p className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-3 text-xs leading-5 text-muted-foreground">
+        Only notes linked to this saved birth-date profile are shown. Older unlinked notes stay in browser storage but are hidden here and excluded from report recaps.
+      </p>
 
       {/* v4.0: page-level sanket — honest warnings, app-wide (owner order) */}
       {profile ? (

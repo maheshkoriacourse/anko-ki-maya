@@ -6,6 +6,7 @@
  */
 
 import * as React from "react";
+import Link from "next/link";
 import { Plus, Trash2, Flag } from "lucide-react";
 import {
   Card, CardContent, CardHeader, CardTitle, Button, Input, Label, Badge,
@@ -16,7 +17,7 @@ import {
   loadMilestones, upsertMilestone, deleteMilestone, type Milestone,
 } from "@/lib/storage";
 import {
-  personalYear, monthName, reduce,
+  personalYear, monthName,
 } from "@/lib/numerology";
 import { PERSONAL_YEAR_THEMES } from "@/lib/meanings";
 import { yearHeadline, yearDeep } from "@/lib/deep-essays";
@@ -37,28 +38,17 @@ function pyRow(birthMonth: number, birthDay: number, year: number): YearRow {
 }
 
 export default function LongTermPage() {
-  const { profile, today } = useProfile();
+  const { profile, today, hydrated } = useProfile();
   const { lang } = useT();
-  const [ready, setReady] = React.useState(false);
-  const [milestones, setMilestones] = React.useState<Milestone[]>([]);
+  if (!hydrated) return <LoadingCards count={2} label="Loading your long-term map" />;
+  if (!profile) return <EmptyState title="No profile yet" body="Add your birth details to see your cycle map." action={<Link href="/" className="text-sm text-primary underline">Start onboarding</Link>} />;
+  return <LongTermContent key={profile.birthDate} profile={profile} today={today} lang={lang} />;
+}
+
+function LongTermContent({ profile, today, lang }: { profile: NonNullable<ReturnType<typeof useProfile>["profile"]>; today: Date; lang: "en" | "hi" }) {
+  const [milestones, setMilestones] = React.useState<Milestone[]>(() => loadMilestones().filter((item) => item.ownerBirthDate === profile.birthDate));
   const [form, setForm] = React.useState({ date: "", title: "", note: "" });
   const [error, setError] = React.useState<string | null>(null);
-  React.useEffect(() => {
-    setReady(true);
-    setMilestones(loadMilestones());
-  }, []);
-
-  if (!ready) return <LoadingCards count={2} label="Loading your long-term map" />;
-
-  if (!profile) {
-    return (
-      <EmptyState
-        title="No profile yet"
-        body="Add your birth details to see your cycle map."
-        action={<a href="/" className="text-sm text-primary underline">Start onboarding</a>}
-      />
-    );
-  }
 
   const birthMonth = Number(profile.birthDate.slice(5, 7));
   const birthDay = Number(profile.birthDate.slice(8, 10));
@@ -83,6 +73,7 @@ export default function LongTermPage() {
     setError(null);
     const m: Milestone = {
       id: crypto.randomUUID(),
+      ownerBirthDate: profile.birthDate,
       date: form.date,
       title: form.title.trim(),
       note: form.note.trim() || undefined,
@@ -166,10 +157,10 @@ export default function LongTermPage() {
             <p className="text-xs text-muted-foreground">Long chapters and growth themes across a lifetime.</p>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
-            {usePinnacles(profile.birthDate)}
-            <a href="/numbers" className="mt-1 inline-block text-xs text-primary underline underline-offset-4">
+            <PinnaclesNotice />
+            <Link href="/numbers" className="mt-1 inline-block text-xs text-primary underline underline-offset-4">
               Full pinnacle/challenge breakdown →
-            </a>
+            </Link>
           </CardContent>
         </Card>
 
@@ -182,6 +173,7 @@ export default function LongTermPage() {
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
+            <p className="text-xs leading-5 text-muted-foreground">Goals are shown only for this saved birth-date profile. Older unlinked goals remain stored in this browser but are hidden here.</p>
             <form onSubmit={addMilestone} className="space-y-3" aria-label="Add a milestone">
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
@@ -256,12 +248,11 @@ export default function LongTermPage() {
 }
 
 /** Small helper rendering pinnacle/challenge summary chips. */
-function usePinnacles(birthDate: string): React.ReactNode {
-  void birthDate;
+function PinnaclesNotice() {
   return (
     <p className="text-xs text-muted-foreground">
       Pinnacle and challenge periods appear in{" "}
-      <a href="/numbers" className="text-primary underline underline-offset-4">Your Numbers → Cycles &amp; timing</a>{" "}
+      <Link href="/numbers" className="text-primary underline underline-offset-4">Your Numbers → Cycles &amp; timing</Link>{" "}
       with full calculation steps. <Badge variant="secondary">interpretive themes</Badge>
     </p>
   );

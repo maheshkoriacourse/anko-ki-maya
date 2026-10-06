@@ -47,8 +47,7 @@ export function PageHeader({
 /**
  * v3.1 reasoning block — कारण-गणित / Basis. The old 'Why this reading?'
  * phrasing is BANNED (owner correction #3); every explainer renders as
- * direct basis lines with the 'इसी आधार पर हम आपके लिए यह predict करते हैं'
- * closing. The old component name is kept as an alias so existing pages
+ * direct calculation steps and an explicit uncertainty boundary. The old component name is kept as an alias so existing pages
  * keep working with the new language.
  */
 export function WhyThisReading({
@@ -75,7 +74,7 @@ export function WhyThisReading({
         </ol>
         {note ? <p className="mt-2 text-xs italic text-muted-foreground">{note}</p> : null}
         <p className="mt-2 font-serif-display text-xs italic text-gold">
-          On this basis we predict your reading.
+          This shows the calculation behind the reflection; it is not a certain prediction.
         </p>
       </div>
     </details>

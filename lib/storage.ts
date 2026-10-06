@@ -20,6 +20,7 @@ export const KEYS = {
   compatibility: `${PREFIX}.compatibility`,
   lifeContext: `${PREFIX}.lifeContext`,
   insightFeedback: `${PREFIX}.insightFeedback`,
+  demoSeedOptOut: `${PREFIX}.demoSeedOptOut`,
 } as const;
 
 export type LifeFocus = "career" | "money" | "relationships" | "family" | "wellbeing" | "purpose" | "creativity";
@@ -74,10 +75,14 @@ export interface Profile {
   birthplace: string; // optional, free text (v1: informational only)
   system: "pythagorean" | "chaldean";
   consentAcceptedAt: string;
+  /** True only for the built-in sample profile; omitted customer input is never demo data. */
+  isDemoProfile?: boolean;
 }
 
 export interface JournalEntry {
   id: string;
+  /** Optional owner key for legacy compatibility; report recap requires an exact profile match. */
+  ownerBirthDate?: string;
   createdAt: string;
   updatedAt?: string;
   date: string; // YYYY-MM-DD
@@ -89,6 +94,8 @@ export interface JournalEntry {
 
 export interface Milestone {
   id: string;
+  /** Optional owner key for legacy compatibility; views filter to the active profile. */
+  ownerBirthDate?: string;
   date: string; // YYYY-MM-DD (user-chosen)
   title: string;
   note?: string;
@@ -132,14 +139,24 @@ export function loadProfile(): Profile | null {
   return safeGet<Profile>(KEYS.profile);
 }
 
+export function hasDisabledDemoSeed(): boolean {
+  return safeGet<boolean>(KEYS.demoSeedOptOut) === true;
+}
+
+export function disableDemoSeed(): void {
+  safeSet(KEYS.demoSeedOptOut, true);
+}
+
 export function saveProfile(p: Omit<Profile, "consentAcceptedAt"> & { consentAcceptedAt?: string }): Profile {
   const full: Profile = {
     ...p,
     birthName: sanitizeName(p.birthName),
     preferredName: sanitizeName(p.preferredName || ""),
     consentAcceptedAt: p.consentAcceptedAt ?? new Date().toISOString(),
+    isDemoProfile: p.isDemoProfile === true,
   };
   safeSet(KEYS.profile, full);
+  if (typeof window !== "undefined") window.localStorage.removeItem(KEYS.demoSeedOptOut);
   return full;
 }
 
@@ -243,6 +260,7 @@ export function demoProfile(): Profile {
     birthplace: "",
     system: "pythagorean",
     consentAcceptedAt: "2026-09-28T09:00:00.000Z",
+    isDemoProfile: true,
   };
 }
 
@@ -268,4 +286,7 @@ export function exportAllData(): string {
 export function deleteAllData(): void {
   if (typeof window === "undefined") return;
   Object.values(KEYS).forEach((k) => window.localStorage.removeItem(k));
+  // Preserve only this preference so the app does not silently recreate a
+  // demo profile immediately after the user explicitly deleted all data.
+  disableDemoSeed();
 }

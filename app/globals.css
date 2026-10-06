@@ -624,6 +624,18 @@
     width: 100% !important;
     max-width: 100% !important;
   }
+  .premium-report article {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+  .premium-report h1,
+  .premium-report h2,
+  .premium-report h3 {
+    break-after: avoid;
+  }
+  .premium-report section {
+    padding-block: 1rem !important;
+  }
   body {
     background: #fff !important;
     color: #111 !important;

@@ -6,14 +6,13 @@
  */
 
 import * as React from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, Badge, Tabs } from "@/components/ui";
 import { PageHeader, WhyThisReading, EmptyState, LoadingCards, StarMotif } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
 import { meaningFor } from "@/lib/meanings";
 import type { LoShuResult } from "@/lib/loshu";
-import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
 import { pinnacleDeep, pinnacleHeadline, challengeDeep, challengeHeadline } from "@/lib/deep-essays";
-import { birthdayNumber, lifePath } from "@/lib/numerology";
 
 /* ------------------------------------------------------------------ */
 /* Lo Shu grid component (accessible 3×3)                               */
@@ -42,7 +41,7 @@ function LoShuGridPanel({ loShu }: { loShu: LoShuResult }) {
           >
             {loShu.grid.map((row, ri) => (
               <div role="row" key={ri} className="grid grid-cols-3">
-                {loShu.grid[ri].map((cell, ci) => {
+                {loShu.grid[ri].map((cell) => {
                   const plane =
                     ri === 0 ? "Thought" : ri === 1 ? "Emotion" : "Action";
                   const label = cell.count === 0
@@ -151,19 +150,17 @@ const SECTIONS: { id: SectionKey; label: string }[] = [
 ];
 
 export default function NumbersPage() {
-  const { profile, reading, loShu } = useProfile();
-  const [ready, setReady] = React.useState(false);
+  const { profile, reading, loShu, hydrated } = useProfile();
   const [section, setSection] = React.useState<SectionKey>("core");
-  React.useEffect(() => setReady(true), []);
 
-  if (!ready) return <LoadingCards count={3} label="Loading your numbers" />;
+  if (!hydrated) return <LoadingCards count={3} label="Loading your numbers" />;
 
   if (!reading || !profile) {
     return (
       <EmptyState
         title="No profile yet"
         body="Add your birth details to unlock your full number breakdown."
-        action={<a href="/" className="text-sm text-primary underline">Start onboarding</a>}
+        action={<Link href="/" className="text-sm text-primary underline">Start onboarding</Link>}
       />
     );
   }
@@ -181,18 +178,8 @@ export default function NumbersPage() {
     <div className="space-y-6">
       <PageHeader
         title="Your Numbers"
-        subtitle={`For ${profile.preferredName || profile.birthName} · ${profile.birthDate.split("-").reverse().join("-")} · ${profile.system === "chaldean" ? "Chaldean" : "Pythagorean"} system. Every card shows exactly how its number was calculated.`}
+        subtitle={`For ${profile.preferredName || profile.birthName} · ${profile.birthDate.split("-").reverse().join("-")} · ${profile.system === "chaldean" ? "Chaldean-style" : "Pythagorean-style"} name mapping. Every card shows exactly how its number was calculated.`}
       />
-
-      {/* v4.0: page-level sanket — honest warnings, app-wide (owner order) */}
-      {profile ? (
-        <SanketBanner
-          core={coreFromReading(birthdayNumber(Number(profile.birthDate.slice(8, 10))).number, lifePath(Number(profile.birthDate.slice(0, 4)), Number(profile.birthDate.slice(5, 7)), Number(profile.birthDate.slice(8, 10))).number, undefined, profile.birthDate)}
-          lang="en"
-        />
-      ) : null}
-
-
 
       <Tabs
         ariaLabel="Numbers sections"

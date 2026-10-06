@@ -33,27 +33,9 @@ function areaPrompt(area: LifeArea, hi = false): string {
 }
 
 export default function ForecastPage() {
-  const { profile, today } = useProfile();
+  const { profile, today, hydrated } = useProfile();
   const { lang } = useT();
-  const hi = lang === "hi";
-  const [ready, setReady] = React.useState(false);
-  const [area, setArea] = React.useState<LifeArea>("Career");
-  const [lifeContext, setLifeContext] = React.useState<LifeContext | null>(null);
-  React.useEffect(() => setReady(true), []);
-  React.useEffect(() => {
-    if (!profile) return;
-    const context = loadLifeContext(profile.birthDate);
-    setLifeContext(context);
-    if (context) {
-      const areaByFocus: Record<string, LifeArea> = {
-        career: "Career", money: "Money Mindset", relationships: "Relationships",
-        family: "Relationships", wellbeing: "Wellbeing", purpose: "Creativity", creativity: "Creativity",
-      };
-      setArea(areaByFocus[context.focus] ?? "Career");
-    }
-  }, [profile]);
-
-  if (!ready) return <LoadingCards count={3} label="Loading your forecast" />;
+  if (!hydrated) return <LoadingCards count={3} label="Loading your forecast" />;
 
   if (!profile) {
     return (
@@ -64,6 +46,19 @@ export default function ForecastPage() {
       />
     );
   }
+
+  return <ForecastContent key={profile.birthDate} profile={profile} today={today} lang={lang} lifeContext={loadLifeContext(profile.birthDate)} />;
+}
+
+function ForecastContent({ profile, today, lang, lifeContext }: { profile: NonNullable<ReturnType<typeof useProfile>["profile"]>; today: Date; lang: "en" | "hi"; lifeContext: LifeContext | null }) {
+  const hi = lang === "hi";
+  const [area, setArea] = React.useState<LifeArea>(() => {
+    const areaByFocus: Partial<Record<LifeContext["focus"], LifeArea>> = {
+      career: "Career", money: "Money Mindset", relationships: "Relationships",
+      family: "Relationships", wellbeing: "Wellbeing", purpose: "Creativity", creativity: "Creativity",
+    };
+    return lifeContext ? areaByFocus[lifeContext.focus] ?? "Career" : "Career";
+  });
 
   const birthMonth = Number(profile.birthDate.slice(5, 7));
   const birthDay = Number(profile.birthDate.slice(8, 10));
@@ -93,7 +88,7 @@ export default function ForecastPage() {
                 months[11] ? `${monthName(months[11].month)} ${months[11].year}` : ""
               } — for each month: what flows, what stalls, how to work it, and what to guard. This reads the weather, it never announces fixed events.`}
       />
-      <ShortHorizonReading birthDate={profile.birthDate} today={today} lang={lang} />
+      <ShortHorizonReading birthDate={profile.birthDate} today={today} lang={lang} context={lifeContext} />
 
       <Card className="border-gold/35 bg-gold/5">
         <CardHeader>

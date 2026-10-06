@@ -4,9 +4,9 @@ import * as React from "react";
 import Link from "next/link";
 import { ArrowRight, Compass } from "lucide-react";
 import { Badge, Card, CardContent } from "@/components/ui";
-import { loadLifeContext, type LifeFocus } from "@/lib/storage";
+import { KEYS, type LifeContext, type LifeFocus } from "@/lib/storage";
 import { personalYear } from "@/lib/numerology";
-import { grahaFor, devNum } from "@/lib/navgrah";
+import { devNum } from "@/lib/navgrah";
 
 const FOCUS_LABEL: Record<LifeFocus, { en: string; hi: string }> = {
   career: { en: "career or business", hi: "career ya business" },
@@ -30,10 +30,36 @@ const CYCLE_ACTION: Record<number, { en: string; hi: string }> = {
   9: { en: "close one unfinished loop so the next chapter has room", hi: "agle adhyay ke liye jagah banaane ko ek adhoora kaam poora karein" },
 };
 
+function subscribeContext(onChange: () => void): () => void {
+  const onStorage = (event: StorageEvent) => {
+    if (!event.key || event.key === KEYS.lifeContext) onChange();
+  };
+  window.addEventListener("storage", onStorage);
+  window.addEventListener("focus", onChange);
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener("focus", onChange);
+  };
+}
+
+function contextSnapshot(): string {
+  try { return window.localStorage.getItem(KEYS.lifeContext) ?? ""; } catch { return ""; }
+}
+
+function parseContextSnapshot(snapshot: string, birthDate: string): LifeContext | null {
+  if (!snapshot) return null;
+  try {
+    const value: unknown = JSON.parse(snapshot);
+    if (!value || typeof value !== "object") return null;
+    const context = value as LifeContext;
+    return context.birthDate === birthDate && Array.isArray(context.anchors) ? context : null;
+  } catch { return null; }
+}
+
 export function LifeContextBrief({ birthDate, lang }: { birthDate: string; lang: "en" | "hi" }) {
   const hi = lang === "hi";
-  const [context, setContext] = React.useState<ReturnType<typeof loadLifeContext>>(null);
-  React.useEffect(() => setContext(loadLifeContext(birthDate)), [birthDate]);
+  const rawContext = React.useSyncExternalStore(subscribeContext, contextSnapshot, () => "");
+  const context = React.useMemo(() => parseContextSnapshot(rawContext, birthDate), [rawContext, birthDate]);
 
   const year = new Date().getFullYear();
   const birthMonth = Number(birthDate.slice(5, 7));
@@ -67,7 +93,7 @@ export function LifeContextBrief({ birthDate, lang }: { birthDate: string; lang:
             <p className="text-xs font-semibold uppercase tracking-widest text-gold">{hi ? "Aapka vartamaan crossroads" : "Your current crossroads"}</p>
             <h2 className="mt-1 font-display text-xl font-semibold">{hi ? FOCUS_LABEL[context.focus].hi : FOCUS_LABEL[context.focus].en}</h2>
           </div>
-          <Badge variant="gold">{hi ? `Personal Year ${devNum(currentCycle)} · ${grahaFor(cycleBase).grahaHi}` : `Personal Year ${currentCycle} · ${grahaFor(cycleBase).graha}`}</Badge>
+          <Badge variant="gold">{hi ? `Personal Year ${devNum(currentCycle)} · planning lens` : `Personal Year ${currentCycle} · planning lens`}</Badge>
         </div>
 
         <div className="grid gap-3 md:grid-cols-2">

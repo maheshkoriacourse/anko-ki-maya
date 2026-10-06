@@ -3,7 +3,7 @@ import { buildLifeGraph, digitSurge, BIG_REASON_LABEL } from "@/lib/life-graph";
 import { analyzeRepetitions } from "@/lib/repetitions";
 import { pinnacles } from "@/lib/numerology";
 import { BasisBlock } from "@/components/basis-block";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 
 /**
  * v3.1 FIX ROUND — owner's 4 corrections, engine-level assertions.
@@ -188,22 +188,22 @@ describe("v3.1 correction #4 — NUMBER REPETITIONS (school deck)", () => {
 });
 
 describe("v3.1 correction #3 — REASONING LANGUAGE (Basis block)", () => {
-  it("BasisBlock renders the 'Basis' label + the closing predict line (Hinglish voice) — never 'Why this reading'", () => {
+  it("BasisBlock renders calculation steps + an uncertainty boundary in Hinglish — never 'Why this reading'", () => {
     const { getByText, queryAllByText } = render(
       <BasisBlock title="Lo Shu Grid" steps={["step one"]} lang="hi" />,
     );
     expect(getByText(/Basis — Lo Shu Grid/)).toBeInTheDocument();
-    expect(getByText("Isi basis par hum aapke liye yeh predict karte hain.")).toBeInTheDocument();
+    expect(getByText("Yeh ank-ganna ka aadhar hai; vyakhya ko nishchit bhavishyavaani na samjhein.")).toBeInTheDocument();
     expect(queryAllByText(/Why this reading/i)).toHaveLength(0);
     expect(queryAllByText(/यह क्यों कहा/)).toHaveLength(0);
   });
 
-  it("EN variant reads 'Basis' + 'On this basis we predict'", () => {
+  it("EN variant labels the calculation and avoids a prediction guarantee", () => {
     const { getByText } = render(
       <BasisBlock title="Life Graph" steps={["step"]} lang="en" />,
     );
     expect(getByText(/Basis — Life Graph/)).toBeInTheDocument();
-    expect(getByText("On this basis we predict your reading.")).toBeInTheDocument();
+    expect(getByText("This shows the calculation behind the reflection; it is not a certain prediction.")).toBeInTheDocument();
   });
 
   it("banned strings are gone from ALL source files (app/, components/, lib/)", async () => {
@@ -235,7 +235,7 @@ describe("v3.1 correction #3 — REASONING LANGUAGE (Basis block)", () => {
     expect(violations).toEqual([]);
   });
 
-  it("the old component names still export (back-compat) but render Basis phrasing", async () => {
+  it("the old component names still export (back-compat) and keep the uncertainty boundary", async () => {
     const shared = await import("@/components/shared");
     const loshuKit = await import("@/components/loshu-kit");
     expect(typeof shared.WhyThisReading).toBe("function");
@@ -243,11 +243,10 @@ describe("v3.1 correction #3 — REASONING LANGUAGE (Basis block)", () => {
     const { getByText } = render(<shared.WhyThisReading title="X" steps={["a"]} />);
     expect(getByText(/Basis — X/)).toBeInTheDocument();
     fireEventOpen(getByText(/Basis — X/));
-    expect(getByText("On this basis we predict your reading.")).toBeInTheDocument();
+    expect(getByText("This shows the calculation behind the reflection; it is not a certain prediction.")).toBeInTheDocument();
   });
 });
 
 function fireEventOpen(el: HTMLElement) {
-  const { fireEvent } = require("@testing-library/react");
   fireEvent.click(el);
 }

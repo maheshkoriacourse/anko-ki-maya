@@ -4,10 +4,10 @@ import * as React from "react";
 import Link from "next/link";
 import { Plus, Trash2 } from "lucide-react";
 import { Button, Card, CardContent, CardHeader, CardTitle, Input, Label, Select, Textarea } from "@/components/ui";
-import { PageHeader } from "@/components/shared";
+import { EmptyState, LoadingCards, PageHeader } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
-import { loadLifeContext, saveLifeContext, type LifeAnchor, type LifeFocus, type ReadingTone } from "@/lib/storage";
+import { loadLifeContext, saveLifeContext, type LifeAnchor, type LifeContext, type LifeFocus, type ReadingTone } from "@/lib/storage";
 
 const FOCUS: { value: LifeFocus; en: string; hi: string }[] = [
   { value: "career", en: "Career or business", hi: "Career ya business" },
@@ -24,50 +24,33 @@ function blankAnchor(): LifeAnchor {
 }
 
 export default function CalibrationPage() {
-  const { profile } = useProfile();
+  const { profile, hydrated } = useProfile();
+  if (!hydrated) return <LoadingCards count={2} label="Loading your context" />;
+  if (!profile) return <EmptyState title="No profile yet" body="Start a profile before adding personal context." action={<Link href="/" className="text-sm text-primary underline">Start onboarding</Link>} />;
+  return <CalibrationForm key={profile.birthDate} profile={profile} initialContext={loadLifeContext(profile.birthDate)} />;
+}
+
+function CalibrationForm({ profile, initialContext }: { profile: NonNullable<ReturnType<typeof useProfile>["profile"]>; initialContext: LifeContext | null }) {
   const { lang } = useT();
   const hi = lang === "hi";
-  const [focus, setFocus] = React.useState<LifeFocus>("career");
-  const [currentChallenge, setCurrentChallenge] = React.useState("");
-  const [desiredOutcome, setDesiredOutcome] = React.useState("");
-  const [importantDecision, setImportantDecision] = React.useState("");
-  const [careerCrossroad, setCareerCrossroad] = React.useState("");
-  const [moneyCrossroad, setMoneyCrossroad] = React.useState("");
-  const [relationshipCrossroad, setRelationshipCrossroad] = React.useState("");
-  const [anchors, setAnchors] = React.useState<LifeAnchor[]>([]);
-  const [energyLevel, setEnergyLevel] = React.useState(3);
-  const [stressLevel, setStressLevel] = React.useState(3);
-  const [workStyle, setWorkStyle] = React.useState("");
-  const [relationshipStyle, setRelationshipStyle] = React.useState("");
-  const [moneyStyle, setMoneyStyle] = React.useState("");
-  const [spiritualPractice, setSpiritualPractice] = React.useState("");
-  const [readingTone, setReadingTone] = React.useState<ReadingTone>("balanced");
-  const [journalAnalysisConsent, setJournalAnalysisConsent] = React.useState(false);
-  const [secondPersonConsent, setSecondPersonConsent] = React.useState(false);
+  const [focus, setFocus] = React.useState<LifeFocus>(initialContext?.focus ?? "career");
+  const [currentChallenge, setCurrentChallenge] = React.useState(initialContext?.currentChallenge ?? "");
+  const [desiredOutcome, setDesiredOutcome] = React.useState(initialContext?.desiredOutcome ?? "");
+  const [importantDecision, setImportantDecision] = React.useState(initialContext?.importantDecision ?? "");
+  const [careerCrossroad, setCareerCrossroad] = React.useState(initialContext?.careerCrossroad ?? "");
+  const [moneyCrossroad, setMoneyCrossroad] = React.useState(initialContext?.moneyCrossroad ?? "");
+  const [relationshipCrossroad, setRelationshipCrossroad] = React.useState(initialContext?.relationshipCrossroad ?? "");
+  const [anchors, setAnchors] = React.useState<LifeAnchor[]>(initialContext?.anchors ?? []);
+  const [energyLevel, setEnergyLevel] = React.useState(initialContext?.energyLevel ?? 3);
+  const [stressLevel, setStressLevel] = React.useState(initialContext?.stressLevel ?? 3);
+  const [workStyle, setWorkStyle] = React.useState(initialContext?.workStyle ?? "");
+  const [relationshipStyle, setRelationshipStyle] = React.useState(initialContext?.relationshipStyle ?? "");
+  const [moneyStyle, setMoneyStyle] = React.useState(initialContext?.moneyStyle ?? "");
+  const [spiritualPractice, setSpiritualPractice] = React.useState(initialContext?.spiritualPractice ?? "");
+  const [readingTone, setReadingTone] = React.useState<ReadingTone>(initialContext?.readingTone ?? "balanced");
+  const [journalAnalysisConsent, setJournalAnalysisConsent] = React.useState(initialContext?.journalAnalysisConsent ?? false);
+  const [secondPersonConsent, setSecondPersonConsent] = React.useState(initialContext?.secondPersonConsent ?? false);
   const [saved, setSaved] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!profile) return;
-    const context = loadLifeContext(profile.birthDate);
-    if (!context) return;
-    setFocus(context.focus);
-    setCurrentChallenge(context.currentChallenge);
-    setDesiredOutcome(context.desiredOutcome);
-    setImportantDecision(context.importantDecision);
-    setCareerCrossroad(context.careerCrossroad ?? "");
-    setMoneyCrossroad(context.moneyCrossroad ?? "");
-    setRelationshipCrossroad(context.relationshipCrossroad ?? "");
-    setAnchors(context.anchors);
-    setEnergyLevel(context.energyLevel ?? 3);
-    setStressLevel(context.stressLevel ?? 3);
-    setWorkStyle(context.workStyle ?? "");
-    setRelationshipStyle(context.relationshipStyle ?? "");
-    setMoneyStyle(context.moneyStyle ?? "");
-    setSpiritualPractice(context.spiritualPractice ?? "");
-    setReadingTone(context.readingTone ?? "balanced");
-    setJournalAnalysisConsent(context.journalAnalysisConsent ?? false);
-    setSecondPersonConsent(context.secondPersonConsent ?? false);
-  }, [profile]);
 
   function updateAnchor(id: string, patch: Partial<LifeAnchor>) {
     setAnchors((items) => items.map((item) => item.id === id ? { ...item, ...patch } : item));
@@ -133,6 +116,7 @@ export default function CalibrationPage() {
               <Label htmlFor="decision">{hi ? "Koi faisla saamne hai? (optional)" : "Is there a decision in front of you? (optional)"}</Label>
               <Input id="decision" maxLength={300} value={importantDecision} onChange={(e) => { setImportantDecision(e.target.value); setSaved(false); }} placeholder={hi ? "jaise: role badalun ya apna kaam shuru karun?" : "e.g. whether to change roles or start something of my own"} />
             </div>
+            {focus === "career" ? <p className="rounded-lg border border-dashed p-3 text-xs leading-5 text-muted-foreground">{hi ? "Career focus: apni abhi ki sthiti, saamne ka faisla, lakshya aur ek zaroori seema (jaise samay ya location) bata sakte hain. Report in baaton se planning ke raaste samjhayegi—janmank se naukri milne ya uske samay ka pata nahi laga sakti." : "Career focus: share your current stage, the decision, goal, and one constraint you want considered (such as timing or location). The report can map planning paths from those facts; birth numbers cannot establish whether or when you’ll get hired."}</p> : null}
           </CardContent>
         </Card>
 
@@ -142,7 +126,7 @@ export default function CalibrationPage() {
             <p className="text-sm text-muted-foreground">{hi ? "Har kshetra optional hai. Yeh details report mein sawaal aur planning ko behtar jodengi; hum purani ghatna ya bhavishya khud se nahi maanenge." : "Each field is optional. These details help tailor the questions and planning; we will not infer past events or claim to know your future."}</p>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-3">
-            <div className="space-y-2"><Label htmlFor="career-crossroad">{hi ? "Kaam / career" : "Career / business"}</Label><Textarea id="career-crossroad" maxLength={300} value={careerCrossroad} onChange={(e) => { setCareerCrossroad(e.target.value); setSaved(false); }} placeholder={hi ? "Kya faisla, dabaav ya mauka saamne hai?" : "What choice, pressure, or opportunity is in front of you?"} /></div>
+            <div className="space-y-2"><Label htmlFor="career-crossroad">{hi ? "Kaam / career" : "Career / business"}</Label><Textarea id="career-crossroad" maxLength={300} value={careerCrossroad} onChange={(e) => { setCareerCrossroad(e.target.value); setSaved(false); }} placeholder={hi ? "Jaise: naukri dhoondh rahe hain, offer dekh rahe hain, ya role badalne ka soch rahe hain?" : "For example: are you job-searching, weighing an offer, or considering a role change?"} /></div>
             <div className="space-y-2"><Label htmlFor="money-crossroad">{hi ? "Paisa / suraksha" : "Money / security"}</Label><Textarea id="money-crossroad" maxLength={300} value={moneyCrossroad} onChange={(e) => { setMoneyCrossroad(e.target.value); setSaved(false); }} placeholder={hi ? "Aap kis paison ke faisle ko dekh rahe hain?" : "What money decision are you working through?"} /></div>
             <div className="space-y-2"><Label htmlFor="relationship-crossroad">{hi ? "Rishte / parivaar" : "Relationships / family"}</Label><Textarea id="relationship-crossroad" maxLength={300} value={relationshipCrossroad} onChange={(e) => { setRelationshipCrossroad(e.target.value); setSaved(false); }} placeholder={hi ? "Kis baat ko saaf karna zaroori hai?" : "What conversation or expectation needs clarity?"} /></div>
           </CardContent>
@@ -172,9 +156,9 @@ export default function CalibrationPage() {
             </div>
             <div className="space-y-2"><Label htmlFor="reading-tone">{hi ? "Baat karne ka andaaz" : "How direct should the reading be?"}</Label><Select id="reading-tone" value={readingTone} onChange={(e) => setReadingTone(e.target.value as ReadingTone)}><option value="gentle">{hi ? "Naram aur protsaahit karne wala" : "Gentle and encouraging"}</option><option value="balanced">{hi ? "Santulit" : "Balanced"}</option><option value="candid">{hi ? "Seedha aur spasht" : "Candid and direct"}</option></Select></div>
             <div className="space-y-3 border-t pt-4 text-sm">
-              <label className="flex items-start gap-2"><input type="checkbox" checked={journalAnalysisConsent} onChange={(e) => setJournalAnalysisConsent(e.target.checked)} className="mt-1 accent-amber-600" /><span>{hi ? "Main apni journal entries ko pattern dhoondhne ke liye alag se istemaal karne ki sahmati deta/deti hoon. (Abhi koi journal analysis sakriya nahi.)" : "I consent to using my journal entries for pattern analysis. (No journal analysis is active yet.)"}</span></label>
+              <label className="flex items-start gap-2"><input type="checkbox" checked={journalAnalysisConsent} onChange={(e) => { setJournalAnalysisConsent(e.target.checked); setSaved(false); }} className="mt-1 accent-amber-600" /><span>{hi ? "Main apne isi browser ke journal notes ko report mein pichhle 7/30 din ke factual recap ke liye dikhane ki alag sahmati deta/deti hoon. Optional." : "I separately consent to showing journal notes saved in this browser as a factual past-7/30-day recap in my report. Optional."}</span></label>
               <label className="flex items-start gap-2"><input type="checkbox" checked={secondPersonConsent} onChange={(e) => setSecondPersonConsent(e.target.checked)} className="mt-1 accent-amber-600" /><span>{hi ? "Agar main kisi doosre vyakti ki details doon, toh unka consent lekar hi use karunga/karungi." : "I will only submit another person’s details with their consent."}</span></label>
-              {journalAnalysisConsent ? <p className="text-xs text-muted-foreground">{hi ? "Dhyaan dein: journal-pattern analysis abhi build nahi hua; yeh consent kisi data use ko chalu nahi karta." : "Note: journal-pattern analysis is not currently implemented; this consent does not activate any data use."}</p> : null}
+              {journalAnalysisConsent ? <p className="text-xs text-muted-foreground">{hi ? "Report aapke isi profile se jude journal notes, tareekh, category aur self-rated mood ko hi recap karegi—koi pattern, chhupi ghatna, diagnosis ya numerology se verification nahi banayegi. Bina profile-owner link waali purani entries shamil nahi hongi. Data isi browser se read hota hai, server par upload nahi. Consent uncheck karke recap hataayein. Print/PDF mein notes aa sakte hain." : "The report only recaps journal notes linked to this same profile, with dates, categories, and self-rated moods—it does not infer patterns, hidden events, diagnoses, or numerical verification. Legacy notes without a profile-owner link are excluded. Data is read in this browser and not uploaded. Uncheck consent to remove the recap. Notes may appear in print/PDF."}</p> : null}
             </div>
           </CardContent>
         </Card>

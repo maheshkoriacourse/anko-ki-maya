@@ -1,338 +1,46 @@
 "use client";
 
-/**
- * Anko Ki Maya v2 — Lucky Toolkit page: lucky numbers / traditional days /
- * colors / gems (Cheiro chart) + traditional remedies (mantra, japa, yantra,
- * daan) for the personal numbers. All framed as traditional associations.
- */
-
-import * as React from "react";
-import { Gem, CalendarDays, Palette, Scroll } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, Badge, Button, Input, Label } from "@/components/ui";
-import { PageHeader, EmptyState, DeityBand, RudrakshDivider } from "@/components/shared";
+import Link from "next/link";
+import { ArrowRight, CalendarDays, Palette } from "lucide-react";
+import { Card, CardContent } from "@/components/ui";
+import { EmptyState, PageHeader } from "@/components/shared";
 import { useProfile } from "@/components/seeded-profile";
 import { useT } from "@/lib/lang";
-import { t as rawT } from "@/lib/content";
-import { luckyProfile, PLANET_FOR_NUMBER } from "@/lib/lucky";
-import { reduceFully } from "@/lib/numerology";
-import { REMEDIES, GOLD_NOTE } from "@/lib/remedies";
-import { expandedRemedyFor, DAILY_HABITS, NEELAM_CAUTION_EN, NEELAM_CAUTION_HI } from "@/lib/remedy-table";
-import { devNum } from "@/lib/navgrah";
-import { vedicChart, grahaChainLine, shubhSamay, type ShubhSamay } from "@/lib/vedic";
-import { ReasoningBlock } from "@/components/loshu-kit";
-import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
-import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
+import { luckyProfile, type DayCode } from "@/lib/lucky";
+import { lifePath, reduceFully } from "@/lib/numerology";
+
+const DAY_LABEL: Record<DayCode, { en: string; hi: string }> = {
+  Sun: { en: "Sunday", hi: "Ravivaar" }, Mon: { en: "Monday", hi: "Somvaar" },
+  Tue: { en: "Tuesday", hi: "Mangalvaar" }, Wed: { en: "Wednesday", hi: "Budhvaar" },
+  Thu: { en: "Thursday", hi: "Guruvaar" }, Fri: { en: "Friday", hi: "Shukravaar" }, Sat: { en: "Saturday", hi: "Shanivaar" },
+};
 
 export default function LuckyPage() {
   const { profile, hasProfile } = useProfile();
   const { lang } = useT();
-  const t = (key: string) => rawT(lang, key);
+  const hi = lang === "hi";
+  if (!hasProfile || !profile) return <EmptyState title={hi ? "Pehle profile poori karein" : "Complete your profile first"} body={hi ? "Birth details se is parampara ke number nikalte hain." : "Your birth details are used to show this tradition's number associations."} />;
 
-  // v3.3 rule (h): 'shubh samay' muhurat scorer — user picks a date, the
-  // panchanga tables grade it for a wedding/launch start. Hooks stay ABOVE
-  // every early return (rules-of-hooks).
-  const [muDate, setMuDate] = React.useState<string>("");
-  const [muPurpose, setMuPurpose] = React.useState<"marriage" | "launch">("marriage");
-  const [muResult, setMuResult] = React.useState<ShubhSamay | null>(null);
-  function runMuhurat(e: React.FormEvent) {
-    e.preventDefault();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(muDate)) return;
-    setMuResult(shubhSamay(new Date(`${muDate}T09:00:00`), muPurpose));
-  }
+  const month = Number(profile.birthDate.slice(5, 7));
+  const day = Number(profile.birthDate.slice(8, 10));
+  const year = Number(profile.birthDate.slice(0, 4));
+  const birthNumber = reduceFully(day);
+  const lifePathUnit = reduceFully(lifePath(year, month, day).number);
+  const traditional = luckyProfile(day, lifePathUnit, reduceFully);
 
-  if (!hasProfile || !profile) {
-    return <EmptyState title="No profile yet" body="Add your birth details to see your lucky toolkit." />;
-  }
-
-  const y = Number(profile.birthDate.slice(0, 4));
-  const m = Number(profile.birthDate.slice(5, 7));
-  const d = Number(profile.birthDate.slice(8, 10));
-  const lp = 1 + (m * 9) % 9; // placeholder replaced below
-  void lp;
-  const lifePathUnit = reduceFully(
-    (m === 11 || m === 22 ? m : m) + (d > 9 ? String(d).split("").reduce((s, x) => s + Number(x), 0) : d) + reduceFully(y),
-  );
-  const birthNumber = reduceFully(d);
-  const lucky = luckyProfile(d, lifePathUnit, reduceFully);
-
-  const primaryNumbers = Array.from(new Set([birthNumber, lifePathUnit])).filter((n) => n <= 9);
-
-  // v3.3: secret graha-chain verification line — sits inside the Basis block.
-  const chainChart = vedicChart({ year: y, month: m, day: d });
-  const chainSteps = [...lucky.steps, grahaChainLine(birthNumber, chainChart, lang)];
-
-  return (
-    <div className="space-y-8">
-      <PageHeader
-        title={t("navLucky")}
-        subtitle={
-          lang === "hi"
-            ? "Janm-ank aur Mulank ke hisaab se traditional associations — number, din, rang, ratna aur upay. Yeh parampara ke connections hain, koi guarantee nahi."
-            : "Traditional associations for your birth and life-path numbers — digits, days, colors, gems and remedies. Associations of tradition, not guarantees."
-        }
-        actions={<Badge variant="gold"><Gem aria-hidden className="size-3" />
-      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
-      <SanketBanner core={coreFromReading(_bn(profile.birthDate ? Number(profile.birthDate.slice(8,10)) : 0).number, _lp(Number(profile.birthDate.slice(0,4)), Number(profile.birthDate.slice(5,7)), Number(profile.birthDate.slice(8,10))).number, undefined, profile.birthDate)} lang={lang} />
- {lang === "hi" ? "traditional" : "traditional"}</Badge>}
-      />
-
-      {/* v3.2: durga-blessing header band — Maa ka ashirwad on the Upay page */}
-      <DeityBand
-        src="/img/durga-blessing.webp"
-        caption={lang === "hi" ? "माँ के आशीर्वाद से" : undefined}
-        objectPosition="center 22%"
-        height={210}
-      />
-
-      {/* Lucky numbers */}
-      <section aria-labelledby="lucky-n-h">
-        <h2 id="lucky-n-h" className="font-display text-lg font-semibold">{t("luckyNumbers")}</h2>
-        <div className="mt-3 flex flex-wrap gap-3">
-          {lucky.numbers.map((n) => (
-            <div
-              key={n}
-              aria-hidden
-              className="number-glyph mandala-ring grid size-16 place-items-center rounded-full glass text-2xl text-primary dark:text-gold-bright"
-            >
-              {n}
-            </div>
-          ))}
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">
-          {lang === "hi"
-            ? `Janm-ank ${birthNumber} aur Bhagyank-unit ${lifePathUnit} ke harmony-parivaar (5 sabse mel-khata).`
-            : `Harmony families of birth number ${birthNumber} and Life Path unit ${lifePathUnit} (5 pairs with all).`}
-        </p>
-      </section>
-
-      <ReasoningBlock title={t("luckyNumbers")} steps={chainSteps} lang={lang} />
-
-      {/* Days */}
-      <section aria-labelledby="lucky-d-h">
-        <h2 id="lucky-d-h" className="flex items-center gap-2 font-display text-lg font-semibold">
-          <CalendarDays aria-hidden className="size-5 text-gold" /> {t("luckyDays")}
-        </h2>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {lucky.days.map((day) => (
-            <Badge key={day} variant="secondary" className="px-3 py-1 text-sm">{day}</Badge>
-          ))}
-        </div>
-      </section>
-
-      {/* Colors */}
-      <section aria-labelledby="lucky-c-h">
-        <h2 id="lucky-c-h" className="flex items-center gap-2 font-display text-lg font-semibold">
-          <Palette aria-hidden className="size-5 text-gold" /> {t("luckyColors")}
-        </h2>
-        <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-          {lucky.colors.map((c) => (
-            <Card key={c.en}>
-              <CardContent className="flex items-center justify-between py-3">
-                <span className="text-sm">{lang === "hi" ? c.hi : c.en}</span>
-                <span className="text-xs text-muted-foreground">{lang === "hi" ? c.en : c.hi}</span>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Gems */}
-      <section aria-labelledby="lucky-g-h">
-        <h2 id="lucky-g-h" className="flex items-center gap-2 font-display text-lg font-semibold">
-          <Gem aria-hidden className="size-5 text-gold" /> {t("luckyGems")}
-        </h2>
-        <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-          {lucky.gems.map((g) => (
-            <Card key={g.en}>
-              <CardContent className="flex items-center justify-between py-3">
-                <span className="text-sm">{lang === "hi" ? g.hi : g.en}</span>
-                <span className="text-xs text-muted-foreground">{lang === "hi" ? g.en : g.hi}</span>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">
-          {lang === "hi"
-            ? "Ratna-parampara ek cultural association hai — koi bhi ratna pehenne se pehle apni vivek aur (chaho to) kisi yogya guru ki salah le lo."
-            : "Gem traditions are cultural associations — wear anything only by your own discernment (and, if you wish, qualified counsel)."}
-        </p>
-        {/* Neelam caution (owner: 8-Shani stone needs consult-before-wearing note) */}
-        <div className="mt-3 rounded-lg border border-gold/40 bg-gold/5 p-3 text-xs">
-          {lang === "hi"
-            ? "⚠ Neelam (ank 8, Shani) — parampara ka sabse tez ratna: pehenne se pehle yogya jyotishi se apni kundali mein Shani ki sthiti check karao; bina pariksha ke na pehno."
-            : "⚠ Neelam (number 8, Shani) — tradition's sharpest stone: have a qualified jyotishi check Shani's placement before wearing; never wear it untested."}
-        </div>
-      </section>
-
-      {/* Remedies */}
-      <section aria-labelledby="remedy-h">
-        <h2 id="remedy-h" className="flex items-center gap-2 font-display text-lg font-semibold">
-          <Scroll aria-hidden className="size-5 text-gold" /> {t("remedies")}
-        </h2>
-        <p className="mt-1 text-xs text-muted-foreground">{t("remedyDisclaimer")}</p>
-        <div className="mt-3 grid gap-4 md:grid-cols-2">
-          {primaryNumbers.map((n) => {
-            const rem = REMEDIES[n] ?? REMEDIES[1];
-            return (
-              <Card key={n} className="glass">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <span>
-                      {lang === "hi" ? `Ank ${n} — ` : `Number ${n} — `}
-                      {lang === "hi" ? rem.planetKey : PLANET_FOR_NUMBER[n]}
-                    </span>
-                    <span aria-hidden className="number-glyph text-2xl text-gold">{n}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2.5 text-sm">
-                  <p>
-                    <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t("mantra")}: </span>
-                    <span className="font-devanagari text-base text-gold">{rem.mantra}</span>
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {t("japaCount")}: {rem.japa} × {rem.japaSets} — {lang === "hi" ? rem.worshipDay : rem.worshipDay}
-                  </p>
-                  <p>
-                    <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t("yantra")}: </span>
-                    <span className="font-devanagari">{rem.yantra}</span>
-                  </p>
-                  <p>
-                    <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t("daan")}: </span>
-                    <span className="font-devanagari">{rem.daan.join(" · ")}</span>
-                  </p>
-                  {rem.extraNote ? (
-                    <p className="font-devanagari text-xs text-muted-foreground">{rem.extraNote}</p>
-                  ) : null}
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-        <p className="mt-3 font-devanagari text-xs text-muted-foreground">{GOLD_NOTE}</p>
-      </section>
-
-      {/* v3.2: rudraksh-shivling divider band above the remedies table */}
-      <RudrakshDivider className="my-6" />
-
-      {/* Expanded remedy table + daily habits (v3) */}
-      <section aria-labelledby="remedy-v3-h">
-        <h2 id="remedy-v3-h" className="font-display text-lg font-semibold">
-          {lang === "hi" ? "Vistarit upay-table — graha, ratna, mantra, daan" : "Expanded remedy table — planet, gem, mantra, daan"}
-        </h2>
-        <div className="mt-3 overflow-x-auto">
-          <table className="w-full min-w-[560px] text-sm">
-            <thead>
-              <tr className="border-b text-left text-xs text-muted-foreground">
-                <th className="py-2 pr-3">{lang === "hi" ? "Ank" : "No."}</th>
-                <th className="py-2 pr-3">{lang === "hi" ? "Graha" : "Planet"}</th>
-                <th className="py-2 pr-3">{lang === "hi" ? "Ratna" : "Gem"}</th>
-                <th className="py-2 pr-3">{lang === "hi" ? "Rang" : "Color"}</th>
-                <th className="py-2 pr-3 font-devanagari">{lang === "hi" ? "Mantra + japa" : "Mantra + japa"}</th>
-                <th className="py-2 font-devanagari">{lang === "hi" ? "Daan" : "Daan"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => {
-                const r = expandedRemedyFor(n);
-                return (
-                  <tr key={n} className="border-b last:border-0">
-                    <td className="py-2 pr-3 font-display text-lg text-gold">{lang === "hi" ? devNum(n) : n}</td>
-                    <td className="py-2 pr-3">{lang === "hi" ? r.planetHi : r.planet}</td>
-                    <td className="py-2 pr-3">{lang === "hi" ? r.gemHi : r.gem}</td>
-                    <td className="py-2 pr-3">{lang === "hi" ? r.colorHi : r.color}</td>
-                    <td className="py-2 pr-3 font-devanagari text-xs">
-                      {r.mantra}
-                      <span className="block text-[10px] text-muted-foreground">{lang === "hi" ? `japa ${devNum(r.japa)}` : `japa ${r.japa}`}</span>
-                    </td>
-                    <td className="py-2 font-devanagari text-xs">{lang === "hi" ? r.daanHi : r.daan}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <p className="mt-2 rounded-lg border border-gold/40 bg-gold/5 p-3 text-xs">
-            {lang === "hi" ? NEELAM_CAUTION_HI : NEELAM_CAUTION_EN}
-          </p>
-        </div>
-      </section>
-
-      {/* Daily habits */}
-      <section aria-labelledby="habits-h">
-        <h2 id="habits-h" className="font-display text-lg font-semibold">
-          {lang === "hi" ? "Roz ki discipline — hafte ka ank-practice" : "Daily discipline — the week's ank-practice"}
-        </h2>
-        <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-          {DAILY_HABITS.map((h) => (
-            <Card key={h.day}>
-              <CardContent className="py-3">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold">{lang === "hi" ? h.dayHi : h.day}</p>
-                <p className="mt-1 text-sm">{lang === "hi" ? h.habitHi : h.habitEn}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* v3.3 rule (h): SHUBH SAMAY — muhurat scorer for a picked date */}
-      <section aria-labelledby="muhurat-h" data-testid="shubh-samay">
-        <h2 id="muhurat-h" className="font-display text-lg font-semibold">
-          {lang === "hi" ? "Shubh samay — date ki pariksha" : "Shubh Samay — test a picked date"}
-        </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {lang === "hi"
-            ? "shaadi ya launch ki date pakki karne se pehle — panchang ke mez (vaar, tithi, nakshatra, yog) date ko score karte hain; Rahu-kaal ki khidki bhi bat jaati hai."
-            : "Before locking a wedding or launch date — the panchanga tables (vara, tithi, nakshatra, yoga) score the day and flag the Rahu-kala avoid-window."}
-        </p>
-        <Card className="mt-3">
-          <CardContent className="py-4">
-            <form onSubmit={runMuhurat} className="flex flex-wrap items-end gap-3" aria-label="Shubh samay checker">
-              <div>
-                <Label htmlFor="mu-date">{lang === "hi" ? "Date chuno" : "Pick a date"}</Label>
-                <Input
-                  id="mu-date"
-                  type="date"
-                  value={muDate}
-                  onChange={(e) => setMuDate(e.target.value)}
-                  className="mt-1 w-44"
-                />
-              </div>
-              <div>
-                <Label htmlFor="mu-purpose">{lang === "hi" ? "Kis kaam ke liye" : "For"}</Label>
-                <select
-                  id="mu-purpose"
-                  value={muPurpose}
-                  onChange={(e) => setMuPurpose(e.target.value as "marriage" | "launch")}
-                  className="mt-1 rounded-md border bg-card px-3 py-2 text-sm"
-                >
-                  <option value="marriage">{lang === "hi" ? "shaadi" : "wedding"}</option>
-                  <option value="launch">{lang === "hi" ? "launch/naya kaam" : "launch / new venture"}</option>
-                </select>
-              </div>
-              <Button type="submit" size="sm" variant="secondary">
-                <CalendarDays aria-hidden className="size-4" />
-                {lang === "hi" ? "samay jaancho" : "Score the date"}
-              </Button>
-            </form>
-            {muResult ? (
-              <div className="mt-4 space-y-2" aria-live="polite">
-                <div className="intensity" aria-hidden>
-                  <span style={{ width: `${Math.min(100, Math.max(0, muResult.score))}%` }} />
-                </div>
-                <p className="text-sm font-medium">{lang === "hi" ? muResult.verdictHi : muResult.verdictEn}</p>
-                <p className="text-xs text-muted-foreground">{muResult.panchangaLine}</p>
-                {muResult.avoidEn ? (
-                  <p className="rounded-lg border border-destructive/40 bg-destructive/5 p-2.5 text-xs">
-                    ⚠ {lang === "hi" ? "Parhez-ghadi: " : "Avoid: "}
-                    {lang === "hi" ? muResult.avoidHi : muResult.avoidEn}
-                  </p>
-                ) : null}
-              </div>
-            ) : null}
-          </CardContent>
-        </Card>
-      </section>
-
-      <div className="pt-2" />
+  return <div className="mx-auto max-w-4xl space-y-6">
+    <PageHeader title={hi ? "Ank-parampara · optional associations" : "Number traditions · optional associations"} subtitle={hi ? "Ek numerology table se jude number, din aur rang. Inhe apni pasand ki mnemonic samjhein—na taqdeer, na date-selection advice." : "Numbers, days, and colors associated in one numerology table. Treat them as optional personal mnemonics—not fate or date-selection advice."} />
+    <aside className="rounded-2xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm leading-6">{hi ? "Is app ka ank aapki shaadi, sehat, dhan, safalta ya kisi tareekh ki shubhata tay nahi kar sakta. Gemstone, daan, ritual ya paid service khareedna zaroori nahi. Bade faisle vyavaharik jaankari aur apni zaroorat se lein." : "A number cannot determine marriage, health, wealth, success, or whether a date is auspicious. You do not need to buy a gemstone, donation, ritual, or paid service. Make important decisions using practical information and your own needs."}</aside>
+    <div className="grid gap-4 md:grid-cols-3">
+      <Card className="glass"><CardContent className="py-5"><p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{hi ? "Janmank · ganit" : "Birth number · calculated"}</p><p className="mt-2 font-display text-5xl text-primary">{birthNumber}</p><p className="mt-2 text-xs text-muted-foreground">{hi ? "Janm-din ke digits ka root" : "Root of the day-of-birth digits"}</p></CardContent></Card>
+      <Card className="glass"><CardContent className="py-5"><p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{hi ? "Jeevan-path unit · ganit" : "Life Path unit · calculated"}</p><p className="mt-2 font-display text-5xl text-primary">{lifePathUnit}</p><p className="mt-2 text-xs text-muted-foreground">{hi ? "Is table ke liye master numbers ko root mein badla gaya" : "Master numbers are reduced here to fit this table"}</p></CardContent></Card>
+      <Card className="glass"><CardContent className="py-5"><p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{hi ? "Ek parampara ka lens" : "One tradition's lens"}</p><p className="mt-2 text-sm leading-6">{hi ? "Din aur rang kuch Cheiro-style numerology charts mein numbers se jode jaate hain." : "Days and colors are linked with numbers in some Cheiro-style numerology charts."}</p></CardContent></Card>
     </div>
-  );
+    <section className="grid gap-4 sm:grid-cols-3">
+      <Card><CardContent className="py-5"><h2 className="flex items-center gap-2 font-semibold"><span className="number-glyph text-primary">{traditional.numbers.join(" · ")}</span></h2><p className="mt-2 text-xs text-muted-foreground">{hi ? "Paramparagat number-sangati; outcome ka score nahi." : "Traditional number associations; not an outcome score."}</p></CardContent></Card>
+      <Card><CardContent className="py-5"><h2 className="flex items-center gap-2 font-semibold"><CalendarDays aria-hidden className="size-4 text-primary" />{hi ? "Jude hue din" : "Associated days"}</h2><ul className="mt-3 space-y-1 text-sm">{traditional.days.map((item) => <li key={item}>{hi ? DAY_LABEL[item].hi : DAY_LABEL[item].en}</li>)}</ul></CardContent></Card>
+      <Card><CardContent className="py-5"><h2 className="flex items-center gap-2 font-semibold"><Palette aria-hidden className="size-4 text-primary" />{hi ? "Jude hue rang" : "Associated colors"}</h2><ul className="mt-3 space-y-1 text-sm">{traditional.colors.map((item) => <li key={item.en}>{hi ? item.hi : item.en}</li>)}</ul></CardContent></Card>
+    </section>
+    <div className="rounded-2xl border bg-card p-5"><h2 className="font-display text-xl font-semibold">{hi ? "Vyavaharik guidance aur optional upaay" : "Practical guidance and optional remedies"}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{hi ? "Is tool mein mehnge ratna, daan-rakam, shaadi ke muhurat scores, ya kaamyabi ki guarantee nahi. Report mein aapke chune focus se juda bina khareed wala, palatne-yogya kadam milta hai." : "This tool does not prescribe costly gems, donation amounts, wedding-muhurat scores, or guaranteed success. Your report offers a no-purchase, reversible step tied to the focus you choose."}</p><Link href="/blueprint#scenarios" className="mt-3 inline-flex items-center gap-1 font-semibold text-primary underline">{hi ? "Apna planning drishya aur practical kadam dekhein" : "See your planning scenarios and practical step"}<ArrowRight aria-hidden className="size-4" /></Link></div>
+  </div>;
 }

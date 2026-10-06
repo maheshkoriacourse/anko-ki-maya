@@ -14,13 +14,13 @@ describe("v3.4 landing restructure", () => {
     expect(src).not.toMatch(/LandingHero/);
     // ConciergeSection still present, now at the bottom.
     expect(src).toMatch(/ConciergeSection/);
-    // The v3.4 closing order block exists after the disclaimer.
-    expect(src).toMatch(/v3\.4 \(owner order\)/);
+    // The concierge closing block exists after the disclaimer.
+    expect(src).toMatch(/landing-concierge/);
     // Form ("Apna naam aur janm-tithi") section exists.
     expect(src).toMatch(/Apna naam aur janm-tithi/);
     // Position check: the v3.4 closing block appears AFTER the disclaimer.
     const disclaimerIdx = src.indexOf("DisclaimerLine compact");
-    const closingIdx = src.indexOf("v3.4 (owner order)");
+    const closingIdx = src.indexOf("landing-concierge");
     expect(disclaimerIdx).toBeGreaterThan(-1);
     expect(closingIdx).toBeGreaterThan(disclaimerIdx);
   });

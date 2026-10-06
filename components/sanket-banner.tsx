@@ -47,11 +47,9 @@ export function SanketBanner({
   // warnings on every tool/report page made the app feel repetitive and
   // crowded; the source pages keep their own relevant interpretation.
   const pathname = usePathname();
+  const warnings = React.useMemo(() => pathname === "/overview" ? pageSanket(core) : [], [pathname, core]);
   if (pathname !== "/overview") return null;
   const hi = lang === "hi";
-  const warnings = React.useMemo(() => pageSanket(core), [
-    core.mulank, core.bhagyank, core.namank, core.birthMonth, core.birthDay, core.birthYear,
-  ]);
   if (warnings.length === 0) {
     return (
       <div

@@ -6,6 +6,8 @@
  */
 
 import * as React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Download, Trash2, RotateCcw, ShieldCheck, Languages } from "lucide-react";
 import {
   Card, CardContent, CardHeader, CardTitle, Button, Input, Label, Select, Checkbox,
@@ -15,42 +17,36 @@ import { useProfile } from "@/components/seeded-profile";
 import { DdmmyyyyDateInput, isoToDdmmyyyy, ddmmyyyyToIso } from "@/components/ddmmyyyy-date";
 import {
   exportAllData, deleteAllData, saveNotifications, loadNotifications,
-  DEFAULT_NOTIFICATIONS, type NotificationPrefs,
+  type NotificationPrefs,
 } from "@/lib/storage";
 import { useTheme } from "next-themes";
 import { useLang } from "@/lib/lang";
 import { t as rawT } from "@/lib/content";
 
 export default function SettingsPage() {
-  const { profile, save, resetToDemo, signOutToOnboarding, today } = useProfile();
+  const { profile, hydrated } = useProfile();
+  if (!hydrated) return <LoadingCards count={2} label="Loading settings" />;
+  return <SettingsContent key={profile?.birthDate ?? "no-profile"} profile={profile} />;
+}
+
+function SettingsContent({ profile }: { profile: ReturnType<typeof useProfile>["profile"] }) {
+  const router = useRouter();
+  const { save, resetToDemo, signOutToOnboarding, today } = useProfile();
   const { resolvedTheme, setTheme } = useTheme();
   const { lang, setLang } = useLang();
   const t = (key: string) => rawT(lang, key);
-  const [ready, setReady] = React.useState(false);
   // v3.8: DOB as dd/mm/yyyy parts (owner order) — stored profile stays ISO.
-  const [sDobParts, setSDobParts] = React.useState({ dd: "", mm: "", yyyy: "" });
-  React.useEffect(() => {
-    if (sDobParts.dd === "" && sDobParts.mm === "" && sDobParts.yyyy === "" && profile?.birthDate) {
-      setSDobParts(isoToDdmmyyyy(profile.birthDate));
-    }
-  }, [profile?.birthDate]); // eslint-disable-line react-hooks/exhaustive-deps
-  const [prefs, setPrefs] = React.useState<NotificationPrefs>(DEFAULT_NOTIFICATIONS);
+  const [sDobParts, setSDobParts] = React.useState(() => profile?.birthDate ? isoToDdmmyyyy(profile.birthDate) : { dd: "", mm: "", yyyy: "" });
+  const [prefs, setPrefs] = React.useState<NotificationPrefs>(() => loadNotifications());
   const [confirmDelete, setConfirmDelete] = React.useState(false);
   const [saved, setSaved] = React.useState(false);
-
-  React.useEffect(() => {
-    setReady(true);
-    setPrefs(loadNotifications());
-  }, []);
-
-  if (!ready) return <LoadingCards count={2} label="Loading settings" />;
 
   if (!profile) {
     return (
       <EmptyState
         title="No profile yet"
         body="Create your profile first — settings apply to it."
-        action={<a href="/" className="text-sm text-primary underline">Start onboarding</a>}
+        action={<Link href="/" className="text-sm text-primary underline">Start onboarding</Link>}
       />
     );
   }
@@ -110,8 +106,8 @@ export default function SettingsPage() {
               <div>
                 <Label htmlFor="s-system">Numerology system</Label>
                 <Select id="s-system" name="system" defaultValue={profile.system} className="mt-1">
-                  <option value="pythagorean">Pythagorean</option>
-                  <option value="chaldean">Chaldean (engine ready — readings still reflect Pythagorean in v1 UI)</option>
+                  <option value="pythagorean">Pythagorean-style (name-letter table)</option>
+                  <option value="chaldean">Chaldean-style (name-letter table; date formulas stay the same)</option>
                 </Select>
               </div>
               <div>
@@ -265,7 +261,7 @@ export default function SettingsPage() {
                   onClick={() => {
                     deleteAllData();
                     signOutToOnboarding();
-                    window.location.href = "/";
+                    router.replace("/");
                   }}
                 >
                   Yes, delete everything

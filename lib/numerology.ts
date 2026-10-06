@@ -4,10 +4,11 @@
  * Pure functions only (no DOM, no network). All interpretive copy lives in
  * lib/meanings.ts; this module returns numbers + transparent calculation steps.
  *
- * Two systems are supported:
- *  - Pythagorean (default): A..I = 1..9 repeating across the alphabet.
- *  - Chaldean: the older Mesopotamian map; the digit 9 is never assigned to a
- *    letter in Chaldean name numbers (9 is considered sacred/pure).
+ * Two commonly named modern name-letter conventions are supported:
+ *  - Pythagorean-style (default): A..I = 1..9 repeating across the alphabet.
+ *  - Chaldean-style: the app's conventional letter map; no letter maps to 9.
+ * These names describe the selected tables, not verified ancient lineage or
+ * evidence that numerology can predict a person's character, fate, or events.
  *
  * Master numbers 11, 22 and 33 are preserved wherever the tradition preserves
  * them (see `reduce` below). Every result carries a `steps` array so the UI can
@@ -73,8 +74,8 @@ export interface LifePathResult {
 }
 
 /**
- * Pythagorean method: reduce month, day and year separately (each preserving
- * masters), then sum and reduce again. Compound digits before the final
+ * App calendar-cycle convention: reduce month, day and year separately (each
+ * preserving masters), then sum and reduce again. Compound digits before the final
  * reduction are reported as "M/D" (e.g. Life Path 3 from 6 + 6 = 12 → 3).
  */
 export function lifePath(
@@ -148,7 +149,7 @@ export function nameNumbers(
   fullName: string,
   system: NumerologySystem = "pythagorean",
 ): NameNumbersResult {
-  const sysLabel = system === "chaldean" ? "Chaldean" : "Pythagorean";
+  const sysLabel = system === "chaldean" ? "Chaldean-style" : "Pythagorean-style";
   const all = perLetterSteps(fullName, system, "all");
   const vowels = perLetterSteps(fullName, system, "vowels");
   const consonants = perLetterSteps(fullName, system, "consonants");

@@ -1,52 +1,34 @@
 "use client";
 
 /**
- * ANKO KI MAYA v3 — ANK TOOLS (phone / house / vehicle number check).
- * Digit-sum vs Mulank via planet friendship — small, high-wow, Indian-first.
+ * ANKO KI MAYA — optional digit-sum reference for phone / home / vehicle labels.
+ * It does not score compatibility or recommend purchases or changes.
  */
 
 import * as React from "react";
 import { Smartphone, Home, Car } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, Badge, Button, Input, Label } from "@/components/ui";
-import { PageHeader, EmptyState, SanatanDivider } from "@/components/shared";
-import { useProfile } from "@/components/seeded-profile";
+import { Card, CardContent, Badge, Button, Input, Label } from "@/components/ui";
+import { PageHeader, SanatanDivider } from "@/components/shared";
 import { useT } from "@/lib/lang";
-import { analyzePhone, analyzeHouse, analyzeVehicle, verdictLabel, type NumberToolResult } from "@/lib/number-tools";
-import { devNum, grahaFor } from "@/lib/navgrah";
+import { analyzePhone, analyzeHouse, analyzeVehicle, type NumberToolResult } from "@/lib/number-tools";
 import { ReasoningBlock } from "@/components/loshu-kit";
-import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
-import { birthdayNumber as _bn, lifePath as _lp } from "@/lib/numerology";
 
 type Kind = "phone" | "house" | "vehicle";
 
 export default function NumberToolsPage() {
-  const { profile, reading, hasProfile } = useProfile();
   const { lang } = useT();
   const hi = lang === "hi";
   const [kind, setKind] = React.useState<Kind>("phone");
   const [value, setValue] = React.useState("");
   const [result, setResult] = React.useState<NumberToolResult | null>(null);
 
-  if (!hasProfile || !profile || !reading) {
-    return (
-      <EmptyState
-        title={hi ? "pehle janm-vivaran do" : "No profile yet"}
-        body={hi ? "Mulank chaahie — janm-tithi do." : "Your Mulank is needed — add your birth date first."}
-        action={<a href="/" className="text-sm text-primary underline">{hi ? "shuru karein" : "Start"}</a>}
-      />
-    );
-  }
-
-  const mulank = reading.birthday.number;
-  const bhagyank = reading.lifePath.number;
-
   function check(e: React.FormEvent) {
     e.preventDefault();
     const v = value.trim();
     if (!v || !/\d/.test(v)) return;
-    if (kind === "phone") setResult(analyzePhone(v, mulank, bhagyank));
-    else if (kind === "house") setResult(analyzeHouse(v, mulank, bhagyank));
-    else setResult(analyzeVehicle(v, mulank, bhagyank));
+    if (kind === "phone") setResult(analyzePhone(v));
+    else if (kind === "house") setResult(analyzeHouse(v));
+    else setResult(analyzeVehicle(v));
   }
 
   const kinds: { id: Kind; icon: React.ReactNode; label: string; labelHi: string; ph: string; phHi: string }[] = [
@@ -59,16 +41,10 @@ export default function NumberToolsPage() {
     <div className="space-y-6">
       <PageHeader
         title={hi ? "ank-upakaran" : "Ank Tools"}
-        subtitle={
-          hi
-            ? "phone, makaan ya gaadi ka number apne Mulank se jaachie — ank-yog ka graha aapke chaalak-graha se mitra hai ya shatru, yehi saara khel hai."
-            : "Check your phone, house or vehicle number against your Mulank — the digit-sum's planet either befriends or opposes your driver planet."
-        }
+        subtitle={hi
+          ? "Phone, ghar ya gaadi ke number ka ank-yog dekhein. Yeh paramparagat symbolic reference hai, khareed ya faisle ki salah nahi."
+          : "See the digit sum for a phone, home, or vehicle number. This is a traditional symbolic reference, not purchase or decision advice."}
       />
-      {/* v4.0: page-level sanket — app-wide honest warnings (owner order) */}
-      <SanketBanner core={coreFromReading(reading.birthday.number, reading.lifePath.number, reading.nameNumbers?.expression, profile.birthDate)} lang={lang} />
-
-
       <Card className="glass">
         <CardContent className="pt-5">
           <div className="mb-4 flex flex-wrap gap-1.5" role="tablist" aria-label={hi ? "upakaran" : "Tool"}>
@@ -104,11 +80,9 @@ export default function NumberToolsPage() {
             <div className="mt-5 rounded-xl border p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="font-display text-lg font-semibold">
-                  {hi ? `ank-yog ${devNum(result.digitsum)} — ${grahaFor(result.digitsum).grahaHi}` : `Digit sum ${result.digitsum} — ${grahaFor(result.digitsum).graha}`}
+                  {hi ? `Ank-yog ${result.digitsum}` : `Digit sum ${result.digitsum}`}
                 </p>
-                <Badge variant={result.relation === "friendly" ? "gold" : "secondary"}>
-                  {verdictLabel(result.relation, lang)}
-                </Badge>
+                <Badge variant="secondary">{hi ? "Paramparagat reference" : "Traditional reference"}</Badge>
               </div>
               <p className="mt-2 text-sm leading-relaxed">{hi ? result.lineHi : result.lineEn}</p>
             </div>
@@ -119,8 +93,8 @@ export default function NumberToolsPage() {
       <SanatanDivider />
       <p className="text-xs text-muted-foreground">
         {hi
-          ? "yeh jaanch paramparagat mitra-graha table par hai — nirnay aapka; upayogita aur vyavahaar-suvidha bhi number chunate samay vajan rakhate hain."
-          : "This check uses the traditional planet-friendship table — the decision is yours; utility and practicality also weigh when choosing a number."}
+          ? "Phone coverage, ghar ki jagah, gaadi ki suraksha aur kul kharch ko is ank se zyada ahmiyat dein. Is tool ki salah par number badalne ya mehngi cheez khareedne ki zaroorat nahi."
+          : "Prioritize phone coverage, home location, vehicle safety, and total cost over this number. You do not need to change a number or buy anything expensive based on this tool."}
       </p>
       <ReasoningBlock
         title={hi ? "ank-upakaran" : "Ank Tools"}

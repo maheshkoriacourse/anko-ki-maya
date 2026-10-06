@@ -1,10 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { ANK_DASHA_YEAR, ANK_DASHA_MONTH, mulankBhagyankState } from "@/lib/voice";
+import { ANK_DASHA_YEAR, ANK_DASHA_MONTH } from "@/lib/voice";
 import { buildLifeGraph, patternNote } from "@/lib/life-graph";
 import { buildLifeAreaReport, hasConcreteYears } from "@/lib/life-areas";
 import { chartTruth, truthForYear } from "@/lib/truth";
 import { detectRajyogas } from "@/lib/rajyoga";
-import { NAVGRAH, devNum, grahaFor } from "@/lib/navgrah";
+import { NAVGRAH, grahaFor } from "@/lib/navgrah";
 import { analyzePhone, analyzeHouse } from "@/lib/number-tools";
 import { pinnacles } from "@/lib/numerology";
 
@@ -118,17 +118,28 @@ describe("v3 RAJYOGA detection", () => {
 });
 
 describe("v3 Ank Tools (phone/house/vehicle)", () => {
-  it("scores a mobile number via digit-sum planet friendship", () => {
-    const r = analyzePhone("9876543210", 6, 3);
+  it("returns a digit sum without claiming planetary compatibility or outcomes", () => {
+    const r = analyzePhone("9876543210");
     expect(r.digitsum).toBe(9);
     expect(r.lineEn.length).toBeGreaterThan(30);
+    expect(r.lineEn).toMatch(/optional traditional-symbolism reference/i);
+    expect(r.lineEn).not.toMatch(/friendly|tense|graha|planet/i);
+    expect(r.steps.join(" ")).toMatch(/no planetary-compatibility/i);
     expect(r.lineHi).toMatch(/\b(hai|hain|ka|ki|ke|ko|mein|saal|tha|karo)\b/);
-      expect(r.lineHi.replace(/[\u0966-\u096F]/g, '')).not.toMatch(/[\u0900-\u097F]/);
+    expect(r.lineHi).toMatch(/nateeje tay nahi hote/i);
+    expect(r.lineHi.replace(/[\u0966-\u096F]/g, "")).not.toMatch(/[\u0900-\u097F]/);
   });
 
   it("extracts digits from house labels like B-402", () => {
-    const r = analyzeHouse("B-402", 6, 3);
+    const r = analyzeHouse("B-402");
     expect(r.digitsum).toBe(6);
+    expect(r.lineEn).toMatch(/house or flat number/i);
+  });
+
+  it("calculates without requiring birth details or using supplied personal numbers", () => {
+    expect(analyzePhone("12345").digitsum).toBe(6);
+    expect(analyzePhone("12345").steps.join(" ")).not.toMatch(/birth|Mulank|Bhagyank/i);
+    expect(analyzePhone("12345").lineHi).toMatch(/kharch dekhkar karein/i);
   });
 });
 

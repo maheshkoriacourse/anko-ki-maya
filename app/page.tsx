@@ -10,13 +10,14 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Button, Input, Label, Card, CardContent } from "@/components/ui";
+import { Button, Input, Label, Card, CardContent, Select } from "@/components/ui";
 import { DisclaimerLine } from "@/components/shared";
 import { ConciergeSection } from "@/components/concierge";
 import { useProfile } from "@/components/seeded-profile";
 import { isValidBirthDate, sanitizeName } from "@/lib/numerology";
 import { DdmmyyyyDateInput, ddmmyyyyToIso, isoToDdmmyyyy, type DdmmyyyyParts } from "@/components/ddmmyyyy-date";
 import { useLang } from "@/lib/lang";
+import type { Profile } from "@/lib/storage";
 
 interface FormState {
   birthName: string;
@@ -33,39 +34,27 @@ const EMPTY: FormState = {
 };
 
 export default function OnboardingPage() {
-  const { hasProfile, save } = useProfile();
+  const { profile, hydrated } = useProfile();
+  if (!hydrated) return null;
+  const initialProfile = profile?.isDemoProfile ? null : profile;
+  const key = initialProfile
+    ? [initialProfile.birthName, initialProfile.preferredName, initialProfile.birthDate, initialProfile.system].join(":")
+    : "new-profile";
+  return <OnboardingForm key={key} initialProfile={initialProfile} />;
+}
+
+function OnboardingForm({ initialProfile }: { initialProfile: Profile | null }) {
+  const { hasProfile, isDemoProfile, save } = useProfile();
   const router = useRouter();
   const { lang } = useLang();
   const hi = lang === "hi";
-  const [form, setForm] = React.useState<FormState>(EMPTY);
+  const [form, setForm] = React.useState<FormState>(() => initialProfile ? {
+    birthName: initialProfile.birthName,
+    preferredName: initialProfile.preferredName,
+    date: isoToDdmmyyyy(initialProfile.birthDate),
+    system: initialProfile.system,
+  } : EMPTY);
   const [errors, setErrors] = React.useState<Partial<Record<keyof FormState, string>>>({});
-
-  React.useEffect(() => {
-    // Prefill from the stored profile so returning users skip typing.
-    if (hasProfile) {
-      const stored = window.localStorage.getItem("akm.v1.profile");
-      if (stored) {
-        try {
-          const p = JSON.parse(stored) as {
-            birthName: string;
-            preferredName: string;
-            birthDate: string;
-            system: string;
-          };
-          setForm((f) => ({
-            ...f,
-            birthName: p.birthName || f.birthName,
-            preferredName: p.preferredName || f.preferredName,
-            date: p.birthDate ? isoToDdmmyyyy(p.birthDate) : f.date,
-            system: (p.system as FormState["system"]) || f.system,
-          }));
-        } catch {
-          /* ignore malformed storage */
-        }
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function validate(f: FormState): Partial<Record<keyof FormState, string>> {
     const errs: Partial<Record<keyof FormState, string>> = {};
@@ -193,6 +182,15 @@ export default function OnboardingPage() {
               </div>
             </div>
 
+            <div>
+              <Label htmlFor="nameSystem">{hi ? "Naam ke ankon ki letter-table" : "Name-number letter table"}</Label>
+              <Select id="nameSystem" value={form.system} onChange={(e) => setForm((current) => ({ ...current, system: e.target.value === "chaldean" ? "chaldean" : "pythagorean" }))} className="mt-1.5">
+                <option value="pythagorean">Pythagorean-style</option>
+                <option value="chaldean">Chaldean-style</option>
+              </Select>
+              <p className="mt-1 text-xs text-muted-foreground">{hi ? "Yeh aadhunik naam-table ke common labels hain; yahan sirf naam-aadhaarit hisaab badalta hai. Janm-tithi waale hisaab alag formula se nikalte hain. Yeh pakki bhavishyavaani nahi." : "These are common modern labels for name-letter tables; this changes name-based calculations only. Date-based calculations use separate formulas. Neither is a guaranteed forecast."}</p>
+            </div>
+
             <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-xs text-muted-foreground">
                 {hi
@@ -208,7 +206,7 @@ export default function OnboardingPage() {
       </Card>
       </section>
 
-      {hasProfile ? <p className="landing-returning">
+      {hasProfile && !isDemoProfile ? <p className="landing-returning">
         {hi ? "Pehle se profile hai? " : "Already have a profile? "}
         <a href="/overview" className="text-primary underline underline-offset-4">
           {hi ? "Apni current reading kholein" : "Continue to your reading"}

@@ -5,9 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
-  Sparkles, LayoutDashboard, Hash, CalendarRange, Map, BookOpen,
-  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, LineChart, FileText, Smartphone, Sunrise,
-  ScrollText, CalendarHeart, Compass, Crown } from "lucide-react";
+  LayoutDashboard, Hash, CalendarRange, Map, BookOpen,
+  Settings, Moon, Sun, Printer, Grid3X3, Gem, Wand2, FileText, Smartphone,
+  Compass, Crown } from "lucide-react";
 import { Button } from "@/components/ui";
 import { DisclaimerLine, OmMotif, SanatanDivider } from "@/components/shared";
 import { useHasProfile } from "@/components/seeded-profile";
@@ -16,24 +16,17 @@ import { t as rawT } from "@/lib/content";
 
 /**
  * v3 NAV — report order is the nav order:
- * Overview(अभी का हाल) → जीवन-ग्राफ़ (past auto-reading flagship) →
- * आपके अंक → अंक-चक्र (Numeroscope/LoShu) → राजयोग → भविष्य-दृश्य →
- * दीर्घ-काल → लकी/उपाय → नाम-स्टूडियो → अंक-उपकरण (phone/house/vehicle) →
- * पत्रिका → रिपोर्ट → सेटिंग्स.
+ * Overview → evidence-labelled personal report → forecast and journal →
+ * calibration → calculation/number tools → settings and separate services.
  */
 export const NAV_ITEMS = [
   { href: "/overview", labelKey: "navOverview", icon: LayoutDashboard },
   { href: "/blueprint", labelKey: "navBlueprint", icon: FileText },
-  { href: "/life-graph", labelKey: "navLifeGraph", icon: LineChart },
   { href: "/forecast", labelKey: "navForecast", icon: CalendarRange },
   { href: "/journal", labelKey: "navJournal", icon: BookOpen },
   { href: "/calibration", labelKey: "navCalibration", icon: Compass },
   { href: "/numbers", labelKey: "navNumbers", icon: Hash },
   { href: "/loshu", labelKey: "navLoShu", icon: Grid3X3 },
-  { href: "/rajyoga", labelKey: "navRajyoga", icon: Sparkles },
-  { href: "/din-mausam", labelKey: "navDinMausam", icon: Sunrise },
-  { href: "/dashboard3", labelKey: "navDashboard3", icon: CalendarHeart },
-  { href: "/dossier", labelKey: "navDossier", icon: ScrollText },
   { href: "/longterm", labelKey: "navLongterm", icon: Map },
   { href: "/lucky", labelKey: "navLucky", icon: Gem },
   { href: "/name-studio", labelKey: "navNameStudio", icon: Wand2 },
@@ -42,19 +35,22 @@ export const NAV_ITEMS = [
   { href: "/concierge", labelKey: "navConcierge", icon: Crown },
 ] as const;
 
-const PRIMARY_HREFS = new Set(["/overview", "/blueprint", "/life-graph", "/forecast", "/journal"]);
+const PRIMARY_HREFS = new Set(["/overview", "/blueprint", "/forecast", "/journal"]);
 const MOBILE_LABELS: Record<string, { en: string; hi: string }> = {
   "/overview": { en: "Today", hi: "Abhi" },
   "/blueprint": { en: "Report", hi: "Report" },
-  "/life-graph": { en: "Timeline", hi: "Past" },
   "/forecast": { en: "Next", hi: "Aage" },
   "/journal": { en: "Journal", hi: "Journal" },
 };
 
+const subscribeMounted = () => () => {};
+function useMounted(): boolean {
+  return React.useSyncExternalStore(subscribeMounted, () => true, () => false);
+}
+
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => setMounted(true), []);
+  const mounted = useMounted();
   return (
     <Button
       variant="ghost"
@@ -70,8 +66,7 @@ function ThemeToggle() {
 /** EN ⇄ Roman Hinglish toggle — ALWAYS in the top nav (owner order). */
 function LangToggle() {
   const { lang, setLang } = useLang();
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => setMounted(true), []);
+  const mounted = useMounted();
   if (!mounted) return null;
   return (
     <div
@@ -103,15 +98,14 @@ function LangToggle() {
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { hasProfile } = useHasProfile();
+  const { hasProfile, isDemoProfile } = useHasProfile();
   const { lang } = useLang();
   const t = (key: string) => rawT(lang, key);
   const isOnboarding = pathname === "/";
-  const isCompatibility = pathname === "/compatibility";
   const isReport = pathname === "/report";
   const isBlueprint = pathname === "/blueprint";
   const isDossier = pathname === "/dossier";
-  const bare = isOnboarding || isCompatibility || isReport || isBlueprint || isDossier;
+  const bare = isOnboarding || isReport || isBlueprint || isDossier;
 
   // v3.1: app-wide fixed divine-bg texture (lazy: painted by CSS after first
   // paint, never blocks LCP).
@@ -122,8 +116,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     </>
   );
 
+  const sampleNotice = isDemoProfile ? (
+    <div role="status" className="no-print mx-auto mb-4 max-w-5xl rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 text-sm leading-5">
+      {lang === "hi"
+        ? "Yeh namoona profile hai — yeh aapki personal reading nahi. Apni janm-tithi bhar kar ise badlein."
+        : "Sample profile active — this is an illustration, not your personal reading. Enter your own birth details to replace it."}
+    </div>
+  ) : null;
+
   function isActive(href: string) {
-    if (href === "/overview") return pathname === "/overview" || pathname === "/compatibility";
+    if (href === "/overview") return pathname === "/overview";
     return pathname.startsWith(href);
   }
 
@@ -213,6 +215,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </header>
+        {sampleNotice}
         {children}
         <footer className="landing-site-footer">
           <SanatanDivider className="mb-4 opacity-60" />
@@ -259,6 +262,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               </Link>
             ))}
           </nav> : null}
+          {sampleNotice}
           {children}
         </div>
       </div>
@@ -288,6 +292,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* Content */}
       <div className="md:pl-64">
         <main id="main" className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 md:py-10">
+          {sampleNotice}
           {children}
         </main>
         <footer className="mx-auto max-w-5xl px-4 pb-24 md:pb-10 md:pl-0">

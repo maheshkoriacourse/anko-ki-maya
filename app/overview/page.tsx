@@ -2,14 +2,14 @@
 
 /**
  * ANKO KI MAYA v3 — OVERVIEW = "Abhi ka haal" (owner-mandated chapter 1).
- * Where you stand right now: Ank Dasha (year/month/day) + Mulank/Bhagyank
- * state + Navgrah behaviour lines — direct, personal, powerful.
+ * Where you stand right now: Personal Year/Month/Day numbers, core calculations,
+ * user-provided context and safe planning prompts.
  * Then the 6-month weather, deep-dive tiles and journal shortcut.
  */
 
 import * as React from "react";
 import Link from "next/link";
-import { CalendarDays, Smartphone, Crown, Grid3X3, Gem, Repeat, ArrowRight } from "lucide-react";
+import { CalendarDays, Smartphone, Grid3X3, Gem, Repeat, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/components/ui";
 import {
   NumberCard, JournalShortcut, DiyaMotif, YantraMotif, EmptyState, LoadingCards, DivineHero,
@@ -19,8 +19,7 @@ import { useT } from "@/lib/lang";
 import { t as rawT } from "@/lib/content";
 import { MasterNumberCard } from "@/components/mahadasha-section";
 import { personalYear, personalMonth, personalDay, upcomingMonths, monthName, type MonthCycle } from "@/lib/numerology";
-import { grahaFor, devNum } from "@/lib/navgrah";
-import { vedicChart, grahaChainLine } from "@/lib/vedic";
+import { devNum } from "@/lib/navgrah";
 import { LifeContextBrief } from "@/components/life-context-brief";
 import { personalCycleTheme } from "@/lib/personal-insights";
 
@@ -65,17 +64,6 @@ export default function OverviewPage() {
     6,
   );
 
-  // v3.3 secret layer — dasha-precision for each month card + nakshatra
-  // verification of the Mulank reading + the graha-chain Basis line.
-  const birthClock = profile.birthTime?.match(/^(\d{2}):(\d{2})$/);
-  const vc = vedicChart({
-    year: Number(profile.birthDate.slice(0, 4)),
-    month: birthMonth,
-    day: birthDay,
-    ...(birthClock ? { hour: Number(birthClock[1]), minute: Number(birthClock[2]) } : {}),
-  });
-  const chainLine = grahaChainLine(mulank, vc, lang);
-
   return (
     <div className="space-y-8">
       {/* v3.1: cinematic divine hero — greeting overlays the banner */}
@@ -109,7 +97,7 @@ export default function OverviewPage() {
             <div className="akashic-card gold-hairline-double-bottom rounded-xl border bg-gold/5 px-5 py-6 text-center">
               <p className="akashic-heading text-xs font-semibold uppercase tracking-widest text-gold">{t("personalYear")}</p>
               <p aria-hidden className="number-glyph font-dossier mt-1 text-6xl text-gold dark:text-gold-bright">{hi ? devNum(currentPY.number) : currentPY.number}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{today.getFullYear()} · {grahaFor(currentPY.number).graha}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{today.getFullYear()}</p>
             </div>
             <div className="akashic-card rounded-xl border bg-gold/5 px-5 py-6 text-center">
               <p className="akashic-heading text-xs font-semibold uppercase tracking-widest text-gold">{t("personalMonth")}</p>
@@ -123,9 +111,9 @@ export default function OverviewPage() {
             </div>
           </div>
 
-          {/* Direct dasha narrative */}
+          {/* Personal Year reflection */}
           <div className="akashic-card rounded-xl border bg-secondary/40 px-5 py-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? `Is saal ka ank-theme ${devNum(currentPY.number)} · ${grahaFor(currentPY.number).grahaHi}` : `Current Personal Year ${currentPY.number} · ${grahaFor(currentPY.number).graha}`}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-gold">{hi ? `Is saal ka Personal Year ${devNum(currentPY.number)}` : `Current Personal Year ${currentPY.number}`}</p>
             <p className="mt-1.5 text-sm font-medium leading-relaxed">
               {hi ? "Paramparagat ank-theme: " : "Traditional number theme: "}{personalCycleTheme(currentPY.number, lang)}. {hi ? "Yeh kisi ghatna ka saboot ya pakki bhavishyavaani nahi; apne faislon ko parakhne ka ek sawaal samjhein." : "This is not evidence of an event or a certain prediction; use it as a question for your decisions."}
             </p>
@@ -149,36 +137,6 @@ export default function OverviewPage() {
             ]}
           />
 
-          {/* Birth and life-path numbers as symbolic lenses, not diagnoses. */}
-          <div className="akashic-card rounded-xl border px-5 py-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gold">
-              {hi ? "Mukhya ankon ke paramparagat sambandh" : "Traditional associations for your core numbers"}
-            </p>
-            <p className="mt-1.5 text-sm leading-relaxed">
-              {hi
-                ? `Parampara mein Mulank ${devNum(mulank)} (${grahaFor(mulank).grahaHi}) aur Bhagyank ${devNum(bhagyank)} (${grahaFor(bhagyank).grahaHi}) alag prateekatmak drishtikon dete hain. Yeh aapki personality ya bhavishya ka pramaan nahi.`
-                : `In this tradition, Mulank ${mulank} (${grahaFor(mulank).graha}) and Bhagyank ${bhagyank} (${grahaFor(bhagyank).graha}) offer separate symbolic lenses. They do not prove a personality trait or predict your future.`}
-            </p>
-
-            {/* A traditional correspondence—not independent verification or diagnosis. */}
-            <div
-              className="rounded-lg border border-gold/40 bg-gold/5 px-3 py-2.5"
-            >
-              <p className="text-xs font-medium text-gold">
-                ✦ {hi ? "Paramparagat janma-nakshatra sambandh" : "Traditional birth-star association"}
-              </p>
-              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                {hi
-                  ? `Janma nakshatra ${vc.nakshatraName} (pada ${devNum(vc.pada)}) ek paramparagat symbolic association hai—vyaktitva ki jaanch ya bhavishyavaani nahi.`
-                  : `Janma nakshatra ${vc.nakshatraName} (pada ${vc.pada}) is a traditional symbolic association—not a validated personality assessment or prediction.`}
-              </p>
-              <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
-                {hi
-                  ? `Vedic hissa ${vc.timeUnknown ? "janm-samay na milne par Moon-chart approximation" : "aapke diye janm-samay"} aur Mumbai reference location ka istemaal karta hai. Janm-sthan ko coordinates mein badla nahi jaata; ise exact kundali ya alag se pushti na samjhein.`
-                  : `The Vedic section uses ${vc.timeUnknown ? "a Moon-chart approximation because no birth time was provided" : "your supplied birth time"} and Mumbai as a reference location. Birthplace is not converted to coordinates; treat this as an approximation, not independent verification.`}
-              </p>
-            </div>
-          </div>
         </CardContent>
       </Card>
 
@@ -248,7 +206,7 @@ export default function OverviewPage() {
       {/* ---------- 6-MONTH WEATHER ---------- */}
       <section aria-labelledby="timeline">
         <h2 id="timeline" className="akashic-heading mb-3 font-display text-lg font-semibold">
-          {hi ? "agle 6 mahine — ank-dasha mausam" : "Next 6 months — Ank Dasha weather"}
+          {hi ? "agle 6 mahine — Personal Month themes" : "Next 6 months — Personal Month themes"}
         </h2>
         <Card>
           <CardContent className="py-5">
@@ -298,12 +256,11 @@ export default function OverviewPage() {
         </h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { href: "/life-graph", icon: <CalendarDays aria-hidden className="size-5 text-gold" />, labelKey: "navLifeGraph", desc: hi ? "ateet ka vachan — khud bharta graph" : "Past auto-reading — the self-filling graph" },
-            { href: "/rajyoga", icon: <Crown aria-hidden className="size-5 text-gold" />, labelKey: "navRajyoga", desc: hi ? "aapke chart ke shaahee yog" : "Royal yogas in your chart" },
+            { href: "/life-graph", icon: <CalendarDays aria-hidden className="size-5 text-gold" />, labelKey: "navLifeGraph", desc: hi ? "report mein aapke likhe hue ateet ke notes" : "Your own past notes in the report timeline" },
             { href: "/number-tools", icon: <Smartphone aria-hidden className="size-5 text-gold" />, labelKey: "navNumberTools", desc: hi ? "phone/makaan/gaadi jaanch" : "Phone/house/vehicle check" },
             { href: "/loshu", icon: <Grid3X3 aria-hidden className="size-5 text-gold" />, labelKey: "navLoShu", desc: hi ? "ank-chakra: tal, vikarn, yutiyaan" : "Numeroscope: planes, diagonals, yogas" },
             { href: "/loshu#repetitions-h", icon: <Repeat aria-hidden className="size-5 text-gold" />, label: hi ? "Ank-Repetitions" : "Repetitions", desc: hi ? "doharaae ank — bal aur chhaya" : "Repeated digits — strength & shadow" },
-            { href: "/lucky", icon: <Gem aria-hidden className="size-5 text-gold" />, labelKey: "navLucky", desc: hi ? "ank, din, rang, ratna, upaay" : "Numbers, days, colors, gems, upay" },
+            { href: "/lucky", icon: <Gem aria-hidden className="size-5 text-gold" />, labelKey: "navLucky", desc: hi ? "ek parampara ke optional number, din aur rang" : "Optional number, day, and color associations" },
           ].map((tile) => (
             <a key={tile.href} href={tile.href} className="group">
               <Card interactive className="h-full glass">
@@ -324,17 +281,13 @@ export default function OverviewPage() {
           <a href="/blueprint" className="text-primary underline underline-offset-4">
             {hi ? "poori Life Blueprint report" : "Open the full Life Blueprint report"}
           </a>
-          {" · "}
-          <a href="/compatibility" className="text-primary underline underline-offset-4">
-            {hi ? "tulana" : "Compare with someone"}
-          </a>
         </p>
       </div>
 
-      {/* v3.3: Basis — ank-ganit + graha-kram verification (secret layer line) */}
-      <details data-testid="basis-graha-chain" className="group rounded-lg border border-gold/25 bg-muted/30 px-4 py-2.5">
+      {/* Transparent arithmetic for the date-based cycle numbers. */}
+      <details data-testid="basis-personal-cycles" className="group rounded-lg border border-gold/25 bg-muted/30 px-4 py-2.5">
         <summary className="flex cursor-pointer items-center gap-2 font-serif-display text-sm italic text-gold">
-          {hi ? "Basis — ank-dasha ka hisaab" : "Basis — how the Ank Dasha was computed"}
+          {hi ? "Basis — Personal Year, Month aur Day ka hisaab" : "Basis — Personal Year, Month, and Day calculations"}
           <span className="ml-auto text-xs not-italic text-muted-foreground group-open:hidden">
             {hi ? "dikhao" : "show"}
           </span>
@@ -342,10 +295,11 @@ export default function OverviewPage() {
         <ol className="mt-2 list-decimal space-y-1 pl-5 text-xs text-muted-foreground">
           <li>{reading.birthday.steps.join(" → ")}</li>
           <li>{reading.lifePath.steps.join(" → ")}</li>
-          <li>{chainLine}</li>
+          <li>{`Personal Month = Personal Year ${currentPY.number} + calendar month ${today.getMonth() + 1} → ${pmNow}.`}</li>
+          <li>{`Personal Day = Personal Month ${pmNow} + calendar day ${today.getDate()} → ${pDay.number}.`}</li>
         </ol>
         <p className="mt-2 font-serif-display text-xs italic text-gold">
-          {hi ? "Yeh ank aur parampara se liya gaya vyakhya-aadhaar hai—ghatna ka saboot nahi." : "This is the interpretive basis drawn from number cycles and tradition—not evidence that an event will occur."}
+          {hi ? "Yeh paramparagat numerology ka hisaab hai; ghatna ka saboot ya vaigyanik roop se siddh bhavishyavaani nahi." : "This is arithmetic within a numerology convention; it is not evidence of an event or a scientifically established forecast."}
         </p>
       </details>
     </div>

@@ -26,17 +26,17 @@ describe("NumberCard", () => {
     );
     fireEvent.click(screen.getByText(/Basis — Soul Urge/));
     expect(screen.getByText("Vowels only")).toBeInTheDocument();
-    expect(screen.getByText("On this basis we predict your reading.")).toBeInTheDocument();
+    expect(screen.getByText("This shows the calculation behind the reflection; it is not a certain prediction.")).toBeInTheDocument();
   });
 });
 
 describe("WhyThisReading (v3.1 Basis block)", () => {
-  it("lists every step when opened and closes with the predict line", () => {
+  it("lists every step when opened and includes an uncertainty boundary", () => {
     render(<WhyThisReading title="Test" steps={["step one", "step two"]} />);
     fireEvent.click(screen.getByText(/Basis — Test/));
     expect(screen.getByText("step one")).toBeInTheDocument();
     expect(screen.getByText("step two")).toBeInTheDocument();
-    expect(screen.getByText("On this basis we predict your reading.")).toBeInTheDocument();
+    expect(screen.getByText("This shows the calculation behind the reflection; it is not a certain prediction.")).toBeInTheDocument();
   });
 
   it("never shows the banned 'Why this reading?' phrasing", () => {

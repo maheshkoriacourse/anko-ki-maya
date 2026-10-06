@@ -1,10 +1,6 @@
-import Dashboard3View from "@/components/dashboard3";
+import { redirect } from "next/navigation";
 
-/**
- * v6.3 AAJ KA DASHBOARD route — daily 3-card cosmic dashboard.
- * Rendering (profile read, lang, ready-gate) lives in the client component
- * — same pattern as app/din-mausam/page.tsx.
- */
+/** The former daily cards stated past/today/tomorrow themes without user context. */
 export default function Dashboard3Page() {
-  return <Dashboard3View />;
+  redirect("/blueprint#scenarios");
 }

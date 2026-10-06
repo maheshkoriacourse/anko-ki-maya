@@ -20,6 +20,22 @@ export function saveLang(lang: Lang): void {
   safeSet(KEY, lang);
 }
 
+function subscribeLang(onChange: () => void): () => void {
+  const onStorage = (event: StorageEvent) => {
+    if (!event.key || event.key === KEY) onChange();
+  };
+  window.addEventListener("storage", onStorage);
+  window.addEventListener("akm:lang-change", onChange);
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener("akm:lang-change", onChange);
+  };
+}
+
+function dispatchLangChange() {
+  if (typeof window !== "undefined") window.dispatchEvent(new Event("akm:lang-change"));
+}
+
 interface Ctx {
   lang: Lang;
   setLang: (l: Lang) => void;
@@ -28,15 +44,11 @@ interface Ctx {
 const LangContext = React.createContext<Ctx | null>(null);
 
 export function LangProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = React.useState<Lang>("hi");
-
-  React.useEffect(() => {
-    setLangState(loadLang());
-  }, []);
+  const lang = React.useSyncExternalStore<Lang>(subscribeLang, loadLang, () => "hi");
 
   const setLang = React.useCallback((l: Lang) => {
-    setLangState(l);
     saveLang(l);
+    dispatchLangChange();
   }, []);
 
   // HINDI-TOTAL-LOOK (owner order 30 Sep: hindi option => menu/nav/font/headers SAB Devanagari feel):

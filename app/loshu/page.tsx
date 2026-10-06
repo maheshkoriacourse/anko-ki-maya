@@ -17,7 +17,6 @@ import { LO_SHU_DIGIT_THEME } from "@/lib/loshu";
 import { analyzeRepetitions } from "@/lib/repetitions";
 import { gridYogas } from "@/lib/grid-yogas";
 import { devNum } from "@/lib/navgrah";
-import { vedicChart, grahaChainLine, verifyNakshatra } from "@/lib/vedic";
 import { ReasoningBlock, PlaneBadge, DigitCell } from "@/components/loshu-kit";
 import { planeDeep, diagonalDeep } from "@/lib/loshu-deep";
 import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
@@ -39,20 +38,6 @@ export default function LoShuPage() {
   const mulank = reading?.birthday.number;
   const bhagyank = reading?.lifePath.number;
   const reps = y ? analyzeRepetitions(y, m, d, mulank, bhagyank) : null;
-
-  // v3.3: secret graha-chain + nakshatra verification — Basis-block lines.
-  // The nakshatra badge renders as a quiet verification strip above the grid
-  // (never the word 'astrology' — 'graha pramanikaran' only).
-  let chainLine: string | null = null;
-  let nakBadge: string | null = null;
-  if (y && mulank) {
-    const vc = vedicChart({ year: y, month: m, day: d });
-    chainLine = grahaChainLine(mulank, vc, lang);
-    const nv = verifyNakshatra(mulank, vc);
-    nakBadge = lang === "hi"
-      ? `${nv.badgeHi} — janm-nakshatra ${vc.nakshatraName} (${nv.nakshatraLordGraha}), Mulank ${devNum(mulank)} (${nv.mulankGraha}) ke vachan par mohar`
-      : `${nv.badgeEn} — janma nakshatra ${vc.nakshatraName} (${nv.nakshatraLordGraha}) co-signs the Mulank ${mulank} (${nv.mulankGraha}) reading`;
-  }
 
   return (
     <div className="space-y-8">
@@ -76,8 +61,7 @@ export default function LoShuPage() {
       ) : null}
 
 
-      {/* v3.4 discoverability (owner: 'repetitions kaha pe hai? remedies kaha pe hai?') —
-          jump chips at top: Repetitions section on this page + remedies on /lucky */}
+      {/* Quick path to repetitions and the optional tradition-associations tool. */}
       <div className="flex flex-wrap gap-2" data-testid="loshu-jump-chips">
         <a
           href="#repetitions-h"
@@ -89,7 +73,7 @@ export default function LoShuPage() {
           href="/lucky"
           className="rounded-full border border-gold/40 bg-gold/5 px-3.5 py-1.5 text-xs font-medium text-gold transition hover:bg-gold/15 hover:shadow-[0_0_18px_-6px_color-mix(in_srgb,var(--gold)_60%,transparent)]"
         >
-          {lang === "hi" ? "→ Upay (Lucky aur Upay)" : "→ Remedies (/lucky)"}
+          {lang === "hi" ? "→ Parampara ke optional associations" : "→ Optional tradition associations"}
         </a>
       </div>
 
@@ -105,17 +89,6 @@ export default function LoShuPage() {
           ? `janmatithi ke ankon ke saath Bhagyank ${devNum(loShu.bhagyank)} bhi apni kothri mein gina jaata hai${loShu.dobCounts[loShu.bhagyank] === 0 ? " — yeh ank janmatithi mein nahi tha, isliye Bhagyank ne hi use grid mein jilaayaa (ab yeh absent nahi kahalaaega)" : ""}.`
           : `alongside the birth-date digits, Bhagyank ${loShu.bhagyank} is counted into its cell${loShu.dobCounts[loShu.bhagyank] === 0 ? " — this digit was absent from the date itself, so the Bhagyank brings it to life in the grid (it no longer counts as missing)" : ""}.`}
       </div>
-
-      {/* v3.3: nakshatra verification badge (secret layer — graha pramanikaran) */}
-      {nakBadge ? (
-        <div
-          data-testid="nakshatra-badge"
-          className="akashic-card saffron-accent-edge rounded-xl px-5 py-4 text-sm"
-        >
-          <span className="font-medium text-gold">✦ </span>
-          {nakBadge}
-        </div>
-      ) : null}
 
       {/* Grid front-and-center */}
       <Card className="glass constellation-bg overflow-hidden">
@@ -190,7 +163,7 @@ export default function LoShuPage() {
 
       <ReasoningBlock
         title={t("navLoShu")}
-        steps={chainLine ? [...loShu.steps, chainLine] : loShu.steps}
+        steps={loShu.steps}
         lang={lang}
       />
 
@@ -326,21 +299,21 @@ export default function LoShuPage() {
         )}
       </section>
 
-      {/* v3.4 remedies teaser card (owner: 'remedies kaha pe hai?') — points to /lucky */}
+      {/* Optional traditional associations; practical no-cost action lives in the report. */}
       <div
         data-testid="loshu-remedies-teaser"
         className="akashic-card rounded-xl px-5 py-4"
       >
         <p className="text-sm">
           {lang === "hi"
-            ? "upay kaha hain? — Lucky aur Upay page par: rang, din, ank aur aapke planet-baal upay ek saath."
-            : "Where are the remedies? — On the Lucky aur Upay page: colours, days, numbers and your planet-bal remedies together."}
+            ? "Lucky page par optional paramparagat ank, din aur rang milenge; report mein bina khareed wala practical reflection hai."
+            : "The Lucky page shows optional traditional number, day, and color associations; your report offers a practical, no-purchase reflection."}
         </p>
         <a
           href="/lucky"
           className="mt-1 inline-block text-sm font-medium text-gold underline underline-offset-4"
         >
-          {lang === "hi" ? "Lucky aur Upay kholo →" : "Open Lucky & Upay →"}
+          {lang === "hi" ? "Optional associations dekhein →" : "See optional associations →"}
         </a>
       </div>
 

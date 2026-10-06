@@ -19,24 +19,19 @@ import { SanketBanner, coreFromReading } from "@/components/sanket-banner";
 import { birthdayNumber, lifePath } from "@/lib/numerology";
 
 export default function NameStudioPage() {
-  const { profile, hasProfile } = useProfile();
+  const { profile } = useProfile();
   const { lang } = useT();
   const t = (key: string) => rawT(lang, key);
 
   const [mode, setMode] = React.useState<"personal" | "brand">("personal");
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<ReturnType<typeof optimizeName> | null>(null);
-
-  React.useEffect(() => {
-    if (hasProfile && profile && mode === "personal" && !name) {
-      setName(profile.preferredName || profile.birthName);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasProfile, profile, mode]);
+  const defaultName = profile?.preferredName || profile?.birthName || "";
+  const inputName = name ?? defaultName;
 
   function analyze(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!inputName.trim()) return;
     let ctx: Parameters<typeof scoreName>[1] = null;
     if (mode === "personal" && profile) {
       const y = Number(profile.birthDate.slice(0, 4));
@@ -49,7 +44,7 @@ export default function NameStudioPage() {
         system: "chaldean",
       };
     }
-    setResult(optimizeName(name.trim(), ctx));
+    setResult(optimizeName(inputName.trim(), ctx));
   }
 
   const scoreColor = (s: number): string =>
@@ -65,6 +60,12 @@ export default function NameStudioPage() {
             : "Chaldean compound-number scoring for your name — plus 3 suggested spellings. Brand/company names welcome."
         }
       />
+
+      <aside role="note" className="rounded-xl border border-amber-500/35 bg-amber-500/5 p-4 text-sm leading-6 text-muted-foreground">
+        {lang === "hi"
+          ? "Yeh paramparagat naam-ank ka symbolic exercise hai. Score ek app-rule hai—na probability, na naam ki quality ka objective maap. Sirf is score ke liye apna legal naam, identity ya brand badalne ka faisla na karein."
+          : "This is a traditional name-number symbolism exercise. The score is an app rule—not a probability or objective measure of name quality. Do not change a legal name, identity, or brand solely because of this score."}
+      </aside>
 
       {/* v4.0: page-level sanket — honest warnings, app-wide (owner order) */}
       {profile ? (
@@ -102,7 +103,7 @@ export default function NameStudioPage() {
               <Label htmlFor="studio-name">{lang === "hi" ? "naam" : "Name"}</Label>
               <Input
                 id="studio-name"
-                value={name}
+                value={inputName}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={mode === "personal" ? "Aarav Mehta" : "Maya Labs"}
                 className="mt-1.5"
